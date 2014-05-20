@@ -1,0 +1,6 @@
+conceptid,Preflabel,Altlabels,ParentConceptid,ConceptType,Provider 
+TITLE TYPE:1,primary,,TITLE TYPE AUTHORITY DOCUMENT.csv,Index,EH
+TITLE TYPE:2,alternative,,TITLE TYPE AUTHORITY DOCUMENT.csv,Index,EH
+TITLE TYPE:3,translated,,TITLE TYPE AUTHORITY DOCUMENT.csv,Index,GCI
+TITLE TYPE:4,original,,TITLE TYPE AUTHORITY DOCUMENT.csv,Index,EH
+TITLE TYPE:5,transliterated,,TITLE TYPE AUTHORITY DOCUMENT.csv,Index,GCI
