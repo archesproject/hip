@@ -1,0 +1,6 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider 
+TDP:1,listed grade 1 - national importance,,TYPE OF DESIGNATION OR PROTECTION AUTHORITY DOCUMENT.csv,Index,EH
+TDP:2,listed grade 2 - local importance,,TYPE OF DESIGNATION OR PROTECTION AUTHORITY DOCUMENT.csv,Index,EH
+TDP:3,listed grade 2* - regional importance,,TYPE OF DESIGNATION OR PROTECTION AUTHORITY DOCUMENT.csv,Index,EH
+TDP:4,former grade pending relisting,,TYPE OF DESIGNATION OR PROTECTION AUTHORITY DOCUMENT.csv,Index,EH
+TDP:5,delisted,,TYPE OF DESIGNATION OR PROTECTION AUTHORITY DOCUMENT.csv,Index,EH
