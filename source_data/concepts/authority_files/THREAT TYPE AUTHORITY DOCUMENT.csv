@@ -1,0 +1,5 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
+THREAT TYPE:1,threat type 1,,THREAT TYPE AUTHORITY DOCUMENT.csv,Index,SurveyLA
+THREAT TYPE:2,threat type 2,,THREAT TYPE AUTHORITY DOCUMENT.csv,Index,SurveyLA
+THREAT TYPE:3,threat type 3,,THREAT TYPE AUTHORITY DOCUMENT.csv,Index,SurveyLA
+THREAT TYPE:4,threat type 4,,THREAT TYPE AUTHORITY DOCUMENT.csv,Index,SurveyLA
