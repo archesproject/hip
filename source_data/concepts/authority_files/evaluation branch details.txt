@@ -1,0 +1,22 @@
+Under Context_Type.E55
+-----------------
+Contexts
+SubContexts
+Themes
+SubThemes
+PropertyType
+PropertySubType
+
+Under Eligibility_Standard_Type.E55
+--------------
+EligibilityStandard
+IntegrityConsideration
+AssociativeFeature
+
+As Related Values for Context_Type.E55
+------------------------
+Criteria
+AreaofSignificance
+PeriodOfSignificanceEnd
+PeriodOfSignificanceBegin
+ 

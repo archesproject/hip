@@ -1,0 +1,17 @@
+root (root)
+ entity types 
+  entity type 1
+  entity type 2
+ Thesauri (Thesauri)
+  Arches (theaurus)
+   Name Type (scheme)
+   Scheme 2 (scheme)
+   Scheme 3 (scheme)
+  EH (theaurus)
+   Name Type (scheme)
+   Scheme 2 (scheme)
+   Scheme 3 (scheme)
+  Thesaurus 3 (theaurus)
+   Name Type (scheme)
+   Scheme 2 (scheme)
+   Scheme 3 (scheme)
