@@ -29,8 +29,8 @@ import sys
 if __name__ == "__main__":
     ARCHES_DIR = os.path.abspath(os.path.join(os.getcwd(), 'arches'))
     HIP_DIR = os.path.abspath(os.path.join(os.getcwd(), 'hip'))
-    os.system('hg clone https://rgaston@bitbucket.org/arches/arches_3_prep %s' % (ARCHES_DIR))
-    os.system('hg clone https://rgaston@bitbucket.org/arches/hip %s' % (HIP_DIR))
+    os.system('hg clone https://bitbucket.org/arches/arches_3_prep %s' % (ARCHES_DIR))
+    os.system('hg clone https://bitbucket.org/arches/hip %s' % (HIP_DIR))
     os.system('pip install fabric')
     os.system('pip install honcho')
     os.chdir(os.path.join(ARCHES_DIR, 'arches'))
