@@ -21,3 +21,8 @@ LOGIN_URL = '/Arches/'
 DATA_CONCEPT_SCHEME = 'CA DOT'
 ENTITY_MODEL = {'default': 'arches.app.packages.%s.models.entity.Entity' % PACKAGE, 'project': 'arches.app.packages.%s.views.view_models.project.Project' % PACKAGE}
 HIP_TEST = 'so cool'
+
+try:
+    from settings_local import *
+except ImportError:
+    pass
