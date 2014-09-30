@@ -3,7 +3,7 @@ import os
 import inspect
 
 try:
-    from arches.app.settings import *
+    from arches.settings import *
 except ImportError:
     pass
 
