@@ -1,4 +1,6 @@
 syntax: glob
+
+*.pyc
 settings_local.py
 hip/elasticsearch
 Procfile
