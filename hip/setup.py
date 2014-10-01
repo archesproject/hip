@@ -16,7 +16,7 @@ def import_data():
     pass
 
 def trucate_db():
-    os.system('python manage.py packages --operation setup_db')
+    os.system('python manage.py packages --operation setup')
     pass
 
 def load_resource_graphs():
