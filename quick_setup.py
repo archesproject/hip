@@ -28,11 +28,11 @@ import sys
 if __name__ == "__main__":
     ARCHES_DIR = os.path.abspath(os.path.join(os.getcwd(), 'arches'))
     HIP_DIR = os.path.abspath(os.path.join(os.getcwd(), 'hip'))
-    os.system('pip install mercurial')
+    os.system('sudo pip install mercurial')
     os.system('hg clone https://bitbucket.org/arches/arches3 %s' % (ARCHES_DIR))
     os.system('hg clone https://bitbucket.org/arches/hip %s' % (HIP_DIR))
-    os.system('pip install fabric')
-    os.system('pip install honcho')
+    os.system('sudo pip install fabric')
+    os.system('sudo pip install honcho')
     os.chdir(os.path.join(ARCHES_DIR, 'arches'))
     os.system('fab dev_setup')
     if sys.platform == 'win32':
