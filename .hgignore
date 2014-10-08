@@ -1,6 +1,10 @@
 syntax: glob
 
 *.pyc
+*.egg*
+build/*
+dist/*
 settings_local.py
 hip/elasticsearch
 Procfile
+hip/version.py
