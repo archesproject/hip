@@ -78,4 +78,51 @@ CREATE INDEX overlaytype_idx ON overlays USING btree (overlaytype);
 --
 -- PostgreSQL database dump complete
 --
+CREATE TABLE aux.addresses
+(
+  addressnum text,
+  addressstreet text,
+  vintage text,
+  geometry geometry(MultiPoint,4326)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE aux.addresses
+  OWNER TO postgres;
+
+-- Index: aux.addresses_sidx
+
+-- DROP INDEX aux.addresses_sidx;
+
+CREATE INDEX addresses_sidx
+  ON aux.addresses
+  USING gist
+  (geometry );
+
+  -- Table: aux.parcels
+
+-- DROP TABLE aux.parcels;
+
+CREATE TABLE aux.parcels
+(
+  parcelapn text,
+  vintage text,
+  geometry geometry(MultiPolygon,4326)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE aux.parcels
+  OWNER TO postgres;
+
+-- Index: aux.parcels_sidx
+
+-- DROP INDEX aux.parcels_sidx;
+
+CREATE INDEX parcels_sidx
+  ON aux.parcels
+  USING gist
+  (geometry );
+
 
