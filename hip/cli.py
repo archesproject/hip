@@ -41,26 +41,64 @@ subparsers.required = True
 
 def command_load(args):
     filename = 'data_paths.txt'
+    path_to_file = os.path.join(here, filename)
     path = None
-    if args.name:
-        try:
-            with codecs.open(os.path.join(here, filename), 'r', encoding='utf-8-sig') as f: 
-                for row in f:
-                    if row.split(':')[0] == args.name:
-                        path = ':'.join(row.split(':')[1:]).strip()
-                        break
-        except:
-            utils.write_to_file(os.path.join(here, filename), '%s: %s' % (args.name, args.path), mode='a')
-    
-    if path:
-        if not os.path.exists(path):
-            print 'ERROR: path (%s) aliased to the name "%s" doesn\'t exist' % (path, args.name)
-            sys.exit(1)
-    else:
-        path = args.path
+    keyfound = False
+    errortext = None
+    content = None
+    items = {}
+
+    try:
+        if args.path:
+            # don't let someone add a bad path
+            args.path = os.path.abspath(args.path)
+            if not os.path.exists(args.path):
+                raise Exception('ERROR: path (%s) doesn\'t exist' % (args.path))
+        if args.name:
+            if os.path.isfile(path_to_file):
+                with codecs.open(path_to_file, 'r', encoding='utf-8-sig') as f: 
+                    for row in f:
+                        key = row.split(':')[0]
+                        value = ':'.join(row.split(':')[1:])
+                        items[key] = value
+
+                        if key == args.name:
+                            keyfound = True
+                            if args.path: # user is updating path
+                                items[key] = args.path 
+                                path = args.path
+                            else:
+                                path = value
+                    
+                    if not keyfound and not args.path:
+                        raise Exception('ERROR: the name "%s" you referenced in the command doesn\'t exist. Did you forget to add a path?' % (args.name))
+                    else:
+                        items[args.name] = args.path
+            else:
+                if args.path:
+                    items[args.name] = args.path
+                else:
+                    raise Exception('ERROR: please supply a path name to the data you wish to load. See the the help for details')
             
-    print 'Loading data from %s' % (path)
-    setup.install(path)
+            content = ['%s:%s'% (key, value) for key, value in items.iteritems()]
+
+        if path:
+            if not os.path.exists(path):
+                raise Exception('ERROR: path (%s) doesn\'t exist' % (path))
+        else:
+            path = args.path
+
+        if content:
+            utils.write_to_file(path_to_file, '\n'.join(content), mode='w')
+
+        print 'Loading data from %s' % (path)
+        setup.install(path)
+    
+    except Exception as e:
+        print str(e)
+        print 'Available aliases:'
+        print content or 'None'
+        sys.exit(1)
 
 parser_start = subparsers.add_parser(
     'load',
@@ -70,7 +108,7 @@ parser_start.add_argument(
     '-p', '--path',
     help="path to the 'source_data' directory, defaults to %s" % (os.path.join(here, 'source_data')),
     type=str, 
-    default=(os.path.join(here, 'source_data')),
+    #default=(os.path.join(here, 'source_data')),
 )
 parser_start.add_argument(
     '-n', '--name',
