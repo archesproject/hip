@@ -1,4 +1,4 @@
---
+﻿--
 -- PostgreSQL database dump
 --
 
@@ -83,7 +83,7 @@ CREATE TABLE aux.addresses
   addressnum text,
   addressstreet text,
   vintage text,
-  geometry geometry(MultiPoint,4326)
+  geometry public.geometry(MultiPoint,4326)
 )
 WITH (
   OIDS=FALSE
@@ -108,7 +108,7 @@ CREATE TABLE aux.parcels
 (
   parcelapn text,
   vintage text,
-  geometry geometry(MultiPolygon,4326)
+  geometry public.geometry(MultiPolygon,4326)
 )
 WITH (
   OIDS=FALSE
