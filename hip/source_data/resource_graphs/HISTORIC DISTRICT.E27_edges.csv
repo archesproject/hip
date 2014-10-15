@@ -75,9 +75,7 @@ Source,Target,Type,Id,Label,Weight
 459,462,Directed,463,P2,1.0
 462,463,Directed,464,-P71,1.0
 464,465,Directed,468,-P71,1.0
-469,470,Directed,472,-P71,1.0
 471,468,Directed,479,-P71,1.0
-471,469,Directed,478,P2,1.0
 475,476,Directed,485,-P71,1.0
 481,482,Directed,491,-P71,1.0
 501,503,Directed,503,P2,1.0
