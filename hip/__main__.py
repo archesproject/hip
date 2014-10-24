@@ -8,7 +8,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 COMMANDS = {}
 
 def get_arches_env():
-    with codecs.open(os.path.join(here, '..', 'Procfile'), 'r', encoding='utf-8-sig') as f: 
+    with codecs.open(os.path.normpath(os.path.join(here, '..', 'Procfile')), 'r', encoding='utf-8-sig') as f: 
         for line in f:
             if 'django:' in line:
                 return line.replace('django:', '').strip().split(' ')[0].strip()
@@ -52,7 +52,7 @@ subparsers.required = True
 
 
 def command_run_es(args):
-    os.system('%s %s packages -o start_elasticsearch"' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py'))))
+    os.system('%s %s packages -o start_elasticsearch' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py'))))
 
 parser_start = subparsers.add_parser(
     'runsearchengine',
@@ -62,7 +62,7 @@ COMMANDS['runsearchengine'] = command_run_es
 
 
 def command_runserver(args):
-    os.system('%s %s runserver %s"' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.port))
+    os.system('%s %s runserver %s' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.port))
 
 parser_start = subparsers.add_parser(
     'runserver',
@@ -78,83 +78,11 @@ COMMANDS['runserver'] = command_runserver
 
 
 def command_load(args):
-    filename = 'data_paths.txt'
-    path_to_file = os.path.join(here, filename)
-    path = None
-    keyfound = False
-    errortext = None
-    content = None
-    items = {}
-
-    try:
-        if args.path:
-            # don't let someone add a bad path
-            args.path = os.path.abspath(args.path)
-            if not os.path.exists(args.path):
-                raise Exception('ERROR: path (%s) doesn\'t exist' % (args.path))
-        if args.name:
-            if os.path.isfile(path_to_file):
-                with codecs.open(path_to_file, 'r', encoding='utf-8-sig') as f: 
-                    for row in f:
-                        key = row.split(':')[0]
-                        value = ':'.join(row.split(':')[1:])
-                        items[key] = value
-
-                        if key == args.name:
-                            keyfound = True
-                            if args.path: # user is updating path
-                                items[key] = args.path 
-                                path = args.path
-                            else:
-                                path = value
-                    
-                    if not keyfound and not args.path:
-                        raise Exception('ERROR: the name "%s" you referenced in the command doesn\'t exist. Did you forget to add a path?' % (args.name))
-            else:
-                if args.path:
-                    items[args.name] = args.path
-                else:
-                    raise Exception('ERROR: please supply a path name to the data you wish to load. See the the help for details')
-            
-            content = ['%s:%s'% (key, value) for key, value in items.iteritems()]
-
-        if path:
-            if not os.path.exists(path):
-                raise Exception('ERROR: path (%s) doesn\'t exist' % (path))
-        else:
-            path = args.path
-
-        if content:
-            utils.write_to_file(path_to_file, '\n'.join(content), mode='w')
-
-        print 'Loading data from %s' % (path)
-
-        
-        # from hip import setup
-        # setup.install(path)
-
-        os.system('%s %s packages -o install -s %s"' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), path))
-    
-    except Exception as e:
-        print str(e)
-        print 'Available aliases:'
-        print content or 'None'
-        sys.exit(1)
+    os.system('%s %s packages -o install' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py'))))
 
 parser_start = subparsers.add_parser(
     'load',
     help="load data into the application",
-)
-parser_start.add_argument(
-    '-p', '--path',
-    help="path to the 'source_data' directory, defaults to %s" % (os.path.join(here, 'source_data')),
-    type=str, 
-    #default=(os.path.join(here, 'source_data')),
-)
-parser_start.add_argument(
-    '-n', '--name',
-    help="Name to alias the path to the package",
-    type=str,
 )
 COMMANDS['load'] = command_load
 

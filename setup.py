@@ -8,13 +8,14 @@ class post_install(install):
     def run(self):
         #os.system("pip install arches -i https://testpypi.python.org/pypi")        
         
-        # if sys.platform == 'win32':
-        #     python_exe = os.path.join(sys.prefix, 'Scripts', 'python')
-        # else:
-        #     python_exe = os.path.join(sys.prefix, 'bin', 'python')
-        # os.system('%s manage.py packages --operation setup' % (python_exe))  
-        from arches.setup import get_version
-        get_version(path_to_file=os.path.join(os.path.dirname(__file__), 'hip'))
+        if sys.platform == 'win32':
+            python_exe = os.path.join(sys.prefix, 'Scripts', 'python')
+        else:
+            python_exe = os.path.join(sys.prefix, 'bin', 'python')
+        print '%s manage.py packages --operation setup' % (python_exe)
+        os.system('%s manage.py packages --operation setup' % (python_exe))  
+        # from arches.setup import get_version
+        # get_version(path_to_file=os.path.join(os.path.dirname(__file__), 'hip'))
         install.run(self)
 
 setup(

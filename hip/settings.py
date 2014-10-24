@@ -11,6 +11,27 @@ STATICFILES_DIRS = (os.path.join(PACKAGE_ROOT, 'media'),) + STATICFILES_DIRS
 TEMPLATE_DIRS = (os.path.join(PACKAGE_ROOT, 'templates'),os.path.join(PACKAGE_ROOT, 'templatetags')) + TEMPLATE_DIRS
 ENTITY_MODEL = {'default': 'models.entity.Entity'}
 
+RESOURCE_GRAPH_LOCATIONS = (
+    # Put strings here, like "/home/data/resource_graphs" or "C:/data/resource_graphs".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+	os.path.join(PACKAGE_ROOT, 'source_data', 'resource_graphs'),
+)
+CONCEPT_SCHEME_LOCATIONS = (
+    # Put strings here, like "/home/data/authority_files" or "C:/data/authority_files".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+	
+    #'absolute/path/to/authority_files',
+    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'concepts', 'authority_files')),
+)
+# BUSISNESS_DATA_FILES = (
+#     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+#     # Always use forward slashes, even on Windows.
+#     # Don't forget to use absolute paths, not relative paths.
+# 	'../arches_la/source_data/business_data/resource_info.csv',
+# )
+
 try:
     from settings_local import *
 except ImportError:

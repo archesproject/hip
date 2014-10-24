@@ -28,15 +28,11 @@ def truncate_db():
     management.call_command('packages', operation='setup') 
 
 def load_resource_graphs():
-    resource_graphs.load_graphs(settings.PACKAGE_ROOT, break_on_error=True)
+    resource_graphs.load_graphs(break_on_error=True)
     pass
 
 def load_authority_files(path_to_files=None):
-    if not path_to_files:
-        path_to_files = os.path.join(settings.PACKAGE_ROOT, 'source_data', 'concepts', 'authority_files')
-    else:
-        path_to_files = os.path.normpath(os.path.join(path_to_files, 'authority_files'))
-    authority_files.load_authority_files(path_to_files, break_on_error=True)
+    authority_files.load_authority_files(break_on_error=True)
 
 def load_map_layers():
     pass
