@@ -3,6 +3,7 @@ import sys
 from django.conf import settings
 from django.core import management
 from arches.setup import get_version
+from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.management.commands.package_utils import resource_graphs
 from arches.management.commands.package_utils import authority_files
 
@@ -12,7 +13,7 @@ def setup():
 
 def install(path_to_source_data_dir=None):
     truncate_db()
-    delete_index(index='concept')
+    delete_index(index='concept_labels')
 
     load_resource_graphs()
     load_authority_files(path_to_source_data_dir)
@@ -38,6 +39,8 @@ def load_map_layers():
     pass
 
 def delete_index(index=None):
+    se = SearchEngineFactory().create()
+    se.delete(index=index, force=True)
     pass
 
 def install_dependencies():
