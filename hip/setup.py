@@ -4,6 +4,8 @@ from django.conf import settings
 from django.core import management
 from arches.setup import get_version
 from arches.app.search.search_engine_factory import SearchEngineFactory
+from arches.app.utils.data_management.resources.importer import ResourceLoader
+import arches.app.utils.data_management.resources.remover as resource_remover
 from arches.management.commands.package_utils import resource_graphs
 from arches.management.commands.package_utils import authority_files
 
@@ -18,6 +20,8 @@ def install(path_to_source_data_dir=None):
     load_resource_graphs()
     load_authority_files(path_to_source_data_dir)
     load_map_layers()
+    resource_remover.truncate_resources()
+    load_test_data()
 
 def export_data():
     pass
@@ -53,7 +57,9 @@ def load_users():
     pass
 
 def load_test_data():
-    pass
+    rl = ResourceLoader()
+    for f in settings.BUSISNESS_DATA_FILES:
+        rl.load(f)
 
 if __name__ == "__main__":
 
