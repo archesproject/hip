@@ -402,7 +402,6 @@ class Entity(ArchesEntity):
                 for name in names:
                     displayname.append(name)
 
-        print displayname * 100
         return displayname
 
 

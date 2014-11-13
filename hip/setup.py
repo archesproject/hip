@@ -16,7 +16,7 @@ def setup():
 def install(path_to_source_data_dir=None):
     truncate_db()
     delete_index(index='concept_labels')
-
+    delete_index(index='entity')
     load_resource_graphs()
     load_authority_files(path_to_source_data_dir)
     load_map_layers()
