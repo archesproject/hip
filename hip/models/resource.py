@@ -35,10 +35,11 @@ class Resource(ArchesResource, Entity):
             'name': _('Evaluate Resource'),
             'forms': []
         }]
-        
+
 
     def get_name(self):
-        return _('Unnamed Resource')
+        name = super(Resource, self).get_name()
+        return name
 
 
     @staticmethod
