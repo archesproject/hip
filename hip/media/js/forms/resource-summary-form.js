@@ -1,7 +1,7 @@
-define(['jquery', 'backbone'], function ($, Backbone) {
-    return Backbone.View.extend({
+define(['jquery', 'backbone', 'views/forms/base'], function ($, Backbone, BaseForm) {
+    return BaseForm.extend({
         initialize: function() {
-
+            BaseForm.prototype.initialize.apply(this);
         }
     });
 });
