@@ -25,7 +25,7 @@ class Resource(ArchesResource, Entity):
     def __init__(self, *args, **kwargs):
         super(Resource, self).__init__(*args, **kwargs)
 
-        if self.entitytypeid == 'HISTORIC_RESOURCE.E18':
+        if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
             self.form_groups = [{
                 'id': 'resource-description',
                 'icon':'fa-folder',
@@ -49,8 +49,8 @@ class Resource(ArchesResource, Entity):
     @staticmethod
     def get_resource_types():
         types = [{
-            'resourcetypeid': 'HISTORIC_RESOURCE.E18',
-            'name': _('Historic Resource'),
+            'resourcetypeid': 'HERITAGE_RESOURCE.E18',
+            'name': _('Heritage Resource'),
             'icon_class': 'fa fa-trophy',
             'default_page': 'resource-summary-form'
         },{
