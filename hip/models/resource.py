@@ -35,37 +35,42 @@ class Resource(ArchesResource, Entity):
             'name': _('Evaluate Resource'),
             'forms': []
         }]
+        
+
+    def get_name(self):
+        return _('Unnamed Resource')
+
 
     @staticmethod
     def get_resource_types():
         types = [{
             'resourcetypeid': 'HISTORIC_RESOURCE.E18',
-            'name': 'New Historic Resource',
+            'name': _('Historic Resource'),
             'icon_class': 'fa fa-trophy',
             'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'HISTORIC_DISTRICT.E18',
-            'name': 'New Historic District',
+            'name': _('Historic District'),
             'icon_class': 'fa fa-bookmark-o',
             'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'ACTIVITY.E7',
-            'name': 'New Activity',
+            'name': _('Activity'),
             'icon_class': 'fa fa-tasks',
             'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'HISTORIC_EVENT.E18',
-            'name': 'New Historic Event',
+            'name': _('Historic Event'),
             'icon_class': 'fa fa-calendar-o',
             'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'ACTOR.E39',
-            'name': 'New Actor',
+            'name': _('Actor'),
             'icon_class': 'fa fa-group',
             'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'INFORMATION_RESOURCE.E73',
-            'name': 'New Information Resource',
+            'name': _('Information Resource'),
             'icon_class': 'fa fa-file-text-o',
             'default_page': 'resource-summary-form'
         }]
