@@ -42,32 +42,32 @@ class Resource(ArchesResource, Entity):
             'resourcetypeid': 'HISTORIC_RESOURCE.E18',
             'name': 'New Historic Resource',
             'icon_class': 'fa fa-trophy',
-            'default_page': 'summary'
+            'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'HISTORIC_DISTRICT.E18',
             'name': 'New Historic District',
             'icon_class': 'fa fa-bookmark-o',
-            'default_page': 'summary'
+            'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'ACTIVITY.E7',
             'name': 'New Activity',
             'icon_class': 'fa fa-tasks',
-            'default_page': 'summary'
+            'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'HISTORIC_EVENT.E18',
             'name': 'New Historic Event',
             'icon_class': 'fa fa-calendar-o',
-            'default_page': 'summary'
+            'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'ACTOR.E39',
             'name': 'New Actor',
             'icon_class': 'fa fa-group',
-            'default_page': 'summary'
+            'default_page': 'resource-summary-form'
         },{
             'resourcetypeid': 'INFORMATION_RESOURCE.E73',
             'name': 'New Information Resource',
             'icon_class': 'fa fa-file-text-o',
-            'default_page': 'summary'
+            'default_page': 'resource-summary-form'
         }]
 
         return types      
