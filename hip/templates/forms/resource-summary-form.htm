@@ -1,1 +1,486 @@
-RESOURCE SUMMARY FORM
+<div class="right-inner arches-box-grey-border padding-10" id="crud" style="">
+                
+    <!-- Theme Title -->
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <div class="headline margin-bottom-10 padding-left-10">
+                <h3 class="headline text-primary"><i class="fa fa-tag text-primary"></i>Resource Summary</h3>
+
+                <!-- Save/Discard Buttons for small, medium and large screens -->
+                <span class="pull-right margin-top-minus-10 hidden-xs">
+                    <button class="btn btn-danger"> 
+                        <i class="fa fa-times"></i>&nbsp; Discard edits
+                    </button>
+                    <button class="btn btn-success"> 
+                        <i class="fa fa-check"></i>&nbsp; Save edits
+                    </button>
+                </span>
+
+                <!-- Save/Discard Buttons for xs screens -->
+                <span class="hidden-sm hidden-md hidden-lg">
+                    </br>
+                    <button class="btn btn-danger"> 
+                        <i class="fa fa-times"></i>&nbsp; Discard edits
+                    </button>
+                    <button class="btn btn-success"> 
+                        <i class="fa fa-check"></i>&nbsp; Save edits
+                    </button>
+                </span>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Theme Title -->
+
+    
+    <!-- Resource Type CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">Historic Resource Type</h5>
+                    </dt>
+
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 padding-left-0">
+
+                                <!-- Form for screens > xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- Resource Type -->     
+                                        <input class="resource-type" id="" name="" style="width:80%;"  value="">
+
+                                    </div>
+                                </form>
+                                <!-- Form for screens > xs -->
+
+                                <!-- Form for screens = xs -->
+                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- Resource Type -->     
+                                        <input class="resource-type" id="" name="" style="width:100%;"  value="">
+
+                                    </div>
+                                </form>
+                                <!-- Form for screens = xs -->
+
+                            </div>
+
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Rsource Type CRUD -->
+
+
+    <hr class="devider arches-RDM-divider">
+
+
+    <!-- Name CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">Names</h5>
+                    </dt>
+
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 padding-left-0">
+
+                                <!-- Screens greater than xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%;">
+                                        
+                                        <input class="form-control arches-form-input" id="resource-name" style="width: 50%;" placeholder="Name">&nbsp;
+
+                                        <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="" placeholder="setting"> 
+                                            <option value="1">Primary</option>
+                                            <option value="2">Alternate</option>
+                                            <option value="3">National Register of Historic Places</option>
+                                            <option value="4">National Historic Landmark</option>
+                                        </select>&nbsp;
+
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+
+                                    </div>
+                                </form>
+                                <!-- End Screens greater than xs -->
+
+
+                                <!-- XS Screens -->
+                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                    <div class="form-group" style="width: 100%;">
+                                        
+                                        <input class="form-control arches-form-input" id="resource-name" style="width: 100%;" placeholder="Name">
+
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                        <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="" placeholder="setting"> 
+                                            <option value="1">Primary</option>
+                                            <option value="2">Alternate</option>
+                                            <option value="3">National Register of Historic Places</option>
+                                            <option value="4">National Historic Landmark</option>
+                                        </select>
+
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+                                        
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+
+                                    </div>
+                                </form>
+                                <!-- End XS Screens -->
+
+                            </div>
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Name CRUD Form Container -->
+
+    <!-- Name Records -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        This resource has these names:
+                    </dd>
+
+                    <dd class="margin-left-5">
+                        <div class="arches-crud-record" id="classification1-record">
+                            <a href="" class="arches-CRUD-child" title="Delete this name"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                            <a href="" id="name1" class="arches-CRUD-child manage-address" title="Edit this name">Castle Wolfenstein<span class="text-muted arches-crud-type-identifier"> (primary)</span>
+                            </a>
+                        </div>
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- End Name Records -->
+
+
+    <hr class="devider arches-RDM-divider">
+
+    
+    <!-- Dates CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">Important Dates</h5>
+                    </dt>
+
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 padding-left-0">
+
+                                <!-- Input for screens > xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- dates -->     
+                                        <select style="width:50%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form dates" id="" placeholder="threats">
+                                            <option value="1">Start Date</option>
+                                            <option value="2">Built Date</option>
+                                            <option value="3">Birth Date</option>
+                                            <option value="4">Creation Date</option>
+                                            <option value="5">Formation Date</option>
+                                            <option value="6">End Date</option>
+                                            <option value="7">Demolition Date</option>
+                                            <option value="8">Death Date</option>
+                                            <option value="9">Disolution Date</option>
+                                            <option value="10">Destruction Date</option>
+                                        </select>&nbsp;
+
+                                        <div class="form-group" style="width:30%;">
+                                            <div class="input-group">
+                                                <input type="text" name="mydate" placeholder="Date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>&nbsp;
+
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+
+                                    </div>
+                                </form>
+                                <!-- End Input for screens > xs -->
+
+                                <!-- Input for screens = xs -->
+                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- dates -->     
+                                        <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form dates" id="" placeholder="threats">
+                                            <option value="1">Start Date</option>
+                                            <option value="2">Built Date</option>
+                                            <option value="3">Birth Date</option>
+                                            <option value="4">Creation Date</option>
+                                            <option value="5">Formation Date</option>
+                                            <option value="6">End Date</option>
+                                            <option value="7">Demolition Date</option>
+                                            <option value="8">Death Date</option>
+                                            <option value="9">Disolution Date</option>
+                                            <option value="10">Destruction Date</option>
+                                        </select>
+
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                        <div class="form-group" style="width:100%;">
+                                            <div class="input-group">
+                                                <input type="text" name="mydate" placeholder="Date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+
+                                    </div>
+                                </form>
+                                <!-- End Input for screens = xs -->
+
+                            </div>
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Dates CRUD -->
+
+    <!-- Dates Records -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        These dates are associated with this resource:
+                    </dd>
+
+                    <dd class="margin-left-5">
+                        <div class="arches-crud-record" id="date1-record">
+                            <a href="" class="arches-CRUD-child" title="Delete this date"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                            <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this date">Built date 10/12/1942
+                            </a>
+                        </div>
+                    </dd>
+
+                    <dd class="margin-left-5">
+                        <div class="arches-crud-record" id="date1-record">
+                            <a href="" class="arches-CRUD-child" title="Delete this date"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                            <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this date">Destruction date 3/31/2012
+                            </a>
+                        </div>
+                    </dd>
+
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Dates Records -->
+
+
+     <hr class="devider arches-RDM-divider">
+
+
+    <!-- Modifications CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">Subjects</h5>
+                    </dt>
+
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 padding-left-0">
+
+                                <!-- Form for screens > xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+
+                                        <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form description-type" id="" placeholder="setting"> 
+                                            <option value="1">Civic Improvement</option>
+                                            <option value="2">Fox Studios</option>
+                                            <option value="3">Garment District</option>
+                                            <option value="4">Los Angeles Times</option>
+                                        </select>&nbsp;
+
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+
+                                    </div>
+                                </form>
+                                <!-- Form for screens > xs -->
+
+                                <!-- Form for screens = xs -->
+                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                    <div class="form-group" style="width: 100%">
+
+                                        <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form description-type" id="" placeholder="setting"> 
+                                            <option value="1">Primary description</option>
+                                            <option value="2">General description</option>
+                                            <option value="3">Architectural description</option>
+                                            <option value="4">Summary of Significance</option>
+                                        </select>
+
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+
+                                    </div>
+                                </form>
+                                <!-- Form for screens = xs -->
+                            </div>
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Subjet CRUD -->
+
+    <!-- Subject Records -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        These subjects are associated with this resource:
+                    </dd>
+
+                    <dd class="margin-left-5">
+                        <div class="arches-crud-record" id="date1-record">
+                            <a href="" class="arches-CRUD-child" title="Delete this subject"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                            <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this subject">1890's
+                            </a>
+                        </div>
+                    </dd>
+
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Threats Records -->
+
+
+</div>
