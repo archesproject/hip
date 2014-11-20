@@ -24,9 +24,18 @@ class ResourceSummaryForm(ResourceForm):
     icon = 'fa-tag'
     name = _('Resource Summary')
 
-    def __init__(self, resource=None, *args, **kwargs):
-        super(ResourceSummaryForm, self).__init__(resource=resource, *args, **kwargs)
+    def __init__(self, resource=None):
+        super(ResourceSummaryForm, self).__init__(resource=resource)
+
+        self.data['names'] = []
+        self.load()
 
     def update(self, post_data):
         # update resource w/ post data
         return self.resource
+
+    def load(self):
+        # get data from the resource
+        self.data['names'] = [{'name': 'ANP test', 'type': 'primary'}]
+
+

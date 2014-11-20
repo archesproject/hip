@@ -24,17 +24,21 @@ from django.utils.translation import ugettext as _
 class Resource(ArchesResource, Entity):
     def __init__(self, *args, **kwargs):
         super(Resource, self).__init__(*args, **kwargs)
-        self.form_groups = [{
-            'id': 'resource-description',
-            'icon':'fa-folder',
-            'name': _('Resource Description'),
-            'forms': [hip_forms.ResourceSummaryForm]
-        },{
+
+        if self.entitytypeid == 'HISTORIC_RESOURCE.E18':
+            self.form_groups = [{
+                'id': 'resource-description',
+                'icon':'fa-folder',
+                'name': _('Resource Description'),
+                'forms': [hip_forms.ResourceSummaryForm]
+            }]
+
+        self.form_groups.append({
             'id': 'resource-evaluation',
             'icon': 'fa-dashboard',
             'name': _('Evaluate Resource'),
             'forms': []
-        }]
+        })
 
 
     def get_name(self):

@@ -198,11 +198,13 @@
                     </dd>
 
                     <dd class="margin-left-5">
+                        {% for name in data.names %}
                         <div class="arches-crud-record" id="classification1-record">
                             <a href="" class="arches-CRUD-child" title="Delete this name"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="" id="name1" class="arches-CRUD-child manage-address" title="Edit this name">Castle Wolfenstein<span class="text-muted arches-crud-type-identifier"> (primary)</span>
+                            <a href="" id="name1" class="arches-CRUD-child manage-address" title="Edit this name">{{name.name}}<span class="text-muted arches-crud-type-identifier"> ({{name.type}})</span>
                             </a>
                         </div>
+                        {% endfor %}
                     </dd>
 
                 </dl>
