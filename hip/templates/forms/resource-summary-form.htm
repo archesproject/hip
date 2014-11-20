@@ -23,24 +23,20 @@
                             <form class="form-inline arches-form hidden-xs" role="form">
                                 <div class="form-group" style="width: 100%">
                                     
-                                    <!-- Resource Type -->     
-                                    <input class="resource-type" id="" name="" style="width:80%;"  value="">
+                                    <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
+                                        <option value=""></option>
+                                        {% for type in form.domains.resource_type %}
+                                            {% for value in type.values %}
+                                            {% if value.type == 'prefLabel' %}
+                                            <option value="{{type.id}}">{{value.value}}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </select>&nbsp;
 
                                 </div>
                             </form>
                             <!-- Form for screens > xs -->
-
-                            <!-- Form for screens = xs -->
-                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- Resource Type -->     
-                                    <input class="resource-type" id="" name="" style="width:100%;"  value="">
-
-                                </div>
-                            </form>
-                            <!-- Form for screens = xs -->
-
                         </div>
 
                     </div>

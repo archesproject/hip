@@ -2,6 +2,9 @@ define(['jquery', 'backbone', 'views/forms/base'], function ($, Backbone, BaseFo
     return BaseForm.extend({
         initialize: function() {
             BaseForm.prototype.initialize.apply(this);
+            this.$el.find('.resource-type').select2({
+                placeholder: "type"
+            });
         }
     });
 });
