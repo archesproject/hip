@@ -24,13 +24,14 @@ class ResourceSummaryForm(ResourceForm):
     icon = 'fa-tag'
     name = _('Resource Summary')
 
-    def __init__(self, resource):
+    def __init__(self, resource=None):
         super(ResourceSummaryForm, self).__init__(resource=resource)
 
         self.data['names'] = []
-        if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-            self.domains['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
-        self.load()
+        if self.resource:
+            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
+                self.domains['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')            
+            self.load()
 
     def update(self, post_data):
         # update resource w/ post data
