@@ -39,7 +39,7 @@ class ResourceSummaryForm(ResourceForm):
 
     def load(self):
         # get data from the resource
-        self.data['names'] = [{'name': 'ANP test', 'type': 'primary'}]
+        self.data['names'] = [{'id': '1341345', 'name': 'ANP test', 'type_name': 'primary', 'type_id:': '1987234'}]
         # self.data['NAME.E41'] = [{'NAME.E41': 'ANP test', 'NAME_TYPE.E55': 'primary'},
         #                       {'NAME.E41': 'ANP TEST 2', 'NAME_TYPE.E55': 'alias'}]
 
