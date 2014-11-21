@@ -27,11 +27,7 @@
                                     <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
                                         <option value=""></option>
                                         {% for type in form.domains.resource_type %}
-                                            {% for value in type.values %}
-                                            {% if value.type == 'prefLabel' %}
-                                            <option value="{{type.id}}">{{value.value}}</option>
-                                            {% endif %}
-                                            {% endfor %}
+                                            <option value="{{type.valueid}}">{{type.value}}</option>
                                         {% endfor %}
                                     </select>&nbsp;
 
