@@ -15,7 +15,7 @@ define(['jquery', 'backbone', 'knockout', 'views/forms/base'], function ($, Back
                 placeholder: "type"
             });
 
-            this.viewModel.names = ko.observableArray(self.formdata.names);
+            this.viewModel.names = ko.observableArray(this.viewModel.names);
         },
 
         addName: function(data) {
