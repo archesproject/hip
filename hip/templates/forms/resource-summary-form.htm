@@ -20,8 +20,8 @@
                         <div class="col-xs-12 padding-left-0">
 
                             <!-- Form for screens > xs -->
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%">
+                            <!-- <form class="form-inline " role="form"> -->
+                                <div class="form-group arches-form hidden-xs" style="width: 100%">
                                     
                                     <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
                                         <option value=""></option>
@@ -35,7 +35,7 @@
                                     </select>&nbsp;
 
                                 </div>
-                            </form>
+                            <!-- </form> -->
                             <!-- Form for screens > xs -->
                         </div>
 
@@ -65,78 +65,45 @@
                 </dt>
 
                 <!-- Form -->
-                <dd class="arches-RDM-labels">
-
+                <dd>
                     <div class="row">
 
-                        <div class="col-xs-12 padding-left-0">
-
-                            <!-- Screens greater than xs -->
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%;">
+                        <div class="col-xs-12">
                                     
-                                    <input class="form-control arches-form-input" id="resource-name" style="width: 50%;" placeholder="Name">&nbsp;
+                            <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 50%;" placeholder="Name">                                    
+                            <input class="form-control arches-form-input hidden-sm hidden-md hidden-lg" id="resource-name" style="width: 100%;" placeholder="Name">
+                            
+                            <!-- Spacer (for xs screens) -->
+                            <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+                            
+                            <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="" placeholder="setting"> 
+                                <option value="1">Primary</option>
+                                <option value="2">Alternate</option>
+                                <option value="3">National Register of Historic Places</option>
+                                <option value="4">National Historic Landmark</option>
+                            </select>
+                            <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-sm hidden-md hidden-lg" id="" placeholder="setting"> 
+                                <option value="1">Primary</option>
+                                <option value="2">Alternate</option>
+                                <option value="3">National Register of Historic Places</option>
+                                <option value="4">National Historic Landmark</option>
+                            </select>
 
-                                    <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="" placeholder="setting"> 
-                                        <option value="1">Primary</option>
-                                        <option value="2">Alternate</option>
-                                        <option value="3">National Register of Historic Places</option>
-                                        <option value="4">National Historic Landmark</option>
-                                    </select>&nbsp;
+                            <!-- Spacer (for xs screens) -->
+                            <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
-
-                                </div>
-                            </form>
-                            <!-- End Screens greater than xs -->
-
-
-                            <!-- XS Screens -->
-                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
-                                <div class="form-group" style="width: 100%;">
-                                    
-                                    <input class="form-control arches-form-input" id="resource-name" style="width: 100%;" placeholder="Name">
-
-                                    <!-- Spacer (for xs screens) -->
-                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
-
-                                    <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="" placeholder="setting"> 
-                                        <option value="1">Primary</option>
-                                        <option value="2">Alternate</option>
-                                        <option value="3">National Register of Historic Places</option>
-                                        <option value="4">National Historic Landmark</option>
-                                    </select>
-
-                                    <!-- Spacer (for xs screens) -->
-                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
-                                    
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
-
-                                </div>
-                            </form>
-                            <!-- End XS Screens -->
+                            <!-- Add Button -->
+                            <div class="btn-group">
+                                <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>                            
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Discard edits</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Add Button -->
 
                         </div>
                     </div>
@@ -163,8 +130,8 @@
                 <dd class="margin-left-5">
                     {% for name in form.data.names %}
                     <div class="arches-crud-record" id="classification1-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this name"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                        <a href="" id="name1" class="arches-CRUD-child manage-address" title="Edit this name">{{name.name}}<span class="text-muted arches-crud-type-identifier"> ({{name.type}})</span>
+                        <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="javascript:void(0)" id="name1" class="arches-CRUD-child manage-address" title="Edit this name">{{name.name}}<span class="text-muted arches-crud-type-identifier"> ({{name.type}})</span>
                         </a>
                     </div>
                     {% endfor %}
@@ -181,7 +148,7 @@
 
 
 <!-- Dates CRUD Form -->
-<div class="row">
+<div class="row form-group">
     <div class="col-xs-12">
         <div class="padding-left-10">
             
@@ -192,100 +159,53 @@
                 </dt>
 
                 <!-- Form -->
-                <dd class="arches-RDM-labels">
+                <dd>
 
                     <div class="row">
 
-                        <div class="col-xs-12 padding-left-0">
-
-                            <!-- Input for screens > xs -->
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- dates -->     
-                                    <select style="width:50%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form dates" id="" placeholder="threats">
-                                        <option value="1">Start Date</option>
-                                        <option value="2">Built Date</option>
-                                        <option value="3">Birth Date</option>
-                                        <option value="4">Creation Date</option>
-                                        <option value="5">Formation Date</option>
-                                        <option value="6">End Date</option>
-                                        <option value="7">Demolition Date</option>
-                                        <option value="8">Death Date</option>
-                                        <option value="9">Disolution Date</option>
-                                        <option value="10">Destruction Date</option>
-                                    </select>&nbsp;
-
-                                    <div class="form-group" style="width:30%;">
-                                        <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="Date" class="form-control datepicker" data-dateformat="dd/mm/yy">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                    </div>&nbsp;
-
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
-
-                                </div>
-                            </form>
-                            <!-- End Input for screens > xs -->
-
-                            <!-- Input for screens = xs -->
-                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- dates -->     
-                                    <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form dates" id="" placeholder="threats">
-                                        <option value="1">Start Date</option>
-                                        <option value="2">Built Date</option>
-                                        <option value="3">Birth Date</option>
-                                        <option value="4">Creation Date</option>
-                                        <option value="5">Formation Date</option>
-                                        <option value="6">End Date</option>
-                                        <option value="7">Demolition Date</option>
-                                        <option value="8">Death Date</option>
-                                        <option value="9">Disolution Date</option>
-                                        <option value="10">Destruction Date</option>
-                                    </select>
-
-                                    <!-- Spacer (for xs screens) -->
-                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
-
-                                    <div class="form-group" style="width:100%;">
-                                        <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="Date" class="form-control datepicker" data-dateformat="dd/mm/yy">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
-
-                                </div>
-                            </form>
-                            <!-- End Input for screens = xs -->
-
+                        <!-- dates -->    
+                        <div class="col-xs-12 col-sm-4"> 
+                            <select style="height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form dates" id="" placeholder="threats">
+                                <option value="1">Start Date</option>
+                                <option value="2">Built Date</option>
+                                <option value="3">Birth Date</option>
+                                <option value="4">Creation Date</option>
+                                <option value="5">Formation Date</option>
+                                <option value="6">End Date</option>
+                                <option value="7">Demolition Date</option>
+                                <option value="8">Death Date</option>
+                                <option value="9">Disolution Date</option>
+                                <option value="10">Destruction Date</option>
+                            </select>
                         </div>
+
+                        <!-- Spacer (for xs screens) -->
+                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="form-group" style="padding-left:0px">
+                                <div class="input-group">
+                                    <input type="text" name="mydate" placeholder="Date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Spacer (for xs screens) -->
+                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                        <!-- Add Button -->
+                        <div class="btn-group">
+                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                                <span class="sr-only">Toggle Dropdown</span>                            
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Discard edits</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Add Button -->
                     </div>
                 </dd>
                 <!-- End Form -->

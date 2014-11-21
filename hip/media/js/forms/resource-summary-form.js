@@ -5,6 +5,10 @@ define(['jquery', 'backbone', 'views/forms/base'], function ($, Backbone, BaseFo
             this.$el.find('.resource-type').select2({
                 placeholder: "type"
             });
+        },
+
+        submit: function(){
+            this.form.submit();
         }
     });
 });
