@@ -41,9 +41,12 @@ define(['jquery', 'backbone', 'knockout', 'views/forms/base'], function ($, Back
             });
         },
 
-        submit: function(){
-            this.form.find('#formdata').val(ko.toJSON(this.nameViewModel));
-            this.form.submit();
+        getData: function(){
+            return ko.toJSON(this.nameViewModel);
+        },
+
+        validate: function(){
+            return true;
         }
     });
 });
