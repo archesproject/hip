@@ -117,12 +117,12 @@
                 </dd>
 
                 <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                    <div data-bind="visible: names().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
+                    <div data-bind="visible: NAME_E41().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
                     
-                    <div data-bind='foreach: names'>
+                    <div data-bind='foreach: NAME_E41'>
                         <div class="arches-crud-record">
-                            <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i  data-bind='attr: {"data-id": name}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="javascript:void(0)" class="arches-CRUD-child manage-address" title="Edit this name"><span data-bind='{text: name}' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: type_name}'></span>)</span>
+                            <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i  data-bind='attr: {"data-NAME_E41_value": NAME_E41_value}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                            <a href="javascript:void(0)" class="arches-CRUD-child manage-address" title="Edit this name"><span data-bind='{text: NAME_E41_value}' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: NAME_TYPE_E55_label}'></span>)</span>
                             </a>
                         </div>
                     </div>

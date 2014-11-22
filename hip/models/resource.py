@@ -42,8 +42,7 @@ class Resource(ArchesResource, Entity):
 
 
     def get_name(self):
-        name = super(Resource, self).get_name()
-        return name
+        return self.get_primary_display_name()
 
 
     @staticmethod

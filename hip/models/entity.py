@@ -64,7 +64,6 @@ class Entity(ArchesEntity):
         
         # get the entity value if any
         if entity.entitytypeid.businesstablename != None:
-            print entity.entitytypeid
             themodel = self._get_model(entity.entitytypeid.businesstablename)
             themodelinstance = themodel.objects.get(pk = pk)
             columnname = entity.entitytypeid.getcolumnname()
@@ -90,8 +89,6 @@ class Entity(ArchesEntity):
 
         return self
 
-
-    @transaction.commit_on_success
     def save(self, username='', note=''):
         """
         Saves an entity back to the db wrapped in a transaction
@@ -108,7 +105,6 @@ class Entity(ArchesEntity):
 
         return self
 
-    @transaction.commit_on_success
     def delete(self, username='', note='', delete_root=False):
         """
         Deltes an entity from the db wrapped in a transaction 
@@ -178,6 +174,16 @@ class Entity(ArchesEntity):
                 # now try and remove this entity's parent 
                 if len(parent.relatedentities) == 1 and parent.value == '' and not parent_is_root:
                     parent._delete() 
+
+    def load(self, E):
+        """
+        Populate an Entity instance from a generic python object 
+
+        """
+
+        self.label = E.get('label', '')
+        self.businesstablename = E.get('businesstablename', '')
+        super(Entity, self).load(E)
 
     def add_related_asset(self, resource_node):
         """
