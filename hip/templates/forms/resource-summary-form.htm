@@ -73,10 +73,9 @@
                             <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
                             
                             <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" placeholder="setting"> 
-                                <option value="1">Primary</option>
-                                <option value="2">Alternate</option>
-                                <option value="3">National Register of Historic Places</option>
-                                <option value="4">National Historic Landmark</option>
+                                {% for type in form.domains.name_type %}
+                                    <option value="{{type.valueid}}">{{type.value}}</option>
+                                {% endfor %}
                             </select>
 
                             <!-- Spacer (for xs screens) -->

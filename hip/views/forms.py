@@ -30,7 +30,8 @@ class ResourceSummaryForm(ResourceForm):
         self.data['names'] = []
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.domains['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')            
+                self.domains['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+            self.domains['name_type'] = self.get_e55_domain('NAME_TYPE.E55')
             self.load()
 
     def update(self, post_data):
