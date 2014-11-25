@@ -9,7 +9,6 @@ ELASTICSEARCH_HTTP_PORT = 9200
 INSTALLED_APPS = INSTALLED_APPS + (PACKAGE_NAME,)
 STATICFILES_DIRS = (os.path.join(PACKAGE_ROOT, 'media'),) + STATICFILES_DIRS
 TEMPLATE_DIRS = (os.path.join(PACKAGE_ROOT, 'templates'),os.path.join(PACKAGE_ROOT, 'templatetags')) + TEMPLATE_DIRS
-ENTITY_MODEL = {'default': 'hip.models.entity.Entity'}
 RESOURCE_MODEL = {'default': 'hip.models.resource.Resource'}
 
 PRIMARY_DISPLAY_NAME_LOOKUPS = {
