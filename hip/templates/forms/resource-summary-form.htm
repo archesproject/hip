@@ -26,7 +26,7 @@
                                     
                                     <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
                                         <option value=""></option>
-                                        {% for type in form.domains.resource_type %}
+                                        {% for type in form.data.domains.resource_type %}
                                             <option value="{{type.valueid}}">{{type.value}}</option>
                                         {% endfor %}
                                     </select>&nbsp;
@@ -67,13 +67,13 @@
 
                         <div class="col-xs-12">
                                     
-                            <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 50%;" placeholder="Name" data-bind='{value: _editing.NAME_E41.NAME_E41__value}'>                                    
+                            <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 50%;" placeholder="Name" data-bind='{value: editing.NAME_E41.NAME_E41__value}'>                                    
 
                             <!-- Spacer (for xs screens) -->
                             <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
                             
-                            <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" placeholder="setting" data-bind='{value: _editing.NAME_E41.NAME_TYPE_E55__value}'> 
-                                {% for type in form.domains.name_type %}
+                            <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" placeholder="setting" data-bind='{value: editing.NAME_E41.NAME_TYPE_E55__value}'> 
+                                {% for type in form.data.domains.name_type %}
                                     <option value="{{type.valueid}}">{{type.value}}</option>
                                 {% endfor %}
                             </select>

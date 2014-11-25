@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'knockout', 'underscore', 'views/forms/base'], function ($, Backbone, ko, _, BaseForm) {
+define(['jquery', 'backbone', 'knockout', 'knockout-mapping', 'underscore', 'views/forms/base'], function ($, Backbone, ko, koMapping, _, BaseForm) {
     return BaseForm.extend({
 
         events: function(){
@@ -17,33 +17,19 @@ define(['jquery', 'backbone', 'knockout', 'underscore', 'views/forms/base'], fun
 
             this.viewModel.NAME_E41 = ko.observableArray(this.viewModel.NAME_E41);
 
-            this.viewModel._defaults.NAME_E41 = {
-                'NAME_E41__entityid': '',
-                'NAME_E41__value': '',
-                'NAME_TYPE_E55__entityid': '',
-                'NAME_TYPE_E55__value': $('#resource-name-type').val(),
-                'NAME_TYPE_E55__label': $('#resource-name-type option:selected').text()
-            }
+            this.viewModel.editing.NAME_E41 = koMapping.fromJS(this.viewModel.defaults.NAME_E41);
 
-            this.viewModel._editing.NAME_E41 = _.clone(this.viewModel._defaults.NAME_E41);
-            
-            _.map(this.viewModel._editing.NAME_E41, function(val, key){
-                self.viewModel._editing.NAME_E41[key] = ko.observable(val);
-            });
-
-            this.viewModel._editing.NAME_E41.NAME_TYPE_E55__value.subscribe(function(newValue) {
-                self.viewModel._editing.NAME_E41.NAME_TYPE_E55__label($('#resource-name-type option:selected').text());
+            this.viewModel.editing.NAME_E41.NAME_TYPE_E55__value.subscribe(function(newValue) {
+                self.viewModel.editing.NAME_E41.NAME_TYPE_E55__label($('#resource-name-type option:selected').text());
             });
         },
 
         addName: function(data) {
             var self = this;
 
-            this.viewModel.NAME_E41.push(ko.toJS(this.viewModel._editing.NAME_E41));
+            this.viewModel.NAME_E41.push(ko.toJS(this.viewModel.editing.NAME_E41));
             
-            _.map(this.viewModel._editing.NAME_E41, function(val, key){
-                self.viewModel._editing.NAME_E41[key](self.viewModel._defaults.NAME_E41[key]);
-            });
+            koMapping.fromJS(this.viewModel.defaults.NAME_E41, this.viewModel.editing.NAME_E41);
         },
 
         deleteName: function(el) {

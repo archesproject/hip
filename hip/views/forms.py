@@ -25,15 +25,6 @@ class ResourceSummaryForm(ResourceForm):
     icon = 'fa-tag'
     name = _('Resource Summary')
 
-    def __init__(self, resource=None):
-        super(ResourceSummaryForm, self).__init__(resource=resource)
-
-        if self.resource:
-            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.domains['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
-            self.domains['name_type'] = self.get_e55_domain('NAME_TYPE.E55')
-            self.load()
-
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('NAME.E41'):
             self.resource.child_entities.remove(entity)
@@ -54,13 +45,18 @@ class ResourceSummaryForm(ResourceForm):
 
 
     def load(self):
-        # get data from the resource
-        # self.data['NAME.E41'] = self.get_nodes('NAME.E41')
-        # self.data['HERITAGE_RESOURCE_TYPE.E55'] = self.get_nodes('HERITAGE_RESOURCE_TYPE.E55')
-
-        #self.data['NAME.E41'] = [{'id': '1341345', 'name': 'ANP test', 'type_name': 'primary', 'type_id:': '1987234'}]
-        # self.data['NAME_E41'] = [{'NAME_E41_value': 'ANP test', 'NAME_E41_entityid': '13542435', 'NAME_TYPE_E55_value': 'primary', 'NAME_TYPE_E55_entityid': '13542435'},
-        #                       {'NAME_E41_value': 'ANP TEST 2',  'NAME_E41_entityid': '13542435', 'NAME_TYPE_E55_value': 'alias', 'NAME_TYPE_E55_entityid': '13542435'}]
-        self.data['NAME_E41'] = self.get_nodes('NAME.E41')
+        self.data['domains']['name_type'] = self.get_e55_domain('NAME_TYPE.E55')
+        default_name_type = self.data['domains']['name_type'].first()
+        self.data['defaults']['NAME_E41'] = {
+            'NAME_E41__entityid': '',
+            'NAME_E41__value': '',
+            'NAME_TYPE_E55__entityid': '',
+            'NAME_TYPE_E55__value': default_name_type.valueid,
+            'NAME_TYPE_E55__label': default_name_type.value
+        }
+        if self.resource:
+            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
+                self.data['domains']['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+            self.data['NAME_E41'] = self.get_nodes('NAME.E41')
 
 
