@@ -49,91 +49,91 @@
 
 <hr class="devider arches-RDM-divider">
 
+<div id="names-section">
+    <!-- Name CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">{% trans "Names" %}</h5>
+                    </dt>
 
-<!-- Name CRUD Form -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="padding-left-10">
-            
-            <dl>
-                <!-- Title -->
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">{% trans "Names" %}</h5>
-                </dt>
+                    <!-- Form -->
+                    <dd>
+                        <div class="row">
 
-                <!-- Form -->
-                <dd>
-                    <div class="row">
+                            <div class="col-xs-12">
+                                        
+                                <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 50%;" placeholder="Name" data-bind='{value: editing.NAME_E41.NAME_E41__value}'>                                    
 
-                        <div class="col-xs-12">
-                                    
-                            <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 50%;" placeholder="Name" data-bind='{value: editing.NAME_E41.NAME_E41__value}'>                                    
+                                <!-- Spacer (for xs screens) -->
+                                <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+                                
+                                <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" placeholder="setting" data-bind='{value: editing.NAME_E41.NAME_TYPE_E55__value}'> 
+                                    {% for type in form.data.domains.name_type %}
+                                        <option value="{{type.valueid}}">{{type.value}}</option>
+                                    {% endfor %}
+                                </select>
 
-                            <!-- Spacer (for xs screens) -->
-                            <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
-                            
-                            <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" placeholder="setting" data-bind='{value: editing.NAME_E41.NAME_TYPE_E55__value}'> 
-                                {% for type in form.data.domains.name_type %}
-                                    <option value="{{type.valueid}}">{{type.value}}</option>
-                                {% endfor %}
-                            </select>
+                                <!-- Spacer (for xs screens) -->
+                                <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                            <!-- Spacer (for xs screens) -->
-                            <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+                                <!-- Add Button -->
+                                <div class="btn-group">
+                                    <button type="button" class="add-button btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                        <i class="fa fa-chevron-down"></i>
+                                        <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">{% trans "Discard edits" %}</a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Add Button -->
 
-                            <!-- Add Button -->
-                            <div class="btn-group">
-                                <button type="button" id="add-name-button" class="btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                    <i class="fa fa-chevron-down"></i>
-                                    <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">{% trans "Discard edits" %}</a></li>
-                                </ul>
                             </div>
-                            <!-- End Add Button -->
-
                         </div>
-                    </div>
-                </dd>
-                <!-- End Form -->
-            </dl>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
 
+            </div>
         </div>
     </div>
-</div>
-<!-- End Name CRUD Form Container -->
+    <!-- End Name CRUD Form Container -->
 
-<!-- Name Records -->
-<div class="row" id="names-form">
-    <div class="col-xs-12">
+    <!-- Name Records -->
+    <div class="row">
+        <div class="col-xs-12">
 
-        <!-- Address -->
-        <div class="arches-crud-child-section">
-            <dl>
-                <dd class="arches-CRUD-child-title">
-                    {% trans "This resource has these names:" %}
-                </dd>
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        {% trans "This resource has these names:" %}
+                    </dd>
 
-                <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                    <div data-bind="visible: NAME_E41().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
-                    
-                    <div data-bind='foreach: NAME_E41'>
-                        <div class="arches-crud-record">
-                            <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i  data-bind='attr: {"data-NAME_E41__value": NAME_E41__value}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="javascript:void(0)" class="arches-CRUD-child manage-address" title="Edit this name"><span data-bind='{text: NAME_E41__value}' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: NAME_TYPE_E55__label}'></span>)</span>
-                            </a>
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: NAME_E41().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
+                        
+                        <div data-bind='foreach: NAME_E41'>
+                            <div class="arches-crud-record">
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i  data-bind='attr: {"data-NAME_E41__value": NAME_E41__value}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child manage-address" title="Edit this name"><span data-bind='{text: NAME_E41__value}' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: NAME_TYPE_E55__label}'></span>)</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </dd>
+                    </dd>
 
-            </dl>
+                </dl>
+            </div>
         </div>
     </div>
+    <!-- End Name Records -->
 </div>
-<!-- End Name Records -->
-
 
 <hr class="devider arches-RDM-divider">
 
