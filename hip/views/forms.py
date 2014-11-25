@@ -36,7 +36,7 @@ class ResourceSummaryForm(ResourceForm):
 
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('NAME.E41'):
-            self.resource.relatedentities.remove(entity)
+            self.resource.child_entities.remove(entity)
 
         schema = Entity.get_mapping_schema(self.resource.entitytypeid)
         for value in data['NAME_E41']:
