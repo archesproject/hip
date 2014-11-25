@@ -18,6 +18,8 @@ define(['jquery', 'backbone', 'knockout', 'views/forms/base'], function ($, Back
             this.$el.find('.name-type').select2({
                 placeholder: "name"
             });
+            
+            this.viewModel.NAME_E41 = ko.observableArray(this.viewModel.NAME_E41);
         },
 
         addName: function(data) {
