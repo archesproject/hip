@@ -24,11 +24,11 @@ define(['jquery', 'backbone', 'knockout', 'views/forms/base'], function ($, Back
 
         addName: function(data) {
             this.viewModel.NAME_E41.push({
-                'NAME_E41_entityid': '',
-                'NAME_E41_value': $('#resource-name').val(),
-                'NAME_TYPE_E55_entityid': '',
-                'NAME_TYPE_E55_value': $('#resource-name-type').val(),
-                'NAME_TYPE_E55_label': $('#resource-name-type option:selected').text()
+                'NAME_E41__entityid': '',
+                'NAME_E41__value': $('#resource-name').val(),
+                'NAME_TYPE_E55__entityid': '',
+                'NAME_TYPE_E55__value': $('#resource-name-type').val(),
+                'NAME_TYPE_E55__label': $('#resource-name-type option:selected').text()
             });
         },
 
@@ -36,7 +36,7 @@ define(['jquery', 'backbone', 'knockout', 'views/forms/base'], function ($, Back
             var data = $(el.target).data();
 
             this.viewModel.NAME_E41.remove(function(item) {
-                return item.NAME_E41_value === data.name_e41_value;
+                return item.NAME_E41__value === data.name_e41__value;
             });
         },
 
