@@ -15,7 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
-
+from django.conf import settings
+import arches.app.models.models as archesmodels
 from arches.app.models.resource import Resource as ArchesResource
 from hip.models.entity import Entity
 from hip.views import forms as hip_forms
@@ -41,8 +42,25 @@ class Resource(ArchesResource, Entity):
         })
 
 
-    def get_name(self):
-        return self.get_primary_display_name()
+    def get_primary_name(self):
+        """
+        Gets the human readable name to display for entity instances
+
+        """
+        pname_key = 'default'
+        if self.entitytypeid in settings.PRIMARY_DISPLAY_NAME_LOOKUPS:
+            pname_key = self.entitytypeid
+
+        entitytype_of_primaryname = archesmodels.EntityTypes.objects.get(pk = settings.PRIMARY_DISPLAY_NAME_LOOKUPS[pname_key]['entity_type'])
+        displayname = []
+
+        if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
+            names = self.get_root().find_entities_by_type_id(entitytype_of_primaryname)
+            if len(names) > 0:
+                for name in names:
+                    displayname.append(name)
+
+        return displayname
 
 
     @staticmethod
@@ -80,3 +98,4 @@ class Resource(ArchesResource, Entity):
         }]
 
         return types      
+
