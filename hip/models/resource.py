@@ -22,7 +22,7 @@ from hip.models.entity import Entity
 from hip.views import forms as hip_forms
 from django.utils.translation import ugettext as _
 
-class Resource(ArchesResource, Entity):
+class Resource(ArchesResource):
     def __init__(self, *args, **kwargs):
         super(Resource, self).__init__(*args, **kwargs)
 
