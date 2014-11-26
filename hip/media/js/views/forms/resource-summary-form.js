@@ -9,7 +9,7 @@ define(['jquery', 'views/forms/base', 'views/forms/sections/branch-list'], funct
                 el: this.$el.find('#names-section')[0],
                 viewModel: this.viewModel,
                 key: 'NAME_E41',
-                pkField: 'NAME_E41__value'
+                pkField: 'NAME_E41__entityid'
             });
         }
     });
