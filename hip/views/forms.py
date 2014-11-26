@@ -45,14 +45,14 @@ class ResourceSummaryForm(ResourceForm):
 
 
     def load(self):
-        self.data['domains']['name_type'] = self.get_e55_domain('NAME_TYPE.E55')
-        default_name_type = self.data['domains']['name_type'].first()
+        self.data['domains']['NAME_TYPE_E55'] = self.get_e55_domain('NAME_TYPE.E55')
+        default_name_type = self.data['domains']['NAME_TYPE_E55'][0]
         self.data['defaults']['NAME_E41'] = {
             'NAME_E41__entityid': '',
             'NAME_E41__value': '',
             'NAME_TYPE_E55__entityid': '',
-            'NAME_TYPE_E55__value': default_name_type.valueid,
-            'NAME_TYPE_E55__label': default_name_type.value
+            'NAME_TYPE_E55__value': default_name_type['id'],
+            'NAME_TYPE_E55__label': default_name_type['value']
         }
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':

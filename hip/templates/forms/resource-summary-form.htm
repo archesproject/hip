@@ -27,7 +27,7 @@
                                     <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
                                         <option value=""></option>
                                         {% for type in form.data.domains.resource_type %}
-                                            <option value="{{type.valueid}}">{{type.value}}</option>
+                                            <option value="{{type.id}}">{{type.value}}</option>
                                         {% endfor %}
                                     </select>&nbsp;
 
@@ -72,11 +72,7 @@
                                 <!-- Spacer (for xs screens) -->
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
                                 
-                                <select style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" placeholder="setting" data-bind='{value: editing.NAME_E41.NAME_TYPE_E55__value}'> 
-                                    {% for type in form.data.domains.name_type %}
-                                        <option value="{{type.valueid}}">{{type.value}}</option>
-                                    {% endfor %}
-                                </select>
+                                <div style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="value: editing.NAME_E41.NAME_TYPE_E55__value, select2: { data: domains.NAME_TYPE_E55, placeholder: 'Type', formatResult: formatDomainValue, formatSelection: selectDomainValue, labelValue: editing.NAME_E41.NAME_TYPE_E55__label }"></div>
 
                                 <!-- Spacer (for xs screens) -->
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
