@@ -1,4 +1,4 @@
-define(['jquery', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, BaseForm, BranchList) {
+define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, BaseForm, BranchList) {
     return BaseForm.extend({
         initialize: function() {
             var self = this,
@@ -12,7 +12,17 @@ define(['jquery', 'views/forms/base', 'views/forms/sections/branch-list'], funct
                 key: 'NAME_E41',
                 pkField: 'NAME_E41__entityid',
                 validateBranch: function (data) {
-                    return data.NAME_E41__value;
+                    // currently we are using the string 'Primary' as the key for the type... this is very brittle and should be enhanced
+                    var primaryLabel = 'Primary',
+                        valid = data.NAME_E41__value ? true : false;
+                    if (data.NAME_TYPE_E55__label === primaryLabel) {
+                        _.each(self.viewModel[nameBranchList.key](), function (item) {
+                            if (item.NAME_TYPE_E55__label === primaryLabel) {
+                                valid = false;
+                            }
+                        });
+                    }
+                    return valid;
                 }
             });
         }
