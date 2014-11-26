@@ -1,13 +1,14 @@
 define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, BaseForm, BranchList) {
     return BaseForm.extend({
         initialize: function() {
-            var self = this,
-                nameBranchList;
+			var nameBrachList;
+            var self = this;
 
             BaseForm.prototype.initialize.apply(this);
 
             nameBranchList = new BranchList({
                 el: this.$el.find('#names-section')[0],
+                baseForm: this,
                 viewModel: this.viewModel,
                 key: 'NAME_E41',
                 pkField: 'NAME_E41__entityid',
