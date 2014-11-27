@@ -8,7 +8,6 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
 
             nameBranchList = new BranchList({
                 el: this.$el.find('#names-section')[0],
-                baseForm: this,
                 viewModel: this.viewModel,
                 key: 'NAME_E41',
                 pkField: 'NAME_E41__entityid',
@@ -26,6 +25,9 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                     return valid;
                 }
             });
+            nameBranchList.on('change', function(eventtype, item){
+                self.trigger('change', eventtype, item);                 
+            }));
         }
     });
 });
