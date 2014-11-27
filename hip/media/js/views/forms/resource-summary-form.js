@@ -25,9 +25,7 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                     return valid;
                 }
             });
-            nameBranchList.on('change', function(eventtype, item){
-                self.trigger('change', eventtype, item);                 
-            }));
+            this.branchLists.push(nameBranchList);
         }
     });
 });
