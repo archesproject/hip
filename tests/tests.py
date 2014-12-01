@@ -22,8 +22,16 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
-
+from django.core.urlresolvers import reverse
 from django_webtest import WebTest
+from sst.actions import *
+from sst.cases import SSTTestCase
+
+class AutomationTests(SSTTestCase):
+    def test_auth_page(self):
+        set_base_url('http://localhost:8000/')
+        go_to(reverse('auth'))
+        assert_title_contains('Arches')
 
 # see WebTest API for more:
 # http://webtest.readthedocs.org/en/latest/api.html
