@@ -25,6 +25,9 @@ class ResourceSummaryForm(ResourceForm):
     icon = 'fa-tag'
     name = _('Resource Summary')
 
+    def __init__(self, resource=None):
+        super(ResourceSummaryForm, self).__init__(resource=resource)
+
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('NAME.E41'):
             self.resource.child_entities.remove(entity)
