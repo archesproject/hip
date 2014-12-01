@@ -49,6 +49,11 @@ LOGGING = {
         },
     },
     'loggers': {
+        'arches': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
         'hip': {
             'handlers': ['file'],
             'level': 'DEBUG',
