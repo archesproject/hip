@@ -25,6 +25,8 @@ Replace this with more appropriate tests for your application.
 
 from django_webtest import WebTest
 
+# see WebTest API for more:
+# http://webtest.readthedocs.org/en/latest/api.html
 class FunctionalTests(WebTest):
     def test_login(self):
         index = self.app.get('/')
