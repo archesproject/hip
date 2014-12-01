@@ -1,8 +1,8 @@
 define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, BaseForm, BranchList) {
     return BaseForm.extend({
         initialize: function() {
-            var self = this,
-                nameBranchList;
+			var nameBrachList;
+            var self = this;
 
             BaseForm.prototype.initialize.apply(this);
 
@@ -25,6 +25,7 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                     return valid;
                 }
             });
+            this.branchLists.push(nameBranchList);
         }
     });
 });
