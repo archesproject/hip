@@ -87,6 +87,22 @@ parser_start = subparsers.add_parser(
 COMMANDS['load'] = command_load
 
 
+def command_resource_load(args):
+    os.system('%s %s packages -o load_resources --source %s' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.source))
+
+parser_start = subparsers.add_parser(
+    'load_resources',
+    help="load resource data into the application",
+)
+parser_start.add_argument(
+    '-s', '--source',
+    help="external data source - arches or shapefile",
+    type=str, 
+    default='',
+)
+COMMANDS['load_resources'] = command_resource_load
+
+
 def command_help(args):
     argv = ['--help']
     if args.task:
