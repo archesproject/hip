@@ -11,3 +11,4 @@ hip/version.py
 resource_graph_errors.txt
 data_paths.txt
 authority_file_errors.txt
+hip.log

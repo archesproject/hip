@@ -38,6 +38,26 @@ BUSISNESS_DATA_FILES = (
     os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'business_data', 'sample.arches')),
 )
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(PACKAGE_ROOT, 'hip.log'),
+        },
+    },
+    'loggers': {
+        'hip': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
 try:
     from settings_local import *
 except ImportError:
