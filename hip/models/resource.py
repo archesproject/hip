@@ -45,7 +45,6 @@ class Resource(ArchesResource):
         })
 
 
-
     def get_primary_name(self):
         """
         Gets the human readable name to display for entity instances
