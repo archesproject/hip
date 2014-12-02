@@ -1,0 +1,105 @@
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+<!-- Modifications CRUD Form -->
+<div id="description-section">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 class="section-headline">Resource Descriptions</h5>
+                    </dt>
+
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 padding-left-0">
+
+                                <!-- Form for screens > xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+
+                                        <div style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form description-type" id="resource-description-type" data-bind="value: editing.DESCRIPTION_E62.DESCRIPTION_TYPE_E55__value, select2: { data: domains.DESCRIPTION_TYPE_E55, placeholder: 'Type', formatResult: formatDomainValue, formatSelection: selectDomainValue, labelValue: editing.DESCRIPTION_E62.DESCRIPTION_TYPE_E55__label }"></div>
+
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>                                    
+
+                                        <!-- Add Button -->
+                                        <div class="btn-group">
+                                            <button type="button" class="add-button btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">{% trans "Discard edits" %}</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
+                                        
+                                        <!-- Simple HTML Editor -->
+                                        <div class="arches-html-editor margin-top-5" style="width: 80%;">
+                                            <div class="summernote" data-bind="value: editing.DESCRIPTION_E62.DESCRIPTION_E62__value, summernote: {value: editing.DESCRIPTION_E62.DESCRIPTION_E62__value, options:{}}"></div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form for screens > xs -->
+                            </div>
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modifications CRUD -->
+
+    <!-- Description Records -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        {% trans "This resource has these descriptions:" %}
+                    </dd>
+
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: DESCRIPTION_E62().length == 0" class="txt-color-blue">{% trans "No Descriptions Defined" %}</div>   
+                        
+                        <div data-bind='foreach: DESCRIPTION_E62'>
+                            <dl class="margin-bottom-0"> 
+                            
+                                <dd>
+                                    <div class="">
+                                        <a href="#" title="Remove this description"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                        <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="Edit this description" data-bind='text: DESCRIPTION_TYPE_E55__label, attr: {"data-index": $index}'></a>
+                                    </div>
+                                </dd>
+                            </dl>
+
+                            <dl> 
+
+                                <dd>
+                                    <div class="note-editable custom-scroll arches-evaluation-content" contenteditable="true" data-bind='{html: DESCRIPTION_E62__value}'></div>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Description Records -->
+{% endblock form_content %}

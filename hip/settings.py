@@ -9,7 +9,7 @@ ELASTICSEARCH_HTTP_PORT = 9200
 INSTALLED_APPS = INSTALLED_APPS + (PACKAGE_NAME,)
 STATICFILES_DIRS = (os.path.join(PACKAGE_ROOT, 'media'),) + STATICFILES_DIRS
 TEMPLATE_DIRS = (os.path.join(PACKAGE_ROOT, 'templates'),os.path.join(PACKAGE_ROOT, 'templatetags')) + TEMPLATE_DIRS
-ENTITY_MODEL = { 'default': ('{0}.models.entity.Entity').format(PACKAGE_NAME)}
+RESOURCE_MODEL = {'default': 'hip.models.resource.Resource'}
 
 PRIMARY_DISPLAY_NAME_LOOKUPS = {
    'default':{
@@ -35,8 +35,33 @@ BUSISNESS_DATA_FILES = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'business_data', 'arches_la.arches')),
+    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'business_data', 'sample.arches')),
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(PACKAGE_ROOT, 'hip.log'),
+        },
+    },
+    'loggers': {
+        'arches': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'hip': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
 
 DATE_PARSING_FORMAT = ['%B %d, %Y', '%Y-%m-%d', '%Y-%m-%d %H:%M:%S']
 

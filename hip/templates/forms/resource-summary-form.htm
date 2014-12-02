@@ -1,0 +1,327 @@
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+<!-- Resource Type CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">{% trans "Historic Resource Type" %}</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Form for screens > xs -->
+                            <!-- <form class="form-inline " role="form"> -->
+                                <div class="form-group arches-form hidden-xs" style="width: 100%">
+                                    
+                                    <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
+                                        <option value=""></option>
+                                        {% for type in form.data.domains.resource_type %}
+                                            <option value="{{type.id}}">{{type.value}}</option>
+                                        {% endfor %}
+                                    </select>&nbsp;
+
+                                </div>
+                            <!-- </form> -->
+                            <!-- Form for screens > xs -->
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Rsource Type CRUD -->
+
+
+<hr class="devider arches-RDM-divider">
+
+<div id="names-section">
+    <!-- Name CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">{% trans "Names" %}</h5>
+                    </dt>
+
+                    <!-- Form -->
+                    <dd>
+                        <div class="row">
+
+                            <div class="col-xs-12">
+                                        
+                                <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 50%;" placeholder="Name" data-bind='{value: editing.NAME_E41.NAME_E41__value}'>                                    
+
+                                <!-- Spacer (for xs screens) -->
+                                <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+                                
+                                <div style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="value: editing.NAME_E41.NAME_TYPE_E55__value, select2: { data: domains.NAME_TYPE_E55, placeholder: 'Type', formatResult: formatDomainValue, formatSelection: selectDomainValue, labelValue: editing.NAME_E41.NAME_TYPE_E55__label }"></div>
+
+                                <!-- Spacer (for xs screens) -->
+                                <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                <!-- Add Button -->
+                                <div class="btn-group">
+                                    <button type="button" class="add-button btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                        <i class="fa fa-chevron-down"></i>
+                                        <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">{% trans "Discard edits" %}</a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Add Button -->
+
+                            </div>
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+
+                    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "The name value must be populated. A resource can only have one primary name." %}</div>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Name CRUD Form Container -->
+
+    <!-- Name Records -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        {% trans "This resource has these names:" %}
+                    </dd>
+
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: NAME_E41().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
+                        
+                        <div data-bind='foreach: NAME_E41'>
+                            <div class="arches-crud-record">
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i  data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='{text: NAME_E41__value}' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: NAME_TYPE_E55__label}'></span>)</span>
+                                </a>
+                            </div>
+                        </div>
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- End Name Records -->
+</div>
+
+<hr class="devider arches-RDM-divider">
+
+
+<!-- Dates CRUD Form -->
+<div class="row form-group">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">{% trans "Important Dates" %}</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd>
+
+                    <div class="row">
+
+                        <!-- dates -->    
+                        <div class="col-xs-12 col-sm-4"> 
+                            <select style="height: 36px; padding-top: 2px; width:100%" class="select2 arches-select2-crud-form dates" id="" placeholder="threats">
+                                <option value="1">Start Date</option>
+                                <option value="2">Built Date</option>
+                                <option value="3">Birth Date</option>
+                                <option value="4">Creation Date</option>
+                                <option value="5">Formation Date</option>
+                                <option value="6">End Date</option>
+                                <option value="7">Demolition Date</option>
+                                <option value="8">Death Date</option>
+                                <option value="9">Disolution Date</option>
+                                <option value="10">Destruction Date</option>
+                            </select>
+                        </div>
+
+                        <!-- Spacer (for xs screens) -->
+                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="form-group" style="padding-left:0px">
+                                <div class="input-group">
+                                    <input type="text" name="mydate" placeholder="Date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Spacer (for xs screens) -->
+                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                        <!-- Add Button -->
+                        <div class="btn-group">
+                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                                <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">{% trans "Discard edits" %}</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Add Button -->
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Dates CRUD -->
+
+<!-- Dates Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    {% trans "These dates are associated with this resource:" %}
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="date1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this date"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this date">Built date 10/12/1942
+                        </a>
+                    </div>
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="date1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this date"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this date">Destruction date 3/31/2012
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Dates Records -->
+
+
+ <hr class="devider arches-RDM-divider">
+
+
+<!-- Modifications CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">{% trans "Subjects" %}</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+
+                                    <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form description-type" id="" placeholder="setting"> 
+                                        <option value="1">Civic Improvement</option>
+                                        <option value="2">Fox Studios</option>
+                                        <option value="3">Garment District</option>
+                                        <option value="4">Los Angeles Times</option>
+                                    </select>
+
+                                    <!-- Spacer (for xs screens) -->
+                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">{% trans "Discard edits" %}</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Subjet CRUD -->
+
+<!-- Subject Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    These subjects are associated with this resource:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="date1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this subject"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this subject">1890's
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Threats Records -->
+{% endblock form_content %}

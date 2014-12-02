@@ -21,7 +21,7 @@ def install(path_to_source_data_dir=None):
     load_authority_files(path_to_source_data_dir)
     load_map_layers()
     resource_remover.truncate_resources()
-    load_test_data()
+    load_resources()
 
 def export_data():
     pass
@@ -56,10 +56,16 @@ def build_permissions():
 def load_users():
     pass
 
-def load_test_data():
+def load_resources(external_file=None):
     rl = ResourceLoader()
-    for f in settings.BUSISNESS_DATA_FILES:
-        rl.load(f)
+    if external_file != None:
+        print 'loading:', external_file
+        rl.load(external_file)
+    else:
+        for f in settings.BUSISNESS_DATA_FILES:
+            rl.load(f)
+
+
 
 if __name__ == "__main__":
 
