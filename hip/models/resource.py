@@ -27,12 +27,15 @@ class Resource(ArchesResource):
         super(Resource, self).__init__(*args, **kwargs)
 
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
-            self.form_groups = [{
+            self.form_groups.append({
                 'id': 'resource-description',
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
-                'forms': [hip_forms.ResourceSummaryForm]
-            }]
+                'forms': [
+                    hip_forms.ResourceSummaryForm, 
+                    hip_forms.ResourceDescriptionForm
+                ]
+            })      
 
         self.form_groups.append({
             'id': 'resource-evaluation',
@@ -40,6 +43,7 @@ class Resource(ArchesResource):
             'name': _('Evaluate Resource'),
             'forms': []
         })
+
 
 
     def get_primary_name(self):
