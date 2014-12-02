@@ -38,6 +38,8 @@ BUSISNESS_DATA_FILES = (
     os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'business_data', 'arches_la.arches')),
 )
 
+DATE_PARSING_FORMAT = ['%B %d, %Y', '%Y-%m-%d', '%Y-%m-%d %H:%M:%S']
+
 try:
     from settings_local import *
 except ImportError:
