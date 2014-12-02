@@ -63,6 +63,8 @@ LOGGING = {
 }
 
 
+DATE_PARSING_FORMAT = ['%B %d, %Y', '%Y-%m-%d', '%Y-%m-%d %H:%M:%S']
+
 try:
     from settings_local import *
 except ImportError:
