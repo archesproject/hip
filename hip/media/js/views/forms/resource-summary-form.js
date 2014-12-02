@@ -10,7 +10,6 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                 el: this.$el.find('#names-section')[0],
                 viewModel: this.viewModel,
                 key: 'NAME_E41',
-                pkField: 'NAME_E41__entityid',
                 validateBranch: function (data) {
                     // currently we are using the string 'Primary' as the key for the type... this is very brittle and should be enhanced
                     var primaryLabel = 'Primary',
