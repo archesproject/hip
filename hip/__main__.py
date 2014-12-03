@@ -88,7 +88,11 @@ COMMANDS['load'] = command_load
 
 
 def command_resource_load(args):
-    os.system('%s %s packages -o load_resources --source %s' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.source))
+    if args.source != '':
+        os.system('%s %s packages -o load_resources --source %s' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.source))
+    else:
+        os.system('%s %s packages -o load_resources' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py'))))
+
 
 parser_start = subparsers.add_parser(
     'load_resources',
@@ -101,6 +105,22 @@ parser_start.add_argument(
     default='',
 )
 COMMANDS['load_resources'] = command_resource_load
+
+
+def command_remove_resources(args):
+    os.system('%s %s packages -o remove_resources -l %s' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.load_id))
+
+parser_start = subparsers.add_parser(
+    'remove_resources',
+    help="remove resource data from a previous load given a loadid",
+)
+parser_start.add_argument(
+    '-l', '--load_id',
+    help="identifier for a particular resource load",
+    type=str, 
+    default='',
+)
+COMMANDS['remove_resources'] = command_remove_resources
 
 
 def command_help(args):
