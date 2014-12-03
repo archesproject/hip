@@ -72,7 +72,7 @@
                                 <!-- Spacer (for xs screens) -->
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
                                 
-                                <div style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="value: editing.NAME_E41.NAME_TYPE_E55__value, select2: { data: domains.NAME_TYPE_E55, placeholder: 'Type', formatResult: formatDomainValue, formatSelection: selectDomainValue, labelValue: editing.NAME_E41.NAME_TYPE_E55__label }"></div>
+                                <div style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="select2: { data: domains.NAME_TYPE_E55, placeholder: 'Type', viewModel: editing.NAME_E41, conceptKey: 'NAME_TYPE_E55'}"></div>
 
                                 <!-- Spacer (for xs screens) -->
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
