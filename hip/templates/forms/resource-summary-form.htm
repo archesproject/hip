@@ -77,18 +77,7 @@
                                 <!-- Spacer (for xs screens) -->
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                                <!-- Add Button -->
-                                <div class="btn-group">
-                                    <button type="button" class="add-button btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
-                                    <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                        <i class="fa fa-chevron-down"></i>
-                                        <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">{% trans "Discard edits" %}</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End Add Button -->
+                                {% include 'components/add-item-button.htm' %}
 
                             </div>
                         </div>
@@ -119,7 +108,7 @@
                         
                         <div data-bind='foreach: NAME_E41'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i  data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                 <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='{text: NAME_E41__value}' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: NAME_TYPE_E55__label}'></span>)</span>
                                 </a>
                             </div>
@@ -183,18 +172,8 @@
                         <!-- Spacer (for xs screens) -->
                         <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                        <!-- Add Button -->
-                        <div class="btn-group">
-                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                                <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">{% trans "Discard edits" %}</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Add Button -->
+                        {% include 'components/add-item-button.htm' %}
+
                     </div>
                 </dd>
                 <!-- End Form -->
@@ -273,18 +252,7 @@
                                     <!-- Spacer (for xs screens) -->
                                     <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">{% trans "Add" %}</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">{% trans "Toggle Dropdown" %}</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">{% trans "Discard edits" %}</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
+                                    {% include 'components/add-item-button.htm' %}
 
                                 </div>
                             </form>
