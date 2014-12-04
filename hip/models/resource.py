@@ -55,13 +55,13 @@ class Resource(ArchesResource):
             pname_key = self.entitytypeid
 
         entitytype_of_primaryname = archesmodels.EntityTypes.objects.get(pk = settings.PRIMARY_DISPLAY_NAME_LOOKUPS[pname_key]['entity_type'])
-        displayname = []
+        displayname = super(Resource, self).get_primary_name()
 
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
             names = self.get_root().find_entities_by_type_id(entitytype_of_primaryname)
             if len(names) > 0:
                 for name in names:
-                    displayname.append(name)
+                    displayname = name
 
         return displayname
 
