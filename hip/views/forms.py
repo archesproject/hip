@@ -120,10 +120,10 @@ class MeasurementForm(ResourceForm):
         default_measurement_type = self.data['domains']['MEASUREMENT_TYPE_E55'][0]
         default_measurement_unit = self.data['domains']['UNIT_OF_MEASUREMENT_E55'][0]
         self.data['defaults']['MEASUREMENT_TYPE_E55'] = {
-            'VALUE_OF_MEASUREMENT_E60__entityid':'',
-            'VALUE_OF_MEASUREMENT_E60__value':'',
+            'VALUE_OF_MEASUREMENT_E60__entityid': '',
+            'VALUE_OF_MEASUREMENT_E60__value': '',
+            'VALUE_OF_MEASUREMENT_E60__label': '',
             'MEASUREMENT_TYPE_E55__entityid': '',
-            'MEASUREMENT_TYPE_E55__entityid':'',
             'MEASUREMENT_TYPE_E55__value': '',
             'MEASUREMENT_TYPE_E55__label': '',
             'UNIT_OF_MEASUREMENT_E55__entityid': '',
@@ -132,8 +132,7 @@ class MeasurementForm(ResourceForm):
 
         }
         if self.resource:
-            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.data['VALUE_OF_MEASUREMENT_E60'] = self.get_nodes('VALUE_OF_MEASUREMENT.E60')
+            self.data['MEASUREMENT_TYPE_E55'] = self.get_nodes('MEASUREMENT_TYPE.E55')
 
 class ConditionForm(ResourceForm):
     id = 'condition-form'
