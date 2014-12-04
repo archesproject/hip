@@ -32,18 +32,7 @@ class SummaryForm(ResourceForm):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
 
-        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
-        resource_type_nodes = self.resource.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
-        resource_type_data = self.decode_data_item(data['HERITAGE_RESOURCE_TYPE_E55'])[0]
-
-        if len(resource_type_nodes) == 0:
-            entity = Entity()
-            entity.create_from_mapping(self.resource.entitytypeid, schema['HERITAGE_RESOURCE_TYPE.E55']['steps'], 'HERITAGE_RESOURCE_TYPE.E55', resource_type_data['value'], resource_type_data['entityid'])
-            self.resource.merge_at(entity, self.resource.entitytypeid)
-        else:
-            resource_type_nodes[0].value = resource_type_data['value']
-
-
+        self.update_node('HERITAGE_RESOURCE_TYPE.E55', data)
 
     def load(self):
         self.data['domains']['NAME_TYPE_E55'] = self.get_e55_domain('NAME_TYPE.E55')
