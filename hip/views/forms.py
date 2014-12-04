@@ -148,12 +148,10 @@ class ConditionForm(ResourceForm):
     def load(self):
         self.data['domains']['CONDITION_TYPE_E55'] = self.get_e55_domain('CONDITION_TYPE.E55')
         default_description_type = self.data['domains']['CONDITION_TYPE_E55'][0]
-        self.data['defaults']['CONDITION_STATE_E3'] = {
-            'CONDITION_STATE_E3__entityid': '',
-            'CONDITION_STATE_E3__value': '',
+        self.data['defaults']['CONDITION_TYPE_E55'] = {
             'CONDITION_TYPE_E55__entityid': '',
-            'CONDITION_TYPE_E55__value': default_description_type['id'],
-            'CONDITION_TYPE_E55__label': default_description_type['value']
+            'CONDITION_TYPE_E55__value': '',
+            'CONDITION_TYPE_E55__label': ''
         }
         if self.resource:
-            self.data['CONDITION_STATE_E3'] = self.get_nodes('CONDITION_STATE.E3')
+            self.data['CONDITION_TYPE_E55'] = self.get_nodes('CONDITION_TYPE.E55')

@@ -11,13 +11,9 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                 viewModel: this.viewModel,
                 key: 'CONDITION_TYPE_E55',
                 validateBranch: function (data) {
-                    // currently we are using the string 'Primary' as the key for the type... this is very brittle and should be enhanced
-                    if (data.CONDITION_TYPE_E55__label === primaryLabel) {
-                        _.each(self.viewModel[nameBranchList.key](), function (item) {
-                            if (item.CONDITION_TYPE_E55__label === primaryLabel) {
-                                valid = false;
-                            }
-                        });
+                    var valid = true;
+                    if (data.CONDITION_TYPE_E55__label === '') {
+                        valid = false;
                     }
                     return valid;
                 }

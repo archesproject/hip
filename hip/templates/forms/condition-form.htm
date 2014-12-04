@@ -4,7 +4,7 @@
 {% block form_content %}
 
 <!-- Overall Condition CRUD Form -->
-<div id="condition-section'">
+<div id="condition-section">
 <div class="row">
     <div class="col-xs-12">
         <div class="padding-left-10">
@@ -15,35 +15,29 @@
                     <h5 id="arches-condition-form" class="section-headline">{% trans "Overall Condition" %}</h5>
                 </dt>
 
-                <!-- Form -->
-                <dd class="arches-RDM-labels">
-                            <!-- Screens greater than xs -->
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%;">
+                <dd>
+                    <div class="row">
+                            <div class="col-xs-12">
 
-                            <!-- Condition and dates -->  
-                            <div style="width:40%; height: 36px; padding-top: 2px; display:inline-block; float: left" class="select2 arches-select2-crud-form condition-type hidden-xs" id="condition-type" data-bind="select2: { data: domains.CONDITION_TYPE_E55, placeholder: 'Type', viewModel: editing.CONDITION_TYPE_E55, conceptKey: 'CONDITION_TYPE_E55'}">
-
-<!--                             <div style="width:40%; height: 36px; padding-top: 2px; position:relative; float: left" class="select2 arches-select2-crud-form name-type hidden-xs" id="condition-type" data-bind="value: editing.CONDITION_TYPE_E55.CONDITION_TYPE_E55__value, select2: { data: domains.CONDITION_TYPE_E55, placeholder: 'Type', formatResult: formatDomainValue, formatSelection: selectDomainValue, labelValue: editing.CONDITION_TYPE_E55.CONDITION_TYPE_E55__label }"> -->
-                                
-                            </div>
-
-
-                            <div class="input-group" style ="width:40%; height: 36px; padding-top: 2px; padding-left: 6px; float: left" >
-                                <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-date-format="dd/mm/yy">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            </div>
-
-
-                                    <!-- Add Button -->
-                            {% include 'components/add-item-button.htm' %}
-                                    <!-- End Add Button -->
-
+                                <!-- Condition and dates -->  
+                                <div style="width:40%; height: 36px; padding-top: 2px; display:inline-block; float: left" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-condition-type" data-bind="select2: { data: domains.CONDITION_TYPE_E55, placeholder: 'Type', viewModel: editing.CONDITION_TYPE_E55, conceptKey: 'CONDITION_TYPE_E55'}">    
                                 </div>
-                            </form>
-                            <!-- End Screens greater than xs -->
+
+                                <div class="input-group datetimepicker" style ="width:40%; height: 36px; padding-top: 2px; padding-left: 6px; float: left" >
+                                    <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-date-format="DD/MM/YY" >
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+
+
+                                        <!-- Add Button -->
+                                {% include 'components/add-item-button.htm' %}
+                                        <!-- End Add Button -->
+                        </div>
+                    </div>
+
                 </dd>
                 <!-- End Form -->
+                    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "Each measurement must have a type, unit, and value." %}</div>
             </dl>
 
         </div>
@@ -58,20 +52,26 @@
 
         <!-- Address -->
         <div class="arches-crud-child-section">
+
             <dl>
                 <dd class="arches-CRUD-child-title">
-                    This resource condition history is:
+                    {% trans "This resource has these conditions:" %}
                 </dd>
 
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="classification1-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                        <a href="" id="classification1" class="arches-CRUD-child manage-address" title="Edit this record">Fair<span class="text-muted arches-crud-type-identifier"> (condition)&nbsp; </span> 8/24/12<span class="text-muted arches-crud-type-identifier"> (Date assessed) </span> 
-                        </a>
+                <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                    <div data-bind="visible: CONDITION_TYPE_E55().length == 0" class="txt-color-blue">{% trans "No Conditions Defined" %}</div>   
+                    
+                    <div data-bind='foreach: CONDITION_TYPE_E55'>
+                        <div class="arches-crud-record">
+                            <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this condition"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                            <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this measurement"><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: CONDITION_TYPE_E55__label}'></span>)</span>
+                            </a>
+                        </div>
                     </div>
                 </dd>
 
             </dl>
+
         </div>
     </div>
 </div>
@@ -108,7 +108,7 @@
 
                                     <div class="form-group" style="width:40%;">
                                         <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-dateformat="dd/mm/yy" style="height: 34px;">
+                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-date-format="dd/mm/yy" style="height: 34px;">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>&nbsp;
