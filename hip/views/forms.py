@@ -29,39 +29,8 @@ class SummaryForm(ResourceForm):
         super(SummaryForm, self).__init__(resource=resource)
 
     def update(self, data):
-        for entity in self.resource.find_entities_by_type_id('NAME.E41'):
-            self.resource.child_entities.remove(entity)
-
-        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
-        for value in data['NAME_E41']:
-            baseentity = None
-            for newentity in self.decode_data_item(value):
-                entity = Entity()
-                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
-
-                if baseentity == None:
-                    baseentity = entity
-                else:
-                    baseentity.merge(entity)
-            
-            self.resource.merge_at(baseentity, self.resource.entitytypeid)
-
-        for entity in self.resource.find_entities_by_type_id('KEYWORD.E55'):
-            self.resource.child_entities.remove(entity)
-
-        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
-        for value in data['KEYWORD_E55']:
-            baseentity = None
-            for newentity in self.decode_data_item(value):
-                entity = Entity()
-                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
-
-                if baseentity == None:
-                    baseentity = entity
-                else:
-                    baseentity.merge(entity)
-            
-            self.resource.merge_at(baseentity, self.resource.entitytypeid)
+        self.update_nodes('NAME.E41', data)
+        self.update_nodes('KEYWORD.E55', data)
 
         resource_type_nodes = self.resource.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
         resource_type_data = self.decode_data_item(data['HERITAGE_RESOURCE_TYPE_E55'])[0]
@@ -117,23 +86,7 @@ class DescriptionForm(ResourceForm):
         super(DescriptionForm, self).__init__(resource=resource)
 
     def update(self, data):
-        for entity in self.resource.find_entities_by_type_id('DESCRIPTION.E62'):
-            self.resource.child_entities.remove(entity)
-
-        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
-        for value in data['DESCRIPTION_E62']:
-            baseentity = None
-            for newentity in self.decode_data_item(value):
-                entity = Entity()
-                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
-
-                if baseentity == None:
-                    baseentity = entity
-                else:
-                    baseentity.merge(entity)
-            
-            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
-
+        self.update_nodes('DESCRIPTION.E62', data)
 
     def load(self):
         self.data['domains']['DESCRIPTION_TYPE_E55'] = self.get_e55_domain('DESCRIPTION_TYPE.E55')
@@ -158,22 +111,7 @@ class MeasurementForm(ResourceForm):
         super(MeasurementForm, self).__init__(resource=resource)
 
     def update(self, data):
-        for entity in self.resource.find_entities_by_type_id('MEASUREMENT_TYPE.E55'):
-            self.resource.child_entities.remove(entity)
-
-        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
-        for value in data['MEASUREMENT_TYPE_E55']:
-            baseentity = None
-            for newentity in self.decode_data_item(value):
-                entity = Entity()
-                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
-
-                if baseentity == None:
-                    baseentity = entity
-                else:
-                    baseentity.merge(entity)
-            
-            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
+        self.update_nodes('MEASUREMENT_TYPE.E55', data)
 
 
     def load(self):
