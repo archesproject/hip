@@ -31,10 +31,10 @@ class Resource(ArchesResource):
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
                 'forms': [
-                    hip_forms.SummaryForm, 
-                    hip_forms.DescriptionForm,
-                    hip_forms.MeasurementForm,
-                    hip_forms.ConditionForm
+                    hip_forms.SummaryForm.get_info(), 
+                    hip_forms.DescriptionForm.get_info(),
+                    hip_forms.MeasurementForm.get_info(),
+                    hip_forms.ConditionForm.get_info()
                 ]
             })      
 

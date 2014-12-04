@@ -21,12 +21,14 @@ from arches.app.views.resources import ResourceForm
 from django.utils.translation import ugettext as _
 
 class SummaryForm(ResourceForm):
-    id = 'summary-form'
-    icon = 'fa-tag'
-    name = _('Resource Summary')
-
-    def __init__(self, resource=None):
-        super(SummaryForm, self).__init__(resource=resource)
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'summary-form',
+            'icon': 'fa-tag',
+            'name': _('Resource Summary'),
+            'class': SummaryForm
+        }
 
     def update(self, data):
         self.update_nodes('NAME.E41', data)
@@ -67,12 +69,14 @@ class SummaryForm(ResourceForm):
 
 
 class DescriptionForm(ResourceForm):
-    id = 'description-form'
-    icon = 'fa-picture-o'
-    name = _('Descriptions')
-
-    def __init__(self, resource=None):
-        super(DescriptionForm, self).__init__(resource=resource)
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'description-form',
+            'icon': 'fa-picture-o',
+            'name': _('Descriptions'),
+            'class': DescriptionForm
+        }
 
     def update(self, data):
         self.update_nodes('DESCRIPTION.E62', data)
@@ -92,12 +96,14 @@ class DescriptionForm(ResourceForm):
 
 
 class MeasurementForm(ResourceForm):
-    id = 'measurement-form'
-    icon = 'fa-th-large'
-    name = _('Measurements')
-
-    def __init__(self, resource=None):
-        super(MeasurementForm, self).__init__(resource=resource)
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'measurement-form',
+            'icon': 'fa-th-large',
+            'name': _('Measurements'),
+            'class': MeasurementForm
+        }
 
     def update(self, data):
         self.update_nodes('MEASUREMENT_TYPE.E55', data)
@@ -124,12 +130,14 @@ class MeasurementForm(ResourceForm):
             self.data['MEASUREMENT_TYPE_E55'] = self.get_nodes('MEASUREMENT_TYPE.E55')
 
 class ConditionForm(ResourceForm):
-    id = 'condition-form'
-    icon = 'fa-asterisk'
-    name = _('Condition Assessment')
-
-    def __init__(self, resource=None):
-        super(ConditionForm, self).__init__(resource=resource)
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'condition-form',
+            'icon': 'fa-asterisk',
+            'name': _('Condition Assessment'),
+            'class': ConditionForm
+        }
 
     def update(self, data):
         self.update_nodes('CONDITION_TYPE.E55', data)
