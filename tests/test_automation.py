@@ -24,13 +24,16 @@ from django.contrib.auth.models import User
 import subprocess
 import sys
 import time
+import os
+import signal
 
 class Main(SSTTestCase):
     def setUp(self):
         super(Main, self).setUp()
         self.user = User.objects.create_user('test', 'test@archesproject.org', 'password')
         self.user.save()
-        self.server = subprocess.Popen([sys.executable,settings.PACKAGE_ROOT + '/../manage.py','runserver','8001','--settings=hip.settings_tests'])
+        cmd = [sys.executable,settings.PACKAGE_ROOT + '/../manage.py','runserver','8001','--settings=hip.settings_tests']
+        self.pid = subprocess.Popen(cmd, preexec_fn=os.setpgrp).pid
         # give it a moment to start up.
         time.sleep(1)
 
@@ -46,4 +49,5 @@ class Main(SSTTestCase):
     def tearDown(self):
         super(Main, self).tearDown()
         self.user.delete()
-        self.server.kill()
+        os.killpg(self.pid, signal.SIGTERM)
+        time.sleep(1)
