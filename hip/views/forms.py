@@ -144,23 +144,7 @@ class ConditionForm(ResourceForm):
         super(ConditionForm, self).__init__(resource=resource)
 
     def update(self, data):
-        for entity in self.resource.find_entities_by_type_id('CONDITION_STATE.E3'):
-            self.resource.child_entities.remove(entity)
-
-        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
-        for value in data['CONDITION_STATE_E3']:
-            baseentity = None
-            for newentity in self.decode_data_item(value):
-                entity = Entity()
-                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
-
-                if baseentity == None:
-                    baseentity = entity
-                else:
-                    baseentity.merge(entity)
-            
-            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
-
+        self.update_nodes('CONDITION_TYPE.E55', data)
 
     def load(self):
         self.data['domains']['CONDITION_TYPE_E55'] = self.get_e55_domain('CONDITION_TYPE.E55')
