@@ -196,3 +196,43 @@ class MeasurementForm(ResourceForm):
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
                 self.data['VALUE_OF_MEASUREMENT_E60'] = self.get_nodes('VALUE_OF_MEASUREMENT.E60')
+
+class ConditionForm(ResourceForm):
+    id = 'condition-form'
+    icon = 'fa-asterisk'
+    name = _('Condition Assessment')
+
+    def __init__(self, resource=None):
+        super(ConditionForm, self).__init__(resource=resource)
+
+    def update(self, data):
+        for entity in self.resource.find_entities_by_type_id('CONDITION_STATE.E3'):
+            self.resource.child_entities.remove(entity)
+
+        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data['CONDITION_STATE_E3']:
+            baseentity = None
+            for newentity in self.decode_data_item(value):
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if baseentity == None:
+                    baseentity = entity
+                else:
+                    baseentity.merge(entity)
+            
+            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
+
+
+    def load(self):
+        self.data['domains']['CONDITION_TYPE_E55'] = self.get_e55_domain('CONDITION_TYPE.E55')
+        default_description_type = self.data['domains']['CONDITION_TYPE_E55'][0]
+        self.data['defaults']['CONDITION_STATE_E3'] = {
+            'CONDITION_STATE_E3__entityid': '',
+            'CONDITION_STATE_E3__value': '',
+            'CONDITION_TYPE_E55__entityid': '',
+            'CONDITION_TYPE_E55__value': default_description_type['id'],
+            'CONDITION_TYPE_E55__label': default_description_type['value']
+        }
+        if self.resource:
+            self.data['CONDITION_STATE_E3'] = self.get_nodes('CONDITION_STATE.E3')

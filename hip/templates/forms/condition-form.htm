@@ -1,0 +1,512 @@
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+
+<!-- Overall Condition CRUD Form -->
+<div id="condition-section'">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-condition-form" class="section-headline">{% trans "Overall Condition" %}</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+                            <!-- Screens greater than xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%;">
+                                    
+                            <!-- Condition and dates -->  
+                            <div style="width:40%; height: 36px; padding-top: 2px; position:relative; float: left" class="select2 arches-select2-crud-form condition-type hidden-xs" id="condition-type" data-bind="select2: { data: domains.CONDITION_TYPE_E55, placeholder: 'Type', viewModel: editing.CONDITION_TYPE_E55, conceptKey: 'CONDITION_TYPE_E55'}">
+
+<!--                             <div style="width:40%; height: 36px; padding-top: 2px; position:relative; float: left" class="select2 arches-select2-crud-form name-type hidden-xs" id="condition-type" data-bind="value: editing.CONDITION_TYPE_E55.CONDITION_TYPE_E55__value, select2: { data: domains.CONDITION_TYPE_E55, placeholder: 'Type', formatResult: formatDomainValue, formatSelection: selectDomainValue, labelValue: editing.CONDITION_TYPE_E55.CONDITION_TYPE_E55__label }"> -->
+                                
+                            </div>
+
+
+                            <div class="input-group" style ="width:40%; height: 36px; padding-top: 2px; padding-left: 6px; float: left" >
+                                <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-date-format="dd/mm/yy">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+
+
+                                    <!-- Add Button -->
+                            {% include 'components/add-item-button.htm' %}
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End Screens greater than xs -->
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Overall Condition CRUD Form Container -->
+
+<!-- Condition Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource condition history is:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="classification1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="classification1" class="arches-CRUD-child manage-address" title="Edit this record">Fair<span class="text-muted arches-crud-type-identifier"> (condition)&nbsp; </span> 8/24/12<span class="text-muted arches-crud-type-identifier"> (Date assessed) </span> 
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+<!-- End Condition Records -->
+
+
+<hr class="devider arches-RDM-divider">
+
+
+<!-- Threats CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Threats</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Input for screens > xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Threats and dates -->     
+                                    <input class="threats" id="" name="" style="width:40%; height: 36px; padding-top: 2px;"  value="">&nbsp;
+
+                                    <div class="form-group" style="width:40%;">
+                                        <div class="input-group">
+                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-dateformat="dd/mm/yy" style="height: 34px;">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>&nbsp;
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End Input for screens > xs -->
+
+                            <!-- Input for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <input class="threats" id="" name="" style="width:100%; height: 36px; padding-top: 2px;"  value="">
+
+                                    <!-- Spacer (for xs screens) -->
+                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                    <div class="form-group" style="width:100%;">
+                                        <div class="input-group">
+                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End Input for screens = xs -->
+
+
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Threats CRUD -->
+
+<!-- Threats Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has these threats:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="component1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this threat"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="component1" class="arches-CRUD-child manage-address" title="Edit this threat">Vandalism<span class="text-muted arches-crud-type-identifier"> (threat)&nbsp; </span> 1/2/12<span class="text-muted arches-crud-type-identifier"> (Date assessed) </span> 
+                        </a>
+                    </div>
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="component2-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this threat"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="component2" class="arches-CRUD-child manage-address" title="Edit this threat">Erosion<span class="text-muted arches-crud-type-identifier"> (threat)&nbsp; </span> 8/24/12<span class="text-muted arches-crud-type-identifier"> (Date assessed) </span> 
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Threats Records -->
+
+
+<hr class="devider arches-RDM-divider">
+
+
+<!-- Disturbances CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Disturbances</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Screens greater than xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%;">
+                                    
+                                    <!-- Resource Type/Use/Style -->     
+                                    <input class="disturbances" id="" name="" style="width:40%; height: 36px; padding-top: 2px;"  value="">&nbsp;
+
+                                    <input type="text" name="mydate" placeholder="From" class="form-control datepicker" style="width: 40%" data-dateformat="dd/mm/yy">
+                                        
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End Screens greater than xs -->
+
+                            <!-- Form for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Disturbances -->     
+                                    <input class="disturbances" id="" name="" style="width:100%; height: 36px; padding-top: 2px;"  value="">
+
+                                    <!-- Spacer (for xs screens) -->
+                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                    <div class="form-group" style="width:100%;">
+                                        <div class="input-group">
+                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- Form for screens = xs -->
+
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Disturbances CRUD -->
+
+<!-- Disturbances Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has these disturbances:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="">
+                        <p class="arches-CRUD-child text-primary">None entered</p>
+                    </div>
+                </dd> 
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Disturbances Records -->
+
+
+ <hr class="devider arches-RDM-divider">
+
+
+<!-- Management Recommendations CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Management Recommendations</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Form for screens > xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Condition and dates -->     
+                                    <input class="management-rec" id="" name="" style="width:40%; height: 36px; padding-top: 2px;"  value="">&nbsp;
+
+                                    <div class="form-group" style="width:40%;">
+                                        <div class="input-group">
+                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>&nbsp;
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- Form for screens > xs -->
+
+                            <!-- Form for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Related Features -->     
+                                    <input class="related-features" id="" name="" style="width:100%"  value="">
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group" style="margin-top: 5px;">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- Form for screens = xs -->
+
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Management Recommendations CRUD -->
+
+<!-- Management Recommendations Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has these recommendations:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="related1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this recommendation"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="related1" class="arches-CRUD-child manage-address" title="Edit this recommendation">Architectual Survey<span class="text-muted arches-crud-type-identifier"> (Recommendation)&nbsp; </span> 11/12/13<span class="text-muted arches-crud-type-identifier"> (Date) </span> 
+                        </a>
+                    </div>
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="related2-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this recommendation"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                        <a href="" id="related2" class="arches-CRUD-child manage-address" title="Edit this recommendation">Fencing<span class="text-muted arches-crud-type-identifier"> (Recommendation)&nbsp; </span> 2/18/11<span class="text-muted arches-crud-type-identifier"> (Date) </span> 
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Management Recommendations Records -->
+
+
+ <hr class="devider arches-RDM-divider">
+
+
+<!-- Modifications CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Condition Description</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Form for screens > xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Simple HTML Editor -->
+                                    <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                        <div class="summernote"></div>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <!-- Form for screens > xs -->
+
+                            <!-- Form for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Simple HTML Editor -->
+                                    <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                        <div class="summernote"></div>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <!-- Form for screens = xs -->
+                        </div>
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Modifications CRUD -->
+
+{% endblock form_content %}

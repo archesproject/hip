@@ -33,7 +33,8 @@ class Resource(ArchesResource):
                 'forms': [
                     hip_forms.SummaryForm, 
                     hip_forms.DescriptionForm,
-                    hip_forms.MeasurementForm
+                    hip_forms.MeasurementForm,
+                    hip_forms.ConditionForm
                 ]
             })      
 
