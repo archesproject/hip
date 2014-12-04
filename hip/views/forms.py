@@ -102,3 +102,52 @@ class ResourceDescriptionForm(ResourceForm):
         }
         if self.resource:
             self.data['DESCRIPTION_E62'] = self.get_nodes('DESCRIPTION.E62')
+
+
+class ResourceMeasurementForm(ResourceForm):
+    id = 'resource-measurement-form'
+    icon = 'fa-th-large'
+    name = _('Measurements')
+
+    def __init__(self, resource=None):
+        super(ResourceMeasurementForm, self).__init__(resource=resource)
+
+    def update(self, data):
+        for entity in self.resource.find_entities_by_type_id('MEASUREMENT_TYPE.E55'):
+            self.resource.child_entities.remove(entity)
+
+        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data['MEASUREMENT_TYPE_E55']:
+            baseentity = None
+            for newentity in self.decode_data_item(value):
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if baseentity == None:
+                    baseentity = entity
+                else:
+                    baseentity.merge(entity)
+            
+            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
+
+
+    def load(self):
+        self.data['domains']['MEASUREMENT_TYPE_E55'] = self.get_e55_domain('MEASUREMENT_TYPE.E55')
+        self.data['domains']['UNIT_OF_MEASUREMENT_E55'] = self.get_e55_domain('UNIT_OF_MEASUREMENT.E55')
+        default_measurement_type = self.data['domains']['MEASUREMENT_TYPE_E55'][0]
+        default_measurement_unit = self.data['domains']['UNIT_OF_MEASUREMENT_E55'][0]
+        self.data['defaults']['MEASUREMENT_TYPE_E55'] = {
+            'VALUE_OF_MEASUREMENT_E60__entityid':'',
+            'VALUE_OF_MEASUREMENT_E60__value':'',
+            'MEASUREMENT_TYPE_E55__entityid': '',
+            'MEASUREMENT_TYPE_E55__entityid':'',
+            'MEASUREMENT_TYPE_E55__value': '',
+            'MEASUREMENT_TYPE_E55__label': '',
+            'UNIT_OF_MEASUREMENT_E55__entityid': '',
+            'UNIT_OF_MEASUREMENT_E55__value': '',
+            'UNIT_OF_MEASUREMENT_E55__label': ''
+
+        }
+        if self.resource:
+            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
+                self.data['VALUE_OF_MEASUREMENT_E60'] = self.get_nodes('VALUE_OF_MEASUREMENT.E60')
