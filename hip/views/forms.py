@@ -44,7 +44,18 @@ class ResourceSummaryForm(ResourceForm):
                 else:
                     baseentity.merge(entity)
             
-            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
+            self.resource.merge_at(baseentity, self.resource.entitytypeid)
+
+        resource_type_nodes = self.resource.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
+        resource_type_data = self.decode_data_item(data['HERITAGE_RESOURCE_TYPE_E55'])[0]
+
+        if len(resource_type_nodes) == 0:
+            entity = Entity()
+            entity.create_from_mapping(self.resource.entitytypeid, schema['HERITAGE_RESOURCE_TYPE.E55']['steps'], 'HERITAGE_RESOURCE_TYPE.E55', resource_type_data['value'], resource_type_data['entityid'])
+            self.resource.merge_at(entity, self.resource.entitytypeid)
+        else:
+            resource_type_nodes[0].value = resource_type_data['value']
+
 
 
     def load(self):
@@ -59,7 +70,15 @@ class ResourceSummaryForm(ResourceForm):
         }
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.data['domains']['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+                self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+                default_resource_type = self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'][0]
+                resource_type_nodes = self.get_nodes('HERITAGE_RESOURCE_TYPE.E55')
+                resource_type_default = {
+                    'HERITAGE_RESOURCE_TYPE_E55__entityid': '',
+                    'HERITAGE_RESOURCE_TYPE_E55__value': '',
+                    'HERITAGE_RESOURCE_TYPE_E55__label': ''
+                }
+                self.data['HERITAGE_RESOURCE_TYPE_E55'] = resource_type_nodes[0] if len(resource_type_nodes) > 0 else resource_type_default
             self.data['NAME_E41'] = self.get_nodes('NAME.E41')
 
 

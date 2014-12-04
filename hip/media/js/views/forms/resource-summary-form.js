@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, BaseForm, BranchList) {
+define(['jquery', 'underscore', 'knockout-mapping', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, koMapping, BaseForm, BranchList) {
     return BaseForm.extend({
         initialize: function() {
 			var nameBrachList;
@@ -25,6 +25,8 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                 }
             });
             this.branchLists.push(nameBranchList);
+
+            this.viewModel.HERITAGE_RESOURCE_TYPE_E55 = koMapping.fromJS(this.viewModel.HERITAGE_RESOURCE_TYPE_E55);
         }
     });
 });

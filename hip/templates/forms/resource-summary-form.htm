@@ -24,12 +24,7 @@
                             <!-- <form class="form-inline " role="form"> -->
                                 <div class="form-group arches-form hidden-xs" style="width: 100%">
                                     
-                                    <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="" placeholder="Type">
-                                        <option value=""></option>
-                                        {% for type in form.data.domains.resource_type %}
-                                            <option value="{{type.id}}">{{type.value}}</option>
-                                        {% endfor %}
-                                    </select>&nbsp;
+                                    <div style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown" data-bind="select2: { data: domains.HERITAGE_RESOURCE_TYPE_E55, placeholder: 'Type', viewModel: HERITAGE_RESOURCE_TYPE_E55, conceptKey: 'HERITAGE_RESOURCE_TYPE_E55'}"></div>
 
                                 </div>
                             <!-- </form> -->
