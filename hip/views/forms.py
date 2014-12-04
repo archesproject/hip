@@ -46,6 +46,23 @@ class SummaryForm(ResourceForm):
             
             self.resource.merge_at(baseentity, self.resource.entitytypeid)
 
+        for entity in self.resource.find_entities_by_type_id('KEYWORD.E55'):
+            self.resource.child_entities.remove(entity)
+
+        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data['KEYWORD_E55']:
+            baseentity = None
+            for newentity in self.decode_data_item(value):
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if baseentity == None:
+                    baseentity = entity
+                else:
+                    baseentity.merge(entity)
+            
+            self.resource.merge_at(baseentity, self.resource.entitytypeid)
+
         resource_type_nodes = self.resource.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
         resource_type_data = self.decode_data_item(data['HERITAGE_RESOURCE_TYPE_E55'])[0]
 
@@ -68,6 +85,14 @@ class SummaryForm(ResourceForm):
             'NAME_TYPE_E55__value': default_name_type['id'],
             'NAME_TYPE_E55__label': default_name_type['value']
         }
+
+        self.data['domains']['KEYWORD_E55'] = self.get_e55_domain('KEYWORD.E55')
+        default_keyword = self.data['domains']['KEYWORD_E55'][0]
+        self.data['defaults']['KEYWORD_E55'] = {
+            'KEYWORD_E55__entityid': '',
+            'KEYWORD_E55__value': default_keyword['id'],
+            'KEYWORD_E55__label': default_keyword['value']
+        }
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
                 self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
@@ -80,6 +105,7 @@ class SummaryForm(ResourceForm):
                 }
                 self.data['HERITAGE_RESOURCE_TYPE_E55'] = resource_type_nodes[0] if len(resource_type_nodes) > 0 else resource_type_default
             self.data['NAME_E41'] = self.get_nodes('NAME.E41')
+            self.data['KEYWORD_E55'] = self.get_nodes('KEYWORD.E55')
 
 
 class DescriptionForm(ResourceForm):

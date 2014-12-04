@@ -217,75 +217,75 @@
 
  <hr class="devider arches-RDM-divider">
 
+<div id="subjects-section">
+    <!-- Modifications CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-subjects-form" class="section-headline">{% trans "Subjects" %}</h5>
+                    </dt>
 
-<!-- Modifications CRUD Form -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="padding-left-10">
-            
-            <dl>
-                <!-- Title -->
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">{% trans "Subjects" %}</h5>
-                </dt>
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
 
-                <!-- Form -->
-                <dd class="arches-RDM-labels">
+                        <div class="row">
 
-                    <div class="row">
+                            <div class="col-xs-12 padding-left-0">
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
 
-                        <div class="col-xs-12 padding-left-0">
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%">
+                                        <div style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="keyword-dropdown
+                                        " data-bind="select2: { data: domains.KEYWORD_E55, placeholder: 'Subject', viewModel: editing.KEYWORD_E55, conceptKey: 'KEYWORD_E55'}"></div>
 
-                                    <select style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form description-type" id="" placeholder="setting"> 
-                                        <option value="1">Civic Improvement</option>
-                                        <option value="2">Fox Studios</option>
-                                        <option value="3">Garment District</option>
-                                        <option value="4">Los Angeles Times</option>
-                                    </select>
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                                    <!-- Spacer (for xs screens) -->
-                                    <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+                                        {% include 'components/add-item-button.htm' %}
 
-                                    {% include 'components/add-item-button.htm' %}
-
-                                </div>
-                            </form>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </dd>
-                <!-- End Form -->
-            </dl>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
 
+            </div>
         </div>
     </div>
-</div>
-<!-- End Subjet CRUD -->
+    <!-- End Subjet CRUD -->
 
-<!-- Subject Records -->
-<div class="row">
-    <div class="col-xs-12">
+    <!-- Subject Records -->
+    <div class="row">
+        <div class="col-xs-12">
 
-        <!-- Address -->
-        <div class="arches-crud-child-section">
-            <dl>
-                <dd class="arches-CRUD-child-title">
-                    These subjects are associated with this resource:
-                </dd>
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        {% trans "These subjects are associated with this resource:" %}
+                    </dd>
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: KEYWORD_E55().length == 0" class="txt-color-blue">{% trans "No Subjects Defined" %}</div>   
+                        
+                        <div data-bind='foreach: KEYWORD_E55'>
+                            <div class="arches-crud-record">
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this subject"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this subject"><span data-bind='{text: KEYWORD_E55__label}' style="padding-right:2px;"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </dd>
 
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="date1-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this subject"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                        <a href="" id="date-type1" class="arches-CRUD-child manage-address" title="Edit this subject">1890's
-                        </a>
-                    </div>
-                </dd>
+                </dl>
 
-            </dl>
-
+            </div>
         </div>
     </div>
+    <!-- End Threats Records -->
 </div>
-<!-- End Threats Records -->
 {% endblock form_content %}
