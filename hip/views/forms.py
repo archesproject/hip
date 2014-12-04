@@ -32,6 +32,7 @@ class SummaryForm(ResourceForm):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
 
+        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
         resource_type_nodes = self.resource.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
         resource_type_data = self.decode_data_item(data['HERITAGE_RESOURCE_TYPE_E55'])[0]
 
@@ -56,11 +57,10 @@ class SummaryForm(ResourceForm):
         }
 
         self.data['domains']['KEYWORD_E55'] = self.get_e55_domain('KEYWORD.E55')
-        default_keyword = self.data['domains']['KEYWORD_E55'][0]
         self.data['defaults']['KEYWORD_E55'] = {
             'KEYWORD_E55__entityid': '',
-            'KEYWORD_E55__value': default_keyword['id'],
-            'KEYWORD_E55__label': default_keyword['value']
+            'KEYWORD_E55__value': '',
+            'KEYWORD_E55__label': ''
         }
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
