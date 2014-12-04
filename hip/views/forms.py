@@ -20,13 +20,13 @@ from arches.app.models.entity import Entity
 from arches.app.views.resources import ResourceForm
 from django.utils.translation import ugettext as _
 
-class ResourceSummaryForm(ResourceForm):
-    id = 'resource-summary-form'
+class SummaryForm(ResourceForm):
+    id = 'summary-form'
     icon = 'fa-tag'
     name = _('Resource Summary')
 
     def __init__(self, resource=None):
-        super(ResourceSummaryForm, self).__init__(resource=resource)
+        super(SummaryForm, self).__init__(resource=resource)
 
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('NAME.E41'):
@@ -44,7 +44,35 @@ class ResourceSummaryForm(ResourceForm):
                 else:
                     baseentity.merge(entity)
             
-            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
+            self.resource.merge_at(baseentity, self.resource.entitytypeid)
+
+        for entity in self.resource.find_entities_by_type_id('KEYWORD.E55'):
+            self.resource.child_entities.remove(entity)
+
+        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data['KEYWORD_E55']:
+            baseentity = None
+            for newentity in self.decode_data_item(value):
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if baseentity == None:
+                    baseentity = entity
+                else:
+                    baseentity.merge(entity)
+            
+            self.resource.merge_at(baseentity, self.resource.entitytypeid)
+
+        resource_type_nodes = self.resource.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
+        resource_type_data = self.decode_data_item(data['HERITAGE_RESOURCE_TYPE_E55'])[0]
+
+        if len(resource_type_nodes) == 0:
+            entity = Entity()
+            entity.create_from_mapping(self.resource.entitytypeid, schema['HERITAGE_RESOURCE_TYPE.E55']['steps'], 'HERITAGE_RESOURCE_TYPE.E55', resource_type_data['value'], resource_type_data['entityid'])
+            self.resource.merge_at(entity, self.resource.entitytypeid)
+        else:
+            resource_type_nodes[0].value = resource_type_data['value']
+
 
 
     def load(self):
@@ -57,19 +85,36 @@ class ResourceSummaryForm(ResourceForm):
             'NAME_TYPE_E55__value': default_name_type['id'],
             'NAME_TYPE_E55__label': default_name_type['value']
         }
+
+        self.data['domains']['KEYWORD_E55'] = self.get_e55_domain('KEYWORD.E55')
+        default_keyword = self.data['domains']['KEYWORD_E55'][0]
+        self.data['defaults']['KEYWORD_E55'] = {
+            'KEYWORD_E55__entityid': '',
+            'KEYWORD_E55__value': default_keyword['id'],
+            'KEYWORD_E55__label': default_keyword['value']
+        }
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.data['domains']['resource_type'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+                self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+                default_resource_type = self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'][0]
+                resource_type_nodes = self.get_nodes('HERITAGE_RESOURCE_TYPE.E55')
+                resource_type_default = {
+                    'HERITAGE_RESOURCE_TYPE_E55__entityid': '',
+                    'HERITAGE_RESOURCE_TYPE_E55__value': '',
+                    'HERITAGE_RESOURCE_TYPE_E55__label': ''
+                }
+                self.data['HERITAGE_RESOURCE_TYPE_E55'] = resource_type_nodes[0] if len(resource_type_nodes) > 0 else resource_type_default
             self.data['NAME_E41'] = self.get_nodes('NAME.E41')
+            self.data['KEYWORD_E55'] = self.get_nodes('KEYWORD.E55')
 
 
-class ResourceDescriptionForm(ResourceForm):
-    id = 'resource-description-form'
+class DescriptionForm(ResourceForm):
+    id = 'description-form'
     icon = 'fa-picture-o'
     name = _('Descriptions')
 
     def __init__(self, resource=None):
-        super(ResourceDescriptionForm, self).__init__(resource=resource)
+        super(DescriptionForm, self).__init__(resource=resource)
 
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('DESCRIPTION.E62'):
@@ -102,3 +147,52 @@ class ResourceDescriptionForm(ResourceForm):
         }
         if self.resource:
             self.data['DESCRIPTION_E62'] = self.get_nodes('DESCRIPTION.E62')
+
+
+class MeasurementForm(ResourceForm):
+    id = 'measurement-form'
+    icon = 'fa-th-large'
+    name = _('Measurements')
+
+    def __init__(self, resource=None):
+        super(MeasurementForm, self).__init__(resource=resource)
+
+    def update(self, data):
+        for entity in self.resource.find_entities_by_type_id('MEASUREMENT_TYPE.E55'):
+            self.resource.child_entities.remove(entity)
+
+        schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data['MEASUREMENT_TYPE_E55']:
+            baseentity = None
+            for newentity in self.decode_data_item(value):
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if baseentity == None:
+                    baseentity = entity
+                else:
+                    baseentity.merge(entity)
+            
+            self.resource.merge_at(baseentity, 'HERITAGE_RESOURCE.E18')
+
+
+    def load(self):
+        self.data['domains']['MEASUREMENT_TYPE_E55'] = self.get_e55_domain('MEASUREMENT_TYPE.E55')
+        self.data['domains']['UNIT_OF_MEASUREMENT_E55'] = self.get_e55_domain('UNIT_OF_MEASUREMENT.E55')
+        default_measurement_type = self.data['domains']['MEASUREMENT_TYPE_E55'][0]
+        default_measurement_unit = self.data['domains']['UNIT_OF_MEASUREMENT_E55'][0]
+        self.data['defaults']['MEASUREMENT_TYPE_E55'] = {
+            'VALUE_OF_MEASUREMENT_E60__entityid':'',
+            'VALUE_OF_MEASUREMENT_E60__value':'',
+            'MEASUREMENT_TYPE_E55__entityid': '',
+            'MEASUREMENT_TYPE_E55__entityid':'',
+            'MEASUREMENT_TYPE_E55__value': '',
+            'MEASUREMENT_TYPE_E55__label': '',
+            'UNIT_OF_MEASUREMENT_E55__entityid': '',
+            'UNIT_OF_MEASUREMENT_E55__value': '',
+            'UNIT_OF_MEASUREMENT_E55__label': ''
+
+        }
+        if self.resource:
+            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
+                self.data['VALUE_OF_MEASUREMENT_E60'] = self.get_nodes('VALUE_OF_MEASUREMENT.E60')

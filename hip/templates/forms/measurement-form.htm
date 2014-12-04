@@ -1,0 +1,76 @@
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+<!-- Resource Measurement CRUD Form -->
+<div id="measurement-section">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-measurement-form" class="section-headline">Measurements</h5>
+                    </dt>
+                    <!-- Form -->
+                    <dd>
+                        <div class="row">
+
+                            <div class="col-xs-12">
+
+                                <!-- Screens greater than xs -->                                        
+                                <!-- Measurement Type -->   
+                                <div style="width:30%; height: 36px; padding-top: 2px; display:inline-block;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-measurement-type" data-bind="select2: { data: domains.MEASUREMENT_TYPE_E55, placeholder: 'Type', viewModel: editing.MEASUREMENT_TYPE_E55, conceptKey: 'MEASUREMENT_TYPE_E55'}"></div>
+
+                                <!-- Measurement Unit -->     
+                                <div style="width:30%; height: 36px; padding-top: 2px; padding-left: 4px; display:inline-block;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-measurement-unit" data-bind="select2: { data: domains.UNIT_OF_MEASUREMENT_E55, placeholder: 'Unit', viewModel: editing.MEASUREMENT_TYPE_E55, conceptKey: 'UNIT_OF_MEASUREMENT_E55'}"></div>
+
+                                <!-- Measurement Value -->
+                                <input class="form-control arches-form-input" id="measurement-value" style="width: 20%;" placeholder="value" data-bind='{value: editing.MEASUREMENT_TYPE_E55.VALUE_OF_MEASUREMENT_E60__value}'>
+                            
+                                <!-- Add Button -->
+                                {% include 'components/add-item-button.htm' %}
+                                <!-- End Add Button -->                                       
+                                <!-- End Screens greater than xs -->
+                            </div>
+                        </div>
+                    </dd>
+                    <!-- End Form -->
+
+                    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "Each measurement must have a type, unit, and value." %}</div>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <!-- Name Records -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        {% trans "This resource has these measurements:" %}
+                    </dd>
+
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: MEASUREMENT_TYPE_E55().length == 0" class="txt-color-blue">{% trans "No Measurements Defined" %}</div>   
+                        
+                        <div data-bind='foreach: MEASUREMENT_TYPE_E55'>
+                            <div class="arches-crud-record">
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this measurement"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this measurement"><span data-bind='{text: VALUE_OF_MEASUREMENT_E60__value}' style="padding-right:2px;"></span><span data-bind='{text: UNIT_OF_MEASUREMENT_E55__label}' style="padding-right:2px"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='{text: MEASUREMENT_TYPE_E55__label}'></span>)</span>
+                                </a>
+                            </div>
+                        </div>
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Name Records -->
+{% endblock form_content %}
