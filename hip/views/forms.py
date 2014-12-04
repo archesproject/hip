@@ -20,13 +20,13 @@ from arches.app.models.entity import Entity
 from arches.app.views.resources import ResourceForm
 from django.utils.translation import ugettext as _
 
-class ResourceSummaryForm(ResourceForm):
-    id = 'resource-summary-form'
+class SummaryForm(ResourceForm):
+    id = 'summary-form'
     icon = 'fa-tag'
     name = _('Resource Summary')
 
     def __init__(self, resource=None):
-        super(ResourceSummaryForm, self).__init__(resource=resource)
+        super(SummaryForm, self).__init__(resource=resource)
 
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('NAME.E41'):
@@ -82,13 +82,13 @@ class ResourceSummaryForm(ResourceForm):
             self.data['NAME_E41'] = self.get_nodes('NAME.E41')
 
 
-class ResourceDescriptionForm(ResourceForm):
-    id = 'resource-description-form'
+class DescriptionForm(ResourceForm):
+    id = 'description-form'
     icon = 'fa-picture-o'
     name = _('Descriptions')
 
     def __init__(self, resource=None):
-        super(ResourceDescriptionForm, self).__init__(resource=resource)
+        super(DescriptionForm, self).__init__(resource=resource)
 
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('DESCRIPTION.E62'):
@@ -123,13 +123,13 @@ class ResourceDescriptionForm(ResourceForm):
             self.data['DESCRIPTION_E62'] = self.get_nodes('DESCRIPTION.E62')
 
 
-class ResourceMeasurementForm(ResourceForm):
-    id = 'resource-measurement-form'
+class MeasurementForm(ResourceForm):
+    id = 'measurement-form'
     icon = 'fa-th-large'
     name = _('Measurements')
 
     def __init__(self, resource=None):
-        super(ResourceMeasurementForm, self).__init__(resource=resource)
+        super(MeasurementForm, self).__init__(resource=resource)
 
     def update(self, data):
         for entity in self.resource.find_entities_by_type_id('MEASUREMENT_TYPE.E55'):

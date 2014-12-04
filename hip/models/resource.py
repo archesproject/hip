@@ -32,9 +32,9 @@ class Resource(ArchesResource):
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
                 'forms': [
-                    hip_forms.ResourceSummaryForm, 
-                    hip_forms.ResourceDescriptionForm,
-                    hip_forms.ResourceMeasurementForm
+                    hip_forms.SummaryForm, 
+                    hip_forms.DescriptionForm,
+                    hip_forms.MeasurementForm
                 ]
             })      
 
@@ -73,32 +73,32 @@ class Resource(ArchesResource):
             'resourcetypeid': 'HERITAGE_RESOURCE.E18',
             'name': _('Heritage Resource'),
             'icon_class': 'fa fa-trophy',
-            'default_page': 'resource-summary-form'
+            'default_page': 'summary-form'
         },{
             'resourcetypeid': 'HISTORIC_DISTRICT.E18',
             'name': _('Historic District'),
             'icon_class': 'fa fa-bookmark-o',
-            'default_page': 'resource-summary-form'
+            'default_page': 'summary-form'
         },{
             'resourcetypeid': 'ACTIVITY.E7',
             'name': _('Activity'),
             'icon_class': 'fa fa-tasks',
-            'default_page': 'resource-summary-form'
+            'default_page': 'summary-form'
         },{
             'resourcetypeid': 'HISTORIC_EVENT.E18',
             'name': _('Historic Event'),
             'icon_class': 'fa fa-calendar-o',
-            'default_page': 'resource-summary-form'
+            'default_page': 'summary-form'
         },{
             'resourcetypeid': 'ACTOR.E39',
             'name': _('Actor'),
             'icon_class': 'fa fa-group',
-            'default_page': 'resource-summary-form'
+            'default_page': 'summary-form'
         },{
             'resourcetypeid': 'INFORMATION_RESOURCE.E73',
             'name': _('Information Resource'),
             'icon_class': 'fa fa-file-text-o',
-            'default_page': 'resource-summary-form'
+            'default_page': 'summary-form'
         }]
 
         return types      
