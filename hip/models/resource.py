@@ -17,6 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 from django.conf import settings
 import arches.app.models.models as archesmodels
+from arches.app.models.edit_history import EditHistory
 from arches.app.models.resource import Resource as ArchesResource
 from hip.views import forms as hip_forms
 from django.utils.translation import ugettext as _
@@ -42,7 +43,9 @@ class Resource(ArchesResource):
             'id': 'resource-evaluation',
             'icon': 'fa-dashboard',
             'name': _('Evaluate Resource'),
-            'forms': []
+            'forms': [
+                EditHistory.get_info()
+            ]
         })
 
     def get_primary_name(self):
