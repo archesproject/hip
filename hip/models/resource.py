@@ -83,32 +83,32 @@ class Resource(ArchesResource):
             'resourcetypeid': 'HERITAGE_RESOURCE.E18',
             'name': _('Heritage Resource'),
             'icon_class': 'fa fa-trophy',
-            'default_page': 'summary-form'
+            'default_page': 'summary'
         },{
             'resourcetypeid': 'HISTORIC_DISTRICT.E18',
             'name': _('Historic District'),
             'icon_class': 'fa fa-bookmark-o',
-            'default_page': 'summary-form'
+            'default_page': 'summary'
         },{
             'resourcetypeid': 'ACTIVITY.E7',
             'name': _('Activity'),
             'icon_class': 'fa fa-tasks',
-            'default_page': 'summary-form'
+            'default_page': 'summary'
         },{
             'resourcetypeid': 'HISTORIC_EVENT.E18',
             'name': _('Historic Event'),
             'icon_class': 'fa fa-calendar-o',
-            'default_page': 'summary-form'
+            'default_page': 'summary'
         },{
             'resourcetypeid': 'ACTOR.E39',
             'name': _('Actor'),
             'icon_class': 'fa fa-group',
-            'default_page': 'summary-form'
+            'default_page': 'summary'
         },{
             'resourcetypeid': 'INFORMATION_RESOURCE.E73',
             'name': _('Information Resource'),
             'icon_class': 'fa fa-file-text-o',
-            'default_page': 'summary-form'
+            'default_page': 'summary'
         }]
 
         return types      

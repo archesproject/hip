@@ -24,7 +24,7 @@ class SummaryForm(ResourceForm):
     @staticmethod
     def get_info():
         return {
-            'id': 'summary-form',
+            'id': 'summary',
             'icon': 'fa-tag',
             'name': _('Resource Summary'),
             'class': SummaryForm
@@ -72,7 +72,7 @@ class DescriptionForm(ResourceForm):
     @staticmethod
     def get_info():
         return {
-            'id': 'description-form',
+            'id': 'description',
             'icon': 'fa-picture-o',
             'name': _('Descriptions'),
             'class': DescriptionForm
@@ -99,7 +99,7 @@ class MeasurementForm(ResourceForm):
     @staticmethod
     def get_info():
         return {
-            'id': 'measurement-form',
+            'id': 'measurement',
             'icon': 'fa-th-large',
             'name': _('Measurements'),
             'class': MeasurementForm
@@ -133,7 +133,7 @@ class ConditionForm(ResourceForm):
     @staticmethod
     def get_info():
         return {
-            'id': 'condition-form',
+            'id': 'condition',
             'icon': 'fa-asterisk',
             'name': _('Condition Assessment'),
             'class': ConditionForm
