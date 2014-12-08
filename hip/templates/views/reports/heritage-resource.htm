@@ -18,4 +18,788 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 {% load staticfiles %}
 {% load i18n %}
 
-Hello heritage resource form!
+            <!--=== Breadcrumbs ===-->
+        <div class="breadcrumbs">
+            <div class="container">
+
+                <div class="row">
+
+                    <!-- Project Name (screens small and bigger)-->
+                    <div class="hidden-xs col-sm-8">
+
+                        <h1 class="pull-left arches-breadcrumb-title"><i class="fa fa-trophy"></i>Castle Wolfenstein <small class="">Historic Resource</small></h1>
+                    </div>
+
+                    <!-- Project Name (screens extra small)-->
+                     <div class="hidden-sm hidden-md hidden-lg">
+                        <h1 class="arches-breadcrumb-title margin-left-15 margin-bottom-0" style="margin-top: -5px;"><i class="fa fa-trophy"></i>Castle Wolfenstein <small class="">Historic Resource</small></h1>
+                        <hr class="margin-top-minus-10 margin-bottom-10" style="border-width: 0px;">
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 col-md-offset-1">
+
+                        <div class="btn-group margin-top-5">
+                            
+                            <!-- Invoke style switcher from this button by adding the tyle-switcher-btn class
+                            <button type="button" class="style-switcher-btn btn btn-primary" data-toggle="">
+                            -->
+
+                            <button type="button" id="report_options" class="btn btn-primary hidden-xs" style="margin-top: 5px;" data-toggle="">
+                            
+                                Report Options &nbsp;
+                                <i class="fa fa-chevron-down"></i>
+                                <span class="sr-only">Toggle Dropdown</span>                            
+                            </button>
+                            <div class="arches-report-options animated fadeIn">
+                                <ul class="arches-menu" role="menu">
+                                    <li style="margin-top: 2px; margin-bottom: 2px;"><a href="#overview" class="arches-menu-item theme-close">Overview</a></li>
+                                    <li><a href="#topSection2" class="arches-menu-item theme-close">Resource Description</a></li>
+                                    <li class="arches-menu-divider"></li>
+                                    <li><a href="#" class="arches-menu-item theme-close">close</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--=== End Breadcrumbs ===-->
+
+    <!-- End Fixed Nav for Report -->
+
+
+    <!--=== Map Block ===-->
+    <div id="map" class="map arches-report-map"></div>  
+    <!--=== End Map Block ===-->
+
+
+    <!--=== Project Description ===-->
+    <div class="block-description">
+        <div class="container">
+
+            <!-- Project Summary -->
+            <div>
+                <!-- Anchor for in=page navigation from "report options" menu -->
+                <a href="overview" id="overview" style="top: 250px;"></a>
+
+                <!-- Section Header, Small to Large Screens -->
+                <div class="hidden-xs">
+                    <i class="center-icon rounded-x fa fa-folder-open"></i>
+                    <div class="margin-top-minus-22">
+                        <h2 class="text-center"></h2>
+                    </div> 
+                </div>
+
+                <!-- Section Header, XS Screens -->
+                <div class="hidden-sm hidden-md hidden-lg">
+                    <i class="center-icon rounded-x fa fa-folder-open"></i>
+                    <div class="margin-top-minus-20">
+                        <h2 class="text-center margin-bottom-0"></h2>
+                    </div> 
+                </div>
+
+                <!-- Project Summary Content -->
+                <div class="row">
+                    
+                    <!-- Spacer -->
+                    <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
+
+                    <!-- Project Information -->
+                    <div class="col-xs-12">
+                        <div class="right-inner arches-box-grey-border">
+                            
+                            <!-- Names/Type -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Historic Resoure Summary</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- Resource Image -->
+                                            <div class="row">
+                                                <div class="col-xs-12 shadow-wrapper margin-bottom-20">
+                                                    <dl>
+                                                        <dd class="arches-report-content margin-bottom-10">
+                                                            <h3 class="margin-top-minus-5 margin-bottom-0 txt-color-blue">Castle Wolfenstein</h3>
+                                                            <span class="arches-report-content">
+                                                                    Schloss Wolfenstein <small>(Alternate name)</small>, Wolfenstein Palace <small> (Local name)<small>
+                                                            </span>
+                                                        </dd>
+
+                                                        <dd class="arches-report-content">
+                                                            <img style="width: 100%;" src="assets/img/arches_splash/union_station.jpg" data-img="assets/img/arches_splash/union_station.jpg" alt="Castle Wolfenstein" class="img-bordered">
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Resource Names/Type -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Resource Type</dt>
+                                                        <dd class="arches-report-content">Historic Resource, Architectural Feature</dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Architect/Builder/Owner -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Architect</dt>
+                                                        <dd class="arches-report-content"><a href="#">Frank Lloyd Wright</a></dd> 
+                                                    </dl>
+                                                </div>
+
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Builder</dt>
+                                                        <dd class="arches-report-content"><a href="#">Castles Are Us</a></dd>  
+                                                    </dl>
+                                                </div>
+
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Original Owner</dt>
+                                                        <dd class="arches-report-content"><a href="#">King Arthur</a></dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Names/Type Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+                            <!-- Location -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Location Information</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- Addresses -->
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Adresses</dt>
+                                                        <dd class="arches-report-content">1122 Bellamy Ave</dd>
+                                                        <dd class="arches-report-content">Los Angeles, CA  92222</dd>
+                                                        <dd class="arches-report-content"><small class="text-muted">(Primary address)</small></dd>
+                                                    </dl>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <dl>
+                                                        <dt class="arches-report-header">&nbsp;</dt>
+                                                        <dd class="arches-report-content">802 N. Branciforte Ave</dd>
+                                                        <dd class="arches-report-content">Los Angeles, CA  92222</dd>
+                                                        <dd class="arches-report-content"><small class="text-muted">(Alternate address)</small></dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Location Description-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Location Description</dt>
+                                                        <dd class="arches-report-content">
+                                                            Here's where the resource location description will go.  It might be relatively long, so it might take several lines of text to fit it all in.  Here's alot of extra text just to see.  And the good news is that even a very long description can be accomodated very easily by this widget...
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Admin Areas-->
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Administrative Areas</dt>
+                                                        <dd class="arches-report-content">
+                                                            Los Angeles County 
+                                                            <span class="text-muted"><small>&nbsp; (County)</small></span>
+                                                        </dd>
+
+                                                        <dd class="arches-report-content">
+                                                            Brentwood
+                                                            <span class="text-muted"><small>&nbsp; (Neighborhood District)</small></span>
+                                                        </dd>
+
+                                                        <dd class="arches-report-content">
+                                                            Maury Gladhander
+                                                            <span class="text-muted"><small>&nbsp; (City Council District)</small></span>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cadastral References-->
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Parcels</dt>
+                                                        <dd class="arches-report-content">11-45-3390</dd>
+                                                        <dd class="arches-report-content">11-45-3389</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Location Section -->
+
+                        </div>
+                    </div>
+                    <!-- End Project Information -->
+                    
+                </div>   
+            </div>
+            <!-- End Project Summary -->
+        </div>
+    </div>
+
+
+    <!-- Resource Description -->
+    <a id="topSection2" style="top: 250px;"></a>
+    <div class="block-level-v2" style="background: #f5f5f5; border-top: 1px solid #dcdcdc; padding-bottom: 80px;">
+
+        <div class="container">
+
+            <!-- Project Summary -->
+            <div>
+            
+                <!-- Section Header, Small to Large Screens -->
+                <div class="hidden-xs">
+                    <i class="center-icon rounded-x fa fa-pencil-square-o"></i>
+                    <div class="margin-top-minus-10">
+                        <h2 class="text-center">Resource Description</h2>
+                    </div> 
+                </div>
+
+                <!-- Section Header, XS Screens -->
+                <div class="hidden-sm hidden-md hidden-lg">
+                    <i class="center-icon rounded-x fa fa-pencil-square-o"></i>
+                    <div class="margin-top-minus-20">
+                        <h2 class="text-center margin-bottom-0">Resource Description</h2>
+                    </div> 
+                </div> 
+
+                <!-- Project Summary Content -->
+                <div class="row">
+                    
+                    <!-- Spacer -->
+                    <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
+
+                    <!-- Project Information -->
+                    <div class="col-xs-12">
+                        <div class="right-inner arches-box-grey-border padding-top-20">
+                            
+                            <!-- Names/Type -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Architectural/Resource Style Summary</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- Resource Style -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Architectural/Resource Style</dt>
+                                                        <dd class="arches-report-content">
+                                                            Gothic
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Resource Description -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Description</dt>
+                                                        <dd class="arches-report-content">
+                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit...
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                    
+                                            <!-- Alterations -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Alterations</dt>
+                                                        <dd class="arches-report-content">Addition to rear/side elevation</dd>
+                                                        <dd class="arches-report-content">Awnings added</dd>
+                                                        <dd class="arches-report-content">Carport added</dd>
+                                                        <dd class="arches-report-content">Chimney altered</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Related Architectural Features/Components -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Related Architectural Elements</dt>
+                                                        <dd class="arches-report-content">Barn</dd>
+                                                        <dd class="arches-report-content">Carriage House</dd>
+                                                        <dd class="arches-report-content">Signage</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Names/Type Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+                            <!-- Location -->
+                            <div class="row margin-bottom-20">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Resource Significance</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- Location Description-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Context</dt>
+                                                        <dd class="arches-report-content">
+                                                            Pre-Consolidation Communities of Los Angeles, 1850-1932 
+                                                        </dd>
+                                                        <dd class="arches-report-content">
+                                                            Hollywood, 1850-1910 
+                                                        </dd>
+                                                        <dd class="arches-report-content">
+                                                            Important Events in Hollywood History, 1850-1910 (Criterion A)
+                                                        </dd>
+                                                        <dd class="arches-report-content">
+                                                            Property Type: Commercial
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Admin Areas-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Eligibility Standards</dt>
+                                                        <dd class="arches-report-content margin-bottom-5">
+                                                            Is associated with an event or series of events important in the formation, settlement, or development of Hollywood
+                                                        </dd>
+                                                        <dd class="arches-report-content margin-bottom-5">
+                                                            Represents a resource dating from the pre-annexation period of Hollywood
+                                                        </dd>
+                                                    </div>
+                                                </div>
+
+                                            <!-- Status Codes -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Status Codes</dt>
+                                                        <dd class="arches-report-content">
+                                                            H3 <span class="text-muted"><small>(Federal)</small></span> &nbsp;
+                                                            3R <span class="text-muted"><small>(State)</small></span> &nbsp;
+                                                            3RL <span class="text-muted"><small>(Local)</small></span>
+                                                        </dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Designation TName-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Designation Name</dt>
+                                                        <dd class="arches-report-content">
+                                                            XXXXXXXX
+                                                        <dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Designation Type-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Designation Type</dt>
+                                                        <dd class="arches-report-content">
+                                                            City Historic-Cultural Monuments (HCM)
+                                                        <dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Designation Date-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Designation Date</dt>
+                                                        <dd class="arches-report-content">
+                                                            August 21, 2014
+                                                        <dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <!-- Significance Summary -->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <dl>
+                                                        <dt class="arches-report-header">Significance Summary</dt>
+                                                        <dd class="arches-report-content">
+                                                            This is where the "reason statement" will go. The reason statement might be a long block of text that spans several lines...
+                                                        </dd> 
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Location Section -->
+
+                        </div>
+                    </div>
+                    <!-- End Project Information -->
+                    
+                </div>   
+            </div>
+            <!-- End Project Summary -->
+        </div>
+    </div>
+
+
+    <!-- Related Resources -->
+    <div class="block-level-v2 padding-all-20" style="background: #f9f9f9; border-top: 1px solid #dcdcdc;">
+        <div class="container">
+
+            <div>
+                <!-- Section Header, Small to Large Screens -->
+                <div class="hidden-xs">
+                    <i class="center-icon rounded-x fa fa-exchange"></i>
+                    <div class="margin-top-minus-10">
+                        <h2 class="text-center">Related Resources</h2>
+                    </div> 
+                </div>
+
+                <!-- Section Header, XS Screens -->
+                <div class="hidden-sm hidden-md hidden-lg">
+                    <i class="center-icon rounded-x fa fa-exchange"></i>
+                    <div class="margin-top-minus-20">
+                        <h2 class="text-center margin-bottom-0">Related Resources</h2>
+                    </div> 
+                </div> 
+
+                <!-- Content -->
+                <div class="row">
+                    
+                    <!-- Spacer -->
+                    <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
+
+                    <!-- Related Historic Resources -->
+                    <div class="col-xs-12">
+                        <div class="right-inner arches-report-grey-block margin-bottom-40">
+                            
+                            <!-- Container -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Historic Resources</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- List of Related Resources -->
+                                            <div class="margin-bottom-10 padding-left-10">
+                                                <dl>                               
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="View Report">
+                                                            The Nunnery of Carol 
+                                                        </a>
+                                                        <span class="text-muted"><small>(Building, is part of)</small></span> 
+                                                    </dd> 
+                                                </dl>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+                            </div>
+                            <!-- End Related Historic Resources Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Related Historic Districts -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Historic Districts</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- List of Related Resources -->
+                                            <div class="margin-bottom-10 padding-left-10">
+                                                <dl>                               
+                                                    <dd class="">
+                                                        <p class="arches-CRUD-child text-muted">
+                                                            None
+                                                        </p>
+                                                    </dd>
+
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+                            </div>
+                            <!-- End Related Historic Districts Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Related Activities -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Activities</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- List of Related Resources -->
+                                            <div class="margin-bottom-10 padding-left-10">
+                                                <dl>                               
+                                                    <dd class="">
+                                                        <p class="arches-CRUD-child text-muted">
+                                                            None
+                                                        </p>
+                                                    </dd>
+
+                                                </dl>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+                            </div>
+                            <!-- End Related Activities -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Related Historic Events -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Historic Events</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- List of Related Resources -->
+                                            <div class="margin-bottom-10 padding-left-10">
+                                                <dl>
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="View Report">
+                                                            The Signing of the Magna Carta 
+                                                        </a>
+                                                        <span class="text-muted"><small>(Historic Event, occured at)</small></span> 
+                                                    </dd> 
+                                                    
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="View Report">
+                                                            King Arthur is crowned 
+                                                        </a>
+                                                        <span class="text-muted"><small>(Historic Event, occured at)</small></span> 
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+                            </div>
+                            <!-- End Related Historic Events Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Related Actors -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Actors</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- List of Related Resources -->
+                                            <div class="margin-bottom-10 padding-left-10">
+                                                <dl> 
+                                                    <dt> 
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="View Report">
+                                                            King Arthur
+                                                        </a>
+                                                        <span class="text-muted"><small>(Person, owned)</small></span> 
+                                                    </dd>                              
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+                            </div>
+                            <!-- End Related Actors Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Related Information Objects -->
+                            <div class="row">
+
+                                <!-- Section Header -->
+                                <div class="col-sm-4">
+                                    <h3 class="margin-top-0 margin-bottom-5">Information Object Resources</h3>
+                                </div>
+                                <!-- End Section Header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+                                    <div class="padding-10 margin-top-minus-5">
+                                        <div class="">
+
+                                            <!-- Images -->
+                                            <div class="row margin-bottom-30">
+                                                <div class="col-md-6 shadow-wrapper md-margin-bottom-40">
+                                                    <div class="box-shadow shadow-effect-2">
+                                                        <img style="width: 100%;" src="img/superbox/superbox-full-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="Image Name" title="View Report" class="superbox-img img-bordered">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 shadow-wrapper">
+                                                    <div class="box-shadow shadow-effect-2">
+                                                        <img style="width: 100%;" src="img/superbox/superbox-full-3.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="Image Name" title="View Report" class="superbox-img img-bordered">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Images -->
+
+                                            <!-- List of Related Resources (Documents)-->
+                                            <div class="margin-bottom-10 padding-left-10">
+                                                <dl>   
+                                                    <dt class="arches-report-header">Documents</dt>
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="View Report">
+                                                            The Complete History of Castle Anthrax
+                                                        </a>
+                                                        <span class="text-muted"><small>(Document, describes)</small></span> 
+                                                    </dd>                            
+                                                </dl>
+                                            </div>
+                                            <!-- End List of Related Resources (Documents)-->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+                            </div>
+                            <!-- End Related Information Objects Section -->
+
+                        </div>
+                    </div>
+                    <!-- End Related Historic Resources -->
+                </div>   
+            </div>
+        </div> 
+    </div>    
+    <!-- End Related Resource Container -->
