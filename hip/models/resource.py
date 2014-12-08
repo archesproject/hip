@@ -78,6 +78,18 @@ class Resource(ArchesResource):
 
 
     @staticmethod
+    def get_report(resourceid):
+        # get resource data for resource_id from ES, return data
+        # with correct id for the given resource type
+        return {
+            'id': 'heritage-resource',
+            'data': {
+                'hello_world': 'Hello World!'
+            }
+        }
+
+
+    @staticmethod
     def get_resource_types():
         types = [{
             'resourcetypeid': 'HERITAGE_RESOURCE.E18',
