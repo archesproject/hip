@@ -10,6 +10,9 @@ INSTALLED_APPS = INSTALLED_APPS + (PACKAGE_NAME,)
 STATICFILES_DIRS = (os.path.join(PACKAGE_ROOT, 'media'),) + STATICFILES_DIRS
 TEMPLATE_DIRS = (os.path.join(PACKAGE_ROOT, 'templates'),os.path.join(PACKAGE_ROOT, 'templatetags')) + TEMPLATE_DIRS
 RESOURCE_MODEL = {'default': 'hip.models.resource.Resource'}
+DEFAULT_MAP_X = -13168799.0
+DEFAULT_MAP_Y = 4012635.2
+DEFAULT_MAP_ZOOM = 10
 
 PRIMARY_DISPLAY_NAME_LOOKUPS = {
    'default':{
