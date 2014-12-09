@@ -52,7 +52,7 @@ class Resource(ArchesResource):
         displayname = super(Resource, self).get_primary_name()
         names = self.get_names()
         if len(names) > 0:
-            displayname = names[0]
+            displayname = names[0].value
         return displayname
 
 
@@ -69,7 +69,7 @@ class Resource(ArchesResource):
         names = []
 
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
-            name_nodes = self.get_root().find_entities_by_type_id(entitytype_of_primaryname)
+            name_nodes = self.find_entities_by_type_id(entitytype_of_primaryname.pk)
             if len(name_nodes) > 0:
                 for name in name_nodes:
                     names.append(name)
@@ -124,4 +124,3 @@ class Resource(ArchesResource):
         }]
 
         return types      
-
