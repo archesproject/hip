@@ -71,7 +71,27 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
     <!--=== Map Block ===-->
-    <div id="map" class="map arches-report-map"></div>  
+<!--     <div id="map" class="map"></div>  
+      <select id="layer-select">
+        <option value="Aerial">Aerial</option>
+        <option value="AerialWithLabels" selected>Aerial with labels</option>
+        <option value="Road">Road</option>
+        <option value="collinsBart">Collins Bart</option>
+        <option value="ordnanceSurvey">Ordnance Survey</option>
+      </select>
+ -->
+
+      <div class="row-fluid">
+        <div class="span12">
+          <div id="map" class="map"></div>
+
+          <select id="layer-select">
+            <option value="Aerial">Aerial</option>
+            <option value="AerialWithLabels" selected>Aerial with labels</option>
+            <option value="Road" selected>Road</option>
+          </select>
+        </div>
+      </div>
     <!--=== End Map Block ===-->
 
 
