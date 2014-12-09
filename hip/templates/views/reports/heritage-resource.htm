@@ -26,8 +26,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                     <!-- Project Name (screens small and bigger)-->
                     <div class="hidden-xs col-sm-8">
-
-                        <h1 class="pull-left arches-breadcrumb-title"><i class="fa fa-trophy"></i>Castle Wolfenstein <small class="">Historic Resource</small></h1>
+                        {% for NAME_E41 in report_info.NAME_E41 %}
+                        {% if NAME_E41.NAME_TYPE_E55 == 'NAME_TYPE:1' %}
+                        <h1 class="pull-left arches-breadcrumb-title"><i class="fa fa-trophy"></i>{{ NAME_E41.NAME_E41 }} <small class="">Historic Resource</small></h1>
+                        {% endif %}
+                        {% empty %}
+                        <h1 class="pull-left arches-breadcrumb-title"><i class="fa fa-trophy"></i>No Names Associated with this Resource <small class="">Historic Resource</small></h1>
+                        {% endfor %}
                     </div>
 
                     <!-- Project Name (screens extra small)-->
@@ -149,10 +154,22 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                 <div class="col-xs-12 shadow-wrapper margin-bottom-20">
                                                     <dl>
                                                         <dd class="arches-report-content margin-bottom-10">
-                                                            <h3 class="margin-top-minus-5 margin-bottom-0 txt-color-blue">Castle Wolfenstein</h3>
+                                                        {% for NAME_E41 in report_info.NAME_E41 %}
+                                                        {% if NAME_E41.NAME_TYPE_E55 == 'NAME_TYPE:1' %}
+                                                            <h3 class="margin-top-minus-5 margin-bottom-0 txt-color-blue">{{ NAME_E41.NAME_E41 }}</h3>
                                                             <span class="arches-report-content">
-                                                                    Schloss Wolfenstein <small>(Alternate name)</small>, Wolfenstein Palace <small> (Local name)<small>
-                                                            </span>
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                        {% for NAME_E41 in report_info.NAME_E41 %}
+                                                        {% if NAME_E41.NAME_TYPE_E55 != 'NAME_TYPE:1' %}
+                                                        {% if forloop.last %}
+                                                                    {{ NAME_E41.NAME_E41 }} <small>({{NAME_E41.NAME_TYPE_E55}})</small>
+                                                        {% else %}
+                                                                    {{ NAME_E41.NAME_E41 }} <small>({{NAME_E41.NAME_TYPE_E55}}), </small>
+                                                        {% endif %}
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                        </span>
                                                         </dd>
 
                                                         <dd class="arches-report-content">
