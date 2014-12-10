@@ -76,25 +76,21 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
     <!--=== Map Block ===-->
-<!--     <div id="map" class="map"></div>  
-      <select id="layer-select">
-        <option value="Aerial">Aerial</option>
-        <option value="AerialWithLabels" selected>Aerial with labels</option>
-        <option value="Road">Road</option>
-        <option value="collinsBart">Collins Bart</option>
-        <option value="ordnanceSurvey">Ordnance Survey</option>
-      </select>
- -->
 
       <div class="row-fluid">
         <div class="span12">
-          <div id="map" class="map"></div>
+          <div id="map" class="map">
+          <div style="display:none;" id="map-data">
+            <input type="hidden" id="map-content" value='{{ report_info.SPATIAL_COORDINATES_GEOMETRY_E47 }}'>
+          </div>
+            <div id="toolbox" style='position:absolute; top:220px; right:8px; padding:3px; border-radius:4px; background: rgba(255, 255, 255, 0.7); z-index:100; color:#fff'>
+            <ul id="layerswitcher" style='margin:0; padding:10px; border-radius:4px; background:rgba(0, 60, 136, 0.5); list-style-type:none;'>
+            <li><label><input type="radio" name="layer" value="0" checked> Road</label></li>
+            <li><label><input type="radio" name="layer" value="1"> Aerial</label></li>
+            </ul>
+            </div>
+          </div>
 
-          <select id="layer-select">
-            <option value="Aerial">Aerial</option>
-            <option value="AerialWithLabels" selected>Aerial with labels</option>
-            <option value="Road" selected>Road</option>
-          </select>
         </div>
       </div>
     <!--=== End Map Block ===-->
