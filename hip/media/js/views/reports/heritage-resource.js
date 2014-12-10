@@ -1,4 +1,4 @@
-require(['jquery','arches','bootstrap','openlayers'], function($, arches) {
+require(['jquery','arches','views/map','bootstrap'], function($, arches, MapView) {
     $(document).ready(function() {
         //ContactPage.initMap();
         CirclesMaster.initCirclesMaster1();
@@ -38,33 +38,13 @@ require(['jquery','arches','bootstrap','openlayers'], function($, arches) {
             });
         }
 
-        var styles = [
-                  'Aerial','Road','AerialWithLabels','collinsBart','ordnanceSurvey'
-                ];
-
-        var layers = [];
-        var i, ii;
-        for (i = 0, ii = styles.length; i < ii; ++i) {
-          layers.push(new ol.layer.Tile({
-            visible: false,
-            preload: Infinity,
-            source: new ol.source.BingMaps({
-              key: 'Ak-dzM4wZjSqTlzveKz5u0d4IQ4bRzVI309GxmkgSVr1ewS6iPSrOvOKhA-CJlm3',
-              imagerySet: styles[i]
-            })
-          }));
-        }
-        var map = new ol.Map({
-          layers: layers,
-          target: 'map',
-          view: new ol.View({
-                center: [-13168799.0, 4012635.2],
-                zoom: 10
-          })
+        var mapView = new MapView({
+          el: $('#map')
         });
 
         $('#layer-select').change(function() {
           var style = $(this).find(':selected').val();
+          var layers = mapView.map.getLayers();
           var i, ii;
           for (i = 0, ii = layers.length; i < ii; ++i) {
             layers[i].setVisible(styles[i] == style);
