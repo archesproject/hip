@@ -43,11 +43,10 @@ require(['jquery','arches','views/map','bootstrap'], function($, arches, MapView
         });
 
         $('#layer-select').change(function() {
-          var style = $(this).find(':selected').val();
-          var layers = mapView.map.getLayers();
+          var basemap = $(this).find(':selected').val();
           var i, ii;
-          for (i = 0, ii = layers.length; i < ii; ++i) {
-            layers[i].setVisible(styles[i] == style);
+          for (i = 0, ii = mapView.baseLayers.length; i < ii; ++i) {
+              mapView.baseLayers[i].layer.setVisible(mapView.baseLayers[i].id == basemap);
           }
         });
         $('#layer-select').trigger('change');
