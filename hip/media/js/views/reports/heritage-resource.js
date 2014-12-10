@@ -1,4 +1,4 @@
-require(['jquery','arches','views/map','bootstrap'], function($, arches, MapView) {
+require(['jquery','arches','views/map', 'knockout', 'bootstrap'], function($, arches, MapView, ko) {
     $(document).ready(function() {
         //ContactPage.initMap();
         CirclesMaster.initCirclesMaster1();
@@ -38,18 +38,58 @@ require(['jquery','arches','views/map','bootstrap'], function($, arches, MapView
             });
         }
 
-        var mapView = new MapView({
-          el: $('#map')
+        function createVectorLayer(){
+            var format = new ol.format.WKT();
+            var feature = format.readFeature($('#map-content').val());
+            feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+            var vector = new ol.layer.Vector({
+                  source: new ol.source.Vector({
+                    features: [feature],
+                    visible: true
+                  })
+                });
+            return vector
+            }
+
+
+        var map = new MapView({
+            el: $('#map')
         });
 
-        $('#layer-select').change(function() {
-          var basemap = $(this).find(':selected').val();
-          var i, ii;
-          for (i = 0, ii = mapView.baseLayers.length; i < ii; ++i) {
-              mapView.baseLayers[i].layer.setVisible(mapView.baseLayers[i].id == basemap);
-          }
-        });
-        $('#layer-select').trigger('change');
+        var viewModel = {
+            baseLayers: map.baseLayers
+        };
+
+        ko.applyBindings(viewModel, $('body')[0]);
+
+        $(".basemap").click(function (){ 
+
+            var basemap = $(this).attr('id');
+            var i, ii;
+            for (i = 0, ii = map.baseLayers.length; i < ii; ++i) {
+                map.baseLayers[i].layer.setVisible(map.baseLayers[i].id == basemap);
+            }
+
+            //keep page from re-loading
+            return false;
+
+            });
+
+        var vectorLayer = createVectorLayer();
+
+        function zoomToLayer(vectorLayer, map){
+            var extent = (vectorLayer.getSource().getExtent());
+            var size = (map.map.getSize());
+            var view = map.map.getView()
+            view.fitExtent(
+                extent,
+                size
+              );
+            }
+
+
+        map.map.addLayer(vectorLayer)
+        zoomToLayer(vectorLayer, map)
 
 
     });
