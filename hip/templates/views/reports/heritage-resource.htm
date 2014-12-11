@@ -172,7 +172,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                 <div class="col-xs-12">
                                                     <dl>
                                                         <dt class="arches-report-header">Resource Type</dt>
-                                                        <dd class="arches-report-content">Historic Resource, Architectural Feature</dd> 
+                                                        {% for HERITAGE_RESOURCE_TYPE_E55 in report_info.HERITAGE_RESOURCE_TYPE_E55 %}
+                                                        {% if forloop.last %}
+                                                            <small class="arches-report-content">{{HERITAGE_RESOURCE_TYPE_E55}}</small>
+                                                        {% else %}
+                                                            <small class="arches-report-content">{{HERITAGE_RESOURCE_TYPE_E55}},</small>
+                                                        {% endif %}
+                                                        {% empty %}
+                                                            <small class="arches-report-content">No resource types listed.</small>
+                                                        {% endfor %}  
                                                     </dl>
                                                 </div>
                                             </div>
