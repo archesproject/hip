@@ -91,7 +91,6 @@ require(['jquery','arches','views/map', 'knockout', 'bootstrap'], function($, ar
         map.map.addLayer(vectorLayer)
         zoomToLayer(vectorLayer, map)
 
-
     });
 
 });

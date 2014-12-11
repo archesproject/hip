@@ -80,9 +80,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         <div style="display:none;" id="map-data">
         <input type="hidden" id="map-content" value='{{ report_info.SPATIAL_COORDINATES_GEOMETRY_E47 }}'>
         </div>
-                <div class="col-xs-12" style="margin-top: -630px; float:right; width:260px">
-                    <div class="btn-group" role="group" data-bind='foreach: baseLayers'>
-                    <button data-bind="attr: { id: id }, text: name" type="button" class="btn btn-primary basemap info-click" style=""></button>
+                <div class="col-xs-12" style="margin-top: -640px; float:right; width:105px">
+                    <div class="btn-group-vertical" role="group" data-bind='foreach: baseLayers' style="padding:3px; border-radius:4px; background: rgba(255, 255, 255, 0.4); z-index:100; color:#fff'">
+                    <button data-bind="attr: { id: id }, text: name" type="button" class="btn btn-primary basemap info-click" style="background:rgba(0,60,136,.5);"></button>
                     </div>
             </div>
     <!--=== End Map Block ===-->
@@ -365,7 +365,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                     <dl>
                                                         <dt class="arches-report-header">Architectural/Resource Style</dt>
                                                         <dd class="arches-report-content">
-                                                            Gothic
+                                                            {{ report_info.STYLE_E55 }}
                                                         </dd>
                                                     </dl>
                                                 </div>
@@ -377,7 +377,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                     <dl>
                                                         <dt class="arches-report-header">Description</dt>
                                                         <dd class="arches-report-content">
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit...
+                                                            {{ report_info.DESCRIPTION_E62 }}
                                                         </dd>
                                                     </dl>
                                                 </div>
@@ -387,11 +387,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <dl>
+                                                        <!-- MODIFICATION_EVENT_E11 -->
                                                         <dt class="arches-report-header">Alterations</dt>
-                                                        <dd class="arches-report-content">Addition to rear/side elevation</dd>
-                                                        <dd class="arches-report-content">Awnings added</dd>
-                                                        <dd class="arches-report-content">Carport added</dd>
-                                                        <dd class="arches-report-content">Chimney altered</dd>
+                                                        {% for modification in report_info.MODIFICATION_EVENT_E11 %}
+                                                        <dd class="arches-report-content">{{ modification.MODIFICATION_TYPE_E55 }}</dd>
+                                                        {% endfor %}
                                                     </dl>
                                                 </div>
                                             </div>
@@ -401,9 +401,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                 <div class="col-xs-12">
                                                     <dl>
                                                         <dt class="arches-report-header">Related Architectural Elements</dt>
-                                                        <dd class="arches-report-content">Barn</dd>
-                                                        <dd class="arches-report-content">Carriage House</dd>
-                                                        <dd class="arches-report-content">Signage</dd>
+                                                        {% for assignment in report_info.PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                        <dd class="arches-report-content">{{ assignment.ANCILLARY_FEATURE_TYPE_E55 }}</dd>
+                                                        {% endfor %}
                                                     </dl>
                                                 </div>
                                             </div>
@@ -438,18 +438,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                 <div class="col-xs-12">
                                                     <dl>
                                                         <dt class="arches-report-header">Context</dt>
-                                                        <dd class="arches-report-content">
-                                                            Pre-Consolidation Communities of Los Angeles, 1850-1932 
-                                                        </dd>
-                                                        <dd class="arches-report-content">
-                                                            Hollywood, 1850-1910 
-                                                        </dd>
-                                                        <dd class="arches-report-content">
-                                                            Important Events in Hollywood History, 1850-1910 (Criterion A)
-                                                        </dd>
-                                                        <dd class="arches-report-content">
-                                                            Property Type: Commercial
-                                                        </dd>
+                                                        {% for assignment in report_info.EVALUATION_CRITERIA_ASSIGNMENT_E17 %}
+                                                            <dd class="arches-report-content">{{ assignment.EVALUATION_CRITERIA_TYPE_E55 }}</dd>
+                                                        {% endfor %}
                                                     </dl>
                                                 </div>
                                             </div>
@@ -481,42 +472,43 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                     </dl>
                                                 </div>
                                             </div>
-
-                                            <!-- Designation TName-->
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <dl>
-                                                        <dt class="arches-report-header">Designation Name</dt>
-                                                        <dd class="arches-report-content">
-                                                            XXXXXXXX
-                                                        <dd> 
-                                                    </dl>
+                                            {% for protection in report_info.PROTECTION_EVENT_E65 %}
+                                                <!-- Designation TName-->
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <dl>
+                                                            <dt class="arches-report-header">Designation Name</dt>
+                                                            <dd class="arches-report-content">
+                                                                Designation name not in graph
+                                                            <dd> 
+                                                        </dl>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Designation Type-->
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <dl>
-                                                        <dt class="arches-report-header">Designation Type</dt>
-                                                        <dd class="arches-report-content">
-                                                            City Historic-Cultural Monuments (HCM)
-                                                        <dd> 
-                                                    </dl>
+                                                <!-- Designation Type-->
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <dl>
+                                                            <dt class="arches-report-header">Designation Type</dt>
+                                                            <dd class="arches-report-content">
+                                                                {{ protection.TYPE_OF_DESIGNATION_OR_PROTECTION_E55 }}
+                                                            <dd> 
+                                                        </dl>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Designation Date-->
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <dl>
-                                                        <dt class="arches-report-header">Designation Date</dt>
-                                                        <dd class="arches-report-content">
-                                                            August 21, 2014
-                                                        <dd> 
-                                                    </dl>
+                                                <!-- Designation Date-->
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <dl>
+                                                            <dt class="arches-report-header">Designation Date</dt>
+                                                            <dd class="arches-report-content">
+                                                                {{ protection.DESIGNATION_OR_PROTECTION_FROM_DATE_E49 }}
+                                                            <dd> 
+                                                        </dl>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            {% endfor %}
 
                                             <!-- Significance Summary -->
                                             <div class="row">
