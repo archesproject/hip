@@ -19,7 +19,7 @@ Source,Target,Type,Id,Label,Weight
 20,111,Directed,116,P2,1.0
 20,112,Directed,112,-P67,1.0
 20,142,Directed,146,P3,1.0
-20,166,Directed,171,P3,1.0
+20,167,Directed,172,-P138,1.0
 21,11,Directed,273,-P71,1.0
 23,2,Directed,274,-P71,1.0
 24,30,Directed,275,P2,1.0
@@ -76,8 +76,8 @@ Source,Target,Type,Id,Label,Weight
 93,95,Directed,110,P42,1.0
 93,123,Directed,126,P3,1.0
 93,124,Directed,127,P42,1.0
+93,130,Directed,175,P42,1.0
 94,122,Directed,125,-P71,1.0
-94,130,Directed,155,P42,1.0
 95,96,Directed,111,-P71,1.0
 99,100,Directed,408,-P71,1.0
 103,104,Directed,412,-P71,1.0
@@ -104,3 +104,5 @@ Source,Target,Type,Id,Label,Weight
 158,159,Directed,165,P78,1.0
 160,161,Directed,167,-P71,1.0
 162,165,Directed,169,P78,1.0
+167,166,Directed,174,P3,1.0
+167,169,Directed,173,P3,1.0
