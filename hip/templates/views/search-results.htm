@@ -49,7 +49,7 @@
                 <div class="col-xs-12" style="margin-top: -50px;">
                     <!-- <div id="searchmap" class="map arches-map-filter arches-search-map"></div>
                     <div id="map" class="fill"></div> -->
-                    <div id="map" class="map map-space-panel"></div>
+                    <div id="map" class="map arches-map-filter arches-search-map"></div>
                     <div id="olmap" class="fill"></div>
                     <div class="col-xs-12" style="margin-top: -640px; float:right; width:105px">
                         <div class="btn-group-vertical" role="group" data-bind='foreach: baseLayers' style="padding:3px; border-radius:4px; background: rgba(255, 255, 255, 0.4); z-index:100; color:#fff'">
@@ -135,10 +135,10 @@
                                         <div class="form-group margin-top-15 margin-bottom-0">
 
                                             <input type="text" class="slider slider-success" id="sal" value="" 
-                                            data-slider-min="1850" 
-                                            data-slider-max="2014" 
+                                            data-slider-min="{{min_date}}" 
+                                            data-slider-max="{{max_date}}" 
                                             data-slider-step="5" 
-                                            data-slider-value="[1850,2014]"
+                                            data-slider-value="[{{min_date}},{{max_date}}]"
                                             data-slider-handle="round">
                                                
                                         </div>

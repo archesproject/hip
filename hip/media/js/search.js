@@ -1,11 +1,13 @@
 require(['jquery', 
     'backbone',
+    'bootstrap',
     'arches', 
     'views/resource-search', 
     'views/map',
     'openlayers', 
-    'knockout'], 
-    function($, Backbone, arches, ResourceSearch, MapView, ol, ko) {
+    'knockout',
+    'plugins/bootstrap-slider/bootstrap-slider'], 
+    function($, Backbone, bootstrap, arches, ResourceSearch, MapView, ol, ko, Slider) {
     $(document).ready(function() {
         var SearchResultsView = Backbone.View.extend({
             el: $('body'),
@@ -21,16 +23,23 @@ require(['jquery',
 
             initialize: function(options) { 
                 var self = this;
+
+                this.dateFilterViewModel = {
+                    year_min_max: ko.observableArray(),
+                    filters: ko.observableArray()
+                };
+    
+
                 this.searchQuery = {
                     page: ko.observable(),
                     q: ko.observableArray(),
-                    date: ko.observable(),
+                    date: this.dateFilterViewModel,
                     geo: ko.observable(),
                     queryString: ko.pureComputed(function(){
                         var params = {
                             page: self.searchQuery.page(),
                             q: JSON.stringify(self.searchQuery.q()),
-                            date: self.searchQuery.date(),
+                            year_min_max: JSON.stringify(self.searchQuery.date.year_min_max()),
                             geo: self.searchQuery.geo()
                         }; 
                         return $.param(params);
@@ -76,13 +85,12 @@ require(['jquery',
                 };
                 //ko.applyBindings(this.mapFilterViewModel, $('#map-filter')[0]);
 
-                this.timeFilterViewModel = {
-                    filters: ko.observableArray()
-                };
-                ko.applyBindings(this.timeFilterViewModel, $('#time-filter')[0]);
+                
 
 
-                this.initMap();
+                this.initMapFilter();
+
+                this.initTimeFilter();
 
                 this.getSearchQuery();
 
@@ -237,30 +245,23 @@ require(['jquery',
 
 
                 }
-
-                function handleTimePanel() {    
-                    
-                    //function to toggle display of wizard div
-                    $( "#searchtime" ).slideToggle(600);
-
-                }
             },
 
-            initMap: function(){
-                function createVectorLayer(){
-                    var format = new ol.format.WKT();
-                    var feature = format.readFeature($('#map-content').val());
-                    feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                    var vector = new ol.layer.Vector({
-                        source: new ol.source.Vector({
-                            features: [feature],
-                            visible: true
-                        })
-                    });
-                    return vector;
-                }
+            initMapFilter: function(){
+                // function createVectorLayer(){
+                //     var format = new ol.format.WKT();
+                //     var feature = format.readFeature($('#map-content').val());
+                //     feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+                //     var vector = new ol.layer.Vector({
+                //         source: new ol.source.Vector({
+                //             features: [feature],
+                //             visible: true
+                //         })
+                //     });
+                //     return vector;
+                // }
 
-                var map = new MapView({
+                this.map = new MapView({
                     el: $('#map')
                 });
 
@@ -270,33 +271,48 @@ require(['jquery',
 
                 // ko.applyBindings(viewModel, $('#map')[0]);
 
-                $(".basemap").click(function (){ 
-                    var basemap = $(this).attr('id');
-                    var i, ii;
-                    for (i = 0, ii = map.baseLayers.length; i < ii; ++i) {
-                        map.baseLayers[i].layer.setVisible(map.baseLayers[i].id == basemap);
-                    }
+                // $(".basemap").click(function (){ 
+                //     var basemap = $(this).attr('id');
+                //     var i, ii;
+                //     for (i = 0, ii = map.baseLayers.length; i < ii; ++i) {
+                //         map.baseLayers[i].layer.setVisible(map.baseLayers[i].id == basemap);
+                //     }
 
-                    //keep page from re-loading
-                    return false;
+                //     //keep page from re-loading
+                //     return false;
 
-                    });
+                //     });
 
-                //var vectorLayer = createVectorLayer();
+                // //var vectorLayer = createVectorLayer();
 
-                function zoomToLayer(vectorLayer, map){
-                    var extent = (vectorLayer.getSource().getExtent());
-                    var size = (map.map.getSize());
-                    var view = map.map.getView()
-                    view.fitExtent(
-                        extent,
-                        size
-                    );
-                }
+                // function zoomToLayer(vectorLayer, map){
+                //     var extent = (vectorLayer.getSource().getExtent());
+                //     var size = (map.map.getSize());
+                //     var view = map.map.getView()
+                //     view.fitExtent(
+                //         extent,
+                //         size
+                //     );
+                // }
 
                 //map.map.addLayer(vectorLayer)
                 //zoomToLayer(vectorLayer, map)
 
+            },
+
+            initTimeFilter: function(){
+                var self = this;
+
+                this.slider = new Slider('input.slider', {});
+                this.slider.on('slideStop', function(evt){
+                    self.dateFilterViewModel.year_min_max(evt.value);
+                });
+
+                this.dateFilterViewModel.year_min_max.subscribe(function(newValue){
+                    self.slider.setValue(newValue);
+                });
+
+                ko.applyBindings(this.dateFilterViewModel, $('#time-filter')[0]);
             },
 
             newPage: function(evt){
@@ -375,6 +391,7 @@ require(['jquery',
                 var ele = $('#map-filter');
                 this.slideToggle(ele);
                 this.hideSavedSearches();
+                this.map.map.updateSize();
             },
 
             toggleTimeFilter: function(showOrHide){
@@ -450,7 +467,7 @@ require(['jquery',
 
         });
 
-        new SearchResultsView();
+        x = new SearchResultsView();
 
     });
 });

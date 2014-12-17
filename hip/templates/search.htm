@@ -1,7 +1,10 @@
 {% extends "base.htm" %}
 {% load i18n %}
 {% load staticfiles %}
-
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap-slider.min.css' %}">    
+{% endblock css%}
 {% block content %}
 
 <!--=== Search Block ===-->
