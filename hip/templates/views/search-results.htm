@@ -45,10 +45,17 @@
                     </div>
                 </div>
                     
-                    <!-- Map -->
+                <!-- Map -->
                 <div class="col-xs-12" style="margin-top: -50px;">
-                    <div id="searchmap" class="map arches-map-filter arches-search-map"></div>
+                    <!-- <div id="searchmap" class="map arches-map-filter arches-search-map"></div>
+                    <div id="map" class="fill"></div> -->
+                    <div id="map" class="map map-space-panel"></div>
                     <div id="olmap" class="fill"></div>
+                    <div class="col-xs-12" style="margin-top: -640px; float:right; width:105px">
+                        <div class="btn-group-vertical" role="group" data-bind='foreach: baseLayers' style="padding:3px; border-radius:4px; background: rgba(255, 255, 255, 0.4); z-index:100; color:#fff'">
+                        <button data-bind="attr: { id: id }, text: name" type="button" class="btn btn-primary basemap info-click" style="background:rgba(0,60,136,.5);"></button>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
@@ -274,7 +281,7 @@
     <div class="row"> 
           
         <!-- Content -->              
-        <div class="" id="searchresults" style="padding-top: 0px;">
+        <div class="" id="search-results-list" style="padding-top: 0px;">
 
             <!-- Begin Search Results -->
             <div class="col-xs-12">

@@ -46,10 +46,10 @@
 
 
 <!--=== Default Resource Summary ===-->
-<div class="container margin-bottom-50" id="search-results">
+<div class="container margin-bottom-50">
 
    <!-- Results Header -->
-    <div class="row">        
+    <div class="row" id="search-results-count">        
 
         <div class="col-xs-12">
 
@@ -81,7 +81,7 @@
         <div class="col-xs-4 col-xs-offset-4 search-spinner"></div>
     </div>
 
-    <div class="row" id="search-results-list" style="display:none">
+    <div class="row" id="search-results" style="display:none">
         {% include 'views/search-results.htm' %}
     </div>
 
