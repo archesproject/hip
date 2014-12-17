@@ -97,42 +97,60 @@ class Resource(ArchesResource):
             'icon_class': 'fa fa-trophy',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
-            'categories': [_('Resource')]
+            'categories': [_('Resource')],
+            'has_layer': True,
+            'on_map': True,
+            'vector_color': '#3366FF'
         },{
             'resourcetypeid': 'HISTORIC_DISTRICT.E18',
             'name': _('Historic District'),
             'icon_class': 'fa fa-bookmark-o',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
-            'categories': [_('Resource')]
+            'categories': [_('Resource')],
+            'has_layer': True,
+            'on_map': True,
+            'vector_color': '#F5B800'
         },{
             'resourcetypeid': 'ACTIVITY.E7',
             'name': _('Activity'),
             'icon_class': 'fa fa-tasks',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
-            'categories': [_('Resource')]
+            'categories': [_('Resource')],
+            'has_layer': True,
+            'on_map': True,
+            'vector_color': '#66FF33'
         },{
             'resourcetypeid': 'HISTORIC_EVENT.E18',
             'name': _('Historic Event'),
             'icon_class': 'fa fa-calendar-o',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
-            'categories': [_('Resource')]
+            'categories': [_('Resource')],
+            'has_layer': True,
+            'on_map': True,
+            'vector_color': '#FF3366'
         },{
             'resourcetypeid': 'ACTOR.E39',
             'name': _('Actor'),
             'icon_class': 'fa fa-group',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
-            'categories': [_('Resource')]
+            'categories': [_('Resource')],
+            'has_layer': True,
+            'on_map': True,
+            'vector_color': '#33FFCC'
         },{
             'resourcetypeid': 'INFORMATION_RESOURCE.E73',
             'name': _('Information Resource'),
             'icon_class': 'fa fa-file-text-o',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
-            'categories': [_('Resource')]
+            'categories': [_('Resource')],
+            'has_layer': True,
+            'on_map': True,
+            'vector_color': '#FF6633'
         }]
 
         return types      
