@@ -89,7 +89,7 @@ COMMANDS['load'] = command_load
 
 def command_resource_load(args):
     if args.source != '':
-        os.system('%s %s packages -o load_resources --source %s' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.source))
+        os.system('%s %s packages -o load_resources --source "%s"' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py')), args.source))
     else:
         os.system('%s %s packages -o load_resources' % (path_to_virtual_env, os.path.normpath(os.path.join(here, '..', 'manage.py'))))
 
