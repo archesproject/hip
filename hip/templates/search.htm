@@ -52,36 +52,33 @@
 <div class="container margin-bottom-50">
 
    <!-- Results Header -->
-    <div class="row" id="search-results-count">        
+    <h2 style="margin-bottom:8px;">
+        <div class="row" id="search-results-count" data-count="{{resource_count}}">        
+            
+            <div class="col-xs-4">
+                <span class="text-muted margin-left-5" style="margin-bottom: 5px;">Survey LA Contains: <span style="font-size:18px;" data-bind="text: total() + ' {% trans "Results" %}'"></span></span>                                 
+            </div>
 
-        <div class="col-xs-12">
+            <div class="col-xs-4 hidden-xs">  
+                <button class="btn btn-success btn-xs" id="map-filter-button" style=""> 
+                    <i class="fa fa-map-marker"></i> Filter by map
+                </button>
 
-            <!-- Results Counter/Filters -->
-            <h2 class="text-muted margin-left-5" style="margin-bottom: 5px;">Survey LA Contains: <span style="font-size:18px;" data-bind="text: total() + '{% trans "Results" %}'"></span> 
+                <button class="btn btn-success btn-xs" id="time-filter-button" style=""> 
+                    <i class="fa fa-clock-o"></i> Filter by time
+                </button>
+            </div>        
 
-                <span class="hidden-xs" style="margin-top: -5px;margin-left: 20px;">  
-                    <button class="btn btn-success btn-xs" id="map-filter-button" style=""> 
-                        <i class="fa fa-map-marker"></i> Filter by map
-                    </button>
+            <div class="col-xs-4 hidden" style="margin-top: 4px; margin-bottom: -6px;text-align: right; margin-right: -26px; margin-left: 26px;" id="map-extent-filter-tag">
+                <input id="filters" class="tagsinput" value="Map extent filter" data-role="tagsinput">
+            </div>        
 
-                    <button class="btn btn-success btn-xs" id="time-filter-button" style=""> 
-                        <i class="fa fa-clock-o"></i> Filter by time
-                    </button>
-                </span>
-
-            </h2>                                     
-            <!-- End Results Counter/Filters -->
         </div>
-
-    </div>
+    </h2>   
     <!-- Results Header -->
 
-    <div class="row" id="saved-searches">
+    <div class="row" id="saved-searches" style="margin-top:8px;">
         {% include 'views/saved-searches.htm' %}
-    </div>
-
-    <div class="row" id="search-results-loading" class="row" style="display:none">
-        <div class="col-xs-4 col-xs-offset-4 search-spinner"></div>
     </div>
 
     <div class="row" id="search-results" style="display:none">
@@ -91,3 +88,7 @@
 </div>
 
 {% endblock content %}
+
+{% block pre_require_js %}
+    {% include 'map/layer-info.htm' %}
+{% endblock pre_require_js %}

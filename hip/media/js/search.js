@@ -1,4 +1,5 @@
 require(['jquery', 
+    'underscore',
     'backbone',
     'bootstrap',
     'arches', 
@@ -6,48 +7,83 @@ require(['jquery',
     'views/map',
     'openlayers', 
     'knockout',
-    'plugins/bootstrap-slider/bootstrap-slider'], 
-    function($, Backbone, bootstrap, arches, ResourceSearch, MapView, ol, ko, Slider) {
+    'plugins/bootstrap-slider/bootstrap-slider.min',
+    'plugins/bootstrap-tags/bootstrap-tagsinput.min'], 
+    function($, _, Backbone, bootstrap, arches, ResourceSearch, MapView, ol, ko, Slider, TagsInput) {
     $(document).ready(function() {
+
+
         var SearchResultsView = Backbone.View.extend({
             el: $('body'),
             updateRequest: '',
+            mapExpanded: false,
+            timeExpaned: false,
 
             events: {
                 'click .page-button': 'newPage',
                 'click #view-saved-searches': 'showSavedSearches',
                 'click #map-filter-button': 'toggleMapFilter',
                 'click #time-filter-button': 'toggleTimeFilter',
-                'click .layer-zoom': 'layerZoom'
+                'click .layer-zoom': 'layerZoom',
+                'click #map-extent-filter': 'toggleSpatialFilter',
+                'click #polygon-filter': 'toggleSpatialFilter',
+                'click #point-filter': 'toggleSpatialFilter',
+                'click #line-filter': 'toggleSpatialFilter',
+                'click #spatial-buffer': 'toggleSpatialFilter',
+                'click #map-tools-btn': 'handleMapToolsBtn'
             },
 
             initialize: function(options) { 
                 var self = this;
 
+                var initialcount = $('#search-results-count').data().count;
+
+                $("#map-extent-filter-tag").removeClass('hidden');
+                $(".bootstrap-tagsinput").css("border-width", "0px");
+
                 this.dateFilterViewModel = {
                     year_min_max: ko.observableArray(),
                     filters: ko.observableArray()
                 };
-    
+
+                this.spatialFilterViewModel = {
+                    type: '',
+                    coordinates: ko.observable([])
+                };
 
                 this.searchQuery = {
                     page: ko.observable(),
                     q: ko.observableArray(),
                     date: this.dateFilterViewModel,
-                    geo: ko.observable(),
-                    queryString: ko.pureComputed(function(){
+                    spatialFilter: this.spatialFilterViewModel,
+                    queryString: function(){
                         var params = {
-                            page: self.searchQuery.page(),
-                            q: JSON.stringify(self.searchQuery.q()),
-                            year_min_max: JSON.stringify(self.searchQuery.date.year_min_max()),
-                            geo: self.searchQuery.geo()
+                            page: this.page(),
+                            q: ko.toJSON(this.q()),
+                            year_min_max: ko.toJSON(this.date.year_min_max()),
+                            spatialFilter: ko.toJSON(this.spatialFilter)
                         }; 
                         return $.param(params);
-                    })
+                    }, 
+                    isEmpty: function(){
+                        if (!(self.searchQuery.page()) && 
+                            self.searchQuery.q().length === 0 && 
+                            self.searchQuery.date.year_min_max.length === 0 && 
+                            self.searchQuery.spatialFilter.type === ''){
+                            return true;
+                        }
+                        return false;
+                    },
+                    changed: ko.pureComputed(function(){
+                        var ret = ko.toJSON(this.searchQuery.page()) +
+                            ko.toJSON(this.searchQuery.q()) +
+                            ko.toJSON(this.searchQuery.date.year_min_max()) +
+                            ko.toJSON(this.searchQuery.spatialFilter.coordinates());
+                        return ret;
+                    }, this)
                 }
 
-                this.searchQuery.queryString.subscribe(function(querystring){
-                    //console.log(querystring);
+                this.searchQuery.changed.subscribe(function(){
                     self.updateResults();
                 });
 
@@ -66,11 +102,15 @@ require(['jquery',
                 });
 
                 this.searchRestulsViewModel = {
-                    total: ko.observable(),
+                    total: ko.observable(initialcount),
                     results: ko.observableArray()
                 };
                 ko.applyBindings(this.searchRestulsViewModel, $('#search-results-list')[0]);
                 ko.applyBindings(this.searchRestulsViewModel, $('#search-results-count')[0]);
+
+                this.searchRestulsViewModel.results.subscribe(function(resultsarray){
+                    self.highlightFeatures(resultsarray);
+                });
 
                 this.termFilterViewModel = {
                     filters: ko.observableArray()
@@ -80,223 +120,252 @@ require(['jquery',
                 // });
                 //ko.applyBindings(this.termFilterViewModel, $('#map-filter')[0]);
 
-                this.mapFilterViewModel = {
-                    filters: ko.observableArray()
-                };
-                //ko.applyBindings(this.mapFilterViewModel, $('#map-filter')[0]);
 
                 
 
 
-                this.initMapFilter();
+                this.addResourceLayer();
 
                 this.initTimeFilter();
 
                 this.getSearchQuery();
 
+            },
 
-                function handleMapPanel() {    
-                    //function to toggle display of wizard div
-                    $( "#map" ).slideToggle(600);
+            addResourceLayer: function(){
 
-                    var projection = ol.proj.get('EPSG:3857');
-
-                    var styleFunction = function(feature, resolution) {
-                        var featureStyleFunction = feature.getStyleFunction();
-                        if (featureStyleFunction) {
-                            return featureStyleFunction.call(feature, resolution);
-                        } else {
-                            return defaultStyle[feature.getGeometry().getType()];
-                        }
-                    };
-
-                    var dragAndDropInteraction = new ol.interaction.DragAndDrop({
-                        formatConstructors: [
-                            ol.format.GPX,
-                            ol.format.GeoJSON,
-                            ol.format.IGC,
-                            ol.format.KML,
-                            ol.format.TopoJSON
-                        ]
-                    });
-
-                    dragAndDropInteraction.on('addfeatures', function(event) {
-                        var vectorSource = new ol.source.Vector({
-                            features: event.features,
-                            projection: event.projection
-                        });
-                        map.getLayers().push(new ol.layer.Vector({
-                            source: vectorSource,
-                            style: styleFunction
-                        }));
-                        var view = map.getView();
-                        view.fitExtent(
-                            vectorSource.getExtent(), /** @type {ol.Size} */ 
-                            map.getSize()
-                        );
-                    });
-
-                    var gmap = new google.maps.Map(document.getElementById('searchmap'), {
-                        disableDefaultUI: true,
-                        keyboardShortcuts: false,
-                        draggable: false,
-                        disableDoubleClickZoom: true,
-                        scrollwheel: false,
-                        streetViewControl: false
-                    });
-
-                    var view = new ol.View({
-                        // make sure the view doesn't go beyond the 22 zoom levels of Google Maps
-                        maxZoom: 21
-                    });
-
-                    view.on('change:center', function() {
-                          var center = ol.proj.transform(view.getCenter(), 'EPSG:3857', 'EPSG:4326');
-                          gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
-                    });
-
-                    view.on('change:resolution', function() {
-                        gmap.setZoom(view.getZoom());
-                    });
-
-                    //Add kml file to mockup CH spatial data
-                    var vector = new ol.layer.Vector({
-                        source: new ol.source.KML({
-                            projection: projection,
-                            url: 'data/test_v2.kml'
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color: '#9E9E9E'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: '#9E9E9E',
+                        width: 1
+                    }),
+                    image: new ol.style.Circle({
+                        radius: 5,
+                        stroke: new ol.style.Stroke({
+                            color: '#fff'
+                        }),
+                        fill: new ol.style.Fill({
+                            color: '#9E9E9E'
                         })
-                    });
+                    })
+                });
 
-                    //Show Name of kml features
-                    var displayFeatureInfo = function(pixel) {
-                        var features = [];
-                        
-                        map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-                            features.push(feature);
-                        });
+                this.vectorLayer = new ol.layer.Vector({
+                    //maxResolution: arches.mapDefaults.cluster_min,
+                    source: new ol.source.GeoJSON({
+                        projection: 'EPSG:3857',
+                        url: 'resources/layers/'
+                    }),
+                    style: style
+                });
 
-                        if (features.length > 0) {
-                            var info = [];
-                            var i, ii;
-                        
-                            for (i = 0, ii = features.length; i < ii; ++i) {
-                              info.push(features[i].get('name'));
-                            }
-                        
-                            document.getElementById('info').innerHTML = info.join(', ') || '(unknown)';
-                            map.getTarget().style.cursor = 'pointer';
+                this.map = new MapView({
+                    el: $('#map'),
+                    overlays: [this.vectorLayer]
+                });
 
-                        } else {
-
-                            document.getElementById('info').innerHTML = '&nbsp;';
-                            map.getTarget().style.cursor = '';
-
+                var highlightStyleCache = {};
+                this.featureOverlay = new ol.FeatureOverlay({
+                    map: this.map.map,
+                    style: function(feature, resolution) {
+                        var text = resolution < 5000 ? feature.get('primaryname') : '';
+                        if (!highlightStyleCache[text]) {
+                            highlightStyleCache[text] = [
+                                new ol.style.Style({
+                                    fill: new ol.style.Fill({
+                                        color: '#00C819'
+                                    }),
+                                    stroke: new ol.style.Stroke({
+                                        color: '#00C819',
+                                        width: 1
+                                    }),
+                                    image: new ol.style.Circle({
+                                        radius: 5,
+                                        stroke: new ol.style.Stroke({
+                                            color: '#fff'
+                                        }),
+                                        fill: new ol.style.Fill({
+                                            color: '#00C819'
+                                        })
+                                    }),
+                                    text: new ol.style.Text({
+                                        font: '12px Calibri,sans-serif',
+                                        text: text,
+                                        offsetY: -12,
+                                        fill: new ol.style.Fill({
+                                            color: '#fff',
+                                            width: 4
+                                        }),
+                                        stroke: new ol.style.Stroke({
+                                            color: '#006E2B',
+                                            width: 4
+                                        })
+                                    })
+                                })
+                            ];
                         }
-                    };
+                        return highlightStyleCache[text];
+                    }
+                });
+
+                // var displayFeatureInfo = function(pixel) {
+
+                //     var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+                //         return feature;
+                //     });
+
+                //     var info = document.getElementById('info');
+                //     if (feature) {
+                //         info.innerHTML = feature.getId() + ': ' + feature.get('name');
+                //     } else {
+                //         info.innerHTML = '&nbsp;';
+                //     }
+
+                // };
+
+                // $(map.getViewport()).on('mousemove', function(evt) {
+                //     var pixel = map.getEventPixel(evt.originalEvent);
+                //     displayFeatureInfo(pixel);
+                // });
+
+                // map.on('click', function(evt) {
+                //     displayFeatureInfo(evt.pixel);
+                // });
 
 
-                    //Map display options
-                    var olMapDiv = document.getElementById('olmap');
-                    var map = new ol.Map({
-                        layers: [vector],
-                        interactions: ol.interaction.defaults({
-                            altShiftDragRotate: false,
-                            dragPan: false,
-                            rotate: false
-                        }).extend([new ol.interaction.DragPan({kinetic: null})]).extend([dragAndDropInteraction]),
-                        target: olMapDiv,
-                        view: view
-                    });
-                    
+                function zoomToLayer(vectorLayer, map){
+                    var extent = (vectorLayer.getSource().getExtent());
+                    var size = (map.map.getSize());
+                    var view = map.map.getView()
+                    view.fitExtent(
+                        extent,
+                        size
+                    );
+                }
 
-                    view.setCenter([-13172009.0, 4013435.2]);
-                    view.setZoom(13);
+                zoomToLayer(this.vectorLayer, this.map)
 
+            },
 
-                    $(map.getViewport()).on('mousemove', function(evt) {
-                    
+            highlightFeatures: function(resultsarray){
+                this.featureOverlay.getFeatures().clear();
+                _.each(resultsarray, function(result){
+                    var feature = this.vectorLayer.getSource().getFeatureById(result.resourceid);
+                    if(feature){
+                        this.featureOverlay.addFeature(feature);
+                    }
+                }, this);
+            },
 
-                    //Track cursor, setup click event on KML marker
-                    var pixel = map.getEventPixel(evt.originalEvent);
-                        displayFeatureInfo(pixel);
-                    });
+            getMapExtent: function(){
+                var extent = ol.proj.transformExtent(this.map.map.getView().calculateExtent(this.map.map.getSize()), 'EPSG:3857', 'EPSG:4326');
+                return extent;
+            },
 
-                    map.on('click', function(evt) {
-                        displayFeatureInfo(evt.pixel);
-                    });
+            onMoveEnd: function(evt) {
+                this.spatialFilterViewModel.coordinates(this.getMapExtent());
+            },
 
+            toggleSpatialFilter: function(evt){
+                var link = $(evt.target).closest('a');
+                var data = link.data();
+                var item = link.find('i');
+                
+                if (item.hasClass("fa-xxx")){
+                    //User is adding filter
+                    item.removeClass("fa-xxx").addClass("fa-check");
 
-                    //OL Map Controls
-                    olMapDiv.parentNode.removeChild(olMapDiv);
-                    gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(olMapDiv);
+                    if(data.tooltype){
+                        //Update filter tag
+                        $(".bootstrap-tagsinput").css("display", "block");
 
-
-                    var interval = setInterval(function(){ startTimer();}, 1000);
-
-                    //Hack to get kml to show on map in bootstrap modal
-                    //see http://stackoverflow.com/questions/22699552/cant-get-openlayers-3-map-to-display-in-bootstrap-modal
-                    var startTimer = function  () {
-                        map.updateSize();
+                        if(data.tooltype === 'map-extent'){
+                            this.spatialFilterViewModel.type = 'bbox';
+                            this.spatialFilterViewModel.coordinates(this.getMapExtent());
+                            this.map.map.on('moveend', this.onMoveEnd, this);
+                        }else{
+                            this.spatialFilterViewModel.type = data.tooltype;
+                            this.enableDrawingTools(this.map.map, data.tooltype)     
+                        }                  
                     }
 
-                    map.on('click', function(event) {
-                      clearInterval(interval);
-                    });
+                }else{
+                    //User is removing filter
+                    item.removeClass("fa-check").addClass("fa-xxx");
 
+                    if(data.tooltype){
+                        //Update filter tag
+                        $(".bootstrap-tagsinput").css("display", "none");
 
+                        if(data.tooltype === 'map-extent'){
+                            this.spatialFilterViewModel.type = '';
+                            this.spatialFilterViewModel.coordinates([]);
+                            this.map.map.un('moveend', this.onMoveEnd, this);
+                        }else{
+                            this.spatialFilterViewModel.type = '';
+                            this.spatialFilterViewModel.coordinates([]); 
+                        }     
+                    }
                 }
             },
 
-            initMapFilter: function(){
-                // function createVectorLayer(){
-                //     var format = new ol.format.WKT();
-                //     var feature = format.readFeature($('#map-content').val());
-                //     feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                //     var vector = new ol.layer.Vector({
-                //         source: new ol.source.Vector({
-                //             features: [feature],
-                //             visible: true
-                //         })
-                //     });
-                //     return vector;
-                // }
+            enableDrawingTools: function(map, tooltype){
+                // The features are not added to a regular vector layer/source,
+                // but to a feature overlay which holds a collection of features.
+                // This collection is passed to the modify and also the draw
+                // interaction, so that both can add or modify features.
+                var featureOverlay = new ol.FeatureOverlay({
+                    style: new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#ffcc33',
+                            width: 2
+                        }),
+                        image: new ol.style.Circle({
+                            radius: 7,
+                            fill: new ol.style.Fill({
+                                color: '#ffcc33'
+                            })
+                        })
+                    })
+                });
+                featureOverlay.setMap(map);
 
-                this.map = new MapView({
-                    el: $('#map')
+                var modify = new ol.interaction.Modify({
+                    features: featureOverlay.getFeatures(),
+                    // the SHIFT key must be pressed to delete vertices, so
+                    // that new vertices can be drawn at the same position
+                    // of existing vertices
+                    deleteCondition: function(event) {
+                        return ol.events.condition.shiftKeyOnly(event) &&
+                                ol.events.condition.singleClick(event);
+                    }
+                });
+                map.addInteraction(modify);
+
+                if(this.drawingtool){
+                    map.removeInteraction(this.drawingtool);
+                }
+                this.drawingtool = new ol.interaction.Draw({
+                    features: featureOverlay.getFeatures(),
+                    type: tooltype
                 });
 
-                // var viewModel = {
-                //     baseLayers: map.baseLayers
-                // };
+                this.drawingtool.on('drawstart', function(){
+                    featureOverlay.getFeatures().clear();
+                }, this);
+                this.drawingtool.on('drawend', function(evt){
+                    var geometry = evt.feature.getGeometry().clone();
+                    geometry.transform('EPSG:3857', 'EPSG:4326');
+                    this.spatialFilterViewModel.coordinates(geometry.getCoordinates());
+                }, this);
 
-                // ko.applyBindings(viewModel, $('#map')[0]);
-
-                // $(".basemap").click(function (){ 
-                //     var basemap = $(this).attr('id');
-                //     var i, ii;
-                //     for (i = 0, ii = map.baseLayers.length; i < ii; ++i) {
-                //         map.baseLayers[i].layer.setVisible(map.baseLayers[i].id == basemap);
-                //     }
-
-                //     //keep page from re-loading
-                //     return false;
-
-                //     });
-
-                // //var vectorLayer = createVectorLayer();
-
-                // function zoomToLayer(vectorLayer, map){
-                //     var extent = (vectorLayer.getSource().getExtent());
-                //     var size = (map.map.getSize());
-                //     var view = map.map.getView()
-                //     view.fitExtent(
-                //         extent,
-                //         size
-                //     );
-                // }
-
-                //map.map.addLayer(vectorLayer)
-                //zoomToLayer(vectorLayer, map)
+                map.addInteraction(this.drawingtool);
 
             },
 
@@ -322,10 +391,8 @@ require(['jquery',
 
             updateResults: function () {
                 var self = this;
-                this.toggleLoading('show');
                 if (this.updateRequest) {
                     this.updateRequest.abort();
-                    this.toggleLoading('hide');
                 }
                 this.updateRequest = $.ajax({
                     type: "GET",
@@ -334,13 +401,10 @@ require(['jquery',
                     success: function(results){
                         $('#paginator').html(results);
                         self.bind(results);
-                        self.toggleLoading('hide');
                         self.toggleSearchResults('show');
                         self.toggleSavedSearches('hide');
                     },
-                    error: function(){
-                        self.toggleLoading('hide');
-                    }
+                    error: function(){}
                 });
             },
 
@@ -354,7 +418,7 @@ require(['jquery',
                 $.each(data.results.hits.hits, function(){
                     self.searchRestulsViewModel.results.push({
                         primaryname: this._source.primaryname,
-                        entityid: this._source.entityid,
+                        resourceid: this._source.entityid,
                         entitytypeid: this._source.entitytypeid,
                         descritption: '',
                         geometries: ko.observableArray(this._source.geometries)
@@ -382,16 +446,21 @@ require(['jquery',
                 this.slideToggle(ele, showOrHide);
             },
 
-            toggleLoading: function(showOrHide){
-                // var ele = $('#search-results-loading');
-                // this.slideToggle(ele, showOrHide);
-            },
-
             toggleMapFilter: function(showOrHide){
                 var ele = $('#map-filter');
-                this.slideToggle(ele);
-                this.hideSavedSearches();
-                this.map.map.updateSize();
+                if(!this.mapExpanded){
+                    if(this.searchQuery.isEmpty()){
+                        this.searchQuery.page(1);
+                        this.slideToggle(ele, 'show');
+                    }else{
+                        
+                        this.slideToggle(ele, 'show');
+                        this.hideSavedSearches();
+                    }
+                }else{
+                    this.slideToggle(ele, 'hide');               
+                }
+                this.mapExpanded = !this.mapExpanded;
             },
 
             toggleTimeFilter: function(showOrHide){
@@ -401,13 +470,16 @@ require(['jquery',
             },
 
             slideToggle: function(ele, showOrHide){
+                var self = this;
                 if ($(ele).is(":visible") && showOrHide === 'hide'){
                     ele.slideToggle('slow');
                     return;
                 }
 
                 if (!($(ele).is(":visible")) && showOrHide === 'show'){
-                    ele.slideToggle('slow');
+                    ele.slideToggle('slow', function(){
+                        self.map.map.updateSize();
+                    });
                     return;
                 }
 
@@ -449,8 +521,8 @@ require(['jquery',
                 if(query.date){
                     this.searchQuery.date(query.date);
                 }
-                if(query.geo){
-                    this.searchQuery.geo(query.geo);
+                if(query.spatialFilter){
+                    this.searchQuery.spatialFilter(query.spatialFilter);
                 }
                 
 
@@ -460,13 +532,13 @@ require(['jquery',
                 };
             },
 
-            setSearchQuery: function(){
-
-            },
+            handleMapToolsBtn: function(evt){
+                evt.stopPropagation();
+            }
 
 
         });
-
+        k = ko;
         x = new SearchResultsView();
 
     });

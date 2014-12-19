@@ -11,31 +11,24 @@
             <div class="row" style="margin-left: -19px;">
                 <div class="col-xs-12" style="z-index: 900;">
 
-                    <!-- Resource Name Display -->
                     <div class="row" style="margin-right: 0px; margin-top: 0px;">
-                        <div class="col-xs-12 col-sm-7 col-md-8">
-
-                            <div class="resource-display" style="opacity: .8;">
-                                
-                                <h3 id="info" class="margin-top-0 margin-bottom-0" style="padding-left: 5px;"></h3>
-                         
-                            </div>
-                        </div>
-
                         <!-- Filter Tools -->
                         <div class="col-sm-5 col-md-4 pull-right hidden-xs" style="padding-right: 0px;">
                             <div class="btn-group pull-right margin-10 margin-right-10" style="margin-top: 15px;">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    Map Tools &nbsp;
+                                    Map Tools
                                     <i class="fa fa-chevron-down"></i>
                                     <span class="sr-only">Toggle Dropdown</span>                            
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a id="map-extent-filter" href="#" class="info-link"><i id="map-extent-filter-icon" class="fa fa-xxx"></i>Limit search results to map extent</a></li>
+                                <ul id="map-tools-btn" class="dropdown-menu" role="menu">
+                                    <li><a id="map-extent-filter" data-tooltype="map-extent"  href="#" class="info-link"><i class="fa fa-xxx"></i>Limit search results to map extent</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" class="info-link polygon-filter"><i id="map-polygon-filter-icon" class="fa fa-xxx"></i>Draw Polygon to Filter Map</a></li>
-                                    <li><a href="#"><i class="fa fa-xxx"></i>Draw Line to Filter Map</a></li>
-                                    <li><a href="#"><i class="fa fa-xxx"></i>Draw Point to Filter Map</a></li>
+                                    <li><a id="polygon-filter" data-tooltype="Polygon" href="#" class="info-link polygon-filter"><i class="fa fa-xxx"></i>Draw Polygon to Filter Map</a></li>
+                                    <li><a id="line-filter" data-tooltype="LineString" href="#"><i class="fa fa-xxx"></i>Draw Line to Filter Map</a></li>
+                                    <li><a id="point-filter" data-tooltype="Point" href="#"><i class="fa fa-xxx"></i>Draw Point to Filter Map</a></li>
+                                    <li>
+                                        <a id="spatial-buffer" href="#" style="padding-left: 13px;"><i class="fa fa-xxx"></i>Buffer (ft)<input type="text" class="" style="width: 30%;" placeholder="100"/></a>
+                                    </li>
                                     <li class="divider"></li>
                                     <li><a href="#"><i class="fa fa-xxx"></i>Import GPX File to Filter Map</a></li>   
                                 </ul>
@@ -316,7 +309,7 @@
 
                                 <li>
                                     <i class="arches-search-link fa fa-book"></i>&nbsp;
-                                    <a data-bind="attr: { href: 'reports/' + entityid }"><span class="arches-search-link">{% trans "Report" %}</span></a>
+                                    <a data-bind="attr: { href: 'reports/' + resourceid }"><span class="arches-search-link">{% trans "Report" %}</span></a>
                                 </li>
 
                                 <li>
