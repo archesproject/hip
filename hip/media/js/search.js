@@ -47,9 +47,11 @@ require(['jquery',
                 };
 
                 this.spatialFilterViewModel = {
-                    type: '',
+                    type: ko.observable(),
                     coordinates: ko.observable([])
                 };
+
+                ko.applyBindings(this.spatialFilterViewModel, $('#map-tools-btn')[0]); 
 
                 this.searchQuery = {
                     page: ko.observable(),
@@ -274,40 +276,44 @@ require(['jquery',
                 var data = link.data();
                 var item = link.find('i');
                 
-                if (item.hasClass("fa-xxx")){
+                if (!(item.hasClass("fa-check"))){
                     //User is adding filter
-                    item.removeClass("fa-xxx").addClass("fa-check");
+                    //item.removeClass("fa-xxx").addClass("fa-check");
 
                     if(data.tooltype){
                         //Update filter tag
                         $(".bootstrap-tagsinput").css("display", "block");
 
                         if(data.tooltype === 'map-extent'){
-                            this.spatialFilterViewModel.type = 'bbox';
+                            this.spatialFilterViewModel.type('bbox');
                             this.spatialFilterViewModel.coordinates(this.getMapExtent());
                             this.map.map.on('moveend', this.onMoveEnd, this);
                         }else{
-                            this.spatialFilterViewModel.type = data.tooltype;
-                            this.enableDrawingTools(this.map.map, data.tooltype)     
+                            this.spatialFilterViewModel.type(data.tooltype);
+                            this.enableDrawingTools(this.map.map, data.tooltype);
+                            this.map.map.un('moveend', this.onMoveEnd, this);     
                         }                  
                     }
 
                 }else{
                     //User is removing filter
-                    item.removeClass("fa-check").addClass("fa-xxx");
+                    //item.removeClass("fa-check").addClass("fa-xxx");
 
                     if(data.tooltype){
                         //Update filter tag
                         $(".bootstrap-tagsinput").css("display", "none");
 
+                        this.spatialFilterViewModel.type('');
+                        this.spatialFilterViewModel.coordinates([]);
+
                         if(data.tooltype === 'map-extent'){
-                            this.spatialFilterViewModel.type = '';
-                            this.spatialFilterViewModel.coordinates([]);
                             this.map.map.un('moveend', this.onMoveEnd, this);
-                        }else{
-                            this.spatialFilterViewModel.type = '';
-                            this.spatialFilterViewModel.coordinates([]); 
-                        }     
+                        } 
+
+                        if(this.drawingtool){
+                            this.map.map.removeInteraction(this.drawingtool);
+                            this.drawingFeatureOverlay.getFeatures().clear();
+                        }
                     }
                 }
             },
@@ -317,7 +323,7 @@ require(['jquery',
                 // but to a feature overlay which holds a collection of features.
                 // This collection is passed to the modify and also the draw
                 // interaction, so that both can add or modify features.
-                var featureOverlay = new ol.FeatureOverlay({
+                this.drawingFeatureOverlay = new ol.FeatureOverlay({
                     style: new ol.style.Style({
                         fill: new ol.style.Fill({
                             color: 'rgba(255, 255, 255, 0.2)'
@@ -334,10 +340,10 @@ require(['jquery',
                         })
                     })
                 });
-                featureOverlay.setMap(map);
+                this.drawingFeatureOverlay.setMap(map);
 
                 var modify = new ol.interaction.Modify({
-                    features: featureOverlay.getFeatures(),
+                    features: this.drawingFeatureOverlay.getFeatures(),
                     // the SHIFT key must be pressed to delete vertices, so
                     // that new vertices can be drawn at the same position
                     // of existing vertices
@@ -352,12 +358,12 @@ require(['jquery',
                     map.removeInteraction(this.drawingtool);
                 }
                 this.drawingtool = new ol.interaction.Draw({
-                    features: featureOverlay.getFeatures(),
+                    features: this.drawingFeatureOverlay.getFeatures(),
                     type: tooltype
                 });
 
                 this.drawingtool.on('drawstart', function(){
-                    featureOverlay.getFeatures().clear();
+                    this.drawingFeatureOverlay.getFeatures().clear();
                 }, this);
                 this.drawingtool.on('drawend', function(evt){
                     var geometry = evt.feature.getGeometry().clone();

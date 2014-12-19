@@ -21,11 +21,11 @@
                                     <span class="sr-only">Toggle Dropdown</span>                            
                                 </button>
                                 <ul id="map-tools-btn" class="dropdown-menu" role="menu">
-                                    <li><a id="map-extent-filter" data-tooltype="map-extent"  href="#" class="info-link"><i class="fa fa-xxx"></i>Limit search results to map extent</a></li>
+                                    <li><a id="map-extent-filter" data-tooltype="map-extent" href="#" class="info-link"><i class="fa fa-xxx" data-bind="css: {'fa-check' : type() == 'bbox'}"></i>Limit search results to map extent</a></li>
                                     <li class="divider"></li>
-                                    <li><a id="polygon-filter" data-tooltype="Polygon" href="#" class="info-link polygon-filter"><i class="fa fa-xxx"></i>Draw Polygon to Filter Map</a></li>
-                                    <li><a id="line-filter" data-tooltype="LineString" href="#"><i class="fa fa-xxx"></i>Draw Line to Filter Map</a></li>
-                                    <li><a id="point-filter" data-tooltype="Point" href="#"><i class="fa fa-xxx"></i>Draw Point to Filter Map</a></li>
+                                    <li><a id="polygon-filter" data-tooltype="Polygon" href="#" class="info-link polygon-filter"><i class="fa fa-xxx" data-bind="css: {'fa-check' : type() == 'Polygon'}"></i>Draw Polygon to Filter Map</a></li>
+                                    <li><a id="line-filter" data-tooltype="LineString" href="#"><i class="fa fa-xxx" data-bind="css: {'fa-check' : type() == 'LineString'}"></i>Draw Line to Filter Map</a></li>
+                                    <li><a id="point-filter" data-tooltype="Point" href="#"><i class="fa fa-xxx" data-bind="css: {'fa-check' : type() == 'Point'}"></i>Draw Point to Filter Map</a></li>
                                     <li>
                                         <a id="spatial-buffer" href="#" style="padding-left: 13px;"><i class="fa fa-xxx"></i>Buffer (ft)<input type="text" class="" style="width: 30%;" placeholder="100"/></a>
                                     </li>
