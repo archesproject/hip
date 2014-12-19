@@ -17,6 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from arches.app.models.entity import Entity
+from arches.app.models.concept import Concept
 from arches.app.views.resources import ResourceForm
 from django.utils.translation import ugettext as _
 
@@ -37,7 +38,7 @@ class SummaryForm(ResourceForm):
         self.update_node('HERITAGE_RESOURCE_TYPE.E55', data)
 
     def load(self):
-        self.data['domains']['NAME_TYPE_E55'] = self.get_e55_domain('NAME_TYPE.E55')
+        self.data['domains']['NAME_TYPE_E55'] = Concept().get_e55_domain('NAME_TYPE.E55')
         default_name_type = self.data['domains']['NAME_TYPE_E55'][0]
         self.data['defaults']['NAME_E41'] = {
             'NAME_E41__entityid': '',
@@ -47,7 +48,7 @@ class SummaryForm(ResourceForm):
             'NAME_TYPE_E55__label': default_name_type['value']
         }
 
-        self.data['domains']['KEYWORD_E55'] = self.get_e55_domain('KEYWORD.E55')
+        self.data['domains']['KEYWORD_E55'] = Concept().get_e55_domain('KEYWORD.E55')
         self.data['defaults']['KEYWORD_E55'] = {
             'KEYWORD_E55__entityid': '',
             'KEYWORD_E55__value': '',
@@ -55,7 +56,7 @@ class SummaryForm(ResourceForm):
         }
         if self.resource:
             if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'] = self.get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
+                self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'] = Concept().get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
                 default_resource_type = self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'][0]
                 resource_type_nodes = self.get_nodes('HERITAGE_RESOURCE_TYPE.E55')
                 resource_type_default = {
@@ -82,7 +83,7 @@ class DescriptionForm(ResourceForm):
         self.update_nodes('DESCRIPTION.E62', data)
 
     def load(self):
-        self.data['domains']['DESCRIPTION_TYPE_E55'] = self.get_e55_domain('DESCRIPTION_TYPE.E55')
+        self.data['domains']['DESCRIPTION_TYPE_E55'] = Concept().get_e55_domain('DESCRIPTION_TYPE.E55')
         default_description_type = self.data['domains']['DESCRIPTION_TYPE_E55'][0]
         self.data['defaults']['DESCRIPTION_E62'] = {
             'DESCRIPTION_E62__entityid': '',
@@ -110,8 +111,8 @@ class MeasurementForm(ResourceForm):
 
 
     def load(self):
-        self.data['domains']['MEASUREMENT_TYPE_E55'] = self.get_e55_domain('MEASUREMENT_TYPE.E55')
-        self.data['domains']['UNIT_OF_MEASUREMENT_E55'] = self.get_e55_domain('UNIT_OF_MEASUREMENT.E55')
+        self.data['domains']['MEASUREMENT_TYPE_E55'] = Concept().get_e55_domain('MEASUREMENT_TYPE.E55')
+        self.data['domains']['UNIT_OF_MEASUREMENT_E55'] = Concept().get_e55_domain('UNIT_OF_MEASUREMENT.E55')
         default_measurement_type = self.data['domains']['MEASUREMENT_TYPE_E55'][0]
         default_measurement_unit = self.data['domains']['UNIT_OF_MEASUREMENT_E55'][0]
         self.data['defaults']['MEASUREMENT_TYPE_E55'] = {
@@ -143,7 +144,7 @@ class ConditionForm(ResourceForm):
         self.update_nodes('CONDITION_TYPE.E55', data)
 
     def load(self):
-        self.data['domains']['CONDITION_TYPE_E55'] = self.get_e55_domain('CONDITION_TYPE.E55')
+        self.data['domains']['CONDITION_TYPE_E55'] = Concept().get_e55_domain('CONDITION_TYPE.E55')
         default_description_type = self.data['domains']['CONDITION_TYPE_E55'][0]
         self.data['defaults']['CONDITION_TYPE_E55'] = {
             'CONDITION_TYPE_E55__entityid': '',
