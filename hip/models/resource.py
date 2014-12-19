@@ -61,18 +61,12 @@ class Resource(ArchesResource):
         Gets the human readable name to display for entity instances
 
         """
-        pname_key = 'default'
-        if self.entitytypeid in settings.PRIMARY_DISPLAY_NAME_LOOKUPS:
-            pname_key = self.entitytypeid
 
-        entitytype_of_primaryname = archesmodels.EntityTypes.objects.get(pk = settings.PRIMARY_DISPLAY_NAME_LOOKUPS[pname_key]['entity_type'])
         names = []
-
-        if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
-            name_nodes = self.find_entities_by_type_id(entitytype_of_primaryname.pk)
-            if len(name_nodes) > 0:
-                for name in name_nodes:
-                    names.append(name)
+        name_nodes = self.find_entities_by_type_id(settings.RESOURCE_TYPE_CONFIGS[self.entitytypeid]['primary_name_lookup']['entity_type'])
+        if len(name_nodes) > 0:
+            for name in name_nodes:
+                names.append(name)
 
         return names
 

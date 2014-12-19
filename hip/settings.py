@@ -40,8 +40,8 @@ RESOURCE_TYPE_CONFIGS = {
         },
         'sort_order': 1
     },
-    'HISTORIC_DISTRICT.E18': {
-        'resourcetypeid': 'HISTORIC_DISTRICT.E18',
+    'HERITAGE_RESOURCE_GROUP.E27': {
+        'resourcetypeid': 'HERITAGE_RESOURCE_GROUP.E27',
         'name': _('Historic District'),
         'icon_class': 'fa fa-bookmark-o',
         'default_page': 'summary',
@@ -72,8 +72,8 @@ RESOURCE_TYPE_CONFIGS = {
         },
         'sort_order': 3
     },
-    'HISTORIC_EVENT.E18':{
-        'resourcetypeid': 'HISTORIC_EVENT.E18',
+    'HISTORICAL_EVENT.E5':{
+        'resourcetypeid': 'HISTORICAL_EVENT.E5',
         'name': _('Historic Event'),
         'icon_class': 'fa fa-calendar-o',
         'default_page': 'summary',
