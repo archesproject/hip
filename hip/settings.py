@@ -1,5 +1,6 @@
 import os
 import inspect
+from django.utils.translation import ugettext as _
 from arches.settings import *
 
 PACKAGE_ROOT = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -21,6 +22,107 @@ PRIMARY_DISPLAY_NAME_LOOKUPS = {
        'lookup_value': 'Primary'
    }
 }
+
+RESOURCE_TYPE_CONFIGS = {
+    'HERITAGE_RESOURCE.E18': {
+        'resourcetypeid': 'HERITAGE_RESOURCE.E18',
+        'name': _('Heritage Resource'),
+        'icon_class': 'fa fa-trophy',
+        'default_page': 'summary',
+        'description': _('INSERT RESOURCE DESCRIPTION HERE'),
+        'categories': [_('Resource')],
+        'has_layer': True,
+        'on_map': True,
+        'vector_color': '#3366FF',
+        'primary_name_lookups': {
+            'entity_type': 'NAME.E41',
+            'lookup_value': 'Primary'
+        },
+        'sort_order': 1
+    },
+    'HISTORIC_DISTRICT.E18': {
+        'resourcetypeid': 'HISTORIC_DISTRICT.E18',
+        'name': _('Historic District'),
+        'icon_class': 'fa fa-bookmark-o',
+        'default_page': 'summary',
+        'description': _('INSERT RESOURCE DESCRIPTION HERE'),
+        'categories': [_('Resource')],
+        'has_layer': True,
+        'on_map': True,
+        'vector_color': '#F5B800',
+        'primary_name_lookups': {
+            'entity_type': 'NAME.E41',
+            'lookup_value': 'Primary'
+        },
+        'sort_order': 2
+    },
+    'ACTIVITY.E7': {
+        'resourcetypeid': 'ACTIVITY.E7',
+        'name': _('Activity'),
+        'icon_class': 'fa fa-tasks',
+        'default_page': 'summary',
+        'description': _('INSERT RESOURCE DESCRIPTION HERE'),
+        'categories': [_('Resource')],
+        'has_layer': True,
+        'on_map': True,
+        'vector_color': '#66FF33',
+        'primary_name_lookups': {
+            'entity_type': 'NAME.E41',
+            'lookup_value': 'Primary'
+        },
+        'sort_order': 3
+    },
+    'HISTORIC_EVENT.E18':{
+        'resourcetypeid': 'HISTORIC_EVENT.E18',
+        'name': _('Historic Event'),
+        'icon_class': 'fa fa-calendar-o',
+        'default_page': 'summary',
+        'description': _('INSERT RESOURCE DESCRIPTION HERE'),
+        'categories': [_('Resource')],
+        'has_layer': True,
+        'on_map': True,
+        'vector_color': '#FF3366',
+        'primary_name_lookups': {
+            'entity_type': 'NAME.E41',
+            'lookup_value': 'Primary'
+        },
+        'sort_order': 4
+    },
+    'ACTOR.E39': {
+        'resourcetypeid': 'ACTOR.E39',
+        'name': _('Actor'),
+        'icon_class': 'fa fa-group',
+        'default_page': 'summary',
+        'description': _('INSERT RESOURCE DESCRIPTION HERE'),
+        'categories': [_('Resource')],
+        'has_layer': True,
+        'on_map': True,
+        'vector_color': '#33FFCC',
+        'primary_name_lookups': {
+            'entity_type': 'ACTOR_APPELLATION.E82',
+            'lookup_value': 'Primary'
+        },
+        'sort_order': 5
+    },
+    'INFORMATION_RESOURCE.E73': {
+        'resourcetypeid': 'INFORMATION_RESOURCE.E73',
+        'name': _('Information Resource'),
+        'icon_class': 'fa fa-file-text-o',
+        'default_page': 'summary',
+        'description': _('INSERT RESOURCE DESCRIPTION HERE'),
+        'categories': [_('Resource')],
+        'has_layer': True,
+        'on_map': True,
+        'vector_color': '#FF6633',
+        'primary_name_lookups': {
+            'entity_type': 'TITLE.E41',
+            'lookup_value': 'Primary'
+        },
+        'sort_order': 6
+    }
+}
+
+
 RESOURCE_GRAPH_LOCATIONS = (
     # Put strings here, like "/home/data/resource_graphs" or "C:/data/resource_graphs".
     # Always use forward slashes, even on Windows.
