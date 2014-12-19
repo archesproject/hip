@@ -41,7 +41,7 @@ require(['jquery',
                 $("#map-extent-filter-tag").removeClass('hidden');
                 $(".bootstrap-tagsinput").css("border-width", "0px");
 
-                this.dateFilterViewModel = {
+                this.temporalFilterViewModel = {
                     year_min_max: ko.observableArray(),
                     filters: ko.observableArray()
                 };
@@ -54,7 +54,7 @@ require(['jquery',
                 this.searchQuery = {
                     page: ko.observable(),
                     q: ko.observableArray(),
-                    date: this.dateFilterViewModel,
+                    date: this.temporalFilterViewModel,
                     spatialFilter: this.spatialFilterViewModel,
                     queryString: function(){
                         var params = {
@@ -126,7 +126,7 @@ require(['jquery',
 
                 this.addResourceLayer();
 
-                this.initTimeFilter();
+                this.initTemporalFilter();
 
                 this.getSearchQuery();
 
@@ -369,19 +369,24 @@ require(['jquery',
 
             },
 
-            initTimeFilter: function(){
+            initTemporalFilter: function(){
                 var self = this;
 
                 this.slider = new Slider('input.slider', {});
                 this.slider.on('slideStop', function(evt){
-                    self.dateFilterViewModel.year_min_max(evt.value);
+                    // if ther user has the slider at it's min and max, then essentially they don't want to filter by year
+                    if(self.slider.getAttribute('min') === evt.value[0] && self.slider.getAttribute('max') === evt.value[1]){
+                        self.temporalFilterViewModel.year_min_max([]);
+                    }else{
+                        self.temporalFilterViewModel.year_min_max(evt.value);
+                    }
                 });
 
-                this.dateFilterViewModel.year_min_max.subscribe(function(newValue){
+                this.temporalFilterViewModel.year_min_max.subscribe(function(newValue){
                     self.slider.setValue(newValue);
                 });
 
-                ko.applyBindings(this.dateFilterViewModel, $('#time-filter')[0]);
+                ko.applyBindings(this.temporalFilterViewModel, $('#time-filter')[0]);
             },
 
             newPage: function(evt){
