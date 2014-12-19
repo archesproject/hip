@@ -34,7 +34,7 @@ RESOURCE_TYPE_CONFIGS = {
         'has_layer': True,
         'on_map': True,
         'vector_color': '#3366FF',
-        'primary_name_lookups': {
+        'primary_name_lookup': {
             'entity_type': 'NAME.E41',
             'lookup_value': 'Primary'
         },
@@ -50,7 +50,7 @@ RESOURCE_TYPE_CONFIGS = {
         'has_layer': True,
         'on_map': True,
         'vector_color': '#F5B800',
-        'primary_name_lookups': {
+        'primary_name_lookup': {
             'entity_type': 'NAME.E41',
             'lookup_value': 'Primary'
         },
@@ -66,7 +66,7 @@ RESOURCE_TYPE_CONFIGS = {
         'has_layer': True,
         'on_map': True,
         'vector_color': '#66FF33',
-        'primary_name_lookups': {
+        'primary_name_lookup': {
             'entity_type': 'NAME.E41',
             'lookup_value': 'Primary'
         },
@@ -82,7 +82,7 @@ RESOURCE_TYPE_CONFIGS = {
         'has_layer': True,
         'on_map': True,
         'vector_color': '#FF3366',
-        'primary_name_lookups': {
+        'primary_name_lookup': {
             'entity_type': 'NAME.E41',
             'lookup_value': 'Primary'
         },
@@ -98,7 +98,7 @@ RESOURCE_TYPE_CONFIGS = {
         'has_layer': True,
         'on_map': True,
         'vector_color': '#33FFCC',
-        'primary_name_lookups': {
+        'primary_name_lookup': {
             'entity_type': 'ACTOR_APPELLATION.E82',
             'lookup_value': 'Primary'
         },
@@ -114,7 +114,7 @@ RESOURCE_TYPE_CONFIGS = {
         'has_layer': True,
         'on_map': True,
         'vector_color': '#FF6633',
-        'primary_name_lookups': {
+        'primary_name_lookup': {
             'entity_type': 'TITLE.E41',
             'lookup_value': 'Primary'
         },
