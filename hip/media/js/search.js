@@ -18,6 +18,7 @@ require(['jquery',
             updateRequest: '',
             mapExpanded: false,
             timeExpaned: false,
+            pageChanged: false,
 
             events: {
                 'click .page-button': 'newPage',
@@ -47,7 +48,7 @@ require(['jquery',
                 };
 
                 this.spatialFilterViewModel = {
-                    type: ko.observable(),
+                    type: ko.observable(''),
                     coordinates: ko.observable([])
                 };
 
@@ -82,11 +83,15 @@ require(['jquery',
                             ko.toJSON(this.searchQuery.date.year_min_max()) +
                             ko.toJSON(this.searchQuery.spatialFilter.coordinates());
                         return ret;
-                    }, this)
+                    }, this).extend({ rateLimit: 0 })
                 }
 
                 this.searchQuery.changed.subscribe(function(){
+                    if(!self.pageChanged){
+                        self.searchQuery.page(1);
+                    }
                     self.updateResults();
+                    self.pageChanged = false;
                 });
 
                 this.searchbox = new ResourceSearch({
@@ -396,7 +401,8 @@ require(['jquery',
             },
 
             newPage: function(evt){
-                var data = $(arguments[0].target).data();
+                var data = $(evt.target).data();
+                this.pageChanged = true;                
                 this.searchQuery.page(data.page);
             },
 
