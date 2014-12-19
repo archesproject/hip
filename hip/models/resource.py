@@ -70,6 +70,22 @@ class Resource(ArchesResource):
 
         return names
 
+    def get_feature_data(self):
+        """
+        Gets a dictionary of data available when displaying resource as a map feature
+
+        """
+        resource_type = _('None specified')
+        resource_type_nodes = []
+        if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
+            resource_type_nodes = self.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
+            
+        for resource_type in resource_type_nodes:
+            resource_type = resource_type.label
+        return {
+            'resource_type': resource_type
+        }
+
 
     @staticmethod
     def get_report(resourceid):
