@@ -12,7 +12,6 @@ require(['jquery',
     function($, _, Backbone, bootstrap, arches, ResourceSearch, MapView, ol, ko, Slider, TagsInput) {
     $(document).ready(function() {
 
-
         var SearchResultsView = Backbone.View.extend({
             el: $('body'),
             updateRequest: '',
@@ -72,7 +71,7 @@ require(['jquery',
                         if (!(self.searchQuery.page()) && 
                             self.searchQuery.q().length === 0 && 
                             self.searchQuery.date.year_min_max.length === 0 && 
-                            self.searchQuery.spatialFilter.type === ''){
+                            self.searchQuery.spatialFilter.type() === ''){
                             return true;
                         }
                         return false;
@@ -465,7 +464,16 @@ require(['jquery',
 
             toggleMapFilter: function(showOrHide){
                 var ele = $('#map-filter');
-                if(!this.mapExpanded){
+                this.mapExpanded = this.toggleFilterSection(ele, this.mapExpanded)
+            },
+
+            toggleTimeFilter: function(showOrHide){
+                var ele = $('#time-filter');
+                this.timeExpaned = this.toggleFilterSection(ele, this.timeExpaned)
+            },
+
+            toggleFilterSection: function(ele, currentlyExpanded){
+                if(!currentlyExpanded){
                     if(this.searchQuery.isEmpty()){
                         this.searchQuery.page(1);
                         this.slideToggle(ele, 'show');
@@ -477,13 +485,7 @@ require(['jquery',
                 }else{
                     this.slideToggle(ele, 'hide');               
                 }
-                this.mapExpanded = !this.mapExpanded;
-            },
-
-            toggleTimeFilter: function(showOrHide){
-                var ele = $('#time-filter');
-                this.slideToggle(ele);
-                this.hideSavedSearches();
+                return !currentlyExpanded;
             },
 
             slideToggle: function(ele, showOrHide){
