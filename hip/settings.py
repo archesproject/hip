@@ -122,6 +122,7 @@ RESOURCE_TYPE_CONFIGS = {
     }
 }
 
+GEOCODING_PROVIDER = 'hip.utils.losangeles_geocoder'
 
 RESOURCE_GRAPH_LOCATIONS = (
     # Put strings here, like "/home/data/resource_graphs" or "C:/data/resource_graphs".
