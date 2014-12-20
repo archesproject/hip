@@ -3,13 +3,17 @@ require(['jquery',
     'backbone',
     'bootstrap',
     'arches', 
+    'select2',
     'views/resource-search', 
     'views/map',
     'openlayers', 
     'knockout',
     'plugins/bootstrap-slider/bootstrap-slider.min',
-    'plugins/bootstrap-tags/bootstrap-tagsinput.min'], 
-    function($, _, Backbone, bootstrap, arches, ResourceSearch, MapView, ol, ko, Slider, TagsInput) {
+    'plugins/bootstrap-tags/bootstrap-tagsinput.min',
+    'views/forms/sections/branch-list',
+    'bootstrap-datetimepicker',
+    'plugins/knockout-select2'], 
+    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, TagsInput, BranchList) {
     $(document).ready(function() {
 
         var SearchResultsView = Backbone.View.extend({
@@ -30,21 +34,29 @@ require(['jquery',
                 'click #point-filter': 'toggleSpatialFilter',
                 'click #line-filter': 'toggleSpatialFilter',
                 'click #spatial-buffer': 'toggleSpatialFilter',
-                'click #map-tools-btn': 'handleMapToolsBtn'
+                'click #map-tools-btn': 'handleMapToolsBtn',
+                'click #add-temporal-filter-btn': 'addTemporalFilter'
             },
 
             initialize: function(options) { 
                 var self = this;
-
                 var initialcount = $('#search-results-count').data().count;
 
                 $("#map-extent-filter-tag").removeClass('hidden');
                 $(".bootstrap-tagsinput").css("border-width", "0px");
+                //$('#date-type').select2({});
+                //$('#date-operator').select2({});
+                var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});
+                date_picker.on('dp.change', function(evt){
+                    $('#date').trigger('change'); 
+                })
 
-                this.temporalFilterViewModel = {
-                    year_min_max: ko.observableArray(),
-                    filters: ko.observableArray()
-                };
+                this._rawdata = JSON.parse($('#formdata').val());
+                // this.viewModel = JSON.parse(this._rawdata);
+
+                this._rawdata = ko.toJSON(JSON.parse($('#formdata').val()));
+                this.viewModel = JSON.parse(this._rawdata);
+
 
                 this.spatialFilterViewModel = {
                     type: ko.observable(''),
@@ -56,13 +68,30 @@ require(['jquery',
                 this.searchQuery = {
                     page: ko.observable(),
                     q: ko.observableArray(),
-                    date: this.temporalFilterViewModel,
+                    temporalFilter:  {
+                        domains: this.viewModel.domains,
+                        year_min_max: ko.observableArray(),
+                        filters: ko.observableArray(),
+                        editing:{
+                            filters: {}
+                        },
+                        defaults:{
+                            filters: {
+                                date: '',
+                                date_types__value: '',
+                                date_types__label: '',
+                                date_operators__value: '',
+                                date_operators__label: ''
+                            }
+                        } 
+                    },
                     spatialFilter: this.spatialFilterViewModel,
                     queryString: function(){
                         var params = {
                             page: this.page(),
                             q: ko.toJSON(this.q()),
-                            year_min_max: ko.toJSON(this.date.year_min_max()),
+                            year_min_max: ko.toJSON(this.temporalFilter.year_min_max()),
+                            temporalFilter: ko.toJSON(this.temporalFilter.filters()),
                             spatialFilter: ko.toJSON(this.spatialFilter)
                         }; 
                         return $.param(params);
@@ -70,7 +99,7 @@ require(['jquery',
                     isEmpty: function(){
                         if (!(self.searchQuery.page()) && 
                             self.searchQuery.q().length === 0 && 
-                            self.searchQuery.date.year_min_max.length === 0 && 
+                            self.searchQuery.temporalFilter.year_min_max.length === 0 && 
                             self.searchQuery.spatialFilter.type() === ''){
                             return true;
                         }
@@ -79,10 +108,11 @@ require(['jquery',
                     changed: ko.pureComputed(function(){
                         var ret = ko.toJSON(this.searchQuery.page()) +
                             ko.toJSON(this.searchQuery.q()) +
-                            ko.toJSON(this.searchQuery.date.year_min_max()) +
+                            ko.toJSON(this.searchQuery.temporalFilter.year_min_max()) +
+                            ko.toJSON(this.searchQuery.temporalFilter.filters()) +
                             ko.toJSON(this.searchQuery.spatialFilter.coordinates());
                         return ret;
-                    }, this).extend({ rateLimit: 0 })
+                    }, this).extend({ rateLimit: 200 })
                 }
 
                 this.searchQuery.changed.subscribe(function(){
@@ -358,6 +388,7 @@ require(['jquery',
                 });
                 map.addInteraction(modify);
 
+
                 if(this.drawingtool){
                     map.removeInteraction(this.drawingtool);
                 }
@@ -370,9 +401,16 @@ require(['jquery',
                     this.drawingFeatureOverlay.getFeatures().clear();
                 }, this);
                 this.drawingtool.on('drawend', function(evt){
+                    var self = this;
                     var geometry = evt.feature.getGeometry().clone();
                     geometry.transform('EPSG:3857', 'EPSG:4326');
                     this.spatialFilterViewModel.coordinates(geometry.getCoordinates());
+                    
+                    evt.feature.on('change', function(evt) {
+                        var geometry = evt.target.getGeometry().clone();
+                        geometry.transform('EPSG:3857', 'EPSG:4326');
+                        self.spatialFilterViewModel.coordinates(geometry.getCoordinates());
+                    });
                 }, this);
 
                 map.addInteraction(this.drawingtool);
@@ -386,17 +424,38 @@ require(['jquery',
                 this.slider.on('slideStop', function(evt){
                     // if ther user has the slider at it's min and max, then essentially they don't want to filter by year
                     if(self.slider.getAttribute('min') === evt.value[0] && self.slider.getAttribute('max') === evt.value[1]){
-                        self.temporalFilterViewModel.year_min_max([]);
+                        self.searchQuery.temporalFilter.year_min_max([]);
                     }else{
-                        self.temporalFilterViewModel.year_min_max(evt.value);
+                        self.searchQuery.temporalFilter.year_min_max(evt.value);
                     }
                 });
 
-                this.temporalFilterViewModel.year_min_max.subscribe(function(newValue){
-                    self.slider.setValue(newValue);
+                this.searchQuery.temporalFilter.year_min_max.subscribe(function(newValue){
+                    if(newValue.length == 2){
+                        self.slider.setValue(newValue);
+                    }
                 });
 
-                ko.applyBindings(this.temporalFilterViewModel, $('#time-filter')[0]);
+                //ko.applyBindings(this.searchQuery.temporalFilter, $('#time-filter')[0]);
+
+                new BranchList({
+                    el: $('#time-filter')[0],
+                    viewModel: this.searchQuery.temporalFilter,
+                    key: 'filters',
+                    validateBranch: function (data) {
+                        if (data.date_types__value !== '' && data.date_operators__value !== '' && data.date !== '') {
+                            return true;
+                        }
+                        return false;
+                    }
+                })
+
+                ko.applyBindings(this.searchQuery.temporalFilter, $('#time-filter')[0]);
+            },
+
+            addTemporalFilter: function(evt){
+                var form = $(evt.target).closest('form');
+
             },
 
             newPage: function(evt){
@@ -537,8 +596,8 @@ require(['jquery',
                 if(query.q){
                     this.searchQuery.q(query.q);
                 }
-                if(query.date){
-                    this.searchQuery.date(query.date);
+                if(query.temporalFilter){
+                    this.searchQuery.temporalFilter(query.temporalFilter);
                 }
                 if(query.spatialFilter){
                     this.searchQuery.spatialFilter(query.spatialFilter);
