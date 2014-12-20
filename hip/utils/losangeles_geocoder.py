@@ -17,22 +17,29 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from django.conf import settings
+import urllib
+import urllib2
+import json
 
 def findCandidates(searchString):
     # use search string to retrieve candidatae list from data source.
     # return data as follows:
-    return [
-        {
-            'label': '100 Main St., San Francisco CA 94109',
-            'geometry': {
-                "type": "Point",
-                "coordinates": [
-                    -118.45089,
-                    34.08702
-                ]
-            },
-            'score': 99
-        }
-    ]
 
+    query_args = { 'searchText': searchString }
+    encoded_args = urllib.urlencode(query_args)
+
+    url = 'http://egis3.lacounty.gov/Geocortex/Essentials/Essentials/REST/sites/GISViewer/search?layers=&envelope=&maxResults=&contains=false&returnCountOnly=false&returnGeometry=true&returnHighlights=false&returnIdsOnly=false&f=pjson&' + encoded_args
+    response = json.loads(urllib2.urlopen(url).read())
+    results = []
+    for feature in response['features']:
+        results.append({
+            'id': feature['id'],
+            'text': feature['attributes']['SitusFullAddress'] + ' (APN: ' + feature['attributes']['APN'] + ')',
+            'geometry': {
+                "type": "Polygon",
+                "coordinates": feature['geometry']['rings']
+            },
+            'score': feature['score']
+        })
         
+    return results
