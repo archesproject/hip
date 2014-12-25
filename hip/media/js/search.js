@@ -579,7 +579,7 @@ require(['jquery',
             },
 
             getSearchQuery: function(){
-                var query = _.chain( location.search.slice(1).split('&') )
+                var query = _.chain(decodeURIComponent(location.search).slice(1).split('&') )
                     // Split each array item into [key, value]
                     // ignore empty string if search is empty
                     .map(function(item) { if (item) return item.split('='); })
@@ -591,16 +591,31 @@ require(['jquery',
                     .value();
 
                 if(query.page){
+                    query.page = JSON.parse(query.page);
                     this.searchQuery.page(query.page);
                 }
                 if(query.q){
+                    query.q = JSON.parse(query.q);
                     this.searchQuery.q(query.q);
                 }
                 if(query.temporalFilter){
-                    this.searchQuery.temporalFilter(query.temporalFilter);
+                    query.temporalFilter = JSON.parse(query.temporalFilter);
+                    if(query.temporalFilter.length > 0){
+                        this.searchQuery.temporalFilter.filters(query.temporalFilter);
+                    }
+                }
+                if(query.year_min_max){
+                    query.year_min_max = JSON.parse(query.year_min_max);
+                    if(query.year_min_max.length === 2){
+                        this.searchQuery.temporalFilter.year_min_max(query.year_min_max);
+                    }
                 }
                 if(query.spatialFilter){
-                    this.searchQuery.spatialFilter(query.spatialFilter);
+                    query.spatialFilter = JSON.parse(query.spatialFilter);
+                    if(query.spatialFilter.coordinates.length > 0){
+                        this.searchQuery.spatialFilter.type(ko.utils.unwrapObservable(query.spatialFilter.type));
+                        this.searchQuery.spatialFilter.coordinates(ko.utils.unwrapObservable(query.spatialFilter.coordinates));
+                    }
                 }
                 
 
