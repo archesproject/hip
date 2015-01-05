@@ -60,7 +60,7 @@ RESOURCE_TYPE_CONFIGS = {
         'categories': [_('Resource')],
         'has_layer': True,
         'on_map': True,
-        'vector_color': '#66FF33',
+        'vector_color': '#24a221',
         'primary_name_lookup': {
             'entity_type': 'NAME.E41',
             'lookup_value': 'Primary'
@@ -76,7 +76,7 @@ RESOURCE_TYPE_CONFIGS = {
         'categories': [_('Resource')],
         'has_layer': True,
         'on_map': True,
-        'vector_color': '#FF3366',
+        'vector_color': '#C31C46',
         'primary_name_lookup': {
             'entity_type': 'NAME.E41',
             'lookup_value': 'Primary'
@@ -92,7 +92,7 @@ RESOURCE_TYPE_CONFIGS = {
         'categories': [_('Resource')],
         'has_layer': True,
         'on_map': True,
-        'vector_color': '#33FFCC',
+        'vector_color': '#28BE99',
         'primary_name_lookup': {
             'entity_type': 'ACTOR_APPELLATION.E82',
             'lookup_value': 'Primary'
