@@ -18,7 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from arches import urls as arches_urls
 from django.conf.urls import patterns, url, include
-print 'shit'
+
 urlpatterns = patterns('',
     url(r'^search$', 'hip.views.search.home_page', name="search_home"),
     url(r'^search/resources$', 'hip.views.search.search_results', name="search_results"),
