@@ -21,11 +21,8 @@ import urllib
 import urllib2
 import json
 
-def findCandidates(searchString):
-    # use search string to retrieve candidatae list from data source.
-    # return data as follows:
-
-    query_args = { 'searchText': searchString }
+def find_candidates(search_string):
+    query_args = { 'searchText': search_string }
     encoded_args = urllib.urlencode(query_args)
 
     url = 'http://egis3.lacounty.gov/Geocortex/Essentials/Essentials/REST/sites/GISViewer/search?layers=&envelope=&maxResults=&contains=false&returnCountOnly=false&returnGeometry=true&returnHighlights=false&returnIdsOnly=false&f=pjson&' + encoded_args
