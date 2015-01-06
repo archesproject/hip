@@ -10,10 +10,11 @@ require(['jquery',
     'knockout',
     'plugins/bootstrap-slider/bootstrap-slider.min',
     'views/forms/sections/branch-list',
+    'views/related-resources-graph',
     'resource-types',
     'bootstrap-datetimepicker',
     'plugins/knockout-select2'], 
-    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, BranchList, resourceTypes) {
+    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, BranchList, RelatedResourcesGraph, resourceTypes) {
     $(document).ready(function() {
 
         var SearchResultsView = Backbone.View.extend({
@@ -34,7 +35,8 @@ require(['jquery',
                 'click #point-filter': 'toggleSpatialFilter',
                 'click #line-filter': 'toggleSpatialFilter',
                 'click #map-tools-dropdown': 'handleMapToolsBtn',
-                'click #add-temporal-filter-btn': 'addTemporalFilter'
+                'click #add-temporal-filter-btn': 'addTemporalFilter',
+                'click .related-resources-graph': 'showRelatedResouresGraph'
             },
 
             initialize: function(options) { 
@@ -161,6 +163,17 @@ require(['jquery',
 
                 this.getSearchQuery();
 
+            },
+
+            showRelatedResouresGraph: function (e) {
+                var searchItem = $(e.target).closest('.arches-search-item');
+                var graphPanel = searchItem.find('.arches-related-resource-panel');
+                if (!graphPanel.hasClass('view-created')) {
+                    new RelatedResourcesGraph({
+                        el: graphPanel[0]
+                    });
+                }
+                graphPanel.slideToggle(500);
             },
 
             addResourceLayer: function(){
