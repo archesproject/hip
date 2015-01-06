@@ -9,11 +9,10 @@ require(['jquery',
     'openlayers', 
     'knockout',
     'plugins/bootstrap-slider/bootstrap-slider.min',
-    'plugins/bootstrap-tags/bootstrap-tagsinput.min',
     'views/forms/sections/branch-list',
     'bootstrap-datetimepicker',
     'plugins/knockout-select2'], 
-    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, TagsInput, BranchList) {
+    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, BranchList) {
     $(document).ready(function() {
 
         var SearchResultsView = Backbone.View.extend({
@@ -33,37 +32,21 @@ require(['jquery',
                 'click #polygon-filter': 'toggleSpatialFilter',
                 'click #point-filter': 'toggleSpatialFilter',
                 'click #line-filter': 'toggleSpatialFilter',
-                'click #spatial-buffer': 'toggleSpatialFilter',
-                'click #map-tools-btn': 'handleMapToolsBtn',
+                'click #map-tools-dropdown': 'handleMapToolsBtn',
                 'click #add-temporal-filter-btn': 'addTemporalFilter'
             },
 
             initialize: function(options) { 
                 var self = this;
                 var initialcount = $('#search-results-count').data().count;
-
-                $("#map-extent-filter-tag").removeClass('hidden');
-                $(".bootstrap-tagsinput").css("border-width", "0px");
-                //$('#date-type').select2({});
-                //$('#date-operator').select2({});
                 var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});
+                
                 date_picker.on('dp.change', function(evt){
                     $('#date').trigger('change'); 
                 })
 
-                this._rawdata = JSON.parse($('#formdata').val());
-                // this.viewModel = JSON.parse(this._rawdata);
-
                 this._rawdata = ko.toJSON(JSON.parse($('#formdata').val()));
                 this.viewModel = JSON.parse(this._rawdata);
-
-
-                this.spatialFilterViewModel = {
-                    type: ko.observable(''),
-                    coordinates: ko.observable([])
-                };
-
-                ko.applyBindings(this.spatialFilterViewModel, $('#map-tools-btn')[0]); 
 
                 this.searchQuery = {
                     page: ko.observable(),
@@ -85,7 +68,16 @@ require(['jquery',
                             }
                         } 
                     },
-                    spatialFilter: this.spatialFilterViewModel,
+                    spatialFilter: {
+                        geometry:{
+                            type: ko.observable(''),
+                            coordinates: ko.observable([])
+                        },
+                        buffer: {
+                            width: ko.observable('0'),
+                            unit: ko.observable('ft')
+                        }
+                    },
                     queryString: function(){
                         var params = {
                             page: this.page(),
@@ -100,7 +92,7 @@ require(['jquery',
                         if (!(self.searchQuery.page()) && 
                             self.searchQuery.q().length === 0 && 
                             self.searchQuery.temporalFilter.year_min_max.length === 0 && 
-                            self.searchQuery.spatialFilter.type() === ''){
+                            self.searchQuery.spatialFilter.geometry.type() === ''){
                             return true;
                         }
                         return false;
@@ -110,10 +102,12 @@ require(['jquery',
                             ko.toJSON(this.searchQuery.q()) +
                             ko.toJSON(this.searchQuery.temporalFilter.year_min_max()) +
                             ko.toJSON(this.searchQuery.temporalFilter.filters()) +
-                            ko.toJSON(this.searchQuery.spatialFilter.coordinates());
+                            ko.toJSON(this.searchQuery.spatialFilter.geometry.coordinates());
                         return ret;
                     }, this).extend({ rateLimit: 200 })
                 }
+
+                ko.applyBindings(this.searchQuery.spatialFilter, $('#map-tools-dropdown')[0]); 
 
                 this.searchQuery.changed.subscribe(function(){
                     if(!self.pageChanged){
@@ -302,28 +296,26 @@ require(['jquery',
             },
 
             onMoveEnd: function(evt) {
-                this.spatialFilterViewModel.coordinates(this.getMapExtent());
+                this.searchQuery.spatialFilter.geometry.coordinates(this.getMapExtent());
             },
 
             toggleSpatialFilter: function(evt){
                 var link = $(evt.target).closest('a');
                 var data = link.data();
                 var item = link.find('i');
+
+                this.disableDrawingTools();
                 
                 if (!(item.hasClass("fa-check"))){
                     //User is adding filter
-                    //item.removeClass("fa-xxx").addClass("fa-check");
 
                     if(data.tooltype){
-                        //Update filter tag
-                        $(".bootstrap-tagsinput").css("display", "block");
-
                         if(data.tooltype === 'map-extent'){
-                            this.spatialFilterViewModel.type('bbox');
-                            this.spatialFilterViewModel.coordinates(this.getMapExtent());
+                            this.searchQuery.spatialFilter.geometry.type('bbox');
+                            this.searchQuery.spatialFilter.geometry.coordinates(this.getMapExtent());
                             this.map.map.on('moveend', this.onMoveEnd, this);
                         }else{
-                            this.spatialFilterViewModel.type(data.tooltype);
+                            this.searchQuery.spatialFilter.geometry.type(data.tooltype);
                             this.enableDrawingTools(this.map.map, data.tooltype);
                             this.map.map.un('moveend', this.onMoveEnd, this);     
                         }                  
@@ -331,50 +323,48 @@ require(['jquery',
 
                 }else{
                     //User is removing filter
-                    //item.removeClass("fa-check").addClass("fa-xxx");
-
                     if(data.tooltype){
-                        //Update filter tag
-                        $(".bootstrap-tagsinput").css("display", "none");
-
-                        this.spatialFilterViewModel.type('');
-                        this.spatialFilterViewModel.coordinates([]);
+                        this.searchQuery.spatialFilter.geometry.type('');
+                        this.searchQuery.spatialFilter.geometry.coordinates([]);
 
                         if(data.tooltype === 'map-extent'){
                             this.map.map.un('moveend', this.onMoveEnd, this);
                         } 
-
-                        if(this.drawingtool){
-                            this.map.map.removeInteraction(this.drawingtool);
-                            this.drawingFeatureOverlay.getFeatures().clear();
-                        }
                     }
                 }
             },
 
             enableDrawingTools: function(map, tooltype){
-                // The features are not added to a regular vector layer/source,
-                // but to a feature overlay which holds a collection of features.
-                // This collection is passed to the modify and also the draw
-                // interaction, so that both can add or modify features.
-                this.drawingFeatureOverlay = new ol.FeatureOverlay({
-                    style: new ol.style.Style({
-                        fill: new ol.style.Fill({
-                            color: 'rgba(255, 255, 255, 0.2)'
-                        }),
-                        stroke: new ol.style.Stroke({
-                            color: '#ffcc33',
-                            width: 2
-                        }),
-                        image: new ol.style.Circle({
-                            radius: 7,
+                if (!this.bufferFeatureOverlay){
+                    this.bufferFeatureOverlay = new ol.FeatureOverlay({
+                        style: new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: '#ffcc33'
+                                color: 'rgba(123, 123, 255, 0.5)'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#ff6633',
+                                width: 2,
+                                lineDash: [4,4]
                             })
                         })
-                    })
-                });
-                this.drawingFeatureOverlay.setMap(map);
+                    }); 
+                    this.bufferFeatureOverlay.setMap(map);                   
+                }
+                
+                if (!this.drawingFeatureOverlay){
+                    this.drawingFeatureOverlay = new ol.FeatureOverlay({
+                        style: new ol.style.Style({
+                            fill: new ol.style.Fill({
+                                color: 'rgba(255, 255, 255, 0.2)'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#ffcc33',
+                                width: 2
+                            })
+                        })
+                    });
+                    this.drawingFeatureOverlay.setMap(map);
+                }
 
                 var modify = new ol.interaction.Modify({
                     features: this.drawingFeatureOverlay.getFeatures(),
@@ -388,33 +378,74 @@ require(['jquery',
                 });
                 map.addInteraction(modify);
 
-
-                if(this.drawingtool){
-                    map.removeInteraction(this.drawingtool);
-                }
                 this.drawingtool = new ol.interaction.Draw({
                     features: this.drawingFeatureOverlay.getFeatures(),
                     type: tooltype
                 });
 
                 this.drawingtool.on('drawstart', function(){
-                    this.drawingFeatureOverlay.getFeatures().clear();
+                    if(this.drawingtool.o !== 'Point'){
+                        this.clearDrawingFeatures();                       
+                    }
                 }, this);
+
                 this.drawingtool.on('drawend', function(evt){
                     var self = this;
                     var geometry = evt.feature.getGeometry().clone();
                     geometry.transform('EPSG:3857', 'EPSG:4326');
-                    this.spatialFilterViewModel.coordinates(geometry.getCoordinates());
+                    this.searchQuery.spatialFilter.geometry.coordinates(geometry.getCoordinates());
+                    
+                    if(this.drawingtool.o === 'Point'){
+                        this.clearDrawingFeatures();                      
+                    }
+
+                    //this.bufferSpatialFilter();
                     
                     evt.feature.on('change', function(evt) {
                         var geometry = evt.target.getGeometry().clone();
                         geometry.transform('EPSG:3857', 'EPSG:4326');
-                        self.spatialFilterViewModel.coordinates(geometry.getCoordinates());
+                        self.searchQuery.spatialFilter.geometry.coordinates(geometry.getCoordinates());
+                        //self.bufferSpatialFilter();
                     });
                 }, this);
 
                 map.addInteraction(this.drawingtool);
+            },
 
+            disableDrawingTools: function(){
+                if(this.drawingtool){
+                    this.map.map.removeInteraction(this.drawingtool);
+                    this.clearDrawingFeatures();
+                }
+            },
+
+            clearDrawingFeatures: function(){
+                if (this.bufferFeatureOverlay){
+                    this.bufferFeatureOverlay.getFeatures().clear();                 
+                }
+                
+                if (this.drawingFeatureOverlay){
+                    this.drawingFeatureOverlay.getFeatures().clear();
+                }
+            },
+
+            bufferSpatialFilter: function(){
+                var self = this;
+                if(this.searchQuery.spatialFilter.buffer.width() > 0){
+                    $.ajax({
+                        type: "GET",
+                        url: arches.urls.buffer,
+                        data: this.searchQuery.queryString(),
+                        success: function(results){
+                            var source = new ol.source.GeoJSON(({object:{type: 'FeatureCollection', features: [{type:'Feature', geometry: JSON.parse(results)}]}}));
+                            var feature = source.getFeatures()[0];
+                            feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+                            self.bufferFeatureOverlay.getFeatures().clear();  
+                            self.bufferFeatureOverlay.addFeature(feature);
+                        },
+                        error: function(){}
+                    });                    
+                }
             },
 
             initTemporalFilter: function(){
@@ -478,6 +509,7 @@ require(['jquery',
                         self.bind(results);
                         self.toggleSearchResults('show');
                         self.toggleSavedSearches('hide');
+                        self.bufferSpatialFilter();
                     },
                     error: function(){}
                 });
@@ -612,9 +644,11 @@ require(['jquery',
                 }
                 if(query.spatialFilter){
                     query.spatialFilter = JSON.parse(query.spatialFilter);
-                    if(query.spatialFilter.coordinates.length > 0){
-                        this.searchQuery.spatialFilter.type(ko.utils.unwrapObservable(query.spatialFilter.type));
-                        this.searchQuery.spatialFilter.coordinates(ko.utils.unwrapObservable(query.spatialFilter.coordinates));
+                    if(query.spatialFilter.geometry.coordinates.length > 0){
+                        this.searchQuery.spatialFilter.geometry.type(ko.utils.unwrapObservable(query.spatialFilter.geometry.type));
+                        this.searchQuery.spatialFilter.geometry.coordinates(ko.utils.unwrapObservable(query.spatialFilter.geometry.coordinates));
+                        this.searchQuery.spatialFilter.buffer.width(ko.utils.unwrapObservable(query.spatialFilter.buffer.width));
+                        this.searchQuery.spatialFilter.buffer.unit(ko.utils.unwrapObservable(query.spatialFilter.buffer.unit));
                     }
                 }
                 
