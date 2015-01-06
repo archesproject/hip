@@ -31,7 +31,7 @@ def find_candidates(search_string):
     for feature in response['features']:
         results.append({
             'id': feature['id'],
-            'text': feature['attributes']['SitusFullAddress'] + ' (APN: ' + feature['attributes']['APN'] + ')',
+            'text': feature['attributes']['SitusFullAddress'] + ' (APN: ' + feature['attributes']['APN'].replace('-', '') + ')',
             'geometry': {
                 "type": "Polygon",
                 "coordinates": feature['geometry']['rings']
