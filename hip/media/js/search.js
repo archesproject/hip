@@ -10,9 +10,10 @@ require(['jquery',
     'knockout',
     'plugins/bootstrap-slider/bootstrap-slider.min',
     'views/forms/sections/branch-list',
+    'resource-types',
     'bootstrap-datetimepicker',
     'plugins/knockout-select2'], 
-    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, BranchList) {
+    function($, _, Backbone, bootstrap, arches, select2, ResourceSearch, MapView, ol, ko, Slider, BranchList, resourceTypes) {
     $(document).ready(function() {
 
         var SearchResultsView = Backbone.View.extend({
@@ -528,7 +529,8 @@ require(['jquery',
                         resourceid: this._source.entityid,
                         entitytypeid: this._source.entitytypeid,
                         descritption: '',
-                        geometries: ko.observableArray(this._source.geometries)
+                        geometries: ko.observableArray(this._source.geometries),
+                        typeIcon: resourceTypes[this._source.entitytypeid].icon
                     });
                 });
             },

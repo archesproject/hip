@@ -88,5 +88,25 @@
 {% endblock content %}
 
 {% block pre_require_js %}
-    {% include 'map/layer-info.htm' %}
+    <script>
+        define('resource-types', [], function () {
+            var resourceTypes = {
+                {% for type, type_data in resource_types %}
+                "{{type}}": {
+                    id: "{{type_data.resourcetypeid}}",
+                    icon: "{{type_data.icon_class}}",
+                    name: "{{type_data.name}}",
+                    description: "{{type_data.description}}",
+                    categories: [
+                        {% for category in type_data.categories %}
+                        "{{category}}"
+                        {% endfor %}
+                    ]
+                },
+                {% endfor %}
+            };
+
+            return resourceTypes;;
+        });
+    </script>
 {% endblock pre_require_js %}
