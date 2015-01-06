@@ -530,7 +530,8 @@ require(['jquery',
                         entitytypeid: this._source.entitytypeid,
                         descritption: '',
                         geometries: ko.observableArray(this._source.geometries),
-                        typeIcon: resourceTypes[this._source.entitytypeid].icon
+                        typeIcon: resourceTypes[this._source.entitytypeid].icon,
+                        typeName: resourceTypes[this._source.entitytypeid].name
                     });
                 });
             },
