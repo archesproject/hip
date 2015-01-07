@@ -19,6 +19,8 @@ from django.conf import settings
 import arches.app.models.models as archesmodels
 from arches.app.models.edit_history import EditHistory
 from arches.app.models.resource import Resource as ArchesResource
+from arches.app.search.search_engine_factory import SearchEngineFactory
+from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
 from hip.views import forms as hip_forms
 from django.utils.translation import ugettext as _
 
@@ -70,11 +72,18 @@ class Resource(ArchesResource):
 
         return names
 
-    def get_feature_data(self):
-        """
-        Gets a dictionary of data available when displaying resource as a map feature
+    def prepare_documents_for_search_index(self):
+        documents = super(Resource, self).prepare_documents_for_search_index()
 
-        """
+        for document in documents:
+            document['BEGINNING_OF_EXISTENCE.E63'] = self.get_nodes('BEGINNING_OF_EXISTENCE.E63', keys=['label', 'value'])
+            document['END_OF_EXISTENCE.E64'] = self.get_nodes('END_OF_EXISTENCE.E64', keys=['label', 'value'])
+
+        return documents
+
+    def prepare_documents_for_map_index(self, geom_entities=[]):
+        documents = super(Resource, self).prepare_documents_for_map_index(geom_entities=geom_entities)
+        
         resource_type = _('None specified')
         resource_type_nodes = []
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
@@ -82,10 +91,11 @@ class Resource(ArchesResource):
             
         for resource_type in resource_type_nodes:
             resource_type = resource_type.label
-        return {
-            'resource_type': resource_type
-        }
 
+        for document in documents:
+            document['properties']['resource_type'] = resource_type
+
+        return documents
 
     @staticmethod
     def get_report(resourceid):

@@ -445,7 +445,7 @@ require(['jquery',
 
             bufferSpatialFilter: function(){
                 var self = this;
-                if(this.searchQuery.spatialFilter.buffer.width() > 0){
+                if(this.searchQuery.spatialFilter.buffer.width() > 0 && this.drawingFeatureOverlay.getFeatures().getLength() > 0){
                     $.ajax({
                         type: "GET",
                         url: arches.urls.buffer,
