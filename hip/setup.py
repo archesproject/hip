@@ -8,6 +8,7 @@ from arches.app.utils.data_management.resources.importer import ResourceLoader
 import arches.app.utils.data_management.resources.remover as resource_remover
 from arches.management.commands.package_utils import resource_graphs
 from arches.management.commands.package_utils import authority_files
+from arches.app.models.resource import Resource
 
 
 def setup():
@@ -27,7 +28,9 @@ def install(path_to_source_data_dir=None):
     delete_index(index='resource')
     delete_index(index='entity')
     delete_index(index='maplayers')
-    delete_index(index='term')    
+    delete_index(index='term') 
+    load_search_mappings()   
+    
     load_resources()
 
 def export_data():
@@ -52,7 +55,14 @@ def load_map_layers():
 def delete_index(index=None):
     se = SearchEngineFactory().create()
     se.delete(index=index, force=True)
-    pass
+
+def load_search_mappings(index=None):
+    Resource.prepare_search_mappings('HERITAGE_RESOURCE_GROUP.E27')
+    Resource.prepare_search_mappings('HERITAGE_RESOURCE.E18')
+    Resource.prepare_search_mappings('INFORMATION_RESOURCE.E73')
+    Resource.prepare_search_mappings('ACTIVITY.E7')
+    Resource.prepare_search_mappings('ACTOR.E39')
+    Resource.prepare_search_mappings('HISTORICAL_EVENT.E5')
 
 def install_dependencies():
     pass
