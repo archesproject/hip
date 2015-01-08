@@ -120,6 +120,10 @@ require(['jquery',
                     self.pageChanged = false;
                 });
 
+                this.searchQuery.spatialFilter.buffer.width.subscribe(function(){
+                    self.bufferSpatialFilter();
+                });
+
                 this.searchbox = new ResourceSearch({
                     el: $.find('input.resource_search_widget')[0]
                 });
