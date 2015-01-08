@@ -166,11 +166,13 @@ require(['jquery',
             },
 
             showRelatedResouresGraph: function (e) {
+                var resourceId = $(e.target).data('resourceid')
                 var searchItem = $(e.target).closest('.arches-search-item');
                 var graphPanel = searchItem.find('.arches-related-resource-panel');
                 if (!graphPanel.hasClass('view-created')) {
                     new RelatedResourcesGraph({
-                        el: graphPanel[0]
+                        el: graphPanel[0],
+                        resourceId: resourceId
                     });
                 }
                 graphPanel.slideToggle(500);
