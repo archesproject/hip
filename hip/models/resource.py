@@ -73,15 +73,35 @@ class Resource(ArchesResource):
         return names
 
     def prepare_documents_for_search_index(self):
+        """
+        Generates a list of specialized resource based documents to support resource search
+
+        """
+
         documents = super(Resource, self).prepare_documents_for_search_index()
 
         for document in documents:
-            document['BEGINNING_OF_EXISTENCE.E63'] = self.get_nodes('BEGINNING_OF_EXISTENCE.E63', keys=['label', 'value'])
-            document['END_OF_EXISTENCE.E64'] = self.get_nodes('END_OF_EXISTENCE.E64', keys=['label', 'value'])
+            document['date_groups'] = []
+            for nodes in self.get_nodes('BEGINNING_OF_EXISTENCE.E63', keys=['value']):
+                document['date_groups'].append({
+                    'conceptid': nodes['BEGINNING_OF_EXISTENCE_TYPE_E55__value'],
+                    'value': nodes['START_DATE_OF_EXISTENCE_E49__value']
+                })
+
+            for nodes in self.get_nodes('END_OF_EXISTENCE.E64', keys=['value']):
+                document['date_groups'].append({
+                    'conceptid': nodes['END_OF_EXISTENCE_TYPE_E55__value'],
+                    'value': nodes['END_DATE_OF_EXISTENCE_E49__value']
+                })
 
         return documents
 
     def prepare_documents_for_map_index(self, geom_entities=[]):
+        """
+        Generates a list of geojson documents to support the display of resources on a map
+
+        """
+
         documents = super(Resource, self).prepare_documents_for_map_index(geom_entities=geom_entities)
         
         resource_type = _('None specified')
@@ -97,6 +117,29 @@ class Resource(ArchesResource):
 
         return documents
 
+    def prepare_search_mappings(self, resource_type_id):
+        """
+        Creates Elasticsearch document mappings
+
+        """
+
+        documents = super(Resource, self).prepare_search_mappings(resource_type_id)
+
+        mapping =  { 
+            resource_type_id : {
+                'properties' : {
+                    'date_groups' : { 
+                        'properties' : {
+                            'conceptid': {'type' : 'string', 'index' : 'not_analyzed'}
+                        }
+                    }
+                }
+            }
+        }
+
+        se = SearchEngineFactory().create()
+        se.create_mapping('entity', resource_type_id, mapping=mapping)
+        
     @staticmethod
     def get_report(resourceid):
         # get resource data for resource_id from ES, return data

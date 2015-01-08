@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from datetime import date
+from datetime import datetime
 from django.conf import settings
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -73,8 +73,30 @@ def home_page(request):
         context_instance=RequestContext(request))
 
 def search_results(request, as_text=False):
-    dsl = build_query_dsl(request)
-    results = dsl.search(index='entity', type='') 
+    temporal_filters = JSONDeserializer().deserialize(request.GET.get('temporalFilter', [])) 
+    
+    query = build_query_dsl(request)
+    boolquery = Bool()
+
+    for temporal_filter in temporal_filters:
+        match = Match(field='date_groups.conceptid', query=temporal_filter['date_types__value'])
+        boolquery.must(match)
+
+        date_value = datetime.strptime(temporal_filter['date'], '%d/%m/%Y').strftime('%Y-%m-%d')
+
+        if temporal_filter['date_operators__value'] == '1': # equals query
+            range = Range(field='date_groups.value', gte=date_value, lte=date_value)
+            boolquery.must(range)
+        elif temporal_filter['date_operators__value'] == '0': # greater than query 
+            range = Range(field='date_groups.value', lte=date_value)
+            boolquery.must(range)
+        elif temporal_filter['date_operators__value'] == '2': # less than query
+            range = Range(field='date_groups.value', gte=date_value)
+            boolquery.must(range)
+
+        query.add_query(boolquery)
+
+    results = query.search(index='entity', type='') 
     total = results['hits']['total']
     page = 1 if request.GET.get('page') == '' else int(request.GET.get('page', 1))
 
