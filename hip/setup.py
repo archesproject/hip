@@ -30,7 +30,7 @@ def install(path_to_source_data_dir=None):
     delete_index(index='maplayers')
     delete_index(index='term') 
     load_search_mappings()   
-    
+
     load_resources()
 
 def export_data():
@@ -57,12 +57,12 @@ def delete_index(index=None):
     se.delete(index=index, force=True)
 
 def load_search_mappings(index=None):
-    Resource.prepare_search_mappings('HERITAGE_RESOURCE_GROUP.E27')
-    Resource.prepare_search_mappings('HERITAGE_RESOURCE.E18')
-    Resource.prepare_search_mappings('INFORMATION_RESOURCE.E73')
-    Resource.prepare_search_mappings('ACTIVITY.E7')
-    Resource.prepare_search_mappings('ACTOR.E39')
-    Resource.prepare_search_mappings('HISTORICAL_EVENT.E5')
+    Resource().prepare_search_mappings('HERITAGE_RESOURCE_GROUP.E27')
+    Resource().prepare_search_mappings('HERITAGE_RESOURCE.E18')
+    Resource().prepare_search_mappings('INFORMATION_RESOURCE.E73')
+    Resource().prepare_search_mappings('ACTIVITY.E7')
+    Resource().prepare_search_mappings('ACTOR.E39')
+    Resource().prepare_search_mappings('HISTORICAL_EVENT.E5')
 
 def install_dependencies():
     pass
