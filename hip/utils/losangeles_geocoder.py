@@ -16,7 +16,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from django.conf import settings
 import urllib
 import urllib2
 import json
@@ -29,14 +28,15 @@ def find_candidates(search_string):
     response = json.loads(urllib2.urlopen(url).read())
     results = []
     for feature in response['features']:
-        results.append({
-            'id': feature['id'],
-            'text': feature['attributes']['SitusFullAddress'] + ' (APN: ' + feature['attributes']['APN'].replace('-', '') + ')',
-            'geometry': {
-                "type": "Polygon",
-                "coordinates": feature['geometry']['rings']
-            },
-            'score': feature['score']
-        })
+        if feature['attributes']['SitusCity'] == "LOS ANGELES CA":
+            results.append({
+                'id': feature['id'],
+                'text': feature['attributes']['SitusFullAddress'] + ' (APN: ' + feature['attributes']['APN'].replace('-', '') + ')',
+                'geometry': {
+                    "type": "Polygon",
+                    "coordinates": feature['geometry']['rings']
+                },
+                'score': feature['score']
+            })
         
     return results
