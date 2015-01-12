@@ -88,10 +88,10 @@ def search_results(request, as_text=False):
             range = Range(field='date_groups.value', gte=date_value, lte=date_value)
             boolquery.must(range)
         elif temporal_filter['date_operators__value'] == '0': # greater than query 
-            range = Range(field='date_groups.value', lte=date_value)
+            range = Range(field='date_groups.value', lt=date_value)
             boolquery.must(range)
         elif temporal_filter['date_operators__value'] == '2': # less than query
-            range = Range(field='date_groups.value', gte=date_value)
+            range = Range(field='date_groups.value', gt=date_value)
             boolquery.must(range)
 
         query.add_query(boolquery)
