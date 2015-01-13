@@ -27,7 +27,7 @@ RESOURCE_TYPE_CONFIGS = {
         'description': _('INSERT RESOURCE DESCRIPTION HERE'),
         'categories': [_('Resource')],
         'has_layer': True,
-        'on_map': True,
+        'on_map': False,
         'vector_color': '#3366FF',
         'primary_name_lookup': {
             'entity_type': 'NAME.E41',
@@ -43,7 +43,7 @@ RESOURCE_TYPE_CONFIGS = {
         'description': _('INSERT RESOURCE DESCRIPTION HERE'),
         'categories': [_('Resource')],
         'has_layer': True,
-        'on_map': True,
+        'on_map': False,
         'vector_color': '#F5B800',
         'primary_name_lookup': {
             'entity_type': 'NAME.E41',
@@ -59,7 +59,7 @@ RESOURCE_TYPE_CONFIGS = {
         'description': _('INSERT RESOURCE DESCRIPTION HERE'),
         'categories': [_('Resource')],
         'has_layer': True,
-        'on_map': True,
+        'on_map': False,
         'vector_color': '#24a221',
         'primary_name_lookup': {
             'entity_type': 'NAME.E41',
@@ -75,7 +75,7 @@ RESOURCE_TYPE_CONFIGS = {
         'description': _('INSERT RESOURCE DESCRIPTION HERE'),
         'categories': [_('Resource')],
         'has_layer': True,
-        'on_map': True,
+        'on_map': False,
         'vector_color': '#C31C46',
         'primary_name_lookup': {
             'entity_type': 'NAME.E41',
@@ -91,7 +91,7 @@ RESOURCE_TYPE_CONFIGS = {
         'description': _('INSERT RESOURCE DESCRIPTION HERE'),
         'categories': [_('Resource')],
         'has_layer': True,
-        'on_map': True,
+        'on_map': False,
         'vector_color': '#28BE99',
         'primary_name_lookup': {
             'entity_type': 'ACTOR_APPELLATION.E82',
@@ -107,7 +107,7 @@ RESOURCE_TYPE_CONFIGS = {
         'description': _('INSERT RESOURCE DESCRIPTION HERE'),
         'categories': [_('Resource')],
         'has_layer': True,
-        'on_map': True,
+        'on_map': False,
         'vector_color': '#FF6633',
         'primary_name_lookup': {
             'entity_type': 'TITLE.E41',
