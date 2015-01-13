@@ -30,13 +30,10 @@ from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.search.elasticsearch_dsl_builder import Bool, Match, Query, Nested, Terms, GeoShape, Range
 
 def home_page(request):
-    se = SearchEngineFactory().create()
-
     lang = request.GET.get('lang', 'en-us')
     min_max_dates = models.Dates.objects.aggregate(Min('val'), Max('val'))
-    resource_count = se.search(index='resource', search_type='_count')['count']
 
-    date_types = Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55')+ Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
+    date_types = Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55') + Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
     data = {'domains' :{'date_types': date_types}}
     data['domains']['date_operators'] = [{
         "conceptid": "0",
@@ -67,8 +64,7 @@ def home_page(request):
             'user_can_edit': False,
             'min_date': min_max_dates['val__min'].year,
             'max_date': min_max_dates['val__max'].year,
-            'formdata': JSONSerializer().serialize(data),
-            'resource_count': resource_count
+            'formdata': JSONSerializer().serialize(data)
         }, 
         context_instance=RequestContext(request))
 
