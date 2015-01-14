@@ -40,6 +40,7 @@ define([
     layers.push(new LayerModel({
         name: 'Los Angeles Parcels',
         icon: 'fa fa-bookmark-o',
+        visibleZoomRange: '15-20',
         layer: new ol.layer.Tile({
             source: new ol.source.XYZ({
                 url: 'http://egis3.lacounty.gov/arcgis/rest/services/LACounty_Cache/LACounty_Parcel/MapServer/tile/{z}/{y}/{x}'
