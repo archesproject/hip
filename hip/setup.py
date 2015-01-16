@@ -29,7 +29,8 @@ def install(path_to_source_data_dir=None):
     delete_index(index='entity')
     delete_index(index='maplayers')
     delete_index(index='term') 
-    load_search_mappings()   
+    delete_index(index='resource_relations') 
+    load_mappings()   
 
     load_resources()
 
@@ -54,9 +55,9 @@ def load_map_layers():
 
 def delete_index(index=None):
     se = SearchEngineFactory().create()
-    se.delete(index=index, force=True)
+    se.delete_index(index=index)
 
-def load_search_mappings(index=None):
+def load_mappings(index=None):
     Resource().prepare_search_mappings('HERITAGE_RESOURCE_GROUP.E27')
     Resource().prepare_search_mappings('HERITAGE_RESOURCE.E18')
     Resource().prepare_search_mappings('INFORMATION_RESOURCE.E73')
