@@ -92,7 +92,7 @@ def search_results(request, as_text=False):
 
         query.add_query(boolquery)
 
-    results = query.search(index='entity', type='') 
+    results = query.search(index='entity', doc_type='') 
     total = results['hits']['total']
     page = 1 if request.GET.get('page') == '' else int(request.GET.get('page', 1))
 
