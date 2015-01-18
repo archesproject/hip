@@ -18,10 +18,10 @@ define([
         layer: new ol.layer.Vector({
             style: new ol.style.Style({
                 fill: new ol.style.Fill({
-                	color: 'rgba(255,255,255,0.5)'
+                	color: 'rgba(234,234,234,0.50)'
                 }),
                 stroke: new ol.style.Stroke({
-                    color: '#555',
+                    color: '#999',
                     width: 1
                 })
             }),
