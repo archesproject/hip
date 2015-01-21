@@ -69,28 +69,35 @@ def home_page(request):
         context_instance=RequestContext(request))
 
 def search_results(request, as_text=False):
-    temporal_filters = JSONDeserializer().deserialize(request.GET.get('temporalFilter', [])) 
-    
-    query = build_query_dsl(request)
-    boolquery = Bool()
+    temporal_filters = JSONDeserializer().deserialize(request.GET.get('temporalFilter', None))
 
-    for temporal_filter in temporal_filters:
-        match = Match(field='date_groups.conceptid', query=temporal_filter['date_types__value'])
-        boolquery.must(match)
+    query = build_query_dsl(request)  
+    boolfilter = Bool()
 
-        date_value = datetime.strptime(temporal_filter['date'], '%d/%m/%Y').strftime('%Y-%m-%d')
+    if 'filters' in temporal_filters:
+        for temporal_filter in temporal_filters['filters']:
+            match = Match(field='date_groups.conceptid', query=temporal_filter['date_types__value'])
+            terms = Terms(field='date_groups.conceptid', terms=temporal_filter['date_types__value'])
+            boolfilter.must(terms)
 
-        if temporal_filter['date_operators__value'] == '1': # equals query
-            range = Range(field='date_groups.value', gte=date_value, lte=date_value)
-            boolquery.must(range)
-        elif temporal_filter['date_operators__value'] == '0': # greater than query 
-            range = Range(field='date_groups.value', lt=date_value)
-            boolquery.must(range)
-        elif temporal_filter['date_operators__value'] == '2': # less than query
-            range = Range(field='date_groups.value', gt=date_value)
-            boolquery.must(range)
+            date_value = datetime.strptime(temporal_filter['date'], '%d/%m/%Y').strftime('%Y-%m-%d')
 
-        query.add_query(boolquery)
+            if temporal_filter['date_operators__value'] == '1': # equals query
+                range = Range(field='date_groups.value', gte=date_value, lte=date_value)
+            elif temporal_filter['date_operators__value'] == '0': # greater than query 
+                range = Range(field='date_groups.value', lt=date_value)
+            elif temporal_filter['date_operators__value'] == '2': # less than query
+                range = Range(field='date_groups.value', gt=date_value)
+
+            if 'inverted' not in temporal_filters:
+                temporal_filters['inverted'] = False
+
+            if temporal_filters['inverted']:
+                boolfilter.must_not(range)
+            else:
+                boolfilter.must(range)
+
+            query.add_filter(boolfilter)
 
     results = query.search(index='entity', doc_type='') 
     total = results['hits']['total']
