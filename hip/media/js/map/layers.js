@@ -52,5 +52,20 @@ define([
         })
     }));
 
+    layers.push(new LayerModel({
+        name: 'Survey LA Planning Districts',
+        icon: 'fa fa-bookmark-o',
+        layer: new ol.layer.Tile({
+            source: new ol.source.TileWMS({
+              url: 'http://ec2-54-241-202-230.us-west-1.compute.amazonaws.com:8080/geoserver/arches/ows',
+              params: {
+                'LAYERS':'arches:SurveyLA_PlanningDistricts'
+              },
+              serverType: 'geoserver'
+            })
+        })
+    }));
+
     return layers;
 });
+
