@@ -117,28 +117,27 @@ class Resource(ArchesResource):
 
         return documents
 
-    def prepare_search_mappings(self, resource_type_id):
+    def prepare_search_index(self, resource_type_id, create=False):
         """
-        Creates Elasticsearch document mappings
+        Creates the settings and mappings in Elasticsearch to support resource search
 
         """
 
-        documents = super(Resource, self).prepare_search_mappings(resource_type_id)
+        index_settings = super(Resource, self).prepare_search_index(resource_type_id, create=False)
 
-        mapping =  { 
-            resource_type_id : {
-                'properties' : {
-                    'date_groups' : { 
-                        'properties' : {
-                            'conceptid': {'type' : 'string', 'index' : 'not_analyzed'}
-                        }
-                    }
-                }
+        index_settings['mappings'][resource_type_id]['properties']['date_groups'] = { 
+            'properties' : {
+                'conceptid': {'type' : 'string', 'index' : 'not_analyzed'}
             }
         }
 
-        se = SearchEngineFactory().create()
-        se.create_mapping('entity', resource_type_id, mapping=mapping)
+        if create:
+            se = SearchEngineFactory().create()
+            try:
+                se.create_index(index='entity', body=index_settings)
+            except:
+                index_settings = index_settings['mappings']
+                se.create_mapping(index='entity', doc_type=resource_type_id, body=index_settings)
         
     @staticmethod
     def get_report(resourceid):
