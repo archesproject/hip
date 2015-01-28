@@ -18,6 +18,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 {% load staticfiles %}
 {% load i18n %}   
 <dl class="">
-    <dt class="txt-color-blue">Resource Type</dt>
+    <dt class="txt-color-blue">{% trans 'Resource Type' %}</dt>
     <dd class="txt-color-blue arches-map-panel-list" data-bind="text:selectedResource() ? selectedResource().resource_type : ''"></dd>
 </dl>

@@ -1,0 +1,11 @@
+{% load i18n %}
+<!-- use this file for any localized strings (or other data from server) for non resource overlays -->
+<script> 
+    define('layers-i18n', [], function () {
+        return {
+            laCityLimitsName: "{% trans 'Los Angeles City Limits' %}",
+            laParcelsName: "{% trans 'Los Angeles Parcels' %}",
+            surveyLAPlanningDistrictsName: "{% trans 'Survey LA Planning Districts' %}"
+        };
+    });
+</script>

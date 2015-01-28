@@ -1,8 +1,9 @@
 define([
     'openlayers',
     'map/resource-layers',
-    'map/layer-model'
-], function(ol, resourceLayers, LayerModel) {
+    'map/layer-model',
+    'layers-i18n'
+], function(ol, resourceLayers, LayerModel, layerI18n) {
     var layers = resourceLayers.layers;
     var cityLimitFeature = {
         "type": "Feature",
@@ -11,14 +12,14 @@ define([
     };
 
     layers.push(new LayerModel({
-        name: 'Los Angeles City Limits',
+        name: layerI18n.laCityLimitsName,
         icon: 'fa fa-bookmark-o',
         visibleZoomRange: '9-20',
         onMap: true,
         layer: new ol.layer.Vector({
             style: new ol.style.Style({
                 fill: new ol.style.Fill({
-                	color: 'rgba(234,234,234,0.50)'
+                    color: 'rgba(234,234,234,0.50)'
                 }),
                 stroke: new ol.style.Stroke({
                     color: '#999',
@@ -42,7 +43,7 @@ define([
     }));
 
     layers.push(new LayerModel({
-        name: 'Los Angeles Parcels',
+        name: layerI18n.laParcelsName,
         icon: 'fa fa-bookmark-o',
         visibleZoomRange: '15-20',
         layer: new ol.layer.Tile({
@@ -53,7 +54,7 @@ define([
     }));
 
     layers.push(new LayerModel({
-        name: 'Survey LA Planning Districts',
+        name: layerI18n.surveyLAPlanningDistrictsName,
         icon: 'fa fa-bookmark-o',
         layer: new ol.layer.Tile({
             source: new ol.source.TileWMS({
@@ -68,4 +69,3 @@ define([
 
     return layers;
 });
-
