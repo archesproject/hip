@@ -65,7 +65,7 @@ class Resource(ArchesResource):
         """
 
         names = []
-        name_nodes = self.find_entities_by_type_id(settings.RESOURCE_TYPE_CONFIGS[self.entitytypeid]['primary_name_lookup']['entity_type'])
+        name_nodes = self.find_entities_by_type_id(settings.RESOURCE_TYPE_CONFIGS()[self.entitytypeid]['primary_name_lookup']['entity_type'])
         if len(name_nodes) > 0:
             for name in name_nodes:
                 names.append(name)
