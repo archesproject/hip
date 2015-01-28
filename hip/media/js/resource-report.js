@@ -4,19 +4,16 @@ require([
     'bootstrap',
     'views/map',
     'openlayers', 
-    'knockout',
-    'map/resource-layer-model'
-], function($, arches, bootstrap, MapView, ol, ko, ResourceLayerModel) {
+    'knockout'
+], function($, arches, bootstrap, MapView, ol, ko) {
     var ReportView = Backbone.View.extend({
 
         initialize: function(options) { 
             var self = this;
             var resource_geometry = $('#resource_geometry');
 
-            this.vectorLayer = new ResourceLayerModel().layer();
             this.map = new MapView({
-                el: $('#map'),
-                overlays: [this.vectorLayer]
+                el: $('#map')
             });
 
             ko.applyBindings(this.map, $('#basemaps-panel')[0]);
@@ -101,48 +98,25 @@ require([
                 var styleCache = {};
 
                 var style = function(feature, resolution) {
-                    var mouseOver = feature.get('mouseover');
-                    var text = '1 ' + mouseOver;
-
-                    feature.set('arches_marker', true);
-
-                    if (styleCache[text]) {
-                        return styleCache[text];
-                    }
-                    
-                    var iconSize = mouseOver ? 38 : 32;
-
-                    var styles = [new ol.style.Style({
-                        text: new ol.style.Text({
-                            text: iconUnicode,
-                            font: 'normal ' + iconSize + 'px octicons',
-                            offsetX: 5,
-                            offsetY: ((iconSize/2)*-1)-5,
-                            fill: new ol.style.Fill({
-                                color: 'rgba(126,126,126,0.3)',
-                            })
+                    return [new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0, 255, 255, 0.3)'
                         }),
-                        zIndex: mouseOver ? zIndex*1000000000: zIndex
-                    }), new ol.style.Style({
-                        text: new ol.style.Text({
-                            text: iconUnicode,
-                            font: 'normal ' + iconSize + 'px octicons',
-                            offsetY: (iconSize/2)*-1,
-                            stroke: new ol.style.Stroke({
-                                color: 'white',
-                                width: 3
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(0, 255, 255, 0.9)',
+                            width: 3
+                        }),
+                        image: new ol.style.Circle({
+                            radius: 10,
+                            fill: new ol.style.Fill({
+                                color: 'rgba(0, 255, 255, 0.3)'
                             }),
-                            fill: new ol.style.Fill({
-                                color: 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.9)',
+                            stroke: new ol.style.Stroke({
+                                color: 'rgba(0, 255, 255, 0.9)',
+                                width: 3
                             })
-                        }),
-                        zIndex: mouseOver ? zIndex*2000000000 : zIndex+1
+                        })
                     })];
-
-                    zIndex += 2;
-
-                    styleCache[text] = styles;
-                    return styles;
                 };                     
                 this.selectedFeatureLayer = new ol.layer.Vector({
                     source: new ol.source.GeoJSON(),
