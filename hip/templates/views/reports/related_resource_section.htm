@@ -1,0 +1,326 @@
+{% load i18n %}
+<!-- Related Resources -->
+<div class="block-level-v2 padding-all-20" style="background: #f9f9f9; border-top: 1px solid #dcdcdc;">
+    <div class="container">
+
+        <div>
+            <!-- Section Header, Small to Large Screens -->
+            <div class="hidden-xs">
+                <i class="center-icon rounded-x fa fa-exchange"></i>
+                <div class="margin-top-minus-10">
+                    <h2 class="text-center">{% trans "Related Resources" %}</h2>
+                </div> 
+            </div>
+
+            <!-- Section Header, XS Screens -->
+            <div class="hidden-sm hidden-md hidden-lg">
+                <i class="center-icon rounded-x fa fa-exchange"></i>
+                <div class="margin-top-minus-20">
+                    <h2 class="text-center margin-bottom-0">{% trans "Related Resources" %}</h2>
+                </div> 
+            </div> 
+
+            <!-- Content -->
+            <div class="row">
+                
+                <!-- Spacer -->
+                <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
+
+                <!-- Related Historic Resources -->
+                <div class="col-xs-12">
+                    <div class="right-inner arches-box-grey-border margin-bottom-40 padding-top-20">
+                        
+                        <!-- Container -->
+                        <div class="row">
+
+                            <!-- Section Header -->
+                            <div class="col-sm-4">
+                                <h3 class="margin-top-0 margin-bottom-5">{% trans "Historic Resources" %}</h3>
+                            </div>
+                            <!-- End Section Header -->
+
+                            <!-- Section Content -->
+                            <div class="col-sm-8">
+                                <div class="padding-top-10 margin-top-minus-5">
+                                    <div class="">
+
+                                        <!-- List of Related Resources -->
+                                        <div class="margin-bottom-10 padding-left-10">
+                                            <dl>
+                                                {% for related_resource in related_resource_dict.HERITAGE_RESOURCE %}
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            {{related_resource.primaryname}}
+                                                        </a>
+                                                        <span class="text-muted"><small>{{related_resource.metadata}}</small></span>
+                                                    </dd> 
+                                                    {% empty %}
+                                                        <dd class="">
+                                                            <p class="arches-CRUD-child text-muted">
+                                                                {% trans "None" %}
+                                                            </p>
+                                                        </dd>                                                        
+                                                {% endfor %} 
+                                            </dl>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+                        </div>
+                        <!-- End Related Historic Resources Section -->
+
+
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                        <!-- Related Historic Districts -->
+                        <div class="row">
+
+                            <!-- Section Header -->
+                            <div class="col-sm-4">
+                                <h3 class="margin-top-0 margin-bottom-5">{% trans "Historic Districts" %}</h3>
+                            </div>
+                            <!-- End Section Header -->
+
+                            <!-- Section Content -->
+                            <div class="col-sm-8">
+                                <div class="padding-top-10 margin-top-minus-5">
+                                    <div class="">
+
+                                        <!-- List of Related Resources -->
+                                        <div class="margin-bottom-10 padding-left-10">
+                                            <dl>                               
+                                                {% for related_resource in related_resource_dict.HERITAGE_RESOURCE_GROUP %}
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            {{related_resource.primaryname}}
+                                                        </a>
+                                                        <span class="text-muted"><small>{{related_resource.metadata}}</small></span>
+                                                    </dd> 
+                                                    {% empty %}
+                                                        <dd class="">
+                                                            <p class="arches-CRUD-child text-muted">
+                                                                {% trans "None" %}
+                                                            </p>
+                                                        </dd>                                                        
+                                                {% endfor %} 
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+                        </div>
+                        <!-- End Related Historic Districts Section -->
+
+
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                        <!-- Related Activities -->
+                        <div class="row">
+
+                            <!-- Section Header -->
+                            <div class="col-sm-4">
+                                <h3 class="margin-top-0 margin-bottom-5">{% trans "Activities" %}</h3>
+                            </div>
+                            <!-- End Section Header -->
+
+                            <!-- Section Content -->
+                            <div class="col-sm-8">
+                                <div class="padding-top-10 margin-top-minus-5">
+                                    <div class="">
+
+                                        <!-- List of Related Resources -->
+                                        <div class="margin-bottom-10 padding-left-10">
+                                            <dl>                               
+                                                {% for related_resource in related_resource_dict.ACTIVITY %}
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            {{related_resource.primaryname}}
+                                                        </a>
+                                                        <span class="text-muted"><small>{{related_resource.metadata}}</small></span>
+                                                    </dd> 
+                                                    {% empty %}
+                                                        <dd class="">
+                                                            <p class="arches-CRUD-child text-muted">
+                                                                {% trans "None" %}
+                                                            </p>
+                                                        </dd>                                                        
+                                                {% endfor %} 
+                                            </dl>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+                        </div>
+                        <!-- End Related Activities -->
+
+
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                        <!-- Related Historic Events -->
+                        <div class="row">
+
+                            <!-- Section Header -->
+                            <div class="col-sm-4">
+                                <h3 class="margin-top-0 margin-bottom-5">{% trans "Historic Events" %}</h3>
+                            </div>
+                            <!-- End Section Header -->
+
+                            <!-- Section Content -->
+                            <div class="col-sm-8">
+                                <div class="padding-top-10 margin-top-minus-5">
+                                    <div class="">
+
+                                        <!-- List of Related Resources -->
+                                        <div class="margin-bottom-10 padding-left-10">
+                                            <dl>
+                                                {% for related_resource in related_resource_dict.HISTORICAL_EVENT %}
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            {{related_resource.primaryname}}
+                                                        </a>
+                                                        <span class="text-muted"><small>{{related_resource.metadata}}</small></span>
+                                                    </dd> 
+                                                    {% empty %}
+                                                        <dd class="">
+                                                            <p class="arches-CRUD-child text-muted">
+                                                                {% trans "None" %}
+                                                            </p>
+                                                        </dd>                                                        
+                                                {% endfor %} 
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+                        </div>
+                        <!-- End Related Historic Events Section -->
+
+
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                        <!-- Related Actors -->
+                        <div class="row">
+
+                            <!-- Section Header -->
+                            <div class="col-sm-4">
+                                <h3 class="margin-top-0 margin-bottom-5">{% trans "Actors" %}</h3>
+                            </div>
+                            <!-- End Section Header -->
+
+                            <!-- Section Content -->
+                            <div class="col-sm-8">
+                                <div class="padding-top-10 margin-top-minus-5">
+                                    <div class="">
+
+                                        <!-- List of Related Resources -->
+                                        <div class="margin-bottom-10 padding-left-10">
+                                            <dl> 
+                                                {% for related_resource in related_resource_dict.ACTOR %}
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            {{related_resource.primaryname}}
+                                                        </a>
+                                                        <span class="text-muted"><small>{{related_resource.metadata}}</small></span> 
+                                                    </dd> 
+                                                    {% empty %}
+                                                        <dd class="">
+                                                            <p class="arches-CRUD-child text-muted">
+                                                                {% trans "None" %}
+                                                            </p>
+                                                        </dd>                                                        
+                                                {% endfor %} 
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+                        </div>
+                        <!-- End Related Actors Section -->
+
+
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                        <!-- Related Information Objects -->
+                        <div class="row">
+
+                            <!-- Section Header -->
+                            <div class="col-sm-4">
+                                <h3 class="margin-top-0 margin-bottom-5">{% trans "Information Object Resources" %}</h3>
+                            </div>
+                            <!-- End Section Header -->
+
+                            <!-- Section Content -->
+                            <div class="col-sm-8">
+                                <div class="padding-top-10">
+                                    <div class="">
+
+                                        <!-- Images -->
+                                        <div class="row margin-bottom-30 padding-left-10">
+                                            <div class="arches-report-header" style="padding-left: 15px; padding-bottom: 3px;">{% trans "Images" %}</div>
+                                            {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_IMAGE %}
+                                                <div class="col-md-6 shadow-wrapper">
+                                                    <div class="box-shadow shadow-effect-2">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            <img style="width: 100%;" src="{{related_resource.file_path}}" data-img="img/superbox/superbox-full-2.jpg" alt="{{related_resource.primaryname}}" class="superbox-img img-bordered">
+                                                        </a>
+                                                    </div>
+                                                </div> 
+                                                {% empty %}
+                                                    <dd class="" style="padding-left: 15px;">
+                                                        <p class="arches-CRUD-child text-muted">
+                                                            {% trans "None" %}
+                                                        </p>
+                                                    </dd>                                                        
+                                            {% endfor %} 
+                                        </div>
+                                        <!-- End Images -->
+
+                                        <!-- List of Related Resources (Documents)-->
+                                        <div class="margin-bottom-10 padding-left-10">
+                                            <dl>   
+                                                <dt class="arches-report-header">{% trans "Documents" %}</dt>
+                                                {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_DOCUMENT %}
+                                                <dd class="arches-report-content">
+                                                    <a href="#" class="arches-CRUD-child" title="View Report">
+                                                        {{related_resource.primaryname}}
+                                                    </a>
+                                                    <span class="text-muted"><small>{{related_resource.metadata}}</small></span> 
+                                                </dd>  
+                                                {% empty %}
+                                                    <dd class="">
+                                                        <p class="arches-CRUD-child text-muted">
+                                                            {% trans "None" %}
+                                                        </p>
+                                                    </dd>                                                        
+                                                {% endfor %}                           
+                                            </dl>
+                                        </div>
+                                        <!-- End List of Related Resources (Documents)-->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+                        </div>
+                        <!-- End Related Information Objects Section -->
+
+                    </div>
+                </div>
+                <!-- End Related Historic Resources -->
+            </div>   
+        </div>
+    </div> 
+</div>    
+<!-- End Related Resource Container -->

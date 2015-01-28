@@ -44,7 +44,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                     -->
 
                     <button type="button" id="report_options" class="btn btn-primary hidden-xs" style="margin-top: 5px;" data-toggle="">
-                    
                         {% trans "Report Options" %} &nbsp;
                         <i class="fa fa-chevron-down"></i>
                         <span class="sr-only">Toggle Dropdown</span>                            
@@ -70,14 +69,70 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 <!--=== Map Block ===-->
 <div id="map" class="map map-space-panel"></div>
-<div id="olmap" class="fill"></div>
-<div style="display:none;" id="map-data">
-<input type="hidden" id="map-content" value='{{ report_info.SPATIAL_COORDINATES_GEOMETRY_E47 }}'>
+    <div id="olmap" class="fill"></div>
+    <div style="display:none;" id="map-data">
+        <input type="hidden" id="resource_geometry" value='{{ geometry }}'>
+    </div>
 </div>
-    <div class="col-xs-12" style="margin-top: -640px; float:right; width:105px">
-        <div class="btn-group-vertical" role="group" data-bind='foreach: baseLayers' style="padding:3px; border-radius:4px; background: rgba(255, 255, 255, 0.4); z-index:100; color:#fff'">
-        <button data-bind="attr: { id: id }, text: name" type="button" class="btn btn-primary basemap info-click" style="background:rgba(0,60,136,.5);"></button>
+
+<!-- Map: Project Info Panel -->
+<div class="container">
+    
+    <!-- Map Tools Panel -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-6" style="">
+
+            <div id="basemaps-panel" class="tools-panel hidden" style="overflow-y: scroll; border-top-left-radius: 5px; border-top-right-radius: 5px; margin-top: -408px; height: 332px; width: 250px; margin-left: 0px;">
+                <div class="modal-header arches-modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title">
+                        {% trans "Basemaps" %}
+                    </h4>
+                </div>
+
+                <!-- Body Content -->
+                <div class="modal-body padding-top-0 padding-bottom-0" data-bind='foreach: baseLayers'>
+
+                    <div class="row">
+                        <hr class="arches-layer-divider" style="border-top: 0px; margin-top: 5px;">
+
+                        <div class="arches-basemap-entry" style="margin-right: 7px;">
+                    
+                            <div class="" style="">
+                                <a data-bind="attr: { id: id, title: name }" class="basemap info-click" data-rel="" href="javascript:void(0);">
+                                    <span class="">  
+                                        <img data-bind="attr: { src: icon }" class="arches-basemap-thumbnail" alt="" />
+                                        <span class="zoom-icon"></span>                   
+                                    </span>                                              
+                                </a>                    
+                                <span class="arches-basemap-caption-search">
+                                    <a data-bind="attr: { id: id }, text: name" class="caption-text-search hover-effect basemap info-click" href="javascript:void(0);"> </a>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End Body Content -->
+
+            </div>
         </div>
+    </div>
+    <!-- End Map Tools Panel -->
+
+    <!-- Map Tools -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4" style="margin-top: -77px;">
+            <div class="btn-group">
+                <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools" style="width:250px;"><i class="fa fa-globe"></i> {% trans "Basemaps" %}
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- End Map Tools -->
 </div>
 <!--=== End Map Block ===-->
 
@@ -133,26 +188,33 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                         <!-- Resource Image -->
                                         <div class="row">
-                                            <div class="col-xs-12 shadow-wrapper margin-bottom-20">
+                                            <div class="col-xs-12 shadow-wrapper">
                                                 <dl>
                                                     <dd class="arches-report-content margin-bottom-10">
                                                     <h3 class="margin-top-minus-5 margin-bottom-0 txt-color-blue">{{ report_info.source.primaryname }}</h3>
                                                     <span class="arches-report-content">
                                                     {% for NAME_E41 in report_info.source.graph.NAME_E41 %}
                                                         {% if NAME_E41.NAME_E41__value != report_info.source.primaryname %}
-                                                            {% if forloop.last %}
-                                                                {{ NAME_E41.NAME_E41__value }} <small>({{NAME_E41.NAME_TYPE_E55__value}})</small>
-                                                            {% else %}
-                                                                {{ NAME_E41.NAME_E41__value }} <small>({{NAME_E41.NAME_TYPE_E55__value}}), </small>
+                                                            {{ NAME_E41.NAME_E41__value }} <small>({{NAME_E41.NAME_TYPE_E55__value}})</small>
+                                                            {% if not forloop.last %}
+                                                                <small>,</small>
                                                             {% endif %}
                                                         {% endif %}
                                                     {% endfor %}
                                                     </span>
                                                     </dd>
 
-                                                    <dd class="arches-report-content">
-                                                        <img style="width: 100%;" src="assets/img/arches_splash/union_station.jpg" data-img="assets/img/arches_splash/union_station.jpg" alt="{{ report_info.source.primaryname }}" class="img-bordered">
-                                                    </dd>
+                                                    <!-- Image -->
+                                                    {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_IMAGE %}
+                                                        {% if forloop.first %} 
+                                                            <div class="row margin-bottom-30 padding-left-10">
+                                                                <dd class="arches-report-content">
+                                                                    <img style="width: 100%;" src="{{related_resource.file_path}}" data-img="img/superbox/superbox-full-2.jpg" alt="{{ related_resource.primaryname }}" class="img-bordered">
+                                                                </dd>
+                                                            </div>    
+                                                        {% endif %}             
+                                                    {% endfor %} 
+                                                    <!-- End Image -->
                                                 </dl>
                                             </div>
                                         </div>
@@ -181,6 +243,26 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                         <!-- Architect/Builder/Owner -->
 for this section, display ALL related actor
+                                        <!-- List of Related Resources -->
+                                         <div class="row">
+                                            <dl> 
+                                                {% for related_resource in related_resource_dict.ACTOR %}
+                                                    <dd class="arches-report-content">
+                                                        <a href="#" class="arches-CRUD-child" title="{% trans "View Report" %}">
+                                                            {{related_resource.primaryname}}
+                                                        </a>
+                                                        <span class="text-muted"><small>{{related_resource.metadata}}</small></span> 
+                                                    </dd> 
+                                                    {% empty %}
+                                                        <dd class="">
+                                                            <p class="arches-CRUD-child text-muted">
+                                                                {% trans "None" %}
+                                                            </p>
+                                                        </dd>                                                        
+                                                {% endfor %} 
+                                            </dl>
+                                        </div>
+
 
 
                                         <div class="row">
@@ -514,7 +596,7 @@ for this section, display ALL related actor
                                             </div>
 
                                             <!-- Eligibility, status, reason statement -->
-                                            <div class="arches-report-evaluation">
+                                            <div class="arches-report-evaluation padding-top-10">
                                                 <div class="row">
                                                     <div class="col-xs-12">
                                                         <dl>
@@ -600,284 +682,4 @@ for this section, display ALL related actor
     </div>
 </div>
 
-
-<!-- Related Resources -->
-<div class="block-level-v2 padding-all-20" style="background: #f9f9f9; border-top: 1px solid #dcdcdc;">
-    <div class="container">
-
-        <div>
-            <!-- Section Header, Small to Large Screens -->
-            <div class="hidden-xs">
-                <i class="center-icon rounded-x fa fa-exchange"></i>
-                <div class="margin-top-minus-10">
-                    <h2 class="text-center">Related Resources</h2>
-                </div> 
-            </div>
-
-            <!-- Section Header, XS Screens -->
-            <div class="hidden-sm hidden-md hidden-lg">
-                <i class="center-icon rounded-x fa fa-exchange"></i>
-                <div class="margin-top-minus-20">
-                    <h2 class="text-center margin-bottom-0">Related Resources</h2>
-                </div> 
-            </div> 
-
-            <!-- Content -->
-            <div class="row">
-                
-                <!-- Spacer -->
-                <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
-
-                <!-- Related Historic Resources -->
-                <div class="col-xs-12">
-                    <div class="right-inner arches-report-grey-block margin-bottom-40">
-                        
-                        <!-- Container -->
-                        <div class="row">
-
-                            <!-- Section Header -->
-                            <div class="col-sm-4">
-                                <h3 class="margin-top-0 margin-bottom-5">Historic Resources</h3>
-                            </div>
-                            <!-- End Section Header -->
-
-                            <!-- Section Content -->
-                            <div class="col-sm-8">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
-
-                                        <!-- List of Related Resources -->
-                                        <div class="margin-bottom-10 padding-left-10">
-                                            <dl>                               
-                                                <dd class="arches-report-content">
-                                                    <a href="#" class="arches-CRUD-child" title="View Report">
-                                                        The Nunnery of Carol 
-                                                    </a>
-                                                    <span class="text-muted"><small>(Building, is part of)</small></span> 
-                                                </dd> 
-                                            </dl>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Section Content-->
-                        </div>
-                        <!-- End Related Historic Resources Section -->
-
-
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
-
-
-                        <!-- Related Historic Districts -->
-                        <div class="row">
-
-                            <!-- Section Header -->
-                            <div class="col-sm-4">
-                                <h3 class="margin-top-0 margin-bottom-5">Historic Districts</h3>
-                            </div>
-                            <!-- End Section Header -->
-
-                            <!-- Section Content -->
-                            <div class="col-sm-8">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
-
-                                        <!-- List of Related Resources -->
-                                        <div class="margin-bottom-10 padding-left-10">
-                                            <dl>                               
-                                                <dd class="">
-                                                    <p class="arches-CRUD-child text-muted">
-                                                        None
-                                                    </p>
-                                                </dd>
-
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Section Content-->
-                        </div>
-                        <!-- End Related Historic Districts Section -->
-
-
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
-
-
-                        <!-- Related Activities -->
-                        <div class="row">
-
-                            <!-- Section Header -->
-                            <div class="col-sm-4">
-                                <h3 class="margin-top-0 margin-bottom-5">Activities</h3>
-                            </div>
-                            <!-- End Section Header -->
-
-                            <!-- Section Content -->
-                            <div class="col-sm-8">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
-
-                                        <!-- List of Related Resources -->
-                                        <div class="margin-bottom-10 padding-left-10">
-                                            <dl>                               
-                                                <dd class="">
-                                                    <p class="arches-CRUD-child text-muted">
-                                                        None
-                                                    </p>
-                                                </dd>
-
-                                            </dl>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Section Content-->
-                        </div>
-                        <!-- End Related Activities -->
-
-
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
-
-
-                        <!-- Related Historic Events -->
-                        <div class="row">
-
-                            <!-- Section Header -->
-                            <div class="col-sm-4">
-                                <h3 class="margin-top-0 margin-bottom-5">Historic Events</h3>
-                            </div>
-                            <!-- End Section Header -->
-
-                            <!-- Section Content -->
-                            <div class="col-sm-8">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
-
-                                        <!-- List of Related Resources -->
-                                        <div class="margin-bottom-10 padding-left-10">
-                                            <dl>
-                                                <dd class="arches-report-content">
-                                                    <a href="#" class="arches-CRUD-child" title="View Report">
-                                                        The Signing of the Magna Carta 
-                                                    </a>
-                                                    <span class="text-muted"><small>(Historic Event, occured at)</small></span> 
-                                                </dd> 
-                                                
-                                                <dd class="arches-report-content">
-                                                    <a href="#" class="arches-CRUD-child" title="View Report">
-                                                        King Arthur is crowned 
-                                                    </a>
-                                                    <span class="text-muted"><small>(Historic Event, occured at)</small></span> 
-                                                </dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Section Content-->
-                        </div>
-                        <!-- End Related Historic Events Section -->
-
-
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
-
-
-                        <!-- Related Actors -->
-                        <div class="row">
-
-                            <!-- Section Header -->
-                            <div class="col-sm-4">
-                                <h3 class="margin-top-0 margin-bottom-5">Actors</h3>
-                            </div>
-                            <!-- End Section Header -->
-
-                            <!-- Section Content -->
-                            <div class="col-sm-8">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
-
-                                        <!-- List of Related Resources -->
-                                        <div class="margin-bottom-10 padding-left-10">
-                                            <dl> 
-                                                <dt> 
-                                                <dd class="arches-report-content">
-                                                    <a href="#" class="arches-CRUD-child" title="View Report">
-                                                        King Arthur
-                                                    </a>
-                                                    <span class="text-muted"><small>(Person, owned)</small></span> 
-                                                </dd>                              
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Section Content-->
-                        </div>
-                        <!-- End Related Actors Section -->
-
-
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
-
-
-                        <!-- Related Information Objects -->
-                        <div class="row">
-
-                            <!-- Section Header -->
-                            <div class="col-sm-4">
-                                <h3 class="margin-top-0 margin-bottom-5">Information Object Resources</h3>
-                            </div>
-                            <!-- End Section Header -->
-
-                            <!-- Section Content -->
-                            <div class="col-sm-8">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
-
-                                        <!-- Images -->
-                                        <div class="row margin-bottom-30">
-                                            <div class="col-md-6 shadow-wrapper md-margin-bottom-40">
-                                                <div class="box-shadow shadow-effect-2">
-                                                    <img style="width: 100%;" src="img/superbox/superbox-full-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="Image Name" title="View Report" class="superbox-img img-bordered">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 shadow-wrapper">
-                                                <div class="box-shadow shadow-effect-2">
-                                                    <img style="width: 100%;" src="img/superbox/superbox-full-3.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="Image Name" title="View Report" class="superbox-img img-bordered">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Images -->
-
-                                        <!-- List of Related Resources (Documents)-->
-                                        <div class="margin-bottom-10 padding-left-10">
-                                            <dl>   
-                                                <dt class="arches-report-header">Documents</dt>
-                                                <dd class="arches-report-content">
-                                                    <a href="#" class="arches-CRUD-child" title="View Report">
-                                                        The Complete History of Castle Anthrax
-                                                    </a>
-                                                    <span class="text-muted"><small>(Document, describes)</small></span> 
-                                                </dd>                            
-                                            </dl>
-                                        </div>
-                                        <!-- End List of Related Resources (Documents)-->
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Section Content-->
-                        </div>
-                        <!-- End Related Information Objects Section -->
-
-                    </div>
-                </div>
-                <!-- End Related Historic Resources -->
-            </div>   
-        </div>
-    </div> 
-</div>    
-<!-- End Related Resource Container -->
+{% include "views/reports/related_resource_section.htm" %}
