@@ -134,13 +134,11 @@ CONCEPT_SCHEME_LOCATIONS = (
     # Don't forget to use absolute paths, not relative paths.
 	
     #'absolute/path/to/authority_files',
-    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'concepts', 'authority_files')),
 )
 BUSISNESS_DATA_FILES = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'business_data', 'sample.arches')),
 )
 
 LOGGING = {
