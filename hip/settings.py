@@ -12,12 +12,6 @@ STATICFILES_DIRS = (os.path.join(PACKAGE_ROOT, 'media'),) + STATICFILES_DIRS
 TEMPLATE_DIRS = (os.path.join(PACKAGE_ROOT, 'templates'),os.path.join(PACKAGE_ROOT, 'templatetags')) + TEMPLATE_DIRS
 RESOURCE_MODEL = {'default': 'hip.models.resource.Resource'}
 
-DEFAULT_MAP_X = -13168799.0
-DEFAULT_MAP_Y = 4012635.2
-DEFAULT_MAP_ZOOM = 10
-MAP_MIN_ZOOM = 9
-MAP_MAX_ZOOM = 19
-
 def RESOURCE_TYPE_CONFIGS():
     return {
         'HERITAGE_RESOURCE.E18': {
@@ -118,8 +112,6 @@ def RESOURCE_TYPE_CONFIGS():
         }
     }
 
-GEOCODING_PROVIDER = 'hip.utils.losangeles_geocoder'
-
 EXPORT_CONFIG = os.path.normpath(os.path.join(PACKAGE_ROOT, 'source_data', 'resource_export_mappings.json'))
 
 RESOURCE_GRAPH_LOCATIONS = (
@@ -134,13 +126,11 @@ CONCEPT_SCHEME_LOCATIONS = (
     # Don't forget to use absolute paths, not relative paths.
 	
     #'absolute/path/to/authority_files',
-    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'concepts', 'authority_files')),
 )
 BUSISNESS_DATA_FILES = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.normpath(os.path.join(PACKAGE_ROOT, '..', '..', 'arches_la', 'source_data', 'business_data', 'sample.arches')),
 )
 
 LOGGING = {
