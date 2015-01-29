@@ -140,7 +140,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(PACKAGE_ROOT, 'hip.log'),
+            'filename': os.path.join(PACKAGE_ROOT, 'logs', 'application.txt'),
         },
     },
     'loggers': {
@@ -153,7 +153,7 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
-        },
+        }
     },
 }
 
