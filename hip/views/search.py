@@ -62,8 +62,8 @@ def home_page(request):
             'main_script': 'search',
             'active_page': 'Search',
             'user_can_edit': False,
-            'min_date': min_max_dates['val__min'].year,
-            'max_date': min_max_dates['val__max'].year,
+            'min_date': min_max_dates['val__min'].year if min_max_dates['val__min'] != None else 0,
+            'max_date': min_max_dates['val__max'].year if min_max_dates['val__min'] != None else 1,
             'formdata': JSONSerializer().serialize(data)
         }, 
         context_instance=RequestContext(request))
