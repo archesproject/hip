@@ -114,37 +114,37 @@ def report(request, resourceid):
         'INFORMATION_RESOURCE_DOCUMENT': []
     }
 
-    related_resource_info = get_related_resources(resourceid)
+    related_resource_info = get_related_resources(resourceid, lang)
 
     # parse the related entities into a dictionary by resource type
     for related_resource in related_resource_info['related_resources']:
         information_resource_type = None
-        related_resource['metadata'] = []
+        related_resource['relationship'] = []
         if related_resource['entitytypeid'] == 'HERITAGE_RESOURCE.E18':
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'RESOURCE_TYPE_CLASSIFICATION.E55':
-                    related_resource['metadata'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
+                    related_resource['relationship'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
         elif related_resource['entitytypeid'] == 'HERITAGE_RESOURCE_GROUP.E27':
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'RESOURCE_TYPE_CLASSIFICATION.E55':
-                    related_resource['metadata'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
+                    related_resource['relationship'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
         elif related_resource['entitytypeid'] == 'ACTIVITY.E7':
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'ACTIVITY_TYPE.E55':
-                    related_resource['metadata'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
+                    related_resource['relationship'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
         elif related_resource['entitytypeid'] == 'ACTOR.E39':
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'ACTOR_TYPE.E55':
-                    related_resource['metadata'].append(get_preflabel_from_conceptid(entity['conceptid'], lang)['value'])
+                    related_resource['relationship'].append(get_preflabel_from_conceptid(entity['conceptid'], lang)['value'])
                     related_resource['actor_relationshiptype'] = ''
         elif related_resource['entitytypeid'] == 'HISTORICAL_EVENT.E5':
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'HISTORICAL_EVENT_TYPE.E55':
-                    related_resource['metadata'].append(get_preflabel_from_conceptid(entity['conceptid'], lang)['value'])
+                    related_resource['relationship'].append(get_preflabel_from_conceptid(entity['conceptid'], lang)['value'])
         elif related_resource['entitytypeid'] == 'INFORMATION_RESOURCE.E73':
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'INFORMATION_RESOURCE_TYPE.E55':
-                    related_resource['metadata'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
+                    related_resource['relationship'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
             for entity in related_resource['child_entities']:
                 if entity['entitytypeid'] == 'FILE_PATH.E62':
                     if entity['value'].split('.')[1].lower() == 'jpg':
@@ -156,12 +156,12 @@ def report(request, resourceid):
         # get the relationship between the two entities
         for relationship in related_resource_info['resource_relationships']:
             if relationship['entityid1'] == related_resource['entityid'] or relationship['entityid2'] == related_resource['entityid']: 
-                related_resource['metadata'].append(get_preflabel_from_valueid(relationship['relationshiptype'], lang)['value'])
+                related_resource['relationship'].append(get_preflabel_from_valueid(relationship['relationshiptype'], lang)['value'])
 
-        if len(related_resource['metadata']) > 0:
-            related_resource['metadata'] = '(%s)' % (', '.join(related_resource['metadata']))
+        if len(related_resource['relationship']) > 0:
+            related_resource['relationship'] = '(%s)' % (', '.join(related_resource['relationship']))
         else:
-            related_resource['metadata'] = ''
+            related_resource['relationship'] = ''
 
         entitytypeidkey = related_resource['entitytypeid'].split('.')[0]
         if information_resource_type:
