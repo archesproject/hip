@@ -71,9 +71,9 @@ require([
                 var maxX = extent[2];
                 var maxY = extent[3];
                 var polygon = new ol.geom.Polygon([[[minX, minY], [maxX, minY], [maxX, maxY], [minX, maxY], [minX, minY]]]);
-                this.map.map.getView().fitGeometry(polygon, this.map.map.getSize(), {maxZoom:16}); 
+                this.map.map.getView().fitGeometry(polygon, this.map.map.getSize(), {maxZoom:18}); 
             }else{
-                this.map.map.getView().fitGeometry(feature.getGeometry().getGeometries()[0], this.map.map.getSize(), {maxZoom:16});                    
+                this.map.map.getView().fitGeometry(feature.getGeometry().getGeometries()[0], this.map.map.getSize(), {maxZoom:18});                    
             }
         },
 
@@ -100,20 +100,20 @@ require([
                 var style = function(feature, resolution) {
                     return [new ol.style.Style({
                         fill: new ol.style.Fill({
-                            color: 'rgba(0, 255, 255, 0.3)'
+                            color: 'rgba(92, 184, 92, 0.3)'
                         }),
                         stroke: new ol.style.Stroke({
-                            color: 'rgba(0, 255, 255, 0.9)',
-                            width: 3
+                            color: 'rgba(92, 184, 92, 0.9)',
+                            width: 2
                         }),
                         image: new ol.style.Circle({
                             radius: 10,
                             fill: new ol.style.Fill({
-                                color: 'rgba(0, 255, 255, 0.3)'
+                                color: 'rgba(92, 184, 92, 0.3)'
                             }),
                             stroke: new ol.style.Stroke({
-                                color: 'rgba(0, 255, 255, 0.9)',
-                                width: 3
+                                color: 'rgba(92, 184, 92, 0.9)',
+                                width: 2
                             })
                         })
                     })];

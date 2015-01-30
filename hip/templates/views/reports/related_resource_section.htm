@@ -307,7 +307,7 @@
 
                                                     {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_IMAGE %}
                                                         <a href="{% url 'report' related_resource.entityid %}" title="{% trans "View Report" %}">
-                                                            <img src="{{related_resource.file_path}}" alt="" style="width: 25%">
+                                                            <img src="{{related_resource.file_path}}" alt="" class="arches-report-image-thumbnail" style="width: 25%;">
                                                         </a>
 
                                                         {% empty %}
@@ -318,11 +318,6 @@
                                                 </div>
                                             </dd>
                                         </dl>
-                                   
-
-                                        <!-- Spacer for bottom of images -->
-                                        <div style="margin-bottom: 20px;"></div>
-
                                
                                     <div class="col-xs-12">
                                         <dl>
