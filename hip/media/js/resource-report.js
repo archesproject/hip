@@ -100,19 +100,19 @@ require([
                 var style = function(feature, resolution) {
                     return [new ol.style.Style({
                         fill: new ol.style.Fill({
-                            color: 'rgba(92, 184, 92, 0.3)'
+                            color: 'rgba(66, 139, 202, 0.4)'
                         }),
                         stroke: new ol.style.Stroke({
-                            color: 'rgba(92, 184, 92, 0.9)',
+                            color: 'rgba(66, 139, 202, 0.9)',
                             width: 2
                         }),
                         image: new ol.style.Circle({
                             radius: 10,
                             fill: new ol.style.Fill({
-                                color: 'rgba(92, 184, 92, 0.3)'
+                                color: 'rgba(66, 139, 202, 0.4)'
                             }),
                             stroke: new ol.style.Stroke({
-                                color: 'rgba(92, 184, 92, 0.9)',
+                                color: 'rgba(66, 139, 202, 0.9)',
                                 width: 2
                             })
                         })
