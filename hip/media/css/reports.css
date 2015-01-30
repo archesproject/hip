@@ -35,19 +35,19 @@
 
 
 .arches-report-subsection-title {
-	font-size: 17px;
+	font-size: 18px;
 	font-weight: 200;
-	color: #666;
+	color: #777;
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
 
 .arches-report-subsection-item {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 200;
 	color: #4765a0;
 	margin-left: 10px;
-	line-height: 1.1;
+	line-height: 1.175;
 }
 
 
@@ -66,7 +66,7 @@
 }
 
 .arches-report-list-spacer {
-	margin-bottom: 2px;
+	margin-bottom: 5px;
 }
 
 
