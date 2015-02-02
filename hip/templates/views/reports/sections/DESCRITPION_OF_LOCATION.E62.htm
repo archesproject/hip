@@ -1,0 +1,31 @@
+{% load i18n %}
+<div class="row">
+    <div class="col-xs-12">
+        <dl>
+            <dt>
+                <h5 id="" class="arches-report-subsection-title">{% trans "Location Description" %}</h5>
+            </dt>
+
+            {% if 'PLACE_E53' not in report_info.source.graph %}
+                <dd class="arches-report-subsection-item">
+                    {% trans "No descriptions recorded" %}
+                </dd>
+            {% else %}
+                {% for PLACE_E53 in report_info.source.graph.PLACE_E53 %}
+                    {% if 'PLACE_SITE_LOCATION_E53' not in PLACE_E53 %}
+                        <dd class="arches-report-subsection-item">
+                            {% trans "No descriptions recorded" %}
+                        </dd>
+                    {% else %}
+                        {% for PLACE_SITE_LOCATION_E53 in PLACE_E53.PLACE_SITE_LOCATION_E53 %}
+                            <dd class="arches-report-subsection-item">
+                                {{PLACE_SITE_LOCATION_E53.DESCRITPION_OF_LOCATION_E62__value}}
+                            </dd>
+                        {% endfor %}                      
+                    {% endif %}
+                {% endfor %}              
+            {% endif %}
+
+        </dl>
+    </div>
+</div>

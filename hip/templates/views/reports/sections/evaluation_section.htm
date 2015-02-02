@@ -1,0 +1,216 @@
+{% load i18n %}
+<!-- Evaluation Section -->
+<a id="topSection2" style=""></a>
+<div class="block-level-v2 block-description" style="background: #f9f9f9; border-top: 1px solid #dcdcdc; padding-bottom: 80px;">
+
+    <div class="container">
+
+        <!-- Resource Report Container -->
+        <div>
+
+            <!-- Section Header -->
+            <div class="">
+                <i class="center-icon rounded-x fa fa-folder-open"></i>
+                <div class="">
+                    <h2 class="arches-report-section-header">{% trans "Resource Evaluation" %}</h2>
+                </div> 
+            </div>
+
+            <!-- Anchor for in=page navigation from "report options" menu -->
+            <a href="evaluation" id="evaluation" style=""></a>
+
+            <!-- Resource Description Content -->
+            <div class="row">
+                
+                <!-- Spacer -->
+                <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
+
+                <!-- Resource Summary Info -->
+                <div class="col-xs-12">
+                    <div class="right-inner arches-box-grey-border">
+                        
+                        {% for EVALUATION_CRITERIA_ASSIGNMENT_E13 in report_info.source.graph.EVALUATION_CRITERIA_ASSIGNMENT_E13 %}
+
+                            <!-- Resource Summary Info -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    {% if forloop.first %}
+                                        <h3 class="arches-report-subsection">{% trans "Resource Significance" %}</h3>
+                                    {% endif %}
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+                                        
+                                        <!-- Evaluation Criteria -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">Evaluation Criteria</h5>
+                                                    </dt>
+
+                                                    {% if 'EVALUATION_CRITERIA_TYPE_E55' not in EVALUATION_CRITERIA_ASSIGNMENT_E13 %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No criteria recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for EVALUATION_CRITERIA_TYPE_E55 in EVALUATION_CRITERIA_ASSIGNMENT_E13.EVALUATION_CRITERIA_TYPE_E55 %}
+                                                            <dd class="arches-report-subsection-item arches-report-list-spacer">
+                                                                {{EVALUATION_CRITERIA_TYPE_E55.EVALUATION_CRITERIA_TYPE_E55__value|linebreaksbr}}
+                                                            </dd>
+                                                        {% endfor %}  
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Eligibility Standards -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Eligibility Standards" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'ELIGIBILITY_REQUIREMENT_TYPE_E55' not in EVALUATION_CRITERIA_ASSIGNMENT_E13 %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No standards recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for ELIGIBILITY_REQUIREMENT_TYPE_E55 in EVALUATION_CRITERIA_ASSIGNMENT_E13.ELIGIBILITY_REQUIREMENT_TYPE_E55 %}
+                                                            <dd class="arches-report-subsection-item arches-report-list-spacer">{{ELIGIBILITY_REQUIREMENT_TYPE_E55.ELIGIBILITY_REQUIREMENT_TYPE_E55__value}}</dd>
+                                                        {% endfor %}  
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Status Codes -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Status Codes" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'STATUS_E55' not in EVALUATION_CRITERIA_ASSIGNMENT_E13 %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No codes recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for STATUS_E55 in EVALUATION_CRITERIA_ASSIGNMENT_E13.STATUS_E55 %}
+                                                            <dd class="arches-report-subsection-item">{{STATUS_E55.STATUS_E55__value}}</dd>
+                                                        {% endfor %}  
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Reason Statement -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Reason Statement" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'REASONS_E62' not in EVALUATION_CRITERIA_ASSIGNMENT_E13 %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No statement recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for REASONS_E62 in EVALUATION_CRITERIA_ASSIGNMENT_E13.REASONS_E62 %}
+                                                            <dd class="arches-report-subsection-item">{{REASONS_E62.REASONS_E62__value}}</dd>
+                                                        {% endfor %}  
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% if not forloop.last %}
+                                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                                    {% endif %}                                    
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Names/Type Section --> 
+
+                        {% endfor %}
+                        
+
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+                        <!-- Descriptions -->
+                        <div class="row">
+
+                            <!-- Section sub-header -->
+                            <div class="col-sm-4">
+                                <h3 class="arches-report-subsection">{% trans "Designations" %}</h3>
+                            </div>
+                            <!-- End Section sub-header -->
+
+                             <!-- Section Content -->
+                            <div class="col-sm-8">
+
+                                <!-- Spacer -->
+                                <div class="arches-report-spacer hidden-xs"></div>
+
+                                <div class="arches-report-subsection-content">
+                                    <!-- Designations -->
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <dl>
+                                                <dt>
+                                                    <h5 id="" class="arches-report-subsection-title hidden">{% trans "Designations" %}</h5>
+                                                </dt>
+
+                                                {% if 'RIGHT_E30' not in report_info.source.graph %}
+                                                    <dd class="arches-report-subsection-item">
+                                                        {% trans "No designations recorded" %}
+                                                    </dd>
+                                                {% else %}
+                                                    {% for RIGHT_E30 in report_info.source.graph.RIGHT_E30 %}
+                                                        {% for PROTECTION_EVENT_E65 in RIGHT_E30.PROTECTION_EVENT_E65 %}
+                                                            {% for TYPE_OF_DESIGNATION_OR_PROTECTION_E55 in PROTECTION_EVENT_E65.TYPE_OF_DESIGNATION_OR_PROTECTION_E55 %}
+                                                                <dd class="arches-report-subsection-item">
+                                                                    {{TYPE_OF_DESIGNATION_OR_PROTECTION_E55.TYPE_OF_DESIGNATION_OR_PROTECTION_E55__value}}
+                                                                 </dd>
+                                                            {% endfor %}  
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                            </dl>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- End Section Content-->
+
+                        </div>
+                        <!-- End Descriptions Section -->
+                    </div>
+                </div>
+                <!-- End Project Information -->
+            </div>  
+        </div>
+        <!-- End Project Summary -->
+    </div>
+</div>
+<!-- End Evaluation Section -->

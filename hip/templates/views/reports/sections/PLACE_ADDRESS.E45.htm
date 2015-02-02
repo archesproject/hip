@@ -1,0 +1,36 @@
+{% load i18n %}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="">
+            <dl>
+                <dt>
+                    <h5 id="" class="arches-report-subsection-title">{% trans "Addresses" %}</h5>
+                </dt>
+
+                {% if 'PLACE_E53' not in report_info.source.graph %}
+                    <dd class="arches-report-subsection-item">
+                        {% trans "No addresses recorded" %}
+                    </dd>
+                {% else %}
+                    {% for PLACE_E53 in report_info.source.graph.PLACE_E53 %}
+                        {% if 'PLACE_ADDRESS_E45' not in PLACE_E53 %}
+                            <dd class="arches-report-subsection-item">
+                                {% trans "No addresses recorded" %}
+                            </dd>
+                        {% else %}
+                            {% for PLACE_ADDRESS_E45 in PLACE_E53.PLACE_ADDRESS_E45 %}
+                                <dd class="arches-report-subsection-item">
+                                    {{PLACE_ADDRESS_E45.PLACE_ADDRESS_E45__value}}
+                                    <span class="arches-report-subsection-item-type">
+                                        {{PLACE_ADDRESS_E45.ADDRESS_TYPE_E55__value}}
+                                    </span>
+                                </dd>
+                            {% endfor %}                          
+                        {% endif %}
+                    {% endfor %}                
+                {% endif %}
+                
+            </dl>
+        </div>
+    </div>
+</div>

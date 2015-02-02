@@ -24,8 +24,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     <link rel="stylesheet" href="{% static 'css/reports.css' %}">
 {% endblock css%}
 {% block content %}
-    <div id="resource-report">{% include report_template %}</div>
-    <div style="display:none;" id="report-data">
-        <input type="hidden" id="report-id" value="{{resourceid}}">
-    </div>
-{% endblock %}
+    {% include report_template %}
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block copyright %}
+{% endblock copyright %}

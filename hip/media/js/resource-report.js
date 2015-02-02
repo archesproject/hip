@@ -59,6 +59,12 @@ require([
                 hideAllPanels();
             });
 
+            var resize = function() {
+                var header = $('.breadcrumbs').height() + 25;
+                $('#report-body').height($(window).height() - header);
+            };
+            resize();
+            $(window).resize(resize);
         },
 
         zoomToResource: function(resourceid){

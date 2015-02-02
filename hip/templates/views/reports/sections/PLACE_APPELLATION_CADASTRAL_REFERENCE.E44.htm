@@ -1,0 +1,37 @@
+{% load i18n %}
+<div class="row">
+    <div class="col-xs-12">
+        <dl>
+            <dt>
+                <h5 id="" class="arches-report-subsection-title">{% trans "Parcels" %}</h5>
+            </dt>
+
+            {% if 'PLACE_E53' not in report_info.source.graph %}
+                <dd class="arches-report-subsection-item">
+                    {% trans "No parcels recorded" %}
+                </dd>
+            {% else %}
+                {% for PLACE_E53 in report_info.source.graph.PLACE_E53 %}
+                    {% if 'PLACE_CADASTRAL_REFERENCE_E53' not in PLACE_E53 %}
+                        <dd class="arches-report-subsection-item">
+                            {% trans "No parcels recorded" %}
+                        </dd>
+                    {% else %}
+                        {% for PLACE_CADASTRAL_REFERENCE_E53 in PLACE_E53.PLACE_CADASTRAL_REFERENCE_E53 %}
+                            {% if 'PLACE_THIS_LAND_PARCEL_E53' not in PLACE_THIS_LAND_PARCEL_E53 %}
+                                <dd class="arches-report-subsection-item">
+                                    {% trans "No parcels recorded" %}
+                                </dd>
+                            {% else %}
+                                {% for PLACE_THIS_LAND_PARCEL_E53 in PLACE_CADASTRAL_REFERENCE_E53.PLACE_THIS_LAND_PARCEL_E53 %}
+                                    <dd class="arches-report-subsection-item">{{PLACE_THIS_LAND_PARCEL_E53.PLACE_APPELLATION_CADASTRAL_REFERENCE_E44__value}}</dd>
+                                {% endfor %}                              
+                            {% endif %}
+                        {% endfor %}                    
+                    {% endif %}
+                {% endfor %}            
+            {% endif %}
+            
+        </dl>
+    </div>
+</div>

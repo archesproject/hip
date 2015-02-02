@@ -73,4 +73,11 @@
 	margin-bottom: 5px;
 }
 
+.report-breadcrumb {
+	position: absolute;
+	top: 78px;
+	left: 0px;
+	width: 100%;
+	z-index: 1;
+}
 
