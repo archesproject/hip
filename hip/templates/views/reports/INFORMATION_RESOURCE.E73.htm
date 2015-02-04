@@ -1,0 +1,658 @@
+
+<!--
+ARCHES - a program developed to inventory and manage immovable cultural heritage.
+Copyright (C) 2013 J. Paul Getty Trust and World Monuments Fund
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+{% load staticfiles %}
+{% load i18n %}
+
+<!--=== Report Title ===-->
+<div class="breadcrumbs report-breadcrumb">
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Project Name (screens small and bigger)-->
+            <div class="hidden-xs col-sm-8">
+                <h1 class="pull-left arches-breadcrumb-title"><i class="fa {{RESOURCE_TYPE_CONFIGS.icon_class}}"></i>{{ report_info.source.primaryname }}<small style="padding-left: 8px;">{{RESOURCE_TYPE_CONFIGS.name}}</small></h1>
+            </div>
+
+            <!-- Project Name (screens extra small)-->
+             <div class="hidden-sm hidden-md hidden-lg">
+                <h1 class="arches-breadcrumb-title margin-left-15 margin-bottom-0" style="margin-top: -5px;"><i class="fa {{RESOURCE_TYPE_CONFIGS.icon_class}}"></i>{{ report_info.source.primaryname }}<small style="padding-left: 8px;">{{RESOURCE_TYPE_CONFIGS.name}}</small></h1>
+                <hr class="margin-top-minus-10 margin-bottom-10" style="border-width: 0px;">
+            </div>
+
+            <div class="col-sm-4 col-md-3 col-md-offset-1">
+
+                <div class="btn-group margin-top-5">
+                    
+                    <!-- Invoke style switcher from this button by adding the tyle-switcher-btn class
+                    <button type="button" class="style-switcher-btn btn btn-primary" data-toggle="">
+                    -->
+
+                    <button type="button" id="report_options" class="btn btn-primary hidden-xs" style="margin-top: 5px;" data-toggle="">
+                        {% trans "Report Options" %} &nbsp;
+                        <i class="fa fa-chevron-down"></i>
+                        <span class="sr-only">Toggle Dropdown</span>                            
+                    </button>
+                    <div class="arches-report-options animated fadeIn">
+                        <ul class="arches-menu" role="menu">
+                            <li style="margin-top: 2px; margin-bottom: 2px;"><a href="#overview" class="arches-menu-item theme-close">{% trans "Overview" %}</a></li>
+                            <li><a href="#topSection2" class="arches-menu-item theme-close">{% trans "Resource Description" %}</a></li>
+                            <li class="arches-menu-divider"></li>
+                            <li><a href="#" class="arches-menu-item theme-close">{% trans "close" %}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--=== End Report Title ===-->
+
+<!-- End Fixed Nav for Report -->
+<div id="report-body" class="report-body">
+    
+     {% if geometry != 'null' %}
+        <!--=== Map Block ===-->
+        <div id="map-container">
+
+            <div id="map" class="map map-report-panel" style="display: block;">
+                <div id="olmap" class="fill"></div>
+                <div style="display:none;" id="map-data">
+                    <input type="hidden" id="resource_geometry" value='{{ geometry }}' />
+                </div>
+            </div>
+
+            <!-- Map: Project Info Panel -->
+            <div class="container">
+                
+                <!-- Map Tools Panel -->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6" style="">
+
+                        <div id="basemaps-panel" class="tools-panel hidden" style="overflow-y: scroll; border-top-left-radius: 5px; border-top-right-radius: 5px; margin-top: -408px; height: 332px; width: 250px; margin-left: 0px;">
+                            <div class="modal-header arches-modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title">
+                                    {% trans "Basemaps" %}
+                                </h4>
+                            </div>
+
+                            <!-- Body Content -->
+                            <div class="modal-body padding-top-0 padding-bottom-0" data-bind='foreach: baseLayers'>
+
+                                <div class="row">
+                                    <hr class="arches-layer-divider" style="border-top: 0px; margin-top: 5px;">
+
+                                    <div class="arches-basemap-entry" style="margin-right: 7px;">
+                                        
+                                        <div class="" style="">
+                                            <a data-bind="attr: { id: id, title: name }" class="basemap info-click" data-rel="" href="javascript:void(0);">
+                                                <span class="">  
+                                                    <img data-bind="attr: { src: icon }" class="arches-basemap-thumbnail" alt="" />
+                                                    <span class="zoom-icon"></span>                   
+                                                </span>                                              
+                                            </a>                    
+                                            <span class="arches-basemap-caption-search">
+                                                <a data-bind="attr: { id: id }, text: name" class="caption-text-search hover-effect basemap info-click" href="javascript:void(0);"> </a>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Body Content -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Map Tools Panel -->
+
+                <!-- Map Tools -->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4" style="margin-top: -77px;">
+                        <div class="btn-group">
+                            <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools" style="width:250px;"><i class="fa fa-globe"></i> {% trans "Basemaps" %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Map Tools -->
+            </div>
+        </div>
+        <!--=== End Map Block ===-->
+    {% endif %}
+
+
+    <!--=== Resource Description Section ===-->
+    <div class="block-description" style="padding-top: 30px;">
+        <div class="container">
+
+            <!-- Resource Report Container -->
+            <div>
+
+                <!-- Section Header -->
+                <div class="">
+                    <i class="center-icon rounded-x fa fa-folder-open"></i>
+                    <div class="">
+                        <h2 class="arches-report-section-header">{% trans "Resource Description" %}</h2>
+                    </div> 
+                </div>
+
+                <!-- Anchor for in=page navigation from "report options" menu -->
+                <a href="overview" id="overview" style="top: 250px;"></a>
+
+
+                <!-- Resource Description Content -->
+                <div class="row">
+                    
+                    <!-- Spacer -->
+                    <div class="hidden-sm hidden-md hidden-lg margin-bottom-20"></div>
+
+                    <!-- Resource Summary Info -->
+                    <div class="col-xs-12">
+                        <div class="right-inner arches-box-grey-border">
+                            
+                            <!-- Resource Summary Info -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    <h3 class="arches-report-subsection">{% trans "Resource Summary" %}</h3>
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+
+                                        <!-- Titles -->
+                                        <div class="row">
+                                             <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Titles" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'TITLE_E41' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No titles recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for TITLE_E41 in report_info.source.graph.TITLE_E41 %}
+                                                            <dd class="arches-report-subsection-item">
+                                                                {{ TITLE_E41.TITLE_E41__value }} <span class="arches-report-subsection-item-type">({{TITLE_E41.TITLE_TYPE_E55__value}})</span>
+                                                            </dd>
+                                                        {% endfor %}            
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Identifiers -->
+                                        <div class="row">
+                                             <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Identifiers" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'IDENTIFIER_E42' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No identifiers recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for IDENTIFIER_E42 in report_info.source.graph.IDENTIFIER_E42 %}
+                                                            <dd class="arches-report-subsection-item">
+                                                                {{ IDENTIFIER_E42.IDENTIFIER_TYPE_E55__value }}
+                                                            </dd>
+                                                        {% endfor %}            
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Formats -->
+                                        <div class="row">
+                                             <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Formats" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'INFORMATION_CARRIER_E84' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No formats recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for INFORMATION_CARRIER_E84 in report_info.source.graph.INFORMATION_CARRIER_E84 %}
+                                                            {% for INFORMATION_CARRIER_FORMAT_TYPE_E55 in INFORMATION_CARRIER_E84.INFORMATION_CARRIER_FORMAT_TYPE_E55 %}
+                                                                <dd class="arches-report-subsection-item">
+                                                                    {{ INFORMATION_CARRIER_FORMAT_TYPE_E55.INFORMATION_CARRIER_FORMAT_TYPE_E55__value }}
+                                                                </dd>
+                                                            {% endfor %}
+                                                        {% endfor %}            
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Languages -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">Languages</h5>
+                                                    </dt>
+
+                                                    {% if 'LANGUAGE_E55' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No languages recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for LANGUAGE_E55 in report_info.source.graph.LANGUAGE_E55 %}
+                                                            <dd class="arches-report-subsection-item">
+                                                                {{ LANGUAGE_E55.LANGUAGE_E55__value }}
+                                                            </dd>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Keywords -->
+                                        {% include 'views/reports/sections/KEYWORD.E55.htm' %}
+
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Names/Type Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Image Section  ONLY FOR RESOURCES THAT ARE IMAGE FORMATS -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    <h3 class="arches-report-subsection">{% trans "Digital Representation" %}</h3>
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                 <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+
+                                        <!-- Image -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+
+                                                    <!-- Links for Image Gallery Supply Image in the href, thumbnails in the img tags -->
+                                                    {% for FILE_PATH_E62 in report_info.source.graph.FILE_PATH_E62 %}
+
+                                                        <dd class="arches-report-subsection-item">
+                                                            <div id="" style="margin-top: 5px;">
+                                                                <img src="{{FILE_PATH_E62.FILE_PATH_E62__value}}" alt="" class="" style="width: 100%; margin-bottom: 30px; border: solid 1px #555;">
+                                                            </div>
+                                                        </dd>
+
+                                                        {% empty %}
+                                                            <dd class="arches-report-subsection-item">
+                                                                {% trans "None" %}
+                                                            </dd>                                                        
+                                                    {% endfor %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Image Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                            
+                            <!-- Location -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    <h3 class="arches-report-subsection">{% trans "Coverage" %}</h3>
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                 <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+
+                                        <!-- Location Description -->
+                                        {% include 'views/reports/sections/DESCRIPTION_OF_LOCATION.E62.htm' %}
+
+
+                                        
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Location Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Classification -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    <h3 class="arches-report-subsection">{% trans "Creation and Publication" %}</h3>
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                 <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+
+                                        <!-- Resource Creation -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Resource Creation" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'RESOURCE_CREATION_EVENT_E65' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No creation information recorded" %}
+                                                        </dd>
+                                                    {% else %}
+
+                                                        <dd class="arches-report-subsection-item arches-report-spacer">
+
+                                                        {% for RESOURCE_CREATION_EVENT_E65 in report_info.source.graph.RESOURCE_CREATION_EVENT_E65 %}
+
+                                                            {% if 'INFORMATION_RESOURCE_TYPE_ASSIGNMENT_E17' in RESOURCE_CREATION_EVENT_E65 %}
+                                                                {% for INFORMATION_RESOURCE_TYPE_ASSIGNMENT_E17 in RESOURCE_CREATION_EVENT_E65.INFORMATION_RESOURCE_TYPE_ASSIGNMENT_E17 %}
+                                                                    {% if 'INFORMATION_RESOURCE_TYPE_E55' in INFORMATION_RESOURCE_TYPE_ASSIGNMENT_E17 %}
+                                                                        <span class="arches-report-subsection-item-type">
+                                                                            {% trans "Type" %}:
+                                                                        </span>
+                                                                        {% for INFORMATION_RESOURCE_TYPE_E55 in INFORMATION_RESOURCE_TYPE_ASSIGNMENT_E17.INFORMATION_RESOURCE_TYPE_E55 %}
+                                                                            {{INFORMATION_RESOURCE_TYPE_E55.INFORMATION_RESOURCE_TYPE_E55__value}}
+                                                                        {% endfor %} 
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}  
+
+                                                            {% if 'TIME___SPAN_RESOURCE_CREATION_EVENT_E52' in RESOURCE_CREATION_EVENT_E65 %}
+                                                                {% for TIME___SPAN_RESOURCE_CREATION_EVENT_E52 in RESOURCE_CREATION_EVENT_E65.TIME___SPAN_RESOURCE_CREATION_EVENT_E52 %}
+                                                                    {% if 'DATE_OF_CREATION_E50' in TIME___SPAN_RESOURCE_CREATION_EVENT_E52 %}
+                                                                        <span class="arches-report-subsection-item-type">
+                                                                            {% trans "Created on" %}:
+                                                                        </span>
+                                                                        {% for DATE_OF_CREATION_E50 in TIME___SPAN_RESOURCE_CREATION_EVENT_E52.DATE_OF_CREATION_E50 %}
+                                                                            {{DATE_OF_CREATION_E50.DATE_OF_CREATION_E50__value}}
+                                                                        {% endfor %} 
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}  
+
+                                                            {% if 'CREATOR_E39' in RESOURCE_CREATION_EVENT_E65 %}
+                                                                {% for CREATOR_E39 in RESOURCE_CREATION_EVENT_E65.CREATOR_E39 %}
+                                                                    {% if 'CREATOR_APPELLATION_E82' in CREATOR_E39 %}
+                                                                        <span class="arches-report-subsection-item-type">
+                                                                            {% trans "Creator" %}:
+                                                                        </span>
+                                                                        {% for CREATOR_APPELLATION_E82 in CREATOR_E39.CREATOR_APPELLATION_E82 %}
+                                                                            {{CREATOR_APPELLATION_E82.CREATOR_APPELLATION_E82__value}}
+                                                                        {% endfor %} 
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}  
+
+                                                            {% if 'CONTRIBUTOR_E39' in RESOURCE_CREATION_EVENT_E65 %}
+                                                                {% for CONTRIBUTOR_E39 in RESOURCE_CREATION_EVENT_E65.CONTRIBUTOR_E39 %}
+                                                                    {% if 'CONTRIBUTOR_APPELLATION_E82' in CONTRIBUTOR_E39 %}
+                                                                        <span class="arches-report-subsection-item-type">
+                                                                            {% trans "Contributor" %}:
+                                                                        </span>
+                                                                        {% for CONTRIBUTOR_APPELLATION_E82 in CONTRIBUTOR_E39.CONTRIBUTOR_APPELLATION_E82 %}
+                                                                            {{CONTRIBUTOR_APPELLATION_E82.CONTRIBUTOR_APPELLATION_E82__value}}
+                                                                        {% endfor %} 
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}  
+
+                                                        {% endfor %}
+
+                                                    {% endif %} 
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- Resource Creation -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Publishers" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'PUBLICATION_EVENT_E12' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No creation information recorded" %}
+                                                        </dd>
+                                                    {% else %}
+
+                                                        <dd class="arches-report-subsection-item arches-report-spacer">
+
+                                                        {% for PUBLICATION_EVENT_E12 in report_info.source.graph.PUBLICATION_EVENT_E12 %}
+
+                                                            {% if 'PUBLISHER_E39' in PUBLICATION_EVENT_E12 %}
+                                                                {% for PUBLISHER_E39 in PUBLICATION_EVENT_E12.PUBLISHER_E39 %}
+                                                                    {% if 'PUBLISHER_APPELLATION_E82' in PUBLISHER_E39 %}
+                                                                        {% for PUBLISHER_APPELLATION_E82 in PUBLISHER_E39.PUBLISHER_APPELLATION_E82 %}
+                                                                            {{PUBLISHER_APPELLATION_E82.PUBLISHER_APPELLATION_E82__value}}
+                                                                        {% endfor %} 
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}  
+
+                                                            {% if 'TIME___SPAN_PUBLICATION_EVENT_E52' in PUBLICATION_EVENT_E12 %}
+                                                                {% for TIME___SPAN_PUBLICATION_EVENT_E52 in PUBLICATION_EVENT_E12.TIME___SPAN_PUBLICATION_EVENT_E52 %}
+                                                                    {% if 'DATE_OF_PUBLICATION_E50' in TIME___SPAN_PUBLICATION_EVENT_E52 %}
+                                                                        <span class="arches-report-subsection-item-type">
+                                                                            {% trans "Publication date" %}:
+                                                                        </span>
+                                                                        {% for DATE_OF_PUBLICATION_E50 in TIME___SPAN_PUBLICATION_EVENT_E52.DATE_OF_PUBLICATION_E50 %}
+                                                                            {{DATE_OF_PUBLICATION_E50.DATE_OF_PUBLICATION_E50__value}}
+                                                                        {% endfor %} 
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}  
+
+                                                        {% endfor %}
+
+                                                    {% endif %} 
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Copy Right -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Copy Rights" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'RIGHT_E30' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No rights recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for RIGHT_E30 in report_info.source.graph.RIGHT_E30 %}
+                                                            {% if PHASE_TYPE_ASSIGNMENT_E17 not in PLACE_E53 %}
+                                                                <dd class="arches-report-subsection-item">
+                                                                    {% trans "No rights recorded" %}
+                                                                </dd>
+                                                            {% else %}
+                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in RIGHT_E30.PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                    {% if 'ANCILLARY_FEATURE_TYPE_E55' not in PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                        <dd class="arches-report-subsection-item">
+                                                                            {% trans "No rights recorded" %}
+                                                                        </dd>
+                                                                    {% else %}
+                                                                        {% for ANCILLARY_FEATURE_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.ANCILLARY_FEATURE_TYPE_E55 %}
+                                                                            <dd class="arches-report-subsection-item">{{ANCILLARY_FEATURE_TYPE_E55.ANCILLARY_FEATURE_TYPE_E55__value}}</dd>
+                                                                        {% endfor %}                              
+                                                                    {% endif %}
+                                                                {% endfor %}                      
+                                                            {% endif %}
+                                                        {% endfor %}              
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Classification Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- Descriptions -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    <h3 class="arches-report-subsection">{% trans "Resource Descriptions" %}</h3>
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                 <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+
+                                        <!-- Descriptions -->
+                                        {% include 'views/reports/sections/DESCRIPTION.E62.htm' %}
+
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Descriptions Section -->
+
+
+                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+
+
+                            <!-- External System References -->
+                            <div class="row">
+
+                                <!-- Section sub-header -->
+                                <div class="col-sm-4">
+                                    <h3 class="arches-report-subsection">{% trans "External System References" %}</h3>
+                                </div>
+                                <!-- End Section sub-header -->
+
+                                 <!-- Section Content -->
+                                <div class="col-sm-8">
+
+                                    <!-- Spacer -->
+                                    <div class="arches-report-spacer hidden-xs"></div>
+
+                                    <div class="arches-report-subsection-content">
+
+                                        <!-- Moficiations -->
+                                        {% include 'views/reports/sections/EXTERNAL_XREF.E42.htm' %}
+
+                                    </div>
+                                </div>
+                                <!-- End Section Content-->
+
+                            </div>
+                            <!-- End Descriptions Section -->
+                        </div>
+                    </div>
+                    <!-- End Project Information -->
+                    
+                </div>   
+            </div>
+            <!-- End Project Summary -->
+        </div>
+    </div>
+    <!-- End Resource Description Section -->
+
+    {% include "views/reports/sections/related_resource_section.htm" %}
+
+    {% include 'footer.htm' %}
+
+    {% include 'copyright.htm' %}
+
+</div>

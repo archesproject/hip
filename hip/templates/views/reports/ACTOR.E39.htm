@@ -83,7 +83,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
             <!-- Map: Project Info Panel -->
             <div class="container">
-
+                
                 <!-- Map Tools Panel -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-6" style="">
@@ -105,7 +105,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                     <hr class="arches-layer-divider" style="border-top: 0px; margin-top: 5px;">
 
                                     <div class="arches-basemap-entry" style="margin-right: 7px;">
-
+                                        
                                         <div class="" style="">
                                             <a data-bind="attr: { id: id, title: name }" class="basemap info-click" data-rel="" href="javascript:void(0);">
                                                 <span class="">  
@@ -192,7 +192,28 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                     <div class="arches-report-subsection-content">
 
                                         <!-- Names -->
-                                        {% include 'views/reports/sections/NAME.E41.htm' %}
+                                        <div class="row">
+                                             <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Names/Epithets" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'ACTOR_APPELLATION_E82' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No names recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for ACTOR_APPELLATION_E82 in report_info.source.graph.ACTOR_APPELLATION_E82 %}
+                                                            <dd class="arches-report-subsection-item">
+                                                                {{ ACTOR_APPELLATION_E82.ACTOR_APPELLATION_E82__value }} <span class="arches-report-subsection-item-type">({{ACTOR_APPELLATION_E82.NAME_TYPE_E55__value}})</span>
+                                                            </dd>
+                                                        {% endfor %}            
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
                                         
                                         <!-- Resource Types -->
                                         <div class="row">
@@ -202,25 +223,25 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                         <h5 id="" class="arches-report-subsection-title">{% trans "Resource Types" %}</h5>
                                                     </dt>
 
-                                                    {% if 'PRODUCTION_E12' not in report_info.source.graph %}
+                                                    {% if 'ARCHES_EVENT_PHASE.E4' not in report_info.source.graph %}
                                                         <dd class="arches-report-subsection-item">
                                                             {% trans "No types recorded" %}
                                                         </dd>
                                                     {% else %}
-                                                        {% for PRODUCTION_E12 in report_info.source.graph.PRODUCTION_E12 %}
-                                                            {% if 'PHASE_TYPE_ASSIGNMENT_E17' not in PRODUCTION_E12 %}
+                                                        {% for ARCHES_EVENT_PHASE.E4 in report_info.source.graph.ARCHES_EVENT_PHASE.E4 %}
+                                                            {% if 'PHASE_TYPE_ASSIGNMENT_E17' not in ARCHES_EVENT_PHASE.E4 %}
                                                                 <dd class="arches-report-subsection-item">
                                                                     {% trans "No types recorded" %}
                                                                 </dd>
                                                             {% else %}
-                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in PRODUCTION_E12.PHASE_TYPE_ASSIGNMENT_E17 %}
-                                                                    {% if 'HERITAGE_RESOURCE_GROUP_TYPE_E55' not in PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in ARCHES_EVENT_PHASE.E4.PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                    {% if 'ACTOR_TYPE_E55' not in PHASE_TYPE_ASSIGNMENT_E17 %}
                                                                         <dd class="arches-report-subsection-item">
                                                                             {% trans "No types recorded" %}
                                                                         </dd>
                                                                     {% else %}
-                                                                        {% for HERITAGE_RESOURCE_GROUP_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.HERITAGE_RESOURCE_GROUP_TYPE_E55 %}
-                                                                            <dd class="arches-report-subsection-item">{{HERITAGE_RESOURCE_GROUP_TYPE_E55.HERITAGE_RESOURCE_GROUP_TYPE_E55__value}}</dd> 
+                                                                        {% for ACTOR_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.ACTOR_TYPE_E55 %}
+                                                                            <dd class="arches-report-subsection-item">{{ACTOR_TYPE_E55.ACTOR_TYPE_E55__value}}</dd> 
                                                                         {% endfor %} 
                                                                     {% endif %}
                                                                 {% endfor %} 
@@ -271,14 +292,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                         <!-- Location Description -->
                                         {% include 'views/reports/sections/DESCRIPTION_OF_LOCATION.E62.htm' %}
-
-                                        <!-- Admin Ares -->
-                                        {% include 'views/reports/sections/ADMINISTRATIVE_SUBDIVISION.E48.htm' %}
-
-                                        <!-- Parcels -->
-                                        {% include 'views/reports/sections/PLACE_APPELLATION_CADASTRAL_REFERENCE.E44.htm' %}
-
-                                        
+      
                                     </div>
                                 </div>
                                 <!-- End Section Content-->
@@ -315,38 +329,28 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                         <h5 id="" class="arches-report-subsection-title">{% trans "Classification" %}</h5>
                                                     </dt>
 
-                                                    {% if 'PRODUCTION_E12' not in report_info.source.graph %}
+                                                    {% if 'ARCHES_EVENT_PHASE.E4' not in report_info.source.graph %}
                                                         <dd class="arches-report-subsection-item">
                                                             {% trans "No classifications recorded" %}
                                                         </dd>
                                                     {% else %}
 
-                                                        {% for PRODUCTION_E12 in report_info.source.graph.PRODUCTION_E12 %}
-                                                            {% if 'PHASE_TYPE_ASSIGNMENT_E17' not in PRODUCTION_E12 %}
+                                                        {% for ARCHES_EVENT_PHASE.E4 in report_info.source.graph.ARCHES_EVENT_PHASE.E4 %}
+                                                            {% if 'PHASE_TYPE_ASSIGNMENT_E17' not in ARCHES_EVENT_PHASE.E4 %}
                                                                 <dd class="arches-report-subsection-item">
                                                                     {% trans "No classifications recorded" %}
                                                                 </dd>
                                                             {% else %}
-
-                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in PRODUCTION_E12.PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in ARCHES_EVENT_PHASE.E4.PHASE_TYPE_ASSIGNMENT_E17 %}
                                                                     <dd class="arches-report-subsection-item arches-report-spacer">
 
-                                                                        {% if 'HERITAGE_RESOURCE_GROUP_TYPE_E55' in PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                        {% if 'ACTOR_TYPE_E55' in PHASE_TYPE_ASSIGNMENT_E17 %}
                                                                             <span class="arches-report-subsection-item-type">
-                                                                                {% trans "Type" %}:
+                                                                                {% trans "Role" %}:
                                                                             </span>
-                                                                            {% for HERITAGE_RESOURCE_GROUP_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.HERITAGE_RESOURCE_GROUP_TYPE_E55 %}
-                                                                                {{HERITAGE_RESOURCE_GROUP_TYPE_E55.HERITAGE_RESOURCE_GROUP_TYPE_E55__value}}
+                                                                            {% for ACTOR_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.ACTOR_TYPE_E55 %}
+                                                                                {{ACTOR_TYPE_E55.ACTOR_TYPE_E55__value}}
                                                                             {% endfor %} 
-                                                                        {% endif %}
-
-                                                                        {% if 'HERITAGE_RESOURCE_GROUP_USE_TYPE_E55' in PHASE_TYPE_ASSIGNMENT_E17 %}
-                                                                            <span class="arches-report-subsection-item-type">
-                                                                                {% trans "Use" %}:
-                                                                            </span>
-                                                                            {% for HERITAGE_RESOURCE_GROUP_USE_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.HERITAGE_RESOURCE_GROUP_USE_TYPE_E55 %}
-                                                                                {{HERITAGE_RESOURCE_GROUP_USE_TYPE_E55.HERITAGE_RESOURCE_GROUP_USE_TYPE_E55__value}}
-                                                                            {% endfor %}
                                                                         {% endif %}
 
                                                                         {% if 'CULTURAL_PERIOD_E55' in PHASE_TYPE_ASSIGNMENT_E17 %}
@@ -374,7 +378,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                                                     </dd>
                                                                 {% endfor %}
-                                                                
                                                             {% endif %}   
 
                                                         {% endfor %} 
@@ -384,9 +387,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                 </dl>
                                             </div>
                                         </div>
-
-                                        <!-- Related Features -->
-                                        {% include 'views/reports/sections/ANCILLARY_FEATURE_TYPE.E55.htm' %}
 
                                     </div>
                                 </div>
@@ -430,37 +430,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                             <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
 
 
-                            <!-- Measurements -->
-                            <div class="row">
-
-                                <!-- Section sub-header -->
-                                <div class="col-sm-4">
-                                    <h3 class="arches-report-subsection">{% trans "Measurements" %}</h3>
-                                </div>
-                                <!-- End Section sub-header -->
-
-                                 <!-- Section Content -->
-                                <div class="col-sm-8">
-
-                                    <!-- Spacer -->
-                                    <div class="arches-report-spacer hidden-xs"></div>
-
-                                    <div class="arches-report-subsection-content">
-
-                                        <!-- Measurements -->
-                                        {% include 'views/reports/sections/MEASUREMENT_TYPE.E55.htm' %}
-
-                                    </div>
-                                </div>
-                                <!-- End Section Content-->
-
-                            </div>
-                            <!-- End Measuerments Section -->
-
-
-                            <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
-
-
                             <!-- External System References -->
                             <div class="row">
 
@@ -497,16 +466,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         </div>
     </div>
     <!-- End Resource Description Section -->
-
-
-    {% if 'CONDITION_ASSESMENT_E14' in report_info.source.graph %}
-        {% include 'views/reports/sections/condition_assessment_section.htm' %}
-    {% endif %}
-
-
-    {% if 'EVALUATION_CRITERIA_ASSIGNMENT_E13' in report_info.source.graph %}
-        {% include 'views/reports/sections/evaluation_section.htm' %}
-    {% endif %}
 
 
     {% include "views/reports/sections/related_resource_section.htm" %}

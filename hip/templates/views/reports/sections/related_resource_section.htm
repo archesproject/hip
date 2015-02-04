@@ -73,7 +73,7 @@
                         <!-- End Related Historic Resources Section -->
 
 
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;">
 
 
                         <!-- Related Historic Groups -->
@@ -123,7 +123,7 @@
                         <!-- End Related HistoricGroups Section -->
 
 
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;">
 
 
                         <!-- Related Activities -->
@@ -174,7 +174,7 @@
                         <!-- End Related Activities -->
 
 
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;">
 
 
                         <!-- Related Historic Events -->
@@ -224,7 +224,7 @@
                         <!-- End Related Historic Events Section -->
 
 
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;">
 
 
                         <!-- Related Actors -->
@@ -272,7 +272,7 @@
                         <!-- End Related Actors Section -->
 
 
-                        <hr class="devider margin-top-10" style="margin-bottom: 5px;"></hr>
+                        <hr class="devider margin-top-10" style="margin-bottom: 5px;">
 
 
                         <!-- Related Information Objects -->
@@ -285,7 +285,7 @@
                             <!-- End Section Header -->
 
                             <!-- Section Content -->
-                            <div class="col-sm-8 arches-report-group-spacer">
+                            <div class="col-sm-8 arches-report-group-spacer" style="padding-left: 22px;">
 
                                 <!-- Spacer -->
                                 <div class="arches-report-spacer hidden-xs"></div>
@@ -295,34 +295,35 @@
 
                                         <dl>
                                             <dt>
-                                                <h5 id="" class="arches-report-subsection-title">
+                                                <h5 class="arches-report-subsection-title">
                                                     {% trans "Images" %}
                                                 </h5>
                                             </dt>
 
-                                            <dd class="arches-report-subsection-item">
+                                            <!-- Links for Image Gallery Supply Image in the href, thumbnails in the img tags -->
+                                            {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_IMAGE %}
+                                                <dd class="arches-report-subsection-item">
+                                                    <a href="{% url 'report' related_resource.entityid %}" title="{% trans "View Report" %}">
+                                                        <img src="{{related_resource.file_path}}" alt="" class="arches-report-image-thumbnail" style="width: 25%;">
+                                                    </a>
+                                                </dd>
 
-                                                <!-- Links for Image Gallery Supply Image in the href, thumbnails in the img tags -->
-                                                <div id="" style="margin-left: 10px; margin-top: 5px;">
-
-                                                    {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_IMAGE %}
-                                                        <a href="{% url 'report' related_resource.entityid %}" title="{% trans "View Report" %}">
-                                                            <img src="{{related_resource.file_path}}" alt="" class="arches-report-image-thumbnail" style="width: 25%;">
-                                                        </a>
-
-                                                        {% empty %}
-                                                            <dd class="arches-report-subsection-item">
-                                                                {% trans "None" %}
-                                                            </dd>                                                        
-                                                    {% endfor %}
-                                                </div>
-                                            </dd>
+                                                {% empty %}
+                                                    <dd class="arches-report-subsection-item">
+                                                        {% trans "None" %}
+                                                    </dd>                                                        
+                                            {% endfor %}
+                                            
                                         </dl>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                
                                     <div class="col-xs-12">
                                         <dl>
                                             <dt>
-                                                <h5 id="" class="arches-report-subsection-title">
+                                                <h5 class="arches-report-subsection-title">
                                                     {% trans "Documents" %}
                                                 </h5>
                                             </dt>

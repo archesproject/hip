@@ -9,62 +9,73 @@ require([
     var ReportView = Backbone.View.extend({
 
         initialize: function(options) { 
+            var resize;
             var self = this;
             var resource_geometry = $('#resource_geometry');
-
-            this.map = new MapView({
-                el: $('#map')
-            });
-
-            ko.applyBindings(this.map, $('#basemaps-panel')[0]);
-
-            this.highlightFeatures(JSON.parse(resource_geometry.val()));
-            this.zoomToResource('1');
-
-            var hideAllPanels = function(){
-                $("#basemaps-panel").addClass("hidden");
-
-                //Update state of remaining buttons
-                $("#inventory-basemaps")
-                    .removeClass("arches-map-tools-pressed")
-                    .addClass("arches-map-tools")
-                    .css("border-bottom-left-radius", "1px");
-            };
-
-            //Inventory-basemaps button opens basemap panel
-            $("#inventory-basemaps").click(function (){
-                if ($(this).hasClass('arches-map-tools-pressed')) {
-                    hideAllPanels();
-                } else {
-                    $("#basemaps-panel").removeClass("hidden");
-
-                    //Update state of current button and adjust position
-                    $("#inventory-basemaps")
-                        .addClass("arches-map-tools-pressed")
-                        .removeClass("arches-map-tools")
-                        .css("border-bottom-left-radius", "5px");
-                }
-            });
-
-            $(".basemap").click(function (){ 
-                var basemap = $(this).attr('id');
-                _.each(self.map.baseLayers, function(baseLayer){ 
-                    baseLayer.layer.setVisible(baseLayer.id == basemap);
+            
+            if(resource_geometry.length > 0){
+                var geom = JSON.parse(resource_geometry.val());
+                this.map = new MapView({
+                    el: $('#map')
                 });
-                hideAllPanels();
-            });
 
-            //Close Button
-            $(".close").click(function (){ 
-                hideAllPanels();
-            });
+                ko.applyBindings(this.map, $('#basemaps-panel')[0]);
 
-            var resize = function() {
-                var header = $('.breadcrumbs').height() + 25;
+                this.highlightFeatures(JSON.parse(resource_geometry.val()));
+                this.zoomToResource('1');
+
+                var hideAllPanels = function(){
+                    $("#basemaps-panel").addClass("hidden");
+
+                    //Update state of remaining buttons
+                    $("#inventory-basemaps")
+                        .removeClass("arches-map-tools-pressed")
+                        .addClass("arches-map-tools")
+                        .css("border-bottom-left-radius", "1px");
+                };
+
+                //Inventory-basemaps button opens basemap panel
+                $("#inventory-basemaps").click(function (){
+                    if ($(this).hasClass('arches-map-tools-pressed')) {
+                        hideAllPanels();
+                    } else {
+                        $("#basemaps-panel").removeClass("hidden");
+
+                        //Update state of current button and adjust position
+                        $("#inventory-basemaps")
+                            .addClass("arches-map-tools-pressed")
+                            .removeClass("arches-map-tools")
+                            .css("border-bottom-left-radius", "5px");
+                    }
+                });
+
+                $(".basemap").click(function (){ 
+                    var basemap = $(this).attr('id');
+                    _.each(self.map.baseLayers, function(baseLayer){ 
+                        baseLayer.layer.setVisible(baseLayer.id == basemap);
+                    });
+                    hideAllPanels();
+                });
+
+                //Close Button
+                $(".close").click(function (){ 
+                    hideAllPanels();
+                });
+               
+            }else{
+                $('.block-description').css('marginTop', '-40px');
+                $('#map-container').hide();
+            }
+
+            resize = function() {
+                var header = $('.breadcrumbs').height() + 95;
                 $('#report-body').height($(window).height() - header);
-            };
+            };            
+
+            $('body').removeClass('scroll-y');
             resize();
-            $(window).resize(resize);
+            $(window).resize(resize); 
+
         },
 
         zoomToResource: function(resourceid){

@@ -74,10 +74,10 @@
 }
 
 .report-breadcrumb {
-	position: absolute;
-	top: 78px;
-	left: 0px;
 	width: 100%;
 	z-index: 1;
 }
 
+.report-body {
+	overflow-y: scroll; 
+}
