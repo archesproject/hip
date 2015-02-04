@@ -157,8 +157,8 @@
                                                                     </dd>
                                                                 {% else %}
                                                                     {% for CONDITION_IMAGE_E73 in CONDITION_STATE_E3 %}
-                                                                        <a href="{{CONDITION_IMAGE_E73.CONDITION_IMAGE_FILE_PATH_E62__value}} " title="" data-gallery>
-                                                                            <img src="{{CONDITION_IMAGE_E73.CONDITION_IMAGE_THUMBNAIL_E62__value}} " style="width: 25%">
+                                                                        <a href="{{CONDITION_IMAGE_E73.CONDITION_IMAGE_FILE_PATH_E62.0.CONDITION_IMAGE_FILE_PATH_E62__value}} " title="" data-gallery>
+                                                                            <img src="{{CONDITION_IMAGE_E73.CONDITION_IMAGE_THUMBNAIL_E62.0.CONDITION_IMAGE_THUMBNAIL_E62__value}} " style="width: 25%">
                                                                         </a>
                                                                     {% endfor %}
                                                                 {% endif %}
@@ -237,9 +237,17 @@
                                                             </dd>
                                                         {% else %}
                                                             {% for MANAGEMENT_RECOMMENDATION_E89 in CONDITION_STATE_E3 %}
-                                                                <dd class="arches-report-subsection-item">
-                                                                    {{MANAGEMENT_RECOMMENDATION_E89.MANAGEMENT_RECOMMENDATION_E89__value}} 
-                                                                </dd> 
+                                                                {% if 'RECOMMENDATION_TYPE_E55' not in MANAGEMENT_RECOMMENDATION_E89 %}
+                                                                    <dd class="arches-report-subsection-item">
+                                                                        {% trans "No recommendations recorded" %}
+                                                                    </dd>
+                                                                {% else %}
+                                                                    {% for RECOMMENDATION_TYPE_E55 in MANAGEMENT_RECOMMENDATION_E89.RECOMMENDATION_TYPE_E55 %}
+                                                                        <dd class="arches-report-subsection-item">
+                                                                            {{RECOMMENDATION_TYPE_E55.RECOMMENDATION_TYPE_E55__value}} 
+                                                                        </dd> 
+                                                                    {% endfor %}
+                                                                {% endif %}
                                                             {% endfor %}
                                                         {% endif %}
 

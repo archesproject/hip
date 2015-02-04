@@ -18,14 +18,22 @@
                         </dd>
                     {% else %}
                         {% for PLACE_SITE_LOCATION_E53 in PLACE_E53.PLACE_SITE_LOCATION_E53 %}
-                            {% if 'DESCRIPTION_OF_LOCATION_E62__value' not in PLACE_SITE_LOCATION_E53 %}
+                            {% if 'DESCRIPTION_OF_LOCATION_E62' not in PLACE_SITE_LOCATION_E53 %}
                                 <dd class="arches-report-subsection-item">
                                     {% trans "No descriptions recorded" %}
                                 </dd>
                             {% else %}
-                                <dd class="arches-report-subsection-item">
-                                    {{PLACE_SITE_LOCATION_E53.DESCRIPTION_OF_LOCATION_E62__value}}
-                                </dd>
+                                 {% for DESCRIPTION_OF_LOCATION_E62 in PLACE_SITE_LOCATION_E53.DESCRIPTION_OF_LOCATION_E62 %}
+                                    {% if DESCRIPTION_OF_LOCATION_E62.DESCRIPTION_OF_LOCATION_E62__value == '' %}
+                                        <dd class="arches-report-subsection-item">
+                                            {% trans "No descriptions recorded" %}
+                                        </dd>
+                                    {% else %}
+                                        <dd class="arches-report-subsection-item">
+                                            {{DESCRIPTION_OF_LOCATION_E62.DESCRIPTION_OF_LOCATION_E62__value}}
+                                        </dd>
+                                    {% endif %}
+                                {% endfor %}   
                             {% endif %}
                         {% endfor %}                      
                     {% endif %}

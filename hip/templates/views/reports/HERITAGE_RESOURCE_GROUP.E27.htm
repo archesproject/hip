@@ -194,44 +194,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                         <!-- Names -->
                                         {% include 'views/reports/sections/NAME.E41.htm' %}
                                         
-                                        <!-- Resource Types -->
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <dl>
-                                                    <dt>
-                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Resource Types" %}</h5>
-                                                    </dt>
-
-                                                    {% if 'PRODUCTION_E12' not in report_info.source.graph %}
-                                                        <dd class="arches-report-subsection-item">
-                                                            {% trans "No types recorded" %}
-                                                        </dd>
-                                                    {% else %}
-                                                        {% for PRODUCTION_E12 in report_info.source.graph.PRODUCTION_E12 %}
-                                                            {% if 'PHASE_TYPE_ASSIGNMENT_E17' not in PRODUCTION_E12 %}
-                                                                <dd class="arches-report-subsection-item">
-                                                                    {% trans "No types recorded" %}
-                                                                </dd>
-                                                            {% else %}
-                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in PRODUCTION_E12.PHASE_TYPE_ASSIGNMENT_E17 %}
-                                                                    {% if 'HERITAGE_RESOURCE_GROUP_TYPE_E55' not in PHASE_TYPE_ASSIGNMENT_E17 %}
-                                                                        <dd class="arches-report-subsection-item">
-                                                                            {% trans "No types recorded" %}
-                                                                        </dd>
-                                                                    {% else %}
-                                                                        {% for HERITAGE_RESOURCE_GROUP_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.HERITAGE_RESOURCE_GROUP_TYPE_E55 %}
-                                                                            <dd class="arches-report-subsection-item">{{HERITAGE_RESOURCE_GROUP_TYPE_E55.HERITAGE_RESOURCE_GROUP_TYPE_E55__value}}</dd> 
-                                                                        {% endfor %} 
-                                                                    {% endif %}
-                                                                {% endfor %} 
-                                                            {% endif %} 
-                                                        {% endfor %} 
-                                                    {% endif %} 
-
-                                                </dl>
-                                            </div>
-                                        </div>
-
+                                        <!-- Resource Type -->
+                                        {% include 'views/reports/sections/RESOURCE_TYPE_CLASSIFICATION.E55.htm' %}
+                                        
                                         <!-- Important Dates -->
                                         {% include 'views/reports/sections/important_dates.htm' %}
 
