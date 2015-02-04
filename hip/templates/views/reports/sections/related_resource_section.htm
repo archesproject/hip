@@ -330,7 +330,7 @@
 
                                             {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_DOCUMENT %}
                                                 <dd class="arches-report-subsection-item">
-                                                    <a href="{% url 'report' related_resource.entityid %}" title="View Report">
+                                                    <a href="{% url 'report' related_resource.entityid %}" title="{% trans "View Report" %}">
                                                         {{related_resource.primaryname}}
                                                     </a>
 

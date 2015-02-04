@@ -328,11 +328,25 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                     <!-- Links for Image Gallery Supply Image in the href, thumbnails in the img tags -->
                                                     {% for FILE_PATH_E62 in report_info.source.graph.FILE_PATH_E62 %}
 
-                                                        <dd class="arches-report-subsection-item">
-                                                            <div id="" style="margin-top: 5px;">
-                                                                <img src="{{FILE_PATH_E62.FILE_PATH_E62__value}}" alt="" class="" style="width: 100%; margin-bottom: 30px; border: solid 1px #555;">
-                                                            </div>
-                                                        </dd>
+                                                        {% if report_info.display_as_image %}
+
+                                                            <dd class="arches-report-subsection-item">
+                                                                <div id="" style="margin-top: 5px;">
+                                                                    <img src="{{FILE_PATH_E62.FILE_PATH_E62__value}}" alt="" class="" style="width: 100%; margin-bottom: 30px; border: solid 1px #555;">
+                                                                </div>
+                                                            </dd>
+
+                                                        {% else %}
+
+                                                            <dd class="arches-report-subsection-item">
+                                                                <div id="" style="margin-top: 5px;">
+                                                                    <a href="{{FILE_PATH_E62.FILE_PATH_E62__value}}" title="{% trans "View document" %}">
+                                                                        <i class="fa fa-file-text-o"></i> {% trans "Link to document" %}
+                                                                    </a>
+                                                                </div>
+                                                            </dd>
+
+                                                        {% endif %}
 
                                                         {% empty %}
                                                             <dd class="arches-report-subsection-item">
