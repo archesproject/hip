@@ -1,0 +1,519 @@
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+<!-- Classification CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Classification</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Screens greater than xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%;">
+                                    
+                                    <!-- Resource Type/Use/Style -->     
+                                    <input class="resource-type" id="" name="" style="width:25%;"  value="">&nbsp;
+                                    <input class="resource-use" id="" name="" style="width:25%;"  value="">&nbsp;
+                                    <input class="style" id="" name="" style="width:25%;"  value="">&nbsp;
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                    <!-- Spacer -->
+                                    <div class="margin-top-5 hidden-xs"></div>
+
+                                    <!-- Period and From/To Dates -->
+                                    <div>
+                                        <input class="period" id="" name="" style="width:25%;"  value="">&nbsp;
+                                    
+                                        <div class="form-group" style="width:25%;">
+                                            <div class="input-group">
+                                                <input type="text" name="mydate" placeholder="From" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>&nbsp;
+
+                                        <div class="form-group" style="width:25%;">
+                                            <div class="input-group">
+                                                <input type="text" name="mydate" placeholder="To" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <!-- End Period, From/To Dates -->
+
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- End Screens greater than xs -->
+
+
+                            <!-- XS Screens -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%;">
+                                    
+                                    <!-- Resource Type/Period/Style -->     
+                                    <input class="resource-type" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+                                    <input class="resource-use" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+                                    <input class="style" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+                                    <input class="period" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+
+                                    <!-- From/To Dates -->
+                                    <div class="form-group" style="width:100%; margin-top: 5px; margin-bottom: 5px;">
+                                        <div class="input-group">
+                                            <input type="text" name="mydate" placeholder="From" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="width:100%; margin-bottom: 5px;">
+                                        <div class="input-group">
+                                            <input type="text" name="mydate" placeholder="To" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <!-- End From/To Dates -->
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group" style="width:50%;">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End XS Screens -->
+
+                        </div>
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Address CRUD Form Container -->
+
+
+<!-- Classification Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has been classified as:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="classification1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="classification1" class="arches-CRUD-child manage-address" title="Edit this record">Hotel<span class="text-muted arches-crud-type-identifier"> (type)&nbsp; </span> Historic<span class="text-muted arches-crud-type-identifier"> (use)&nbsp; </span> </span> Modern<span class="text-muted arches-crud-type-identifier"> (period)&nbsp; </span> Craftsman<span class="text-muted arches-crud-type-identifier"> (style),&nbsp; </span> 1945<span class="text-muted arches-crud-type-identifier"> - </span> 1961
+                        </a>
+                    </div>
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="classification2-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="classification2" class="arches-CRUD-child manage-address" title="Edit this record">Hospital<span class="text-muted arches-crud-type-identifier"> (type)&nbsp; </span> Unspecified<span class="text-muted arches-crud-type-identifier"> (use)&nbsp; </span> </span> Modern<span class="text-muted arches-crud-type-identifier"> (period)&nbsp; </span> Mid Century Modern<span class="text-muted arches-crud-type-identifier"> (style),&nbsp; </span> 1972<span class="text-muted arches-crud-type-identifier"> - </span> 1999
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+<!-- End Classification Records -->
+
+
+<hr class="devider arches-RDM-divider">
+
+
+<!-- Components CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Components</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Input for screens > xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Component/Technique/Material -->     
+                                    <input class="component" id="" name="" style="width:25%;"  value="">&nbsp;
+                                    <input class="technique" id="" name="" style="width:25%;"  value="">&nbsp;
+                                    <input class="material" id="" name="" style="width:25%;"  value="">&nbsp;
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End Input for screens > xs -->
+
+                            <!-- Input for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Component/Technique/Material -->     
+                                    <input class="component" id="" name="" style="width:100%;margin-top: 5px;"  value="">
+                                    <input class="technique" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+                                    <input class="material" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group" style=" margin-top: 5px;">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- End Input for screens = xs -->
+
+
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Components CRUD -->
+
+<!-- Components Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has these components:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="component1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="component1" class="arches-CRUD-child manage-address" title="Edit this record">Roof<span class="text-muted arches-crud-type-identifier"> (component)&nbsp; </span> Hip<span class="text-muted arches-crud-type-identifier"> (technique)&nbsp; </span> Slate<span class="text-muted arches-crud-type-identifier"> (material)</span> 
+                        </a>
+                    </div>
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="component2-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="component2" class="arches-CRUD-child manage-address" title="Edit this record">Chimney<span class="text-muted arches-crud-type-identifier"> (component)&nbsp; </span> Stacked<span class="text-muted arches-crud-type-identifier"> (technique)&nbsp; </span> Brick<span class="text-muted arches-crud-type-identifier"> (material)</span> 
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Components Records -->
+
+
+<hr class="devider arches-RDM-divider">
+
+
+<!-- Related Features CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Related Features</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Form for screens > xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Related Features -->     
+                                    <input class="related-features" id="" name="" style="width:75%"  value="">&nbsp;
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- Form for screens > xs -->
+
+                            <!-- Form for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Related Features -->     
+                                    <input class="related-features" id="" name="" style="width:100%"  value="">
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group" style="margin-top: 5px;">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- Form for screens = xs -->
+
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Related Features CRUD -->
+
+<!-- Related Features Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has these related features:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="related1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="related1" class="arches-CRUD-child manage-address" title="Edit this record">Outhouse
+                        </a>
+                    </div>
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="related2-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="related2" class="arches-CRUD-child manage-address" title="Edit this record">Garage
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Related Features Records -->
+
+
+ <hr class="devider arches-RDM-divider">
+
+
+<!-- Modifications CRUD Form -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="padding-left-10">
+            
+            <dl>
+                <!-- Title -->
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">Modifications</h5>
+                </dt>
+
+                <!-- Form -->
+                <dd class="arches-RDM-labels">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 padding-left-0">
+
+                            <!-- Form for screens > xs -->
+                            <form class="form-inline arches-form hidden-xs" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Mods -->     
+                                    <input class="modifications" id="" name="" style="width:75%"  value="">&nbsp;
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                    <!-- Simple HTML Editor -->
+                                    <div class="arches-html-editor margin-top-5" style="width: 75%;">
+                                        <div class="summernote"></div>  
+                                    </div>
+
+                                </div>
+                            </form>
+                            <!-- Form for screens > xs -->
+
+                            <!-- Form for screens = xs -->
+                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                <div class="form-group" style="width: 100%">
+                                    
+                                    <!-- Mods -->     
+                                    <input class="modifications" id="" name="" style="width:100%;"  value="">
+
+                                    <!-- Simple HTML Editor -->
+                                    <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                        <div class="summernote"></div>  
+                                    </div>
+
+                                    <!-- Add Button -->
+                                    <div class="btn-group" style="margin-top: 5px;">
+                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                            <i class="fa fa-chevron-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>                            
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Discard edits</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Add Button -->
+
+                                </div>
+                            </form>
+                            <!-- Form for screens = xs -->
+
+
+                        </div>
+
+                    </div>
+                </dd>
+                <!-- End Form -->
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Modifications CRUD -->
+
+<!-- Modification Records -->
+<div class="row">
+    <div class="col-xs-12">
+
+        <!-- Address -->
+        <div class="arches-crud-child-section">
+            <dl>
+                <dd class="arches-CRUD-child-title">
+                    This resource has these modifications:
+                </dd>
+
+                <dd class="margin-left-5">
+                    <div class="arches-crud-record" id="modification1-record">
+                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                        <a href="" id="classification1" class="arches-CRUD-child manage-address" title="Edit this record">Roof Modification
+                            <div class="arches-RDM-note" style="margin-left: -10px;">
+                                Here's where the modification description will go.  The text might be long or short; it may be styled using the HTML editor, or the text might be really simple...;
+                            </div>
+                        </a>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+<!-- End Modifications Records -->
+{% endblock form_content %}

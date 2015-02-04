@@ -153,3 +153,20 @@ class ConditionForm(ResourceForm):
         }
         if self.resource:
             self.data['CONDITION_TYPE_E55'] = self.get_nodes('CONDITION_TYPE.E55')
+
+class ClassificationForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'classification',
+            'icon': 'fa-asterisk',
+            'name': _('Classification/Components'),
+            'class': ClassificationForm
+        }
+
+    def update(self, data):
+        return
+
+    def load(self):
+        return
+
