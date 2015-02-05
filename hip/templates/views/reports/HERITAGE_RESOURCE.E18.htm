@@ -369,6 +369,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                                             {% endfor %}  
                                                                         {% endif %}
 
+                                                                        {% if 'STYLE_E55' in PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                             <span class="arches-report-subsection-item-type">
+                                                                                {% trans "Style" %}:
+                                                                            </span>
+                                                                            {% for STYLE_E55 in PHASE_TYPE_ASSIGNMENT_E17.STYLE_E55 %}
+                                                                                {{STYLE_E55.STYLE_E55__value}}
+                                                                            {% endfor %}  
+                                                                        {% endif %}
+
                                                                         {% if 'TIME___SPAN_PHASE_E52' in PHASE_TYPE_ASSIGNMENT_E17 %}
                                                                             <span class="arches-report-subsection-item-type">
                                                                                 {% trans "Dates (from/to)" %}:
