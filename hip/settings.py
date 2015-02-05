@@ -17,7 +17,7 @@ def RESOURCE_TYPE_CONFIGS():
         'HERITAGE_RESOURCE.E18': {
             'resourcetypeid': 'HERITAGE_RESOURCE.E18',
             'name': _('Heritage Resource'),
-            'icon_class': 'fa fa-trophy',
+            'icon_class': 'fa fa-university',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
             'categories': [_('Resource')],
@@ -33,7 +33,7 @@ def RESOURCE_TYPE_CONFIGS():
         'HERITAGE_RESOURCE_GROUP.E27': {
             'resourcetypeid': 'HERITAGE_RESOURCE_GROUP.E27',
             'name': _('Historic District'),
-            'icon_class': 'fa fa-bookmark-o',
+            'icon_class': 'fa fa-th',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
             'categories': [_('Resource')],
@@ -65,7 +65,7 @@ def RESOURCE_TYPE_CONFIGS():
         'HISTORICAL_EVENT.E5':{
             'resourcetypeid': 'HISTORICAL_EVENT.E5',
             'name': _('Historic Event'),
-            'icon_class': 'fa fa-calendar-o',
+            'icon_class': 'fa fa-calendar',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
             'categories': [_('Resource')],
