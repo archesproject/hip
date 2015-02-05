@@ -16,7 +16,7 @@ def RESOURCE_TYPE_CONFIGS():
     return {
         'HERITAGE_RESOURCE.E18': {
             'resourcetypeid': 'HERITAGE_RESOURCE.E18',
-            'name': _('Heritage Resource'),
+            'name': _('Historic Resource'),
             'icon_class': 'fa fa-university',
             'default_page': 'summary',
             'description': _('INSERT RESOURCE DESCRIPTION HERE'),
