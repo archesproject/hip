@@ -388,7 +388,32 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                         <!-- Location Description -->
                                         {% include 'views/reports/sections/DESCRIPTION_OF_LOCATION.E62.htm' %}
 
+                                        <!-- Temporal Coverage Description -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Temporal Coverage" %}</h5>
+                                                    </dt>
 
+                                                    {% if 'TEMPORAL_COVERAGE_E4' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No coverage recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for TEMPORAL_COVERAGE_E4 in report_info.source.graph.TEMPORAL_COVERAGE_E4 %}
+                                                            {% for TEMPORAL_COVERAGE_TIME___SPAN_E52 in TEMPORAL_COVERAGE_E4.TEMPORAL_COVERAGE_TIME___SPAN_E52 %}
+                                                                <dd class="arches-report-subsection-item">
+                                                                    {{ TEMPORAL_COVERAGE_TIME___SPAN_E52.TEMPORAL_COVERAGE_TIME___SPAN_E52__value }}
+                                                                </dd>
+                                                            {% endfor %}
+                                                        {% endfor %}            
+                                                    {% endif %}
+
+                                                </dl>
+
+                                            </div>
+                                        </div>
                                         
                                     </div>
                                 </div>
