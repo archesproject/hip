@@ -306,7 +306,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                 <!-- Section sub-header -->
                                 <div class="col-sm-4">
-                                    <h3 class="arches-report-subsection">{% trans "Classification" %}</h3>
+                                    <h3 class="arches-report-subsection">{% trans "Classification/Components" %}</h3>
                                 </div>
                                 <!-- End Section sub-header -->
 
@@ -396,8 +396,38 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                             </div>
                                         </div>
 
+                                        <!-- Components -->
+                                        {% include "views/reports/sections/COMPONENT.E18.htm" %}
+
                                         <!-- Related Features -->
                                         {% include 'views/reports/sections/ANCILLARY_FEATURE_TYPE.E55.htm' %}
+
+                                        <!-- Modifications -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Modifications" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'MODIFICATION_EVENT_E11' not in report_info.source.graph %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No modifications recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for MODIFICATION_EVENT_E11 in report_info.source.graph.MODIFICATION_EVENT_E11 %}
+                                                            <dd class="arches-report-subsection-item arches-report-spacer">
+                                                                <span class="arches-report-subsection-item-type">{{ MODIFICATION_EVENT_E11.MODIFICATION_TYPE_E55.0.MODIFICATION_TYPE_E55__value }}:</span>
+                                                                {{ MODIFICATION_EVENT_E11.MODIFICATION_DESCRIPTION_E62.0.MODIFICATION_DESCRIPTION_E62__value }}
+                                                            </dd>
+                                                        {% endfor %}            
+                                                    {% endif %}
+
+                                                </dl>
+
+                                            </div>
+                                        </div>
+
 
                                     </div>
                                 </div>
