@@ -16,19 +16,19 @@ def setup():
 
 def install(path_to_source_data_dir=None):
     truncate_db()
+    
     delete_index(index='concept_labels')
+    delete_index(index='term') 
+    Resource().prepare_term_index(create=True)
 
     load_resource_graphs()
-
     load_authority_files(path_to_source_data_dir)
-
     load_map_layers()
 
     resource_remover.truncate_resources()
     delete_index(index='resource')
     delete_index(index='entity')
     delete_index(index='maplayers')
-    delete_index(index='term') 
     delete_index(index='resource_relations') 
     create_indexes()   
 
@@ -58,7 +58,6 @@ def delete_index(index=None):
     se.delete_index(index=index)
 
 def create_indexes():
-    Resource().prepare_term_index(create=True)
     Resource().prepare_resource_relations_index(create=True)
     Resource().prepare_search_index('HERITAGE_RESOURCE_GROUP.E27', create=True)
     Resource().prepare_search_index('HERITAGE_RESOURCE.E18', create=True)
