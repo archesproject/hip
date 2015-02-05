@@ -4,8 +4,9 @@ require([
     'bootstrap',
     'views/map',
     'openlayers', 
-    'knockout'
-], function($, arches, bootstrap, MapView, ol, ko) {
+    'knockout',
+    'utils'
+], function($, arches, bootstrap, MapView, ol, ko, utils) {
     var ReportView = Backbone.View.extend({
 
         initialize: function(options) { 
@@ -94,22 +95,13 @@ require([
             }
         },
 
-        hexToRgb: function (hex) {
-            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
-        },
-
         highlightFeatures: function(geometry){
             var source, geometries;
             var self = this;
             var f = new ol.format.GeoJSON({defaultDataProjection: 'EPSG:4326'});
 
             if(!this.selectedFeatureLayer){
-                var rgb = this.hexToRgb('#C4171D');
+                var rgb = utils.hexToRgb('#C4171D');
                 var iconUnicode = '\uf060';                    
                 var zIndex = 0;
                 var styleCache = {};
