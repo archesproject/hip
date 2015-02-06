@@ -105,16 +105,57 @@ class Resource(ArchesResource):
 
         documents = super(Resource, self).prepare_documents_for_map_index(geom_entities=geom_entities)
         
-        resource_type = _('None specified')
-        resource_type_nodes = []
+        def get_entity_data(entitytypeid, get_label=False):
+            entity_data = _('None specified')
+            entity_nodes = self.find_entities_by_type_id(entitytypeid)
+            if len(entity_nodes) > 0:
+                entity_data = []
+                for node in entity_nodes:
+                    if get_label:
+                        entity_data.append(node.label)
+                    else:
+                        entity_data.append(node.value)
+                entity_data = ', '.join(entity_data)
+            return entity_data
+
+        document_data = {}
+        
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
-            resource_type_nodes = self.find_entities_by_type_id('HERITAGE_RESOURCE_TYPE.E55')
-            
-        for resource_type in resource_type_nodes:
-            resource_type = resource_type.label
+            document_data['resource_type'] = get_entity_data('HERITAGE_RESOURCE_TYPE.E55', get_label=True)
+
+            document_data['address'] = _('None specified')
+            address_nodes = self.find_entities_by_type_id('PLACE_ADDRESS.E45')
+            for node in address_nodes:
+                if node.find_entities_by_type_id('ADDRESS_TYPE.E55')[0].label == 'Primary':
+                    document_data['address'] = node.value
+
+        if self.entitytypeid == 'HERITAGE_RESOURCE_GROUP.E27':
+            document_data['resource_type'] = get_entity_data('HERITAGE_RESOURCE_GROUP_TYPE.E55', get_label=True)
+
+        if self.entitytypeid == 'ACTIVITY.E7':
+            document_data['resource_type'] = get_entity_data('ACTIVITY_TYPE.E55', get_label=True)
+
+        if self.entitytypeid == 'HISTORICAL_EVENT.E5':
+            document_data['resource_type'] = get_entity_data('HISTORICAL_EVENT_TYPE.E55', get_label=True)
+
+        if self.entitytypeid == 'ACTOR.E39':
+            document_data['resource_type'] = get_entity_data('ACTOR_TYPE.E55', get_label=True)
+
+        if self.entitytypeid == 'INFORMATION_RESOURCE.E73':
+            document_data['resource_type'] = get_entity_data('INFORMATION_RESOURCE_TYPE.E55', get_label=True)
+            document_data['creation_date'] = get_entity_data('DATE_OF_CREATION.E50')
+            document_data['publication_date'] = get_entity_data('DATE_OF_PUBLICATION.E50')
+
+        if self.entitytypeid == 'HISTORICAL_EVENT.E5' or self.entitytypeid == 'ACTIVITY.E7' or self.entitytypeid == 'ACTOR.E39':
+            document_data['start_date'] = get_entity_data('BEGINNING_OF_EXISTENCE.E63')
+            document_data['end_date'] = get_entity_data('END_OF_EXISTENCE.E64')
+
+        if self.entitytypeid == 'HERITAGE_RESOURCE.E18' or self.entitytypeid == 'HERITAGE_RESOURCE_GROUP.E27':
+            document_data['designations'] = get_entity_data('TYPE_OF_DESIGNATION_OR_PROTECTION.E55', get_label=True)
 
         for document in documents:
-            document['properties']['resource_type'] = resource_type
+            for key in document_data:
+                document['properties'][key] = document_data[key]
 
         return documents
 
