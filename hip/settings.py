@@ -12,6 +12,7 @@ STATICFILES_DIRS = (os.path.join(PACKAGE_ROOT, 'media'),) + STATICFILES_DIRS
 TEMPLATE_DIRS = (os.path.join(PACKAGE_ROOT, 'templates'),os.path.join(PACKAGE_ROOT, 'templatetags')) + TEMPLATE_DIRS
 RESOURCE_MODEL = {'default': 'hip.models.resource.Resource'}
 APP_NAME = 'Arches v3.0 - HIP v1.0'
+PACKAGE_VALIDATOR = 'hip.source_data.validation.HIP_Validator'
 
 def RESOURCE_TYPE_CONFIGS():
     return {
