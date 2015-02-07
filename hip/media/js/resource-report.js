@@ -68,8 +68,8 @@ require([
                 $('#map-container').hide();
             }
 
-            resize = function() {
-                var header = $('.breadcrumbs').height() + 95;
+            var resize = function() {
+                var header = $('.breadcrumbs').outerHeight() + $('.header').outerHeight();
                 $('#report-body').height($(window).height() - header);
             };            
 
