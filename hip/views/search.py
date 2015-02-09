@@ -23,7 +23,7 @@ from django.shortcuts import render_to_response
 from django.db.models import Max, Min
 from arches.app.models import models
 from arches.app.views.search import _get_pagination
-from arches.app.views.search import build_query_dsl
+from arches.app.views.search import build_search_results_dsl
 from arches.app.models.concept import Concept
 from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
 from arches.app.search.search_engine_factory import SearchEngineFactory
@@ -70,12 +70,11 @@ def home_page(request):
 def search_results(request, as_text=False):
     temporal_filters = JSONDeserializer().deserialize(request.GET.get('temporalFilter', None))
 
-    query = build_query_dsl(request)  
+    query = build_search_results_dsl(request)  
     boolfilter = Bool()
 
     if 'filters' in temporal_filters:
         for temporal_filter in temporal_filters['filters']:
-            match = Match(field='date_groups.conceptid', query=temporal_filter['date_types__value'])
             terms = Terms(field='date_groups.conceptid', terms=temporal_filter['date_types__value'])
             boolfilter.must(terms)
 
