@@ -96,9 +96,16 @@ def search_results(request, as_text=False):
                 boolfilter.must(range)
 
             query.add_filter(boolfilter)
+            full_dsl.add_filter(boolfilter)
 
     results = query.search(index='entity', doc_type='') 
     total = results['hits']['total']
     page = 1 if request.GET.get('page') == '' else int(request.GET.get('page', 1))
 
-    return _get_pagination(results, total, page, settings.SEARCH_ITEMS_PER_PAGE)
+    full_dsl = build_search_results_dsl(request, limit=1000000, page=1)
+    full_results = full_dsl.search(index='entity', doc_type='')
+    all_entity_ids = []
+    for hit in full_results['hits']['hits']:
+        all_entity_ids.append(hit['_id'])
+
+    return _get_pagination(results, total, page, settings.SEARCH_ITEMS_PER_PAGE, all_entity_ids)
