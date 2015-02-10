@@ -104,8 +104,8 @@ def search_results(request, as_text=False):
 
     all_entity_ids = ['_all']
     if request.GET.get('no_filters', '') == '':
-        full_dsl = build_search_results_dsl(request, limit=1000000, page=1)
-        full_results = full_dsl.search(index='entity', doc_type='')
+        full_dsl = build_search_results_dsl(request)
+        full_results = full_dsl.search(index='entity', doc_type='', start=0, limit=1000000, fields=[])
         all_entity_ids = [hit['_id'] for hit in full_results['hits']['hits']]
 
     return _get_pagination(results, total, page, settings.SEARCH_ITEMS_PER_PAGE, all_entity_ids)
