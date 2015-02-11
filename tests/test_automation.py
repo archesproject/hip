@@ -32,7 +32,7 @@ class Main(SSTTestCase):
         super(Main, self).setUp()
         self.user = User.objects.create_user('test', 'test@archesproject.org', 'password')
         self.user.save()
-        cmd = [sys.executable,settings.PACKAGE_ROOT + '/../manage.py','runserver','8001','--settings=hip.settings_tests']
+        cmd = [sys.executable,settings.PACKAGE_ROOT + '/../manage.py','runserver','8001','--settings=settings_tests']
         self.pid = subprocess.Popen(cmd, preexec_fn=os.setpgrp, stdout=open(os.devnull, 'wb'), stderr=subprocess.STDOUT).pid
         # give it a moment to start up.
         time.sleep(1)
