@@ -36,7 +36,6 @@ setup(
     install_requires=[
        'arches>=3.0rc6'
     ],
-    dependency_links = ['https://testpypi.python.org/packages/source/a/arches/arches-3.0rc6.tar.gz#md5=34bac30caf0dcab08f1db19835a3bb70'],
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().

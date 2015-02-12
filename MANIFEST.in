@@ -1,8 +1,7 @@
-include manage.py
-recursive-include hip *
-exclude hip/logs/*.txt
+recursive-include arches_hip *
+exclude arches_hip/logs/*.txt
 recursive-exclude tests *
-recursive-exclude hip/elasticsearch *
+recursive-exclude arches_hip/elasticsearch *
 global-exclude *.log
 global-exclude *.pyc
 global-exclude *.zip
