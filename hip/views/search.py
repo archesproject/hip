@@ -22,8 +22,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Max, Min
 from arches.app.models import models
-from arches.app.views.search import _get_pagination
-from arches.app.views.search import build_search_results_dsl
+from arches.app.views.search import get_paginator
+from arches.app.views.search import build_search_results_dsl as build_base_search_results_dsl
 from arches.app.models.concept import Concept
 from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
 from arches.app.search.search_engine_factory import SearchEngineFactory
@@ -67,10 +67,25 @@ def home_page(request):
         }, 
         context_instance=RequestContext(request))
 
-def search_results(request, as_text=False):
+def search_results(request):
+    query = build_search_results_dsl(request)
+    results = query.search(index='entity', doc_type='') 
+    total = results['hits']['total']
+    page = 1 if request.GET.get('page') == '' else int(request.GET.get('page', 1))
+
+    all_entity_ids = ['_all']
+    if request.GET.get('include_ids', 'false') == 'false':
+        all_entity_ids = ['_none']
+    elif request.GET.get('no_filters', '') == '':
+        full_results = query.search(index='entity', doc_type='', start=0, limit=1000000, fields=[])
+        all_entity_ids = [hit['_id'] for hit in full_results['hits']['hits']]
+
+    return get_paginator(results, total, page, settings.SEARCH_ITEMS_PER_PAGE, all_entity_ids)
+
+def build_search_results_dsl(request):
     temporal_filters = JSONDeserializer().deserialize(request.GET.get('temporalFilter', None))
 
-    query = build_search_results_dsl(request)  
+    query = build_base_search_results_dsl(request)  
     boolfilter = Bool()
 
     if 'filters' in temporal_filters:
@@ -96,18 +111,5 @@ def search_results(request, as_text=False):
                 boolfilter.must(range)
 
             query.add_filter(boolfilter)
-            full_dsl.add_filter(boolfilter)
 
-    results = query.search(index='entity', doc_type='') 
-    total = results['hits']['total']
-    page = 1 if request.GET.get('page') == '' else int(request.GET.get('page', 1))
-
-    all_entity_ids = ['_all']
-    if request.GET.get('include_ids', 'false') == 'false':
-        all_entity_ids = ['_none']
-    elif request.GET.get('no_filters', '') == '':
-        full_dsl = build_search_results_dsl(request)
-        full_results = full_dsl.search(index='entity', doc_type='', start=0, limit=1000000, fields=[])
-        all_entity_ids = [hit['_id'] for hit in full_results['hits']['hits']]
-
-    return _get_pagination(results, total, page, settings.SEARCH_ITEMS_PER_PAGE, all_entity_ids)
+    return query
