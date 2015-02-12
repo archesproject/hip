@@ -41,7 +41,7 @@ def import_data():
     pass
 
 def truncate_db():
-    management.call_command('packages', operation='setup') 
+    management.call_command('packages', operation='setup_db') 
 
 def load_resource_graphs():
     resource_graphs.load_graphs(break_on_error=True)
@@ -83,14 +83,7 @@ def load_resources(external_file=None):
     else:
         for f in settings.BUSISNESS_DATA_FILES:
             rl.load(f)
-
-
+            
 
 if __name__ == "__main__":
-
-#     #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hip.settings")
     install()
-#     print sys.argv[1]
-#     module = import_module('setup')
-#     method_ref = getattr(module, sys.argv[1])
-#     method_ref() 
