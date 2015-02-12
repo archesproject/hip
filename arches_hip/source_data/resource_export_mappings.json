@@ -1,0 +1,100 @@
+{
+    "HERITAGE_RESOURCE.E18":
+        {
+        "fieldmap":{
+            "primaryname":"name",
+            "resourcid": "id"
+            },
+        "schema": {
+            "geometry": "Point",
+            "properties": {
+                "name":"str",
+                "id":"str",
+                "type":"str",
+                "resolved":"datetime",
+                "completed":"datetime",
+                "updated":"datetime"
+                }
+            },
+        "export_file_name": "projects"
+    },
+
+    "IGR DOCUMENT.E31":
+        {
+        "fieldmap":{
+            "SCH NUMBER.E1":"sch_number",
+            "PROJECT OCCUPIED SPACE.E1":"occ_space",
+            "PROJECT OCCUPIED SPACE UNITS.E55":"occ_units",
+            "PROJECT LAND AREA.E1":"land_area",
+            "PROJECT LAND AREA UNITS.E55":"area_units",
+            "PROJECT APPLICANT.E1":"applicant",
+            "PRIORITY FLAG.E55":"priority",
+            "HOT LIST FLAG.E55":"hot_list",
+            "POTENTIAL OUTCOME OR DIRECTION.E1":"potential",
+            "EXISTING OR POTENTIAL ISSUES.E1":"issues",
+            "DOCUMENT TYPE.E55":"doc_type",
+            "LEAD AGENCY DOCUMENT REFERENCE NUMBER.E1":"agcydocnum",
+            "LEAD AGENCY DOCUMENT REFERENCE NUMBER TYPE.E55":"docnumtype",
+            "DATE OF COMPILATION.E50":"compiled",
+            "DATE OF LAST UPDATE.E50":"updated",
+            "RECEIVED DATE.E50":"received",
+            "FUNCTIONAL REVIEW DUE DATE.E50":"reviewed",
+            "AGENCY CONTACT NAME.E41":"lead_name",
+            "AGENCY CONTACT PHONE NUMBER.E1":"lead_phone",
+            "AGENCY CONTACT EMAIL.E1":"lead_email",
+            "AGENCY NAME.E41":"lead_agncy"
+        },
+        "schema": {"geometry": "Point","properties": {
+            "projectid":"str",
+            "documentid":"str",
+            "sch_number":"str",
+            "type":"str",
+            "occ_space":"str",
+            "occ_units":"str",
+            "land_area":"str",
+            "area_units":"str",
+            "applicant":"str",
+            "priority":"str",
+            "hot_list":"str",
+            "potential":"str",
+            "issues":"str",
+            "doc_type":"str",
+            "agcydocnum":"str",
+            "docnumtype":"str",
+            "compiled":"datetime",
+            "updated":"datetime",
+            "received":"datetime",
+            "reviewed":"datetime",
+            "lead_name":"str",
+            "lead_phone":"str",
+            "lead_email":"str",
+            "lead_agncy":"str"
+            }
+        },
+        "export_file_name": "documents"
+    },
+
+    "MITIGATION.E7":
+        {
+        "fieldmap":{
+            "MITIGATION DESCRIPTION.E41":"descrip",
+            "IMPACT TYPE.E55":"impacttype",
+            "CALTRANS AGREES FLAG.E55":"ct_agrees",
+            "MITIGATION TYPE.E55":"mit_type",
+            "ACTUAL MITIGATION COST.E1":"mit_cost"
+            },
+        "schema":{"geometry": "Point","properties": {
+            "projectid":"str",
+            "documentid":"str",
+            "mitid":"str",
+            "descrip":"str",
+            "type":"str",
+            "impacttype":"str",
+            "ct_agrees":"str",
+            "mit_type":"str",
+            "mit_cost":"str"
+            }
+        },
+        "export_file_name": "mitigations"
+    }
+}

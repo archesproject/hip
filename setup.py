@@ -4,10 +4,10 @@ from setuptools import setup, find_packages  # Always prefer setuptools over dis
 from codecs import open  # To use a consistent encoding
 
 # Dynamically calculate the version based on arches.VERSION.
-version = __import__('hip').__version__
+version = __import__('arches_hip').__version__
 
 setup(
-    name='hip',
+    name='arches_hip',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see

@@ -22,9 +22,9 @@ from django.conf.urls import patterns, url, include
 uuid_regex = '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
 
 urlpatterns = patterns('',
-    url(r'^search$', 'hip.views.search.home_page', name="search_home"),
-    url(r'^search/resources$', 'hip.views.search.search_results', name="search_results"),
-    url(r'^reports/(?P<resourceid>%s)$' % uuid_regex , 'hip.views.resources.report', name='report'),
+    url(r'^search$', 'arches_hip.views.search.home_page', name="search_home"),
+    url(r'^search/resources$', 'arches_hip.views.search.search_results', name="search_results"),
+    url(r'^reports/(?P<resourceid>%s)$' % uuid_regex , 'arches_hip.views.resources.report', name='report'),
 
     url(r'', include(arches_urls)),
 )

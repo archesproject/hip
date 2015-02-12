@@ -5,7 +5,7 @@ syntax: glob
 build/*
 dist/*
 settings_local.py
-hip/elasticsearch
+elasticsearch
 Procfile
 hip/version.py
 resource_graph_errors.txt

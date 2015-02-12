@@ -21,7 +21,7 @@ from arches.app.models.edit_history import EditHistory
 from arches.app.models.resource import Resource as ArchesResource
 from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
-from hip.views import forms as hip_forms
+from arches_hip.views import forms as hip_forms
 from django.utils.translation import ugettext as _
 
 class Resource(ArchesResource):

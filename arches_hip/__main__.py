@@ -3,7 +3,7 @@ import codecs
 import os
 import sys
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hip.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "arches_hip.settings")
 here = os.path.abspath(os.path.dirname(__file__))
 COMMANDS = {}
 
@@ -22,7 +22,6 @@ else:
 execfile(activate_this, dict(__file__=activate_this))
 
 from arches.management.commands import utils
-#from hip import version
 
 try:
     # Python 3
@@ -42,7 +41,7 @@ parent_parser = argparse.ArgumentParser(add_help=False)
 #     action='version', version='%(prog)s' + ' Version %s : Build %s' % (version.__VERSION__, version.__BUILD__))
 
 parser = argparse.ArgumentParser(
-    prog='hip', 
+    prog='arches_hip', 
     description='Manage Arches-based Applications',
     parents=[parent_parser], 
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
