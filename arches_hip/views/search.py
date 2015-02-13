@@ -93,7 +93,7 @@ def build_search_results_dsl(request):
             terms = Terms(field='date_groups.conceptid', terms=temporal_filter['date_types__value'])
             boolfilter.must(terms)
 
-            date_value = datetime.strptime(temporal_filter['date'], '%d/%m/%Y').strftime('%Y-%m-%d')
+            date_value = datetime.strptime(temporal_filter['date'], '%d/%m/%Y').isoformat()
 
             if temporal_filter['date_operators__value'] == '1': # equals query
                 range = Range(field='date_groups.value', gte=date_value, lte=date_value)
