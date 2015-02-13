@@ -41,6 +41,12 @@ def test_paired_group(group, group_list, test_set):
 def check_paired_attributes(resource):
 	begin_existence_set = set(['BEGINNING_OF_EXISTENCE_TYPE.E55', 'START_DATE_OF_EXISTENCE.E49'])
 	end_existence_set = set(['END_OF_EXISTENCE_TYPE.E55', 'END_DATE_OF_EXISTENCE.E49'])
+	name_set = set(['NAME.E41', 'NAME_TYPE.E55'])
+	description_set = set(['DESCRIPTION.E62', 'DESCRIPTION_TYPE.E55'])
+	right_set = set(['RIGHT.E30', 'RIGHT_TYPE.E55'])
+	title_set = set(['TITLE.E41', 'TITLE_TYPE.E55'])
+	actor_set = set(['ACTOR_APPELLATION.E82', 'NAME_TYPE.E55'])
+
 
 	for group in resource.groups:
 		group_list = set()
@@ -49,11 +55,19 @@ def check_paired_attributes(resource):
 
 		test_paired_group(group, group_list, begin_existence_set)
 		test_paired_group(group, group_list, end_existence_set)
+		test_paired_group(group, group_list, description_set)
+		test_paired_group(group, group_list, right_set)
+		test_paired_group(group, group_list, title_set)
+
+		if resource.entitytypeid == 'ACTOR.E39':
+			test_paired_group(group, group_list, actor_set)
+		else:
+			test_paired_group(group, group_list, name_set)
 
 
 def check_duplicates_in_group(resource):
 	# Checks if there are multiple instances of any one of the entity_types listed within the same group. Each entity type listed should occur zero or one time in a group.
-	entity_types = ['COMPONENT_TYPE.E55', 'ADDRESS_TYPE.E55', 'PLACE_ADDRESS.E45', 'HERITAGE_RESOURCE_TYPE.E55', 'CULTURAL_PERIOD.E55', 'TO_DATE.E49', 'FROM_DATE.E49', 'HERITAGE_RESOURCE_USE_TYPE.E55']
+	entity_types = ['COMPONENT_TYPE.E55', 'ADDRESS_TYPE.E55', 'PLACE_ADDRESS.E45', 'HERITAGE_RESOURCE_TYPE.E55', 'CULTURAL_PERIOD.E55', 'TO_DATE.E49', 'FROM_DATE.E49', 'HERITAGE_RESOURCE_USE_TYPE.E55', 'EVALUATION_CRITERIA_TYPE.E55', 'NAME.E41', 'NAME_TYPE.E55', 'DESCRIPTION.E62', 'DESCRIPTION_TYPE.E55', 'RIGHT.E30', 'RIGHT_TYPE.E55', 'TITLE.E41', 'TITLE_TYPE.E55', 'ACTOR_APPELLATION.E82']
 
 	for group in resource.groups:
 		group_list = []
