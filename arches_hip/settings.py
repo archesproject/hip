@@ -25,7 +25,9 @@ def RESOURCE_TYPE_CONFIGS():
             'categories': [_('Resource')],
             'has_layer': True,
             'on_map': False,
-            'vector_color': '#3366FF',
+            'marker_color': '#fa6003',
+            'stroke_color': '#fb8c49',
+            'fill_color': '#ffc29e',
             'primary_name_lookup': {
                 'entity_type': 'NAME.E41',
                 'lookup_value': 'Primary'
@@ -41,7 +43,9 @@ def RESOURCE_TYPE_CONFIGS():
             'categories': [_('Resource')],
             'has_layer': True,
             'on_map': False,
-            'vector_color': '#F5B800',
+            'marker_color': '#FFC53D',
+            'stroke_color': '#d9b562',
+            'fill_color': '#eedbad',
             'primary_name_lookup': {
                 'entity_type': 'NAME.E41',
                 'lookup_value': 'Primary'
@@ -57,7 +61,9 @@ def RESOURCE_TYPE_CONFIGS():
             'categories': [_('Resource')],
             'has_layer': True,
             'on_map': False,
-            'vector_color': '#24a221',
+            'marker_color': '#6DC3FC',
+            'stroke_color': '#88bde0',
+            'fill_color': '#afcce1',
             'primary_name_lookup': {
                 'entity_type': 'NAME.E41',
                 'lookup_value': 'Primary'
@@ -73,7 +79,9 @@ def RESOURCE_TYPE_CONFIGS():
             'categories': [_('Resource')],
             'has_layer': True,
             'on_map': False,
-            'vector_color': '#C31C46',
+            'marker_color': '#4EBF41',
+            'stroke_color': '#61a659',
+            'fill_color': '#c2d8bf',
             'primary_name_lookup': {
                 'entity_type': 'NAME.E41',
                 'lookup_value': 'Primary'
@@ -89,7 +97,9 @@ def RESOURCE_TYPE_CONFIGS():
             'categories': [_('Resource')],
             'has_layer': True,
             'on_map': False,
-            'vector_color': '#28BE99',
+            'marker_color': '#a44b0f',
+            'stroke_color': '#a7673d',
+            'fill_color': '#c8b2a3',
             'primary_name_lookup': {
                 'entity_type': 'ACTOR_APPELLATION.E82',
                 'lookup_value': 'Primary'
@@ -105,7 +115,9 @@ def RESOURCE_TYPE_CONFIGS():
             'categories': [_('Resource')],
             'has_layer': True,
             'on_map': False,
-            'vector_color': '#FF6633',
+            'marker_color': '#8D45F8',
+            'stroke_color': '#9367d5',
+            'fill_color': '#c3b5d8',
             'primary_name_lookup': {
                 'entity_type': 'TITLE.E41',
                 'lookup_value': 'Primary'
