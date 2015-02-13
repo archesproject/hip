@@ -37,13 +37,10 @@ def report(request, resourceid):
     report_info = se.search(index='resource', id=resourceid)
     report_info['source'] = report_info['_source']
     report_info['type'] = report_info['_type']
-    report_info['source']['graph'] = report_info['source']['graph'][0]
+    report_info['source']['graph'] = report_info['source']['graph']
     del report_info['_source']
     del report_info['_type']
 
-    # print report_info
-    # return JSONResponse(report_info, indent=4)
-    
     def get_evaluation_path(valueid):
         value = models.Values.objects.get(pk=valueid)
         concept_graph = Concept().get(id=value.conceptid_id, include_subconcepts=False, 
