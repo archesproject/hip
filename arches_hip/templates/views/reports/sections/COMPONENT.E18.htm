@@ -22,23 +22,25 @@
                         {% for COMPONENT_E18 in PRODUCTION_E12.COMPONENT_E18 %}
                             <dd class="arches-report-subsection-item arches-report-spacer">
 
+                                <span class="arches-report-subsection-item-type">
+                                    {% trans "Component" %}:
+                                </span>
                                 {% if 'COMPONENT_TYPE_E55' in COMPONENT_E18 %}
-                                    <span class="arches-report-subsection-item-type">
-                                        {% trans "Component" %}:
-                                    </span>
                                     {% for COMPONENT_TYPE_E55 in COMPONENT_E18.COMPONENT_TYPE_E55 %}
                                         {{COMPONENT_TYPE_E55.COMPONENT_TYPE_E55__value}}
                                     {% endfor %} 
+                                {% else %}
+                                    {% trans "none defined" %}
                                 {% endif %}
 
+                                <span class="arches-report-subsection-item-type">
+                                    {% trans "Technique" %}:
+                                </span>
                                 {% if 'COMPONENT_PRODUCTION_E12' in COMPONENT_E18 %}
                                     {% for COMPONENT_PRODUCTION_E12 in COMPONENT_E18.COMPONENT_PRODUCTION_E12 %}
                                         {% if 'DESIGN_OR_PROCEDURE_E29' in COMPONENT_PRODUCTION_E12 %}
                                             {% for DESIGN_OR_PROCEDURE_E29 in COMPONENT_PRODUCTION_E12.DESIGN_OR_PROCEDURE_E29 %}
                                                 {% if 'CONSTRUCTION_TECHNIQUE_E55' in DESIGN_OR_PROCEDURE_E29 %}
-                                                    <span class="arches-report-subsection-item-type">
-                                                        {% trans "Technique" %}:
-                                                    </span>
                                                     {% for CONSTRUCTION_TECHNIQUE_E55 in DESIGN_OR_PROCEDURE_E29.CONSTRUCTION_TECHNIQUE_E55 %}
                                                         {{CONSTRUCTION_TECHNIQUE_E55.CONSTRUCTION_TECHNIQUE_E55__value}}
                                                     {% endfor %} 
@@ -46,17 +48,20 @@
                                             {% endfor %} 
                                         {% endif %}
                                     {% endfor %} 
+                                {% else %}
+                                    {% trans "none defined" %}
                                 {% endif %}
 
+                                <span class="arches-report-subsection-item-type">
+                                    {% trans "Material" %}:
+                                </span>
                                 {% if 'MATERIAL_E57' in COMPONENT_E18 %}
-                                     <span class="arches-report-subsection-item-type">
-                                        {% trans "Material" %}:
-                                    </span>
                                     {% for MATERIAL_E57 in COMPONENT_E18.MATERIAL_E57 %}
                                         {{MATERIAL_E57.MATERIAL_E57__value}}
                                     {% endfor %}  
+                                {% else %}
+                                    {% trans "none defined" %}
                                 {% endif %}
-
 
                             </dd>
                         {% endfor %}

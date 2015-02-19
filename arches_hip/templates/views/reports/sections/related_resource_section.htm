@@ -82,7 +82,7 @@
                             <!-- Section Header -->
                             <div class="col-sm-4">
                                 <h3 class="arches-report-subsection">
-                                    {% trans "Related Heritage Groups" %}
+                                    {% trans "Related Heritage Districts" %}
                                 </h3>
                             </div>
                             <!-- End Section Header -->
@@ -304,7 +304,7 @@
                                             {% for related_resource in related_resource_dict.INFORMATION_RESOURCE_IMAGE %}
                                                 <dd class="arches-report-subsection-item">
                                                     <a href="{% url 'report' related_resource.entityid %}" title="{% trans "View Report" %}">
-                                                        <img src="{{related_resource.file_path}}" alt="" class="arches-report-image-thumbnail" style="width: 25%;">
+                                                        <img src="{{related_resource.thumbnail}}" alt="" class="arches-report-image-thumbnail" style="width: 25%;" onerror="this.src='{{STATIC_URL}}img/photo_missing.png';">
                                                     </a>
                                                 </dd>
 

@@ -142,13 +142,17 @@ def report(request, resourceid):
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'INFORMATION_RESOURCE_TYPE.E55':
                     related_resource['relationship'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
-            for entity in related_resource['child_entities']:
-                if entity['entitytypeid'] == 'FILE_PATH.E62':
-                    if entity['value'].split('.')[1].lower() == 'jpg':
+                if entity['entitytypeid'] == 'INFORMATION_CARRIER_FORMAT_TYPE.E55':
+                    if display_as_image(entity['conceptid']):
                         information_resource_type = 'IMAGE'
                     else:
                         information_resource_type = 'DOCUMENT'
-                    related_resource['file_path'] = entity['value']
+            for entity in related_resource['child_entities']:
+                if entity['entitytypeid'] == 'FILE_PATH.E62':
+                    related_resource['file_path'] = settings.MEDIA_URL + entity['label']
+                if entity['entitytypeid'] == 'THUMBNAIL.E62':
+                    related_resource['thumbnail'] = settings.MEDIA_URL + entity['label']
+                    break
             
         # get the relationship between the two entities
         for relationship in related_resource_info['resource_relationships']:

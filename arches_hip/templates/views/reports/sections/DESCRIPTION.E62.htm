@@ -9,12 +9,14 @@
                 </dd>
             {% else %}
                 {% for DESCRIPTION_E62 in report_info.source.graph.DESCRIPTION_E62 %}
+                    {% if DESCRIPTION_E62.DESCRIPTION_TYPE_E55__value != 'Comments' %}
                     <dt>
                         <h5 id="" class="arches-report-subsection-title">{{DESCRIPTION_E62.DESCRIPTION_TYPE_E55__value}}</h5>
                     </dt>
                     <dd class="arches-report-subsection-item arches-report-spacer">
                         {{ DESCRIPTION_E62.DESCRIPTION_E62__value }}
                     </dd>
+                    {% endif %}
                 {% endfor %}            
             {% endif %}
 
