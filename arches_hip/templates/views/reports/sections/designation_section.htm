@@ -55,33 +55,34 @@
 
                                                 {% for RIGHT_E30 in report_info.source.graph.RIGHT_E30 %}
                                                     {% for PROTECTION_EVENT_E65 in RIGHT_E30.PROTECTION_EVENT_E65 %}
-                                                        <span class="arches-report-subsection-item-type">
-                                                            {% trans "Type" %}:
-                                                        </span>
-                                                        {% if 'TYPE_OF_DESIGNATION_OR_PROTECTION_E55' in PROTECTION_EVENT_E65 %}
-                                                            {% for TYPE_OF_DESIGNATION_OR_PROTECTION_E55 in PROTECTION_EVENT_E65.TYPE_OF_DESIGNATION_OR_PROTECTION_E55 %}
-                                                                {{TYPE_OF_DESIGNATION_OR_PROTECTION_E55.TYPE_OF_DESIGNATION_OR_PROTECTION_E55__value}}
-                                                            {% endfor %}  
-                                                        {% else %}
-                                                            {% trans "none defined" %}
-                                                        {% endif %}
+                                                        <dd class="arches-report-subsection-item arches-report-spacer">
+                                                            <span class="arches-report-subsection-item-type">
+                                                                {% trans "Type" %}:
+                                                            </span>
+                                                            {% if 'TYPE_OF_DESIGNATION_OR_PROTECTION_E55' in PROTECTION_EVENT_E65 %}
+                                                                {% for TYPE_OF_DESIGNATION_OR_PROTECTION_E55 in PROTECTION_EVENT_E65.TYPE_OF_DESIGNATION_OR_PROTECTION_E55 %}
+                                                                    {{TYPE_OF_DESIGNATION_OR_PROTECTION_E55.TYPE_OF_DESIGNATION_OR_PROTECTION_E55__value}}
+                                                                {% endfor %}  
+                                                            {% else %}
+                                                                {% trans "none defined" %}
+                                                            {% endif %}
 
-                                                        <span class="arches-report-subsection-item-type">
-                                                            {% trans "Date" %}:
-                                                        </span>
-                                                        {% if 'TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52' in PROTECTION_EVENT_E65 %}
-                                                            {% for TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52 in PROTECTION_EVENT_E65.TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52 %}
-                                                                {% for DESIGNATION_OR_PROTECTION_FROM_DATE_E49 in TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52.DESIGNATION_OR_PROTECTION_FROM_DATE_E49 %}
-                                                                    {{DESIGNATION_OR_PROTECTION_FROM_DATE_E49.DESIGNATION_OR_PROTECTION_FROM_DATE_E49__value}}
-                                                                {% endfor %} -
-                                                                {% for DESIGNATION_OR_PROTECTION_TO_DATE_E49 in TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52.DESIGNATION_OR_PROTECTION_TO_DATE_E49 %}
-                                                                    {{DESIGNATION_OR_PROTECTION_TO_DATE_E49.DESIGNATION_OR_PROTECTION_TO_DATE_E49__value}}
+                                                            <span class="arches-report-subsection-item-type">
+                                                                {% trans "Date" %}:
+                                                            </span>
+                                                            {% if 'TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52' in PROTECTION_EVENT_E65 %}
+                                                                {% for TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52 in PROTECTION_EVENT_E65.TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52 %}
+                                                                    {% for DESIGNATION_OR_PROTECTION_FROM_DATE_E49 in TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52.DESIGNATION_OR_PROTECTION_FROM_DATE_E49 %}
+                                                                        {{DESIGNATION_OR_PROTECTION_FROM_DATE_E49.DESIGNATION_OR_PROTECTION_FROM_DATE_E49__value}}
+                                                                    {% endfor %} -
+                                                                    {% for DESIGNATION_OR_PROTECTION_TO_DATE_E49 in TIME_SPAN_OF_DESIGNATION_OR_PROTECTION_E52.DESIGNATION_OR_PROTECTION_TO_DATE_E49 %}
+                                                                        {{DESIGNATION_OR_PROTECTION_TO_DATE_E49.DESIGNATION_OR_PROTECTION_TO_DATE_E49__value}}
+                                                                    {% endfor %} 
                                                                 {% endfor %} 
-                                                            {% endfor %} 
-                                                        {% else %}
-                                                            {% trans "none defined" %}
-                                                        {% endif %}
-
+                                                            {% else %}
+                                                                {% trans "none defined" %}
+                                                            {% endif %}
+                                                        </dd>
                                                     {% endfor %}
                                                 {% endfor %}
 
