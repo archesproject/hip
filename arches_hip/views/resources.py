@@ -152,7 +152,6 @@ def report(request, resourceid):
                     related_resource['file_path'] = settings.MEDIA_URL + entity['label']
                 if entity['entitytypeid'] == 'THUMBNAIL.E62':
                     related_resource['thumbnail'] = settings.MEDIA_URL + entity['label']
-                    break
             
         # get the relationship between the two entities
         for relationship in related_resource_info['resource_relationships']:
@@ -181,3 +180,10 @@ def report(request, resourceid):
             'active_page': 'ResourceReport'
         },
         context_instance=RequestContext(request))        
+
+def display_as_image(conceptid):
+    concept = Concept().get(id=conceptid, include=['undefined'])
+    for value in concept.values:
+        if value.value == 'Y' and value.type == 'ViewableInBrowser':
+            return True
+    return False
