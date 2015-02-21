@@ -332,7 +332,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                                             <dd class="arches-report-subsection-item">
                                                                 <div id="" style="margin-top: 5px;">
-                                                                    <img src="{{FILE_PATH_E62.FILE_PATH_E62__value}}" alt="" class="" style="width: 100%; margin-bottom: 30px; border: solid 1px #555;">
+                                                                    <img src="{{MEDIA_URL}}{{FILE_PATH_E62.FILE_PATH_E62__label}}" alt="" class="" style="width: 100%; margin-bottom: 30px; border: solid 1px #555;" onerror="this.src='{{STATIC_URL}}img/photo_missing.png';">
                                                                 </div>
                                                             </dd>
 
@@ -340,7 +340,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
                                                             <dd class="arches-report-subsection-item">
                                                                 <div id="" style="margin-top: 5px;">
-                                                                    <a href="{{FILE_PATH_E62.FILE_PATH_E62__value}}" title="{% trans "View document" %}">
+                                                                    <a href="{{MEDIA_URL}}{{FILE_PATH_E62.FILE_PATH_E62__label}}" title="{% trans "View document" %}">
                                                                         <i class="fa fa-file-text-o"></i> {% trans "Link to document" %}
                                                                     </a>
                                                                 </div>
