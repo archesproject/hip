@@ -30,7 +30,7 @@ from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.search.elasticsearch_dsl_builder import Bool, Match, Query, Nested, Terms, GeoShape, Range
 
 def home_page(request):
-    lang = request.GET.get('lang', 'en-us')
+    lang = request.GET.get('lang', settings.LANGUAGE_CODE)
     min_max_dates = models.Dates.objects.aggregate(Min('val'), Max('val'))
 
     date_types = Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55') + Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
@@ -39,21 +39,21 @@ def home_page(request):
         "conceptid": "0",
         "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
         "id": "0",
-        "language,id": "en-us",
+        "language,id": settings.LANGUAGE_CODE,
         "value": "Before",
         "valuetype": "prefLabel"
     },{
         "conceptid": "1",
         "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
         "id": "1",
-        "language,id": "en-us",
+        "language,id": settings.LANGUAGE_CODE,
         "value": "On",
         "valuetype": "prefLabel"
     },{
         "conceptid": "2",
         "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
         "id": "2",
-        "language,id": "en-us",
+        "language,id": settings.LANGUAGE_CODE,
         "value": "After",
         "valuetype": "prefLabel"
     }]
