@@ -34,7 +34,7 @@ setup(
     keywords='django arches hip cultural heritage',
 
     install_requires=[
-       'arches>=3.0rc6'
+       'arches>=3.0rc12'
     ],
 
     # You can just specify the packages manually here if your project is

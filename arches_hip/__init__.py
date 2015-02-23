@@ -1,5 +1,5 @@
 
-VERSION = (1, 0, 0, 'rc', 6)
+VERSION = (1, 0, 0, 'rc', 10)
 
 def get_version(version=None):
     "Returns a PEP 440-compliant version number from VERSION."
