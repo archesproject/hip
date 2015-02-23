@@ -476,11 +476,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         {% include 'views/reports/sections/condition_assessment_section.htm' %}
     {% endif %}
 
-
     {% if 'EVALUATION_CRITERIA_ASSIGNMENT_E13' in report_info.source.graph %}
         {% include 'views/reports/sections/evaluation_section.htm' %}
     {% endif %}
 
+    {% if 'RIGHT_E30' in report_info.source.graph %}
+        {% include 'views/reports/sections/designation_section.htm' %}
+    {% endif %}
 
     {% include "views/reports/sections/related_resource_section.htm" %}
 
