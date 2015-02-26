@@ -18,7 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from arches.app.models.entity import Entity
 from arches.app.models.concept import Concept
-from arches.app.views.resources import ResourceForm
+from arches.app.models.forms import ResourceForm
 from django.utils.translation import ugettext as _
 
 class SummaryForm(ResourceForm):
