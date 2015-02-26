@@ -21,7 +21,7 @@ from arches.app.models.edit_history import EditHistory
 from arches.app.models.resource import Resource as ArchesResource
 from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
-from arches_hip.views import forms as hip_forms
+from arches_hip.models import forms
 from django.utils.translation import ugettext as _
 
 class Resource(ArchesResource):
@@ -34,11 +34,11 @@ class Resource(ArchesResource):
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
                 'forms': [
-                    hip_forms.SummaryForm.get_info(), 
-                    hip_forms.ClassificationForm.get_info(),
-                    hip_forms.DescriptionForm.get_info(),
-                    hip_forms.MeasurementForm.get_info(),
-                    hip_forms.ConditionForm.get_info()
+                    forms.SummaryForm.get_info(), 
+                    forms.ClassificationForm.get_info(),
+                    forms.DescriptionForm.get_info(),
+                    forms.MeasurementForm.get_info(),
+                    forms.ConditionForm.get_info()
                 ]
             })      
 
