@@ -73,16 +73,17 @@ def report(request, resourceid):
     concept_labels = se.search(index='concept_labels', id=list(concept_label_ids))
 
     # convert all labels to their localized prefLabel
-    temp = {}    
-    for concept_label in concept_labels['docs']:
-        #temp[concept_label['_id']] = concept_label
-        if concept_label['found']:
-            # the resource graph already referenced the preferred label in the desired language
-            if concept_label['_source']['type'] == 'prefLabel' and concept_label['_source']['language'] == lang:
-                temp[concept_label['_id']] = concept_label['_source']
-            else: 
-                # the resource graph referenced a non-preferred label or a label not in our target language, so we need to get the right label
-                temp[concept_label['_id']] = get_preflabel_from_conceptid(concept_label['_source']['conceptid'], lang)
+    temp = {}
+    if concept_labels != None:
+        for concept_label in concept_labels['docs']:
+            #temp[concept_label['_id']] = concept_label
+            if concept_label['found']:
+                # the resource graph already referenced the preferred label in the desired language
+                if concept_label['_source']['type'] == 'prefLabel' and concept_label['_source']['language'] == lang:
+                    temp[concept_label['_id']] = concept_label['_source']
+                else: 
+                    # the resource graph referenced a non-preferred label or a label not in our target language, so we need to get the right label
+                    temp[concept_label['_id']] = get_preflabel_from_conceptid(concept_label['_source']['conceptid'], lang)
 
     # replace the uuid's in the resource graph with their preferred and localized label                    
     def crawl_again(items):
