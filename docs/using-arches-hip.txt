@@ -2,6 +2,9 @@
 Using Arches-HIP
 ################
 
+The HIP Resource Graphs
+============================
+
 Reference Data Manager (RDM)
 ============================
 
