@@ -13,3 +13,7 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
+   overview
+   getting-started
+   using-arches-hip
+   customization
