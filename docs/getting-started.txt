@@ -1,0 +1,27 @@
+###############
+Getting Started
+###############
+
+Installation
+============
+
+
+Dependencies
+------------
+
+
+Installing Arches-HIP
+---------------------
+
+
+Settings
+========
+
+
+Running Arches-HIP
+==================
+
+
+Before you go live...
+=====================
+
