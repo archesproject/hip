@@ -23,18 +23,18 @@ Your application starts with templates that you can use to start modifying the h
 Home Page
 ^^^^^^^^^
 
-index.htm contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
+``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
 
 This is the content of the first page that your users will see, so you'll probably want to really make it your own.
 
 Branding
 ^^^^^^^^
 
-The other templates of interest are footer.htm, header.htm, and copyright.htm.  These templates are used by default for branding on all web application pages.
+The other templates of interest are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
 
 You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
 
-For example, the header logo on all pages can be altered by modifying the <img> tag at line 52 of header.htm.  This will change the header image on all web application pages.
+For example, the header logo on all pages can be altered by modifying the ``<img>`` tag at line 52 of ``header.htm``.  This will change the header image on all web application pages.
 
 Saved Searches
 ==============
@@ -43,7 +43,7 @@ Saved Searches
 Default Map Settings
 ====================
 
-Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's settings.py file (line 15 by default)::
+Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file (line 15 by default)::
     
     #DEFAULT_MAP_X = 0
     #DEFAULT_MAP_Y = 0
@@ -52,20 +52,20 @@ Arches-HIP needs to be configured to properly zoom and constrain map interfaces 
     #MAP_MAX_ZOOM = 19
     #MAP_EXTENT = '-13228037.69691764,3981296.0184014924,-13123624.71628009,4080358.407059081'
 
-To use these settings, you will need to 'uncomment' them (remove the '#' at the start of each line), and then change their values to meet your needs.
+To use these settings, you will need to 'uncomment' them (remove the ``#`` at the start of each line), and then change their values to meet your needs.
 
-DEFAULT_MAP_X and DEFAULT_MAP_Y are the x and y (respectively) coordinate values which all maps will be centered on by default.  MAP_EXTENT is a string 'bounding box' [min x, min y, max x, max y] representing the extent to which all maps will be constrained.  
+``DEFAULT_MAP_X`` and ``DEFAULT_MAP_Y`` are the x and y (respectively) coordinate values which all maps will be centered on by default.  ``MAP_EXTENT`` is a string 'bounding box' [min x, min y, max x, max y] representing the extent to which all maps will be constrained.  
 
 All of these coordinates are expressed in the web standard spherical mercator projection (http://spatialreference.org/ref/sr-org/6864/).  A simple converter tool to go between Lat/Long and spherical mercator coordinates can be found here: http://mal2.ch/stuff/latlontomercator.html
 
-DEFAULT_MAP_ZOOM is the default zoom level that all maps will start on.  MAP_MIN_ZOOM and MAP_MAX_ZOOM are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
+``DEFAULT_MAP_ZOOM`` is the default zoom level that all maps will start on.  ``MAP_MIN_ZOOM`` and ``MAP_MAX_ZOOM`` are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
 
 Google Anayltics
 ================
 
-To enable Google Analytics on your web application, you will need to update the GOOGLE_ANALYTICS_TRACKING_ID setting in your application's settings.py file (line 14 by default).
+To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's settings.py file (line 14 by default).
 
-Uncomment this line (remove the starting '#') if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
+Uncomment this line (remove the starting ``#``) if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
 
     GOOGLE_ANALYTICS_TRACKING_ID = 'my-tracking-id'
 
