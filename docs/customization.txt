@@ -65,7 +65,11 @@ Google Anayltics
 
 To enable Google Analytics on your web application, you will need to update the GOOGLE_ANALYTICS_TRACKING_ID setting in your application's settings.py file (line 14 by default).
 
-Uncomment this line (remove the starting '#') if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line.  Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
+Uncomment this line (remove the starting '#') if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
+
+    GOOGLE_ANALYTICS_TRACKING_ID = 'my-tracking-id'
+
+Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
 
 Basemaps and Geocoding
 ======================
