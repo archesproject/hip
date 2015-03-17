@@ -6,7 +6,6 @@
 Welcome to Arches-HIP's documentation!
 ===================================
 
-overview here...
 
 Contents:
 
