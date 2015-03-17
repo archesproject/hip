@@ -1,12 +1,13 @@
-#############
-Customization
-#############
+###########################
+Settings  and Customization
+###########################
 
 There are lots of ways that you can customize your Arches-HIP application to best suit your needs.  
 
 Most of these will require comfort with modifying Python, HTML, CSS and/or Javascript files but are designed to be simple changes that can be easily applied without diving deep into the rest of the Arches or Arches-HIP code.
 
 .. note:: In a production environment (using Apache), you will generally need to run collectstatic and restart Apache to apply these changes.
+
     No action should be required when using the development server (Django).
 
 
@@ -42,9 +43,40 @@ Saved Searches
 Default Map Settings
 ====================
 
+Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's settings.py file (line 15 by default)::
+    
+    #DEFAULT_MAP_X = 0
+    #DEFAULT_MAP_Y = 0
+    #DEFAULT_MAP_ZOOM = 0
+    #MAP_MIN_ZOOM = 0
+    #MAP_MAX_ZOOM = 19
+    #MAP_EXTENT = '-13228037.69691764,3981296.0184014924,-13123624.71628009,4080358.407059081'
+
+To use these settings, you will need to 'uncomment' them (remove the '#' at the start of each line), and then change their values to meet your needs.
+
+DEFAULT_MAP_X and DEFAULT_MAP_Y are the x and y (respectively) coordinate values which all maps will be centered on by default.  MAP_EXTENT is a string 'bounding box' [min x, min y, max x, max y] representing the extent to which all maps will be constrained.  
+
+All of these coordinates are expressed in the web standard spherical mercator projection (http://spatialreference.org/ref/sr-org/6864/).  A simple converter tool to go between Lat/Long and spherical mercator coordinates can be found here: http://mal2.ch/stuff/latlontomercator.html
+
+DEFAULT_MAP_ZOOM is the default zoom level that all maps will start on.  MAP_MIN_ZOOM and MAP_MAX_ZOOM are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
+
+Google Anayltics
+================
+
+To enable Google Analytics on your web application, you will need to update the GOOGLE_ANALYTICS_TRACKING_ID setting in your application's settings.py file (line 14 by default).
+
+Uncomment this line (remove the starting '#') if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line.  Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
+
+Basemaps and Geocoding
+======================
+
 
 Basemaps
-========
+^^^^^^^^
+
+
+Geocoding
+^^^^^^^^^
 
 
 Overlays
