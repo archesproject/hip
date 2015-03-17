@@ -2,14 +2,38 @@
 Customization
 #############
 
-There are lots of ways that you can customize your Arches-HIP application to best suit your needs.  Most of these will require comfort with modifying Python, HTML, CSS and/or Javascript files but are designed to be simple changes that can be easily applied without diving deep into the Arches or Arches-HIP code.
+There are lots of ways that you can customize your Arches-HIP application to best suit your needs.  
 
-.. note:: In a production environment (using Apache), you will generally need to run collectstatic and restart Apache to apply these changes.  No action should be required when using the development server (Django).
+Most of these will require comfort with modifying Python, HTML, CSS and/or Javascript files but are designed to be simple changes that can be easily applied without diving deep into the rest of the Arches or Arches-HIP code.
+
+.. note:: In a production environment (using Apache), you will generally need to run collectstatic and restart Apache to apply these changes.
+    No action should be required when using the development server (Django).
 
 
 Home Page and Branding
 ======================
 
+Modifying the home page and branding of your Arches-HIP application involves editing some simple html templates to modify the look and feel.  A basic familiarity with HTML and CSS is assumed here.
+
+Your application starts with templates that you can use to start modifying the home page and branding of the web application.  These files are contained in the following folder::
+    
+    {application name}/{application name}/templates/
+
+Home Page
+^^^^^^^^^
+
+index.htm contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
+
+This is the content of the first page that your users will see, so you'll probably want to really make it your own.
+
+Branding
+^^^^^^^^
+
+The other templates of interest are footer.htm, header.htm, and copyright.htm.  These templates are used by default for branding on all web application pages.
+
+You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
+
+For example, the header logo on all pages can be altered by modifying the <img> tag at line 52 of header.htm.  This will change the header image on all web application pages.
 
 Saved Searches
 ==============
