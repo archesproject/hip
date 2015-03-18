@@ -34,39 +34,58 @@ class SummaryForm(ResourceForm):
     def update(self, data):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
+        self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
 
-        self.update_node('HERITAGE_RESOURCE_TYPE.E55', data)
+        beginning_of_existence_nodes = []
+        end_of_existence_nodes = []
+        for branch_list in data['important_dates']:
+            for node in branch_list['nodes']:
+                if node['entitytypeid'] == 'BEGINNING_OF_EXISTENCE_TYPE.E55':
+                    beginning_of_existence_nodes.append(branch_list)
+                if node['entitytypeid'] == 'END_OF_EXISTENCE_TYPE.E55':
+                    end_of_existence_nodes.append(branch_list)
+
+        for branch_list in beginning_of_existence_nodes:
+            for node in branch_list['nodes']:        
+                if node['entitytypeid'] == 'START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49':
+                    node['entitytypeid'] = 'START_DATE_OF_EXISTENCE.E49'
+
+        for branch_list in end_of_existence_nodes:
+            for node in branch_list['nodes']:        
+                if node['entitytypeid'] == 'START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49':
+                    node['entitytypeid'] = 'END_DATE_OF_EXISTENCE.E49'
+
+        self.update_nodes('BEGINNING_OF_EXISTENCE.E63', {'BEGINNING_OF_EXISTENCE.E63':beginning_of_existence_nodes})
+        self.update_nodes('END_OF_EXISTENCE.E64', {'END_OF_EXISTENCE.E64':end_of_existence_nodes})
 
     def load(self):
-        self.data['domains']['NAME_TYPE_E55'] = Concept().get_e55_domain('NAME_TYPE.E55')
-        default_name_type = self.data['domains']['NAME_TYPE_E55'][0]
-        self.data['defaults']['NAME_E41'] = {
-            'NAME_E41__entityid': '',
-            'NAME_E41__value': '',
-            'NAME_TYPE_E55__entityid': '',
-            'NAME_TYPE_E55__value': default_name_type['id'],
-            'NAME_TYPE_E55__label': default_name_type['value']
+        self.data['important_dates'] = {
+            'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63') + self.get_nodes('END_OF_EXISTENCE.E64'),
+            'domains': {'important_dates' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55') + Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')}
         }
 
-        self.data['domains']['KEYWORD_E55'] = Concept().get_e55_domain('KEYWORD.E55')
-        self.data['defaults']['KEYWORD_E55'] = {
-            'KEYWORD_E55__entityid': '',
-            'KEYWORD_E55__value': '',
-            'KEYWORD_E55__label': ''
-        }
         if self.resource:
-            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':
-                self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'] = Concept().get_e55_domain('HERITAGE_RESOURCE_TYPE.E55')
-                default_resource_type = self.data['domains']['HERITAGE_RESOURCE_TYPE_E55'][0]
-                resource_type_nodes = self.get_nodes('HERITAGE_RESOURCE_TYPE.E55')
-                resource_type_default = {
-                    'HERITAGE_RESOURCE_TYPE_E55__entityid': '',
-                    'HERITAGE_RESOURCE_TYPE_E55__value': '',
-                    'HERITAGE_RESOURCE_TYPE_E55__label': ''
+            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':            
+                self.data['RESOURCE_TYPE_CLASSIFICATION.E55'] = {
+                    'branch_lists': self.get_nodes('RESOURCE_TYPE_CLASSIFICATION.E55'),
+                    'domains': {'RESOURCE_TYPE_CLASSIFICATION.E55' : Concept().get_e55_domain('RESOURCE_TYPE_CLASSIFICATION.E55')}
                 }
-                self.data['HERITAGE_RESOURCE_TYPE_E55'] = resource_type_nodes[0] if len(resource_type_nodes) > 0 else resource_type_default
-            self.data['NAME_E41'] = self.get_nodes('NAME.E41')
-            self.data['KEYWORD_E55'] = self.get_nodes('KEYWORD.E55')
+
+            self.data['NAME.E41'] = {
+                'branch_lists': self.get_nodes('NAME.E41'),
+                'domains': {'NAME_TYPE.E55' : Concept().get_e55_domain('NAME_TYPE.E55')}
+                # 'defaults': {
+                #     'NAME_TYPE.E55': default_name_type['id'],
+                #     'NAME.E41': ''
+                # }
+            }
+            self.data['KEYWORD.E55'] = {
+                'branch_lists': self.get_nodes('KEYWORD.E55'),
+                'domains': {'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
+            }
+
+            self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+
 
 
 class DescriptionForm(ResourceForm):
