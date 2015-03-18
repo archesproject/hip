@@ -10,7 +10,6 @@ Most of these will require comfort with modifying Python, HTML, CSS and/or Javas
 
     No action should be required when using the development server (Django).
 
-
 Home Page and Branding
 ======================
 
@@ -21,16 +20,20 @@ Your application starts with templates that you can use to start modifying the h
     {application name}/{application name}/templates/
 
 Home Page
-^^^^^^^^^
+---------
 
 ``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
 
-This is the content of the first page that your users will see, so you'll probably want to really make it your own.
+This is the content of the first page that your users will see, so you'll probably want to really make it your own. You should consider doing the following:
+
+* Update the images and text in the layer slider
+* Add you own text to the title block below the layer slider
+* Update the saved searches to suit your data (more on that below)
 
 Branding
-^^^^^^^^
+--------
 
-The other templates of interest are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
+The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
 
 You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
 
@@ -39,6 +42,40 @@ For example, the header logo on all pages can be altered by modifying the ``<img
 Saved Searches
 ==============
 
+Saved searches are the links shown on the home and search pages by default to help users find data of particular interest.  You will need to update these to be useful for your application.
+
+To do this, start by using the Arches-HIP web application search page to execute the search that you want to save.
+
+For example, you could do a search for the word 'modern'.  You should see the page's url update.  Copy everything after the ``?`` in the url; you should get something like this::
+
+    page=1&termFilter=%5B%7B%22inverted%22%3Afalse%2C%22type%22%3A%22string%22%2C%22context%22%3A%22%22%2C%22context_label%22%3A%22%22%2C%22id%22%3A%22modern%22%2C%22text%22%3A%22modern%22%2C%22value%22%3A%22modern%22%7D%5D&temporalFilter=%7B%22year_min_max%22%3A%5B%5D%2C%22filters%22%3A%5B%5D%2C%22inverted%22%3Afalse%7D&spatialFilter=%7B%22geometry%22%3A%7B%22type%22%3A%22%22%2C%22coordinates%22%3A%5B%5D%7D%2C%22buffer%22%3A%7B%22width%22%3A%220%22%2C%22unit%22%3A%22ft%22%7D%2C%22inverted%22%3Afalse%7D&mapExpanded=false&timeExpanded=false&include_ids=true
+
+There are two html templates in your project that contain saved searches, these files are::
+
+    {application name}/{application name}/templates/index.htm
+    {application name}/{application name}/templates/views/saved-searches.htm
+
+``index.htm`` contains the saved searches for the home page and ``saved-searches.htm`` contains the saved searches for the search page.
+
+In both cases, you will find saved searches in blocks that look like this::
+
+    <div class="col-sm-4">
+        <div class="servive-block servive-block-default">
+            <i class="icon-custom rounded-x icon-bg-dark fa fa-trophy"></i>
+            <a class= "" href="{% url 'search_home' %}?"><h2 class="txt-color-blue">{% trans 'Saved Search' %}</h2></a>
+            <p>{% trans 'Some description here...' %}</p>
+        </div>
+    </div>
+
+To update that block to use the example search above for the word modern, I can simply update the label and description text and paste what I copied above after ``{% url 'search_home' %}?`` in the ``<a>`` tag's ``href`` attribute, for example::
+
+    <div class="col-sm-4">
+        <div class="servive-block servive-block-default">
+            <i class="icon-custom rounded-x icon-bg-dark fa fa-trophy"></i>
+            <a class= "" href="{% url 'search_home' %}?page=1&termFilter=%5B%7B%22inverted%22%3Afalse%2C%22type%22%3A%22string%22%2C%22context%22%3A%22%22%2C%22context_label%22%3A%22%22%2C%22id%22%3A%22modern%22%2C%22text%22%3A%22modern%22%2C%22value%22%3A%22modern%22%7D%5D&temporalFilter=%7B%22year_min_max%22%3A%5B%5D%2C%22filters%22%3A%5B%5D%2C%22inverted%22%3Afalse%7D&spatialFilter=%7B%22geometry%22%3A%7B%22type%22%3A%22%22%2C%22coordinates%22%3A%5B%5D%7D%2C%22buffer%22%3A%7B%22width%22%3A%220%22%2C%22unit%22%3A%22ft%22%7D%2C%22inverted%22%3Afalse%7D&mapExpanded=false&timeExpanded=false&include_ids=true"><h2 class="txt-color-blue">{% trans 'Modern' %}</h2></a>
+            <p>{% trans 'Find things that are modern.' %}</p>
+        </div>
+    </div>
 
 Default Map Settings
 ====================
@@ -71,24 +108,24 @@ Uncomment this line (remove the starting ``#``) if it is commented, and paste in
 
 Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
 
-Basemaps and Geocoding
-======================
+Map Customization
+=================
 
 
 Basemaps
-^^^^^^^^
+--------
 
 
 Geocoding
-^^^^^^^^^
+---------
 
 
 Overlays
-========
+--------
 
 
 Resource Layers
-===============
+---------------
 
 
 Localization
