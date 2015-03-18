@@ -77,8 +77,22 @@ To update that block to use the example search above for the word modern, I can 
         </div>
     </div>
 
-Default Map Settings
-====================
+Google Anayltics
+================
+
+To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's settings.py file (line 14 by default).
+
+Uncomment this line (remove the starting ``#``) if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
+
+    GOOGLE_ANALYTICS_TRACKING_ID = 'my-tracking-id'
+
+Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
+
+Maps
+====
+
+Settings
+--------
 
 Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file (line 15 by default)::
     
@@ -97,27 +111,40 @@ All of these coordinates are expressed in the web standard spherical mercator pr
 
 ``DEFAULT_MAP_ZOOM`` is the default zoom level that all maps will start on.  ``MAP_MIN_ZOOM`` and ``MAP_MAX_ZOOM`` are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
 
-Google Anayltics
-================
-
-To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's settings.py file (line 14 by default).
-
-Uncomment this line (remove the starting ``#``) if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
-
-    GOOGLE_ANALYTICS_TRACKING_ID = 'my-tracking-id'
-
-Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
-
-Map Customization
-=================
-
+By default, Arches-HIP will use Bing services for basemaps and geocoding; if you want to use these, you will need to get a Bing Maps Key (https://msdn.microsoft.com/en-us/library/ff428642.aspx) and add it to your ``settings.py`` file like so (by default at line 21)::
+    
+    BING_KEY = 'my-bing-key'
 
 Basemaps
 --------
 
+By default, Arches-HIP will supply the application with Bing layers as basemaps, but it is easy to add more basemap layers to Arches-HIP using OpenLayers.
 
-Geocoding
----------
+The basemap layers are added in the following file::
+    
+    {application name}/{application name}/media/js/map/layers.js
+
+You will notice that at the second to last line of this file, an array called ``baseLayers`` is returned::
+
+    return baseLayers;
+
+You can add more baseLayers by adding any OpenLayers 3 layer instances to this array before the return statement.
+
+For example, I can add a tile layer as a basemap layer like so::
+
+    baseLayers.push({
+        id: 'mybasemap',
+        name: 'My Tile Basemap',
+        icon: arches.urls.media + 'img/map/my_basemap_icon.png',
+        layer: new ol.layer.Tile({
+            visible: false,
+            source: new ol.source.XYZ({
+                url: 'http://mytileserver/tile/{z}/{y}/{x}'
+            })
+        })
+    });
+
+    return baseLayers;
 
 
 Overlays
@@ -126,6 +153,10 @@ Overlays
 
 Resource Layers
 ---------------
+
+
+Geocoding
+---------
 
 
 Localization
