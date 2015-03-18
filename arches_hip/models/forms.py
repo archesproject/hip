@@ -129,24 +129,14 @@ class MeasurementForm(ResourceForm):
 
 
     def load(self):
-        self.data['domains']['MEASUREMENT_TYPE_E55'] = Concept().get_e55_domain('MEASUREMENT_TYPE.E55')
-        self.data['domains']['UNIT_OF_MEASUREMENT_E55'] = Concept().get_e55_domain('UNIT_OF_MEASUREMENT.E55')
-        default_measurement_type = self.data['domains']['MEASUREMENT_TYPE_E55'][0]
-        default_measurement_unit = self.data['domains']['UNIT_OF_MEASUREMENT_E55'][0]
-        self.data['defaults']['MEASUREMENT_TYPE_E55'] = {
-            'VALUE_OF_MEASUREMENT_E60__entityid': '',
-            'VALUE_OF_MEASUREMENT_E60__value': '',
-            'VALUE_OF_MEASUREMENT_E60__label': '',
-            'MEASUREMENT_TYPE_E55__entityid': '',
-            'MEASUREMENT_TYPE_E55__value': '',
-            'MEASUREMENT_TYPE_E55__label': '',
-            'UNIT_OF_MEASUREMENT_E55__entityid': '',
-            'UNIT_OF_MEASUREMENT_E55__value': '',
-            'UNIT_OF_MEASUREMENT_E55__label': ''
-
-        }
         if self.resource:
-            self.data['MEASUREMENT_TYPE_E55'] = self.get_nodes('MEASUREMENT_TYPE.E55')
+            self.data['MEASUREMENT_TYPE.E55'] = {
+                'branch_lists': self.get_nodes('MEASUREMENT_TYPE.E55'),
+                'domains': {
+                    'MEASUREMENT_TYPE.E55' : Concept().get_e55_domain('MEASUREMENT_TYPE.E55'),
+                    'UNIT_OF_MEASUREMENT.E55': Concept().get_e55_domain('UNIT_OF_MEASUREMENT.E55')
+                }
+            }
 
 class ConditionForm(ResourceForm):
     @staticmethod

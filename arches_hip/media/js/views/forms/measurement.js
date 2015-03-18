@@ -6,27 +6,14 @@ define(['jquery', 'underscore', 'knockout-mapping', 'views/forms/base', 'views/f
 
             BaseForm.prototype.initialize.apply(this);
 
-            this.branchLists.push(new BranchList({
+            this.addBranchList(new BranchList({
                 el: this.$el.find('#measurement-section')[0],
-                viewModel: this.viewModel,
-                key: 'MEASUREMENT_TYPE_E55',
-                validateBranch: function (data) {
-                    var valid = true;
-
-                    if (data.VALUE_OF_MEASUREMENT_E60__value === '') {
-                                valid = false;
-                    }
-                    if (data.MEASUREMENT_TYPE_E55__label === '') {
-                                valid = false;
-                    }
-                    if (data.UNIT_OF_MEASUREMENT_E55__label === '') {
-                                valid = false;
-                    }
-                    return valid;
+                data: this.data,
+                dataKey: 'MEASUREMENT_TYPE.E55',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
                 }
             }));
-
-            this.viewModel.HERITAGE_RESOURCE_TYPE_E55 = koMapping.fromJS(this.viewModel.HERITAGE_RESOURCE_TYPE_E55);
         }
     });
 });
