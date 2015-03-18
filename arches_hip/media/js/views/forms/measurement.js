@@ -1,9 +1,6 @@
 define(['jquery', 'underscore', 'knockout-mapping', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, koMapping, BaseForm, BranchList) {
     return BaseForm.extend({
         initialize: function() {
-			var nameBrachList;
-            var self = this;
-
             BaseForm.prototype.initialize.apply(this);
 
             this.addBranchList(new BranchList({
