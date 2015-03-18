@@ -102,17 +102,16 @@ class DescriptionForm(ResourceForm):
         self.update_nodes('DESCRIPTION.E62', data)
 
     def load(self):
-        self.data['domains']['DESCRIPTION_TYPE_E55'] = Concept().get_e55_domain('DESCRIPTION_TYPE.E55')
-        default_description_type = self.data['domains']['DESCRIPTION_TYPE_E55'][0]
-        self.data['defaults']['DESCRIPTION_E62'] = {
-            'DESCRIPTION_E62__entityid': '',
-            'DESCRIPTION_E62__value': '',
-            'DESCRIPTION_TYPE_E55__entityid': '',
-            'DESCRIPTION_TYPE_E55__value': default_description_type['id'],
-            'DESCRIPTION_TYPE_E55__label': default_description_type['value']
-        }
+        description_types = Concept().get_e55_domain('DESCRIPTION_TYPE.E55')
+        default_description_type = description_types[0]
         if self.resource:
-            self.data['DESCRIPTION_E62'] = self.get_nodes('DESCRIPTION.E62')
+            self.data['DESCRIPTION.E62'] = {
+                'branch_lists': self.get_nodes('DESCRIPTION.E62'),
+                'domains': {'DESCRIPTION_TYPE.E55' : description_types},
+                'defaults': {
+                    'DESCRIPTION_TYPE.E55': default_description_type['id'],
+                }
+            }
 
 
 class MeasurementForm(ResourceForm):
