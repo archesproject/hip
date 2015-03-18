@@ -16,6 +16,26 @@ define(['jquery',
                 });
 
                 this.addBranchList(new BranchList({
+                    el: this.$el.find('#heritage-type-section')[0],
+                    data: this.data,
+                    dataKey: 'RESOURCE_TYPE_CLASSIFICATION.E55',
+                    alwaysEdit: true,
+                    validateBranch: function (nodes) {
+                        return true;
+                    },
+                    onSelect2Selecting: function(item, select2Config){
+                        _.each(this.editedItem(), function(node){
+                            if (node.entitytypeid() === select2Config.dataKey){
+                                node.label(item.value);
+                                //node.value(item.id);
+                                node.entitytypeid(item.entitytypeid);
+                            }
+                        }, this);
+                        this.trigger('change', 'changing', item);
+                    }
+                }));
+
+                this.addBranchList(new BranchList({
                     el: this.$el.find('#names-section')[0],
                     data: this.data,
                     dataKey: 'NAME.E41',
@@ -71,27 +91,6 @@ define(['jquery',
                         return this.validateHasValues(nodes);
                     }
                 }));
-
-                this.addBranchList(new BranchList({
-                    el: this.$el.find('#heritage-type-section')[0],
-                    data: this.data,
-                    dataKey: 'RESOURCE_TYPE_CLASSIFICATION.E55',
-                    alwaysEdit: true,
-                    validateBranch: function (nodes) {
-                        return true;
-                    },
-                    onSelect2Selecting: function(item, select2Config){
-                        _.each(this.editedItem(), function(node){
-                            if (node.entitytypeid() === select2Config.dataKey){
-                                node.label(item.value);
-                                //node.value(item.id);
-                                node.entitytypeid(item.entitytypeid);
-                            }
-                        }, this);
-                        this.trigger('change', 'changing', item);
-                    }
-                }));
-
             }
         });
     }
