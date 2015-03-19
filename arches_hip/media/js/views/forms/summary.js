@@ -19,20 +19,27 @@ define(['jquery',
                     el: this.$el.find('#heritage-type-section')[0],
                     data: this.data,
                     dataKey: 'RESOURCE_TYPE_CLASSIFICATION.E55',
-                    alwaysEdit: true,
                     validateBranch: function (nodes) {
                         return true;
-                    },
-                    onSelect2Selecting: function(item, select2Config){
-                        _.each(this.editedItem(), function(node){
-                            if (node.entitytypeid() === select2Config.dataKey){
-                                node.label(item.value);
-                                //node.value(item.id);
-                                node.entitytypeid(item.entitytypeid);
-                            }
-                        }, this);
-                        this.trigger('change', 'changing', item);
-                    }
+                    }//,
+                    // onSelect2Selecting: function(item, select2Config){
+                    //     _.each(this.editedItem(), function(node){
+                    //         if (node.entitytypeid() === select2Config.dataKey){
+                    //             var labels = node.label().split(',');
+                    //             if(node.label() === ''){
+                    //                 node.label(item.value);
+                    //             }else{
+                    //                 if(item.value !== ''){
+                    //                     labels.push(item.value);
+                    //                 }
+                    //                 node.label(labels.join());
+                    //             }
+                    //             //node.value(item.id);
+                    //             node.entitytypeid(item.entitytypeid);
+                    //         }
+                    //     }, this);
+                    //     this.trigger('change', 'changing', item);
+                    //}
                 }));
 
                 this.addBranchList(new BranchList({
@@ -71,15 +78,6 @@ define(['jquery',
                     dataKey: 'important_dates',
                     validateBranch: function (nodes) {
                         return this.validateHasValues(nodes);
-                    },
-                    onSelect2Selecting: function(item, select2Config){
-                        _.each(this.editedItem(), function(node){
-                            if ('BEGINNING_OF_EXISTENCE_TYPE.E55,END_OF_EXISTENCE_TYPE.E55'.search(node.entitytypeid()) > -1){
-                                node.label(item.value);
-                                //node.value(item.id);
-                                node.entitytypeid(item.entitytypeid);
-                            }
-                        }, this);
                     }
                 }));
 
