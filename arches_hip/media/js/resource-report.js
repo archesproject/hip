@@ -101,8 +101,6 @@ require([
             var f = new ol.format.GeoJSON({defaultDataProjection: 'EPSG:4326'});
 
             if(!this.selectedFeatureLayer){
-                var rgb = utils.hexToRgb('#C4171D');
-                var iconUnicode = '\uf060';                    
                 var zIndex = 0;
                 var styleCache = {};
 
