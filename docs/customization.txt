@@ -92,11 +92,8 @@ Uncomment this line (remove the starting ``#``) if it is commented, and paste in
 
 Enabling this setting will automatically configure the web application to include the Google Analytics scripts.
 
-Maps
-====
-
-Settings
---------
+Map Settings
+============
 
 Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file (line 15 by default)::
     
@@ -120,7 +117,7 @@ By default, Arches-HIP will use Bing services for basemaps and geocoding; if you
     BING_KEY = 'my-bing-key'
 
 Basemaps
---------
+========
 
 By default, Arches-HIP will supply the application with Bing layers as basemaps, but it is easy to add more basemap layers to Arches-HIP using OpenLayers.
 
@@ -158,7 +155,7 @@ For example, I can add a tile layer as a basemap layer like so::
     return baseLayers;
 
 Overlays
---------
+========
 
 Additional overlays can also be added to the Arches-HIP map interface.  This is quite similar to adding basemap layers except it is done in another file and requires a little extra metadata for each layer.
 
@@ -184,7 +181,6 @@ For example, you could add a tile layer overlay like so::
         categories: ['cool', 'fun'],
         description: 'My tile layer is very cool',
         icon: 'tile-layer-icon',
-        // OpenLayers 3 Layer instance
         layer: new ol.layer.Tile({
             source: new ol.source.XYZ({
                 url: 'http://api.tiles.mapbox.com/v4/my-mapbox-map/{z}/{x}/{y}.png?access_token=my-access-token'
@@ -194,13 +190,33 @@ For example, you could add a tile layer overlay like so::
 
     return layers;
 
-Resource Layers
----------------
+Resource Map Markers
+====================
 
+Resource map markers are shown in the web application using icon fonts for scalability and flexibility.
 
+By default, support is provided for Octicons (https://octicons.github.com/) and Font Awesome (http://fortawesome.github.io/Font-Awesome/).
+
+Arches-HIP provides some simple settings for managing how resource markers are displayed on the map.  These settings can be found in your ``settings.py`` file and should look something like this::
+    
+    RESOURCE_MARKER_ICON_UNICODE = '\uf060'
+    RESOURCE_MARKER_ICON_FONT = 'octicons'
+    RESOURCE_MARKER_DEFAULT_COLOR = '#C4171D'
+
+These settings manage markers as follows:
+
+* ``RESOURCE_MARKER_ICON_UNICODE``: the unicode value of the icon you want to use
+* ``RESOURCE_MARKER_ICON_FONT``: the font name you want to use ('octicons' or 'FontAwesome')
+* ``RESOURCE_MARKER_DEFAULT_COLOR``: the hex value of the color you want to use by default
+
+For example, if I wanted to symbolize my resource markers as pink Font Awesome house icons (http://fortawesome.github.io/Font-Awesome/icon/home/), I could adjust my settings like so::
+
+    RESOURCE_MARKER_ICON_UNICODE = '\uf015'
+    RESOURCE_MARKER_ICON_FONT = 'FontAwesome'
+    RESOURCE_MARKER_DEFAULT_COLOR = '#F423FF'
 
 Geocoding
----------
+=========
 
 
 Localization
