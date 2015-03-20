@@ -22,7 +22,7 @@
                             <div class="col-xs-12">
 
                                 <div style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                " data-bind="select2: {value: getEdited('RESOURCE_TYPE_CLASSIFICATION.E55', 'value'), placeholder: 'Type', dataKey: 'RESOURCE_TYPE_CLASSIFICATION.E55'}"></div>
+                                " data-bind="select2: {value: getEdited('RESOURCE_TYPE_CLASSIFICATION.E55', 'value'), placeholder: 'Type', multiple: false, dataKey: 'RESOURCE_TYPE_CLASSIFICATION.E55'}"></div>
 
                                 {% include 'views/components/add-item-button.htm' %}
 
@@ -48,9 +48,9 @@
                     </dd>
 
                     <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: branch_lists().length == 0" class="txt-color-blue">{% trans "No Types Defined" %}</div>   
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Types Defined" %}</div>   
 
-                        <div data-bind='foreach: branch_lists'>
+                        <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
                                 <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                 <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='text: nodes.get("RESOURCE_TYPE_CLASSIFICATION.E55", "label")' style="padding-right:2px;"></span>
@@ -125,9 +125,9 @@
                     </dd>
 
                     <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: branch_lists().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
 
-                        <div data-bind='foreach: branch_lists'>
+                        <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
                                 <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                 <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='text: nodes.get("NAME.E41", "value")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='text: nodes.get("NAME_TYPE.E55", "label")'></span>)</span>
@@ -209,9 +209,9 @@
                     </dd>
 
                     <dd class="margin-left-5" style="display: block;" data-bind="visible: true">
-                        <div data-bind="visible: branch_lists().length == 0" class="txt-color-blue">{% trans "No Dates Defined" %}</div>   
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Dates Defined" %}</div>   
                         
-                        <div data-bind='foreach: branch_lists'>
+                        <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
                                 <a href="javascript:void(0)" class="arches-CRUD-child" title="Remove this filter"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                 <a href="javascript:void(0)" class="text-muted arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='text: nodes.get("BEGINNING_OF_EXISTENCE_TYPE.E55,END_OF_EXISTENCE_TYPE.E55", "label") + " " + nodes.get("START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49", "value").substr(0,10)' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"></span>
@@ -275,9 +275,9 @@
                         {% trans "These subjects are associated with this resource:" %}
                     </dd>
                     <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: branch_lists().length == 0" class="txt-color-blue">{% trans "No Subjects Defined" %}</div>   
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Subjects Defined" %}</div>   
                         
-                        <div data-bind='foreach: branch_lists'>
+                        <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
                                 <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this subject"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                 <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this subject"><span data-bind='{text: nodes.get("KEYWORD.E55", "label")}' style="padding-right:2px;"></span>
