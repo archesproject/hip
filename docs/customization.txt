@@ -6,14 +6,14 @@ There are lots of ways that you can customize your Arches-HIP application to bes
 
 Most of these will require comfort with modifying Python, HTML, CSS and/or Javascript files but are designed to be simple changes that can be easily applied without diving deep into the rest of the Arches or Arches-HIP code.
 
-.. note:: In a production environment (using Apache), you will generally need to run collectstatic and restart Apache to apply these changes.
+.. note:: In a production environment (using Apache), you will generally need to run ``collectstatic`` and restart Apache to apply these changes.
 
     No action should be required when using the development server (Django).
 
 Home Page and Branding
 ======================
 
-Modifying the home page and branding of your Arches-HIP application involves editing some simple html templates to modify the look and feel.  A basic familiarity with HTML and CSS is assumed here.
+Modifying the home page and branding of your Arches-HIP application involves editing some simple HTML templates to modify the look and feel.  A basic familiarity with HTML and CSS is assumed here.
 
 Your application starts with templates that you can use to start modifying the home page and branding of the web application.  These files are contained in the following folder::
     
@@ -50,7 +50,7 @@ Saved searches are the links shown on the home and search pages by default to he
 
 To do this, start by using the Arches-HIP web application search page to execute the search that you want to save.
 
-For example, you could do a search for the word 'modern'.  You should see the page's url update.  Copy everything after the ``?`` in the url; you should get something like this::
+For example, you could do a search for the word 'modern'.  You should see the page's URL update.  Copy everything after the ``?`` in the URL; you should get something like this::
 
     page=1&termFilter=%5B%7B%22inverted%22%3Afalse%2C%22type%22%3A%22string%22%2C%22context%22%3A%22%22%2C%22context_label%22%3A%22%22%2C%22id%22%3A%22modern%22%2C%22text%22%3A%22modern%22%2C%22value%22%3A%22modern%22%7D%5D&temporalFilter=%7B%22year_min_max%22%3A%5B%5D%2C%22filters%22%3A%5B%5D%2C%22inverted%22%3Afalse%7D&spatialFilter=%7B%22geometry%22%3A%7B%22type%22%3A%22%22%2C%22coordinates%22%3A%5B%5D%7D%2C%22buffer%22%3A%7B%22width%22%3A%220%22%2C%22unit%22%3A%22ft%22%7D%2C%22inverted%22%3Afalse%7D&mapExpanded=false&timeExpanded=false&include_ids=true
 
@@ -81,7 +81,7 @@ To update that block to use the example search above for the word modern, I can 
         </div>
     </div>
 
-Google Anayltics
+Google Analytics
 ================
 
 To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's settings.py file (line 14 by default).
@@ -108,7 +108,7 @@ To use these settings, you will need to 'uncomment' them (remove the ``#`` at th
 
 ``DEFAULT_MAP_X`` and ``DEFAULT_MAP_Y`` are the x and y (respectively) coordinate values which all maps will be centered on by default.  ``MAP_EXTENT`` is a string 'bounding box' [min x, min y, max x, max y] representing the extent to which all maps will be constrained.  
 
-All of these coordinates are expressed in the web standard spherical mercator projection (http://spatialreference.org/ref/sr-org/6864/).  A simple converter tool to go between Lat/Long and spherical mercator coordinates can be found here: http://mal2.ch/stuff/latlontomercator.html
+All of these coordinates are expressed in the web standard Spherical Mercator projection (http://spatialreference.org/ref/sr-org/6864/).  A simple converter tool to go between Lat/Long and Spherical Mercator coordinates can be found here: http://mal2.ch/stuff/latlontomercator.html
 
 ``DEFAULT_MAP_ZOOM`` is the default zoom level that all maps will start on.  ``MAP_MIN_ZOOM`` and ``MAP_MAX_ZOOM`` are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
 
@@ -136,7 +136,7 @@ The objects you add should contain the following keys:
 * ``id``: String; a unique id for this layer
 * ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
 * ``icon``: String; a valid path to an image used as an icon in the basemap list
-* ``name``: String; a display name for this layer used in the basemaplist
+* ``name``: String; a display name for this layer used in the basemap list
 
 For example, I can add a tile layer as a basemap layer like so::
 
@@ -205,7 +205,7 @@ Arches-HIP provides some simple settings for managing how resource markers are d
 
 These settings manage markers as follows:
 
-* ``RESOURCE_MARKER_ICON_UNICODE``: the unicode value of the icon you want to use
+* ``RESOURCE_MARKER_ICON_UNICODE``: the Unicode value of the icon you want to use
 * ``RESOURCE_MARKER_ICON_FONT``: the font name you want to use ('octicons' or 'FontAwesome')
 * ``RESOURCE_MARKER_DEFAULT_COLOR``: the hex value of the color you want to use by default
 

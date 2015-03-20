@@ -15,9 +15,9 @@ Arches-HIP supports the following resource types:
 
 * **Heritage Resource Groups** These are collections of heritage resources that are best regarded as a group.  In Europe, such resources are often referred to as ensembles.  In the United States, districts or landscapes may be inventoried as Heritage Resource Groups.
 
-* **Activity** In Arches-HIP, activities are resources that occur over a period of time.  Examples include surverys, investigations, excavations, literature review, and other actions.
+* **Activity** In Arches-HIP, activities are resources that occur over a period of time.  Examples include surveys, investigations, excavations, literature review, and other actions.
 
-* **Historic Event** These are culturally significant occurances.  Examples include the 1906 San Francisco Earthquake, Coronation of Napoleon, and the Normandy Beach landings in WWII.
+* **Historic Event** These are culturally significant occurrences.  Examples include the 1906 San Francisco Earthquake, Coronation of Napoleon, and the Normandy Beach landings in WWII.
 
 * **Actor** In Arches-HIP actor resources are persons, groups of people, or organizations.
 
@@ -30,10 +30,10 @@ A key design consideration for the Arches-HIP web application is to allow you to
 
 	Create a Heritage Resource, such as "Hollyhock House"
 
-	Link the resources in a way that describes their realtionship: "Frank Lloyd Wright" "architected" "Hollyhock House" 
+	Link the resources in a way that describes their relationship: "Frank Lloyd Wright" "architected" "Hollyhock House" 
 
 
-Arches-HIP's ability to track relationships between resources is a key capablity that can support a richer cultural heritage inventory and more intuitive discovery of heritage records.
+Arches-HIP's ability to track relationships between resources is a key capability that can support a richer cultural heritage inventory and more intuitive discovery of heritage records.
 
 Arches-HIP uses the Reference Data Manager (RDM), a thesaurus management model included in the Arches web framework, to let you manage the terms that you will need to describe heritage resources and the relationships between resources (e.g.: "architected").
 
