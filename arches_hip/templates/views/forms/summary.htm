@@ -52,8 +52,8 @@
 
                         <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='text: nodes.get("RESOURCE_TYPE_CLASSIFICATION.E55", "label")' style="padding-right:2px;"></span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this type" %}"><span data-bind='text: nodes.get("RESOURCE_TYPE_CLASSIFICATION.E55", "label")' style="padding-right:2px;"></span>
                                 </a>
                             </div>
                         </div>
@@ -129,8 +129,8 @@
 
                         <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='text: nodes.get("NAME.E41", "value")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='text: nodes.get("NAME_TYPE.E55", "label")'></span>)</span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this name" %}"><span data-bind='text: nodes.get("NAME.E41", "value")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind='text: nodes.get("NAME_TYPE.E55", "label")'></span>)</span>
                                 </a>
                             </div>
                         </div>
@@ -213,8 +213,8 @@
                         
                         <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Remove this filter"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="text-muted arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this name"><span data-bind='text: nodes.get("BEGINNING_OF_EXISTENCE_TYPE.E55,END_OF_EXISTENCE_TYPE.E55", "label") + " " + nodes.get("START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49", "value").substr(0,10)' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"></span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Remove this filter"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="text-muted arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this date" %}"><span data-bind='text: nodes.get("BEGINNING_OF_EXISTENCE_TYPE.E55,END_OF_EXISTENCE_TYPE.E55", "label") + " " + nodes.get("START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49", "value").substr(0,10)' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"></span>
                                 </a>
                             </div>
                         </div>
@@ -279,8 +279,8 @@
                         
                         <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this subject"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this subject"><span data-bind='{text: nodes.get("KEYWORD.E55", "label")}' style="padding-right:2px;"></span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this subject"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this subject" %}"><span data-bind='{text: nodes.get("KEYWORD.E55", "label")}' style="padding-right:2px;"></span>
                                 </a>
                             </div>
                         </div>

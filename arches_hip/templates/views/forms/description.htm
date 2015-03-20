@@ -25,8 +25,6 @@
                                 <form class="form-inline arches-form hidden-xs" role="form">
                                     <div class="form-group" style="width: 100%">
 
-                               <!--          <div style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form description-type" id="resource-description-type" data-bind="value: editing.DESCRIPTION_E62.DESCRIPTION_TYPE_E55__value, select2: { data: domains.DESCRIPTION_TYPE_E55, placeholder: 'Type', viewModel: editing.DESCRIPTION_TYPE_E55, conceptKey: 'DESCRIPTION_TYPE_E55'}"></div>
- -->
                                         <div style="width:80%; height: 36px; padding-top: 2px; padding-right: 4px; display: inline-block;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-measurement-unit" data-bind="select2: {value: getEditedNode('DESCRIPTION_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'DESCRIPTION_TYPE.E55'}"></div>
 
                                         <!-- Spacer (for xs screens) -->
@@ -73,8 +71,8 @@
                             
                                 <dd>
                                     <div class="">
-                                        <a href="#" title="Remove this description"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                        <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="Edit this description" data-bind='text: nodes.get("DESCRIPTION_TYPE.E55", "label"), attr: {"data-index": $index}'></a>
+                                        <a href="#" title="Remove this description"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                        <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="{% trans "Edit this description" %}" data-bind='text: nodes.get("DESCRIPTION_TYPE.E55", "label"), click: $parent.editItem.bind($parent)'></a>
                                     </div>
                                 </dd>
                             </dl>

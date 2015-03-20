@@ -57,8 +57,8 @@
                         
                         <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="{% trans "Delete this measurement" %}"><i data-bind='attr: {"data-index": $index}' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='attr: {"data-index": $index}' title="Edit this measurement"><span data-bind="{text: nodes.get('VALUE_OF_MEASUREMENT.E60', 'value')}" style="padding-right:2px;"></span><span data-bind="{text: nodes.get('UNIT_OF_MEASUREMENT.E55', 'label')}" style="padding-right:2px"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind="{text: nodes.get('MEASUREMENT_TYPE.E55', 'label')}"></span>)</span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="{% trans "Delete this measurement" %}"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this measurement"><span data-bind="{text: nodes.get('VALUE_OF_MEASUREMENT.E60', 'value')}" style="padding-right:2px;"></span><span data-bind="{text: nodes.get('UNIT_OF_MEASUREMENT.E55', 'label')}" style="padding-right:2px"></span><span class="text-muted arches-crud-type-identifier">(<span data-bind="{text: nodes.get('MEASUREMENT_TYPE.E55', 'label')}"></span>)</span>
                                 </a>
                             </div>
                         </div>
