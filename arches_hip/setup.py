@@ -48,7 +48,7 @@ def load_resource_graphs():
     pass
 
 def load_authority_files(path_to_files=None):
-    authority_files.load_authority_files(break_on_error=True)
+    authority_files.load_authority_files(path_to_files, break_on_error=True)
 
 def load_map_layers():
     pass
