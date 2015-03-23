@@ -12,7 +12,7 @@ define(['jquery',
                 var self = this;
                 var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});
                 date_picker.on('dp.change', function(evt){
-                    $('#date').trigger('change'); 
+                    $(this).find('input').trigger('change'); 
                 });
 
                 this.addBranchList(new BranchList({
