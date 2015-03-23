@@ -13,3 +13,4 @@ data_paths.txt
 authority_file_errors.txt
 hip.log
 docs/_build
+arches_hip/logs

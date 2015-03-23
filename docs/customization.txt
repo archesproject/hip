@@ -23,8 +23,7 @@ You can add your own CSS style rules (applied application wide) in the following
 
     {application name}/{application name}/media/css/package.css
 
-Home Page
----------
+**Home Page**
 
 ``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
 
@@ -34,8 +33,7 @@ This is the content of the first page that your users will see, so you'll probab
 * Add you own text to the title block below the layer slider
 * Update the saved searches to suit your data (more on that below)
 
-Branding
---------
+**Branding**
 
 The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
 
