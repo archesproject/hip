@@ -18,10 +18,10 @@ The HIP package includes the following six resource graphs for cataloging cultur
  - Historical Event.E5
  - Information Resource.E73
 
-An image of each graph can be found below with details about the graphs attributes. Remember not all nodes shown in the graph collect data. To learn more about resource graphs check out the general Arches documentation (http://arches3.readthedocs.org/en/latest/arches-data/#resource-graphs).
+An image of each graph can be found below with details about the graphs attributes. Remember not all nodes shown in the graph collect data. To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
 Activity.E7
-~~~~~~~~~
+~~~~~~~~~~~
 
 .. image :: ../../activity.png
 
@@ -433,7 +433,7 @@ Information Resource.E73
 Authority Files
 ===============
 
-All of the entity types above with a business table of 'domains' correspond to an authority file. For more information on authority files see the general Arches documentation (http://arches3.readthedocs.org/en/latest/arches-data/#loading-reference-data).
+All of the entity types above with a business table of 'domains' correspond to an authority file. For more information on authority files see the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
 Included Authority Files
 ------------------------
@@ -468,103 +468,113 @@ HIP comes with the following authority files included.
 
 If you chose the default install option, these authority files were automatically loaded to your concept scheme and can be edited using the RDM (more on that in 'Using Arches HIP').
 
-Creating Authority Files
-------------------------
+Modifying HIP Authority Files
+-----------------------------
 
-In some instances you may wish to create your own authority files. The following steps outline how to create your own authority document. These steps can be followed using excel as your text editor but the final file must be saved as a utf-8 formatted csv file.
+In some instances you may wish to modify the existing HIP authority files. The following steps outline how to modify these authority documents. These steps can be followed using excel as your text editor but the final file must be saved as a utf-8 formatted csv file.
 
-Data is required for all columns in the authority file with the exception of 'AltLables' and 'Provider'????.
+	
+1.) If you have not already, download the sample HIP authority files (link to HIP installation here) and place them in a known location (we reccomend /myarchesapp/source_data/authority_files) 
 
-	1.) Create a text file and paste the following text to the first line::
+2.) Navigate to your authority files directory. And open the file you wish to modify.
 
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
+3.) If you would like to edit an existing concept simply change the PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider for that concept. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
-	2.) On the second line we will begin creating our concept. Start by creating a conceptid that will be unique both within this file and across all authority document files. A good pattern to follow is to use the name of the authority document itself (with '_' instead of spaces and minus the AUTHORITY_DOCUMENT.csv) with the number of the particular concept within the authority document appended. As an example, if your authority document is name 'EXAMPLE_AUTHORITY_DOCUMENT.csv' the first concept within the authority document would have the conceptid 'EXAMPLE_1'::
+4.) If you would like to add a concept, create a unique conceptid for the concept (remember this id must be unique both interal to the authority file and between authority files) and then add your desired PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider.
 
-		//EXAMPLE_AUTHORITY_DOCUMENT.csv
-
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
-		EXAMPLE_1,
-		EXAMPLE_2,
-
-	3.) Next, add your preferred label for the concept. In most cases this will be the value you have in mind or from your data that you would like to use for the domain list this authority document will be related to::
-
-		//EXAMPLE_AUTHORITY_DOCUMENT.csv
-
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
-		EXAMPLE_1,Example concept label,
-		EXAMPLE_2,Second example concept,
-
-	4.) Now add an alternate label for your concept. This may be left blank if you have no alternate label for your concept::
-
-		//EXAMPLE_AUTHORITY_DOCUMENT.csv
-
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
-		EXAMPLE_1,Example concept label,Alternate concept label,
-		EXAMPLE_2,Second example concept,Second alternate concept label,
-
-	5.) Then add a Parent ConceptID. If the concept is not heirarchically related to any other concept in the authority document then the Parent ConceptID will be the full name of the authority document itself. If the concept is heirarchically related to another concept in the authority file, ensure the parent concept is defined above the child concept and input the parent concepts' conceptid here. In our example I have added a second concept that references the first concept as its parent::
-
-		//EXAMPLE_AUTHORITY_DOCUMENT.csv
-
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
-		EXAMPLE_1,Example concept label,Alternate concept label,EXAMPLE_AUTHORITY_DOCUMENT.csv,
-		EXAMPLE_2,Second example concept,Second alternate concept label,EXAMPLE_1,
-
-	6.) Next, add a Concept Type. The only two valid values for ConceptType are: Index, and Collector. For more information on what the difference between these two concept types refer to the the general Arches documentation (http://arches3.readthedocs.org/en/latest/arches-data/#loading-reference-data)::
-
-		//EXAMPLE_AUTHORITY_DOCUMENT.csv
-
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
-		EXAMPLE_1,Example concept label,Alternate concept label,EXAMPLE_AUTHORITY_DOCUMENT.csv,Collector,
-		EXAMPLE_2,Second example concept,Second alternate concept label,EXAMPLE_1,Index,
-
-	7.) Optionally, you can add a Provider for your concept. This value provides context for where the concept came from::
-
-		//EXAMPLE_AUTHORITY_DOCUMENT.csv
-
-		conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
-		EXAMPLE_1,Example concept label,Alternate concept label,EXAMPLE_AUTHORITY_DOCUMENT.csv,Collector,Organization_1
-		EXAMPLE_2,Second example concept,Second alternate concept label,EXAMPLE_1,Index,Organization_2
-
-	8.) Save your document.
-
-	9.) IMPORTANT: Finally, we have to make sure our authority file maps to a 'domain node' in a resource graph. To do this either create or open the existing 'ENTITY_TYPE_X_ADOC.csv' file that should reside in the same directory as your authority files (this file must be named ENTITY_TYPE_X_ADOC.csv).
-
-		If you are modifying an existing ENTITY_TYPE_X_ADOC.csv file skip to step b below.
-
-		a.) Copy and past the following text into the file on the first line::
-
-			entitytype,authoritydoc,authoritydocconceptschemename
-
-		b.) Add a comma separated entry with the following information: the entity type to which you would like your authority documented associated (exactly how it is spelled in the resource graph including the .E## suffix), the name of the exact name of the authority document, and the 	concept scheme into which you would like to load this authority document::
-
-			//ENTITY_TYPE_X_ADOC.csv
-
-			entitytype,authoritydoc,authoritydocconceptschemename
-			EXAMPLE_NODE.E55,EXAMPLE_AUTHORITY_DOCUMENT.csv,Example Concept Scheme Name
-
+5.) Make sure to review the guidlines of creating a concept in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
 
 
 Loading Authority Files
 -----------------------
 
-If you chose to create your own authority files those can be loaded using the following command from inside ||this directory||::
+To load authority documents, navigate to /myHIPapp and run the following command::
 	
-	python manage.py packages -o load_concept_scheme --source '{PATH TO AUTHORITY FILES}'
+	python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
+
+During load the authority files go through a set of validations. If there are errors in your authority documents load will fail and you will have to correct the errors before you try to load the authority files again.
 
 
+.. note:: A detailed log of any errors detected in the authority files can be found here: /myHIPapp/logs/authority_file_errors.txt
 
 Business Data
 =============
 
+This section outlines how to create and load business data into Arches-HIP. Arches-HIP allows you to load data from a .arches file or a .shp file. If you would like to load arches without business data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own business data skip to 'Loading Business Data.' And if you would like to create and load your own Arches-HIP business data this whole section is for you.
+
+
+.. Note::  .arches vs .shp: why use one file format over another?
+
+
+
 Creating Business Data
 ----------------------
 
-To create your own data using the existing graphs and authority files . . .
+In some ways you can think of the Arches-HIP business data as an intersection between the Arches-HIP resource graphs, the authority files, and your own unique data. The Arches-HIP resource graphs provide the skeleton of the .arches or .shp file you will create, the authority files provide the domain values and, most importantly your data populates the nodes of the Arches-HIP resource graphs with unique data.
+
+Creating a .arches file
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+Creating a .shp file
+~~~~~~~~~~~~~~~~~~~~
+
+.. note:: A few things to keep in mind before we begin
+
+	1.) Your shapefile can contain only one resource type per shapefile. For example, you would need one shapefile to load Heritage Resources and a second shapefile for Activities.
+
+	2.) Your shapefile projection must be defined as WGS84 Lat/Lon (EPSG:4326).
+
+Step 1. Create your configuration file.
+
+You’ll need to create configuration file to tell Arches how the fields in your shapefile correspond to nodes in a resource graph.The configuration file should have the same base name as your shapefile with the extension ‘.config’. For example, if your shapefile is called ‘heritage_resources.shp’, you will will need a ‘heritage_resources.config’ file along with your ‘heritage_resources.dbf’, etc.
+
+The .config file is formatted in JSON as you can see in this example::
+
+	//heritage_resources.config
+
+	{
+		“RESOURCE_TYPE”: “HERITAGE_RESOURCE.E18″,
+		“GEOM_TYPE”: “SPATIAL_COORDINATES_GEOMETRY.E47″,
+		“FIELD_MAP”: [
+			[“status”,”STATUS.E55″],
+			[“start”,”START_DATE_OF_EXISTENCE.E49″],
+			[“name”,”NAME.E41″],
+			[“place_addr”,”PLACE_ADDRESS.E45″],
+			[“descrip”,”DESCRIPTION.E62″],
+			[“heri_type”,”HERITAGE_RESOURCE_TYPE.E55″]
+		]
+	}
+ 
+“RESOURCE_TYPE” is the resource type of your shapefile.
+
+“GEOM_TYPE” is simply the name of the entitytype that Arches HIP uses to manage geometry.
+
+“FIELD_MAP” is where you list your shapefile fields and their corresponding entitytypes. Each field must be enclosed in brackets, with the shapefile column name in the first position and the entitytypeid (e.g.: node name) in the second.
+
+
+Note also that the curly braces at the beginning and end of the file are important!
+
+
+Step 2. Confirm Your Shapefile Data
+
+There are just a couple of details to keep in mind when creating your shapefile.
+
+Remember that the projection of your data must be EPSG:4326 (WGS84 Lat/Lon).
+The data type of your shapefile columns need to match the datatype of the nodes (entitytypes) to which they are mapped. For example, if you want to load a “name” column in your shapefile to “NAME.E41” (which the HIP defines as a “string” data type), you must ensure that your shapefile treats “name” as a string.
+If you want to load a field in your shapefile to an Arches controlled vocabulary, you’ll need to make sure that the values in the shapefile match a preferred label in Arches’ Reference Data Manager (RDM). For example, if you want to load values from your shapefile into the “HERITAGE_RESOURCE_TYPE.E55″ node, the values in your shapefile column must match a preferred label in the RDM scheme (by default Arches uses the “HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv” scheme)
+
 
 Loading Business Data
 ---------------------
+
+To load business data, navigate to /myHIPapp and run the following command::
+	
+	python manage.py packages -o load_resources -s ‘path to file’
+
+Note: This command works for both .arches and .shp files.
 
 In addition to the validation that is performed on every .arches file from Arches, there is some specific HIP validation that a .arches file must pass as well.
 	
@@ -574,6 +584,15 @@ In addition to the validation that is performed on every .arches file from Arche
 
 	check_paired_attributes
 
-If you chose to create your own business data, that data can be loaded using the following command::
-	
-	python manage.py packages -o load_resources --source '{PATH TO .SHP or .ARCHES FILE}'
+Bulk Removing Business Data
+---------------------------
+
+If you managed to load data that you did not intend to load, or if for some reason you changed your mind about loading your data, don’t worry. You can easily unload a batch of data from Arches.
+
+To do this you will need the Load ID that was created when you loaded your data. Arches writes the Load ID to the terminal you used to start the import, and the Load ID is also located in the notes column of your data.edit_log table.
+
+The Load ID will look something like this: “LOADID:2014-12-2-7-17-23884” (e.g.: the timestamp by year-month-day-hour-minute-microsecond) of the start of your resource load, so that may help you find the correct Load ID if you are unsure.
+
+Once you have the correct Load ID, you can delete all of the resources created during a load with the following command::
+
+	python manage.py packages -o remove_resources –load_id YOUR_LOADID

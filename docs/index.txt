@@ -9,5 +9,6 @@ Contents:
 
    overview
    getting-started
+   loading-data
    using-arches-hip
    customization
