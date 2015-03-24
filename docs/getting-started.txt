@@ -1,18 +1,196 @@
-###############
+############
 Getting Started
-###############
+############
+
+Introduction
+============
+
+Welcome to the **Arches HIP Installation Guide**. This document is intended
+to help you quickly get HIP running on your server.
+
+What do I need to know to use this guide?
+-----------------------------------------
+
+Arches HIP is designed to let you manage many types of cultural heritage
+data. And while we've tried to make it easy to install Arches, you'll
+need to make some decisions on how you wish to describe and manage the
+information that goes into Arches HIP. But don't worry, we've also included
+lots of examples and well-thought-out defaults for setting up the
+software.
+
+So, installing HIP means loading software and deciding how you want
+to describe the cultural heritage information that's important to you.
+We've written this guide assuming that you are comfortable working with
+your computer's command line, and that you can edit text files with
+ease.
+
+That's it! Feel free to tap a colleague on the shoulder if you need a
+little help along the way, or check out the resources at
+[www.archesproject.org](http://www.archesproject.org) for more support.
+
+
+System Requirements
+===================
+
+There are a few things to know about Arches before we get started.
+
+Arches HIP has the following software dependencies:
+
+* PostgreSQL relational database (version 9.3)
+* PostGIS (version 2.x) spatial module for PostgreSQL
+* Python (version 2.7.6 - there seem to be issues with later versions of python) 
+* GEOS
+
+These instructions will walk you through the necessary steps to load all
+the required dependencies and get Arches up and running quickly.
+
+Please note that HIP has been developed for modern browsers. It supports:
+
+* Firefox
+* Chrome
+* Safari
+* Opera
+* Internet Explorer 10 or higher.
+
+Requirements
+~~~~~~~~~~~~
+
+-  At least 4GB of RAM for evaulation and testing, or 8 to 16GB for
+   production.
+-  10GB minimum to install the codebase and test dataset, but diskspace
+   requirements will vary greatly depending on the size of your dataset
+
 
 Installation
 ============
 
+It's important to recognize that Arches is designed to manage large,
+enterprise-scale Cultural Heritage inventories. The software is
+sophisticated and is designed to be support extensive customization.
+This means that there are many ways to deploy Arches HIP.
 
-Dependencies
-------------
+We've written this guide to streamline the installation of Arches Server
+and the in the more straight-forward manner possible. These
+installation instructions provide step-by-step guidelines for installing
+Arches HIP.
 
 
-Installing Arches-HIP
----------------------
+Installing Arches Dependencies
+-------------------------------
 
+.. toctree::
+   :maxdepth: 2
+
+   installing-dependencies-linux
+   installing-dependencies-windows
+
+
+Installing Arches
+-----------------
+Generally arches applications (in the case below 'my_hip_app') are installed in a project directory (in the case below 'Projects'). A virtual environment ('ENV') is created at the same directory as your arches application, so if you have multiple arches applications, they can share the same virtual environment.:
+::
+    /Projects
+      /ENV (virtual environment where arches gets installed)
+      /myhipapp
+
+With your Arches dependencies installed, you are now ready to install Arches. 
+
+1.  Install virtualenv and create your Python virtual environment:
+::
+    $ pip install virtualenv
+
+.. note::
+    Using apt-get to install virtualenv will install an older version that will result in errors in your Arches installation. Be sure to use pip for your virtualenv installation.
+
+virtualenv creates a directory with it's own installation of Python and Python executables. Arches will be installed within this virtual environment. To do so, navigate to your Projects directory (or wherever you want to create your arches applications) and create your virtual environment with the follwing command: 
+::
+    $ virtualenv ENV
+Now activate your virtual environment with the following command:
+
+On Linux (and other POSIX systems):
+::
+    $ source ENV/bin/activate
+On Windows:
+::
+    > \path\to\ENV\Scripts\activate
+
+2. Install the arches_hip module
+For this step your virtual environment must be activated. You will know that's the case if you see the name of your virutal environment in parentheses proceeding your command prompt like so ``(ENV)`` .
+::
+    (ENV)$ pip install arches_hip
+
+3. Create the Arches application scaffolding:
+In your Projects directory run the following command replacing 'my_hip_app' with the name of your arches application:
+:: 
+    (ENV)$ arches-app create my_hip_app --app arches_hip
+
+4. Configure your application settings
+Your application should now have a structure similar to the structure below. If that's the case, you can configure your application here :doc:`/customization` (recommended) or continue to the next installation step:
+::
+    /Projects
+      /ENV (virtual environment where arches gets installed)
+      /my_hip_app
+        manage.py
+        wsgi.py
+        README.txt
+        /my_hip_app
+            settings.py
+            setup.py
+            urls.py
+            /logs
+            /media
+            /models
+            /source_data
+            /templates
+            /tests
+            /views
+
+5. Install ElasticSearch
+Navigate to the directory containing manage.py 
+::
+  (ENV)$ python manage.py packages -o setup_elasticsearch
+
+6. Start ElasticSearch
+Open a new command terminal and run the following command
+::
+    $ /my_hip_app/my_hip_app/elasticsearch/elasticsearch-1.4.1/bin/elasticsearch
+You can minimize this terminal and let it run in the background
+
+7. Create your database
+Using your first terminal
+::
+    (ENV)$ python manage.py packages -o install
+
+.. note::
+
+    This step will drop and recreate a database with your with the following name: arches_my_hip_app as well as load any concept schemes or business data that you may have defined in your settings during customization.
+
+.. note::
+
+    If you get the following error *'django.db.utils.OperationalError: FATAL:  database "arches_my_hip_app" does not exist'* It is probably because Arches is unable to find your postgis database template to create your new application's database. By default, Arches will look for a template called 'template_postgis_20'. If this does not match the name of your postgis template database, open your new applications settings.py file and define the name of your postgis template:
+
+    DATABASES['default']['POSTGIS_TEMPLATE'] = 'the name of your postgis template' 
+
+8. Run arches
+Open a new terminal. **Be sure to activate your virtual environment for this terminal as well**.
+Navigate to your application's manage.py file and run:
+::
+    (ENV)$ python manage.py runserver
+Now you can open a browser window and see your application running at:
+::
+    http://localhost:8000/
+
+.. note::
+
+    We use the Django development server to make it easy for you to
+    confirm that Arches has installed properly. You WILL NEED to configure
+    Arches to use a production quality web server such as Apache if you want
+    to use Arches in production. See the chapter on Arches configuration for
+    guidance on how to complete this step.
+
+Next steps:
+
+Now that Arches is running, you will need to load your concept scheme and resource data.  
 
 Settings
 ========
