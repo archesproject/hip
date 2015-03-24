@@ -2,55 +2,13 @@
 Arches-HIP Documentation
 ========================
 
-**What is Arches-HIP?**
-
-Arches-HIP (Heritage Inventory Package) is a web application designed to make it easy to create and maintain an inventory of cultural heritage resources at a local, regional, or national scale.
-
-Arches-HIP supports several cultural heritage data types; these data types are called "Resources".  Resources allow you to create data records and describe important, culturally signficant objects, activities, events, and people.
-
-Arches-HIP supports the following resource types:
-
-* **Heritage Resources:** These are culturally significant objects such as buildings and archaeological sites.  However, Heritage Resources may any object that an organization regards as important.  Examples include air raid sirens, statues, canals, roads, gates, bridges, etc.
-
-* **Heritage Resource Groups** These are collections of heritage resources that are best regarded as a group.  In Europe, such resources are often referred to as ensembles.  In the United States, districts or landscapes may be inventoried as Heritage Resource Groups.
-
-* **Activity** In Arches-HIP, activities are resources that occur over a period of time.  Examples include surveys, investigations, excavations, literature review, and other actions.
-
-* **Historic Event** These are culturally significant occurrences.  Examples include the 1906 San Francisco Earthquake, Coronation of Napoleon, and the Normandy Beach landings in WWII.
-
-* **Actor** In Arches-HIP actor resources are persons, groups of people, or organizations.
-
-* **Information Objects**  These are objects that encode information such as an image (either digital or a traditional photograph), documents, signs, inscriptions, or 33 1/3 rpm records.
-
-A key design consideration for the Arches-HIP web application is to allow you to quickly create and easily manage cultural heritage data.  To achieve this goal, Arches-HIP allows you to create relationships between resource types to more precisely describe the significance of cultural heritage objects.  For example, in Arches-HIP you can:
-
-    Create an Actor Resource, such as "Frank Lloyd Wright"
-
-    Create a Heritage Resource, such as "Hollyhock House"
-
-    Link the resources in a way that describes their relationship: "Frank Lloyd Wright" "architected" "Hollyhock House" 
-
-Arches-HIP's ability to track relationships between resources is a key capability that can support a richer cultural heritage inventory and more intuitive discovery of heritage records.
-
-Arches-HIP uses the Reference Data Manager (RDM), a thesaurus management model included in the Arches web framework, to let you manage the terms that you will need to describe heritage resources and the relationships between resources (e.g.: "architected").
-
-**Who is Arches-HIP for?**
-
-Arches-HIP is primarily intended for organizations that are responsible for creating cultural heritage inventories as an essential step in the preservation and conservation of heritage.  
-
-**Version History**
-
-v1.0 April, 2015: Initial Release
-
-**License**
-
-Arches-HIP is free software and is licensed under the terms of the GNU Affero General Public License (http://www.gnu.org/licenses/agpl-3.0.html)
-
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   overview
    getting-started
+   loading-data
    using-arches-hip
    customization

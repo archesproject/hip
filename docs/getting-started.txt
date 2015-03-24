@@ -203,3 +203,5 @@ Running Arches-HIP
 Before you go live...
 =====================
 
+- Disallow access to port 9200 on prod machine
+- Set DEBUG = False on prod mahchine
