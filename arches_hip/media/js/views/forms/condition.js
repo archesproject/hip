@@ -1,19 +1,18 @@
-define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch-list'], function ($, _, BaseForm, BranchList) {
+define(['jquery', 
+    'underscore', 
+    'views/forms/base', 
+    'views/forms/sections/branch-list',
+    'views/forms/sections/entity-graph',
+    'bootstrap-datetimepicker'], function ($, _, BaseForm, BranchList, EntityGraph) {
 
     return BaseForm.extend({
-
         initialize: function() {
-            var conditionTypeBranchList;
-            var self = this;
+            BaseForm.prototype.initialize.apply(this);
 
-            //Show and hide Upload Wizard.  
-            $("#start-upload").click(function(){ handleWizard(); return false; });
-            $("#save-upload").click(function(){
-                handleWizard();
-                saveWizard(); 
-                return false; 
+            var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});
+            date_picker.on('dp.change', function(evt){
+                $(this).find('input').trigger('change'); 
             });
-            $("#cancel-upload").click(function(){ handleWizard(); return false; });
 
             function handleWizard() {    
                 $( ["#related-files-list", "#upload-wizard"].join(",") ).toggle(300);
@@ -26,21 +25,37 @@ define(['jquery', 'underscore', 'views/forms/base', 'views/forms/sections/branch
                 $( ["#no-evaluations", "#no-files"].join(",")  ).css("display", "none");
             }
 
-            BaseForm.prototype.initialize.apply(this);
+            //Show and hide Upload Wizard.  
+            $("#start-upload").click(function(){ handleWizard(); return false; });
+            $("#save-upload").click(function(){
+                handleWizard();
+                saveWizard(); 
+                return false; 
+            });
+            $("#cancel-upload").click(function(){ handleWizard(); return false; });
 
-            conditionTypeBranchList = new BranchList({
+            conditionBranch = this.addBranchList(new EntityGraph({
                 el: this.$el.find('#condition-section')[0],
-                viewModel: this.viewModel,
-                key: 'CONDITION_TYPE_E55',
+                data: this.data['CONDITION_ASSESSMENT.E41'],
+                dataKey: 'CONDITION_ASSESSMENT.E41',
                 validateBranch: function (data) {
                     var valid = true;
-                    if (data.CONDITION_TYPE_E55__label === '') {
-                        valid = false;
-                    }
                     return valid;
                 }
-            });
-            this.branchLists.push(conditionTypeBranchList);
+            }));
+
+            // var x = conditionBranch.createSubBranch(BranchList, {
+            //     el: this.$el.find('#threat-section')[0],
+            //     dataKey: 'THREAT.E55',
+            //     validateBranch: function (data) {
+            //         var valid = true;
+            //         return valid;
+            //     }
+            // })
+
+            //this.addBranchList();
+
+
         }
     });
 });
