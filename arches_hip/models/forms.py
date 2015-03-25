@@ -239,3 +239,21 @@ class ClassificationForm(ResourceForm):
         }
         return
 
+
+class LocationForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'location',
+            'icon': 'fa-map-marker',
+            'name': _('Location'),
+            'class': LocationForm
+        }
+
+    def update(self, data):
+        
+        return
+
+    def load(self):
+        
+        return
