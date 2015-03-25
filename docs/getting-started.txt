@@ -81,13 +81,13 @@ Installation
 
 For the installation process you will need **pip** installed on your system. If you don't already have it, you can find instructions to install it here: https://pip.pypa.io/en/latest/installing.html
 
-Generally arches applications (in the case below 'my_hip_app') are installed in a project directory (in the case below 'Projects'). A virtual environment ('ENV') is created at the same directory as your arches application, so if you have multiple arches applications, they can share the same virtual environment.:
+Generally Arches applications (in the case below 'my_hip_app') are installed in a project directory (in the case below 'Projects'). A virtual environment ('ENV') is created at the same directory as your arches application, so if you have multiple arches applications, they can share the same virtual environment.:
 ::
     /Projects
       /ENV (virtual environment where arches gets installed)
       /my_hip_app
 
-With your Arches dependencies installed, you are now ready to install Arches. 
+With your Arches dependencies installed, you are now ready to install HIP. 
 
 1.  Install virtualenv and create your Python virtual environment:
 ::
@@ -114,7 +114,7 @@ For this step your virtual environment must be activated. You will know that's t
 ::
     (ENV)$ pip install arches_hip
 
-3. Create the Arches application scaffolding:
+3. Create the HIP application scaffolding:
 
 In your Projects directory run the following command replacing 'my_hip_app' with the name of your arches application:
 :: 
@@ -130,7 +130,7 @@ Navigate to the directory containing manage.py
 Your project directory should now look something like this:
 ::
     /Projects
-      /ENV (virtual environment where arches gets installed)
+      /ENV (virtual environment where arches_hip gets installed)
       /my_hip_app
         manage.py
         wsgi.py
@@ -188,7 +188,7 @@ All of these coordinates are expressed in the web standard Spherical Mercator pr
 
 **Basemap and Geocoding Settings**
 
-By default, Arches-HIP will use Bing services for basemaps and geocoding; if you want to use these, you will need to get a Bing Maps Key (https://msdn.microsoft.com/en-us/library/ff428642.aspx) and add it to your ``settings.py`` file like so (by default at line 21)::
+By default, Arches-HIP will use Bing services for basemaps and geocoding; if you want to use these, you will need to get a Bing Maps Key (https://msdn.microsoft.com/en-us/library/ff428642.aspx) and add it to your ``settings.py`` file like so::
     
     BING_KEY = 'my-bing-key'
 
@@ -210,7 +210,7 @@ You can minimize this terminal and let it run in the background
 
 .. note::
 
-    This step will drop and recreate a database with your with the following name: arches_my_hip_app as well as load any concept schemes or business data that you may have defined in your settings during customization.
+    This step will drop and recreate a database with your with the following name: arches_my_hip_app as well as load any concept schemes or business data that you may have defined in your settings.
 
 .. note::
 
