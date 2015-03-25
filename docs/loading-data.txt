@@ -2,6 +2,59 @@
 Loading Data
 ############
 
+Loading Data
+============
+
+For this section you will need authority files and/or business data to load. There are currently a few options for for how to obtain this data:
+
+1. Download the sample HIP data from `here <http://www.google.com>`_.
+2. Modify the existing Arches-HIP authority files and create your own business data. Instructions `below <loading-data.html#modifying-hip-authority-files>`_.
+3. Create your own authority files and business data using instructions outlined in the Arches documentation `here <http://arches3.readthedocs.org/en/latest/arches-data/#loading-authority-files>`_.
+
+Loading Authority Files
+-----------------------
+
+To load authority documents, navigate to /my_hip_app and run the following command::
+	
+	$ python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
+
+During load the authority files go through a set of validations. If there are errors in your authority documents load will fail and you will have to correct the errors before you try to load the authority files again.
+
+
+.. note:: A detailed log of any errors detected in the authority files can be found here: /my_hip_app/logs/authority_file_errors.txt
+
+
+Loading Business Data
+---------------------
+
+To load business data, navigate to /my_hip_app and run the following command::
+	
+	$ python manage.py packages -o load_resources -s ‘path to file’
+
+Note: This command works for both .arches and .shp files.
+
+In addition to the validation that is performed on every .arches file from Arches, there is some specific HIP validation that a .arches file must pass as well.
+	
+	check_duplicates_in_group
+	# Checks if there are multiple instances of any one of the entity_types listed within the same group. 
+	# Each entity type listed should occur zero or one time in a group.
+
+	check_paired_attributes
+
+Bulk Removing Business Data
+---------------------------
+
+If you managed to load data that you did not intend to load, or if for some reason you changed your mind about loading your data, don’t worry. You can easily unload a batch of data from Arches.
+
+To do this you will need the Load ID that was created when you loaded your data. Arches writes the Load ID to the terminal you used to start the import, and the Load ID is also located in the notes column of your data.edit_log table.
+
+The Load ID will look something like this: “LOADID:2014-12-2-7-17-23884” (e.g.: the timestamp by year-month-day-hour-minute-microsecond) of the start of your resource load, so that may help you find the correct Load ID if you are unsure.
+
+Once you have the correct Load ID, you can delete all of the resources created during a load with the following command::
+
+	$ python manage.py packages -o remove_resources –load_id YOUR_LOADID
+
+
 In order to use HIP three types of data must be loaded to the database: resource graphs, authority documents and business data. Below we outline what data comes included with HIP, simple instructions on how this data can be modified and how to create your own business data.
 
 Resource Graphs
@@ -542,9 +595,9 @@ Modifying HIP Authority Files
 In some instances you may wish to modify the existing HIP authority files. The following steps outline how to modify these authority documents. These steps can be followed using excel as your text editor but the final file must be saved as a utf-8 formatted csv file.
 
 	
-1.) If you have not already, download the sample HIP authority files (link to HIP installation here) and place them in a known location (we reccomend /myarchesapp/source_data/authority_files) 
+1.) If you have not already, download the sample HIP authority files (link to HIP sample files here) and place them in a known location (we reccomend /my_hip_app/source_data/authority_files) 
 
-2.) Navigate to your authority files directory. And open the file you wish to modify.
+2.) Navigate to your authority files directory. Open the file you wish to modify.
 
 3.) If you would like to edit an existing concept simply change the PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider for that concept as necessary. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
@@ -552,18 +605,6 @@ In some instances you may wish to modify the existing HIP authority files. The f
 
 5.) Make sure to review the guidlines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
 
-
-Loading Authority Files
------------------------
-
-To load authority documents, navigate to /myHIPapp and run the following command::
-	
-	$ python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
-
-During load the authority files go through a set of validations. If there are errors in your authority documents load will fail and you will have to correct the errors before you try to load the authority files again.
-
-
-.. note:: A detailed log of any errors detected in the authority files can be found here: /myHIPapp/logs/authority_file_errors.txt
 
 Business Data
 =============
@@ -581,9 +622,86 @@ Creating a .arches file
 
 For general directions on how to create a .arches file you'll want to refer to the 'Loading Business Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_. This section will review rules specific to creating a .arches file based on HIP graphs.
 
-...
+1. In this example we'll begin by creating a text file called example.arches and adding the following text to the first line.::
+
+	//example.arches
+
+	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+
+2.) On the second line enter your unique resourceid followed by a '|'.::
+
+	//example.arches
+
+	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+	unique_resource_id|
 
 
+3.) Now add a valid Arches-HIP resource type followed by a '|'. 
+
+.. note:: Valid Arches-HIP resource types include: 
+
+	- Activity.E7
+	- Actor.E39
+	- Heritage Resource.E18
+	- Heritage Resource Group.E27
+	- Historical Event.E5
+	- Information Resource.E73
+
+
+RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+10437|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1936-05-01|BEGINNING_OF_EXISTENCE.E63-0
+
+
+ ::
+
+	//example.arches
+
+	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+	unique_resource_id|ACTIVITY.E7|
+
+4.) Remember, ATTRIBUTENAME in the .arches file relates directly to entity type from a resource graph. In fact the only valid values for ATTRIBUTENAME in the .arches file are entity types from the resource graph indicated in RESOURCETYPE column. Look `here <loading-data.html#resource-graphs>`_ for a list of entity types for each Arches-HIP resource. Add the entity type name from the graph to the ATTRIBUTENAME column in your csv followed by a '|'.::
+
+	//example.arches
+
+	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+	unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|
+
+5.) Next in the ATTRIBUTENAME 'column' input your specific information for that attribute ensuring that it is in the correct format for that data type (i.e. is formatted correctly for the attributes business table) followed by a '|'.::
+
+	//example.arches
+
+	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+	unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|
+
+6.) Finally, if the data item is to be grouped with another piece of data make sure to add a groupid that matches the other data item. If the data item is not intended to be grouped simply enter a generic groupid.::
+
+	//example.arches
+
+	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+	unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|BEGINNING_OF_EXISTENCE.E63-0
+	unique_resource_id|ACTIVITY.E7|BEGINNING_OF_EXISTENCE_TYPE.E55|BEGIN_EXIST:1|BEGINNING_OF_EXISTENCE.E63-0
+
+Here the START_DATE_OF_EXISTENCE.E49 attribute is grouped together with a BEGINNING_OF_EXISTENCE_TYPE.E55 attribute.
+
+.. note:: A Few Things to Remember:
+
+	1. All attributes of a resource must be on adjacent lines in your .arches file.
+	2. Some attributes must be paired with another attribute to have meaning. For instance, a BEGINNING_OF_EXISTENCE_TYPE.E55 attribute would have no meaing if not paired with a START_DATE_OF_EXISTENCE.E49 attribute.
+
+.. note:: Here is a list of attributes that must be paired in Arches-HIP:
+	- 'BEGINNING_OF_EXISTENCE_TYPE.E55', 'START_DATE_OF_EXISTENCE.E49'
+	
+	- 'END_OF_EXISTENCE_TYPE.E55', 'END_DATE_OF_EXISTENCE.E49'
+	
+	- 'NAME.E41', 'NAME_TYPE.E55'
+	
+	- 'DESCRIPTION.E62', 'DESCRIPTION_TYPE.E55'
+	
+	- 'RIGHT.E30', 'RIGHT_TYPE.E55'
+	
+	- 'TITLE.E41', 'TITLE_TYPE.E55'
+	
+	- 'ACTOR_APPELLATION.E82', 'NAME_TYPE.E55'
 
 
 
@@ -635,34 +753,3 @@ There are just a couple of details to keep in mind when creating your shapefile.
 Remember that the projection of your data must be EPSG:4326 (WGS84 Lat/Lon).
 The data type of your shapefile columns need to match the datatype of the nodes (entitytypes) to which they are mapped. For example, if you want to load a “name” column in your shapefile to “NAME.E41” (which the HIP defines as a “string” data type), you must ensure that your shapefile treats “name” as a string.
 If you want to load a field in your shapefile to an Arches controlled vocabulary, you’ll need to make sure that the values in the shapefile match a preferred label in Arches’ Reference Data Manager (RDM). For example, if you want to load values from your shapefile into the “HERITAGE_RESOURCE_TYPE.E55″ node, the values in your shapefile column must match a preferred label in the RDM scheme (by default Arches uses the “HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv” scheme)
-
-
-Loading Business Data
----------------------
-
-To load business data, navigate to /myHIPapp and run the following command::
-	
-	$ python manage.py packages -o load_resources -s ‘path to file’
-
-Note: This command works for both .arches and .shp files.
-
-In addition to the validation that is performed on every .arches file from Arches, there is some specific HIP validation that a .arches file must pass as well.
-	
-	check_duplicates_in_group
-	# Checks if there are multiple instances of any one of the entity_types listed within the same group. 
-	# Each entity type listed should occur zero or one time in a group.
-
-	check_paired_attributes
-
-Bulk Removing Business Data
----------------------------
-
-If you managed to load data that you did not intend to load, or if for some reason you changed your mind about loading your data, don’t worry. You can easily unload a batch of data from Arches.
-
-To do this you will need the Load ID that was created when you loaded your data. Arches writes the Load ID to the terminal you used to start the import, and the Load ID is also located in the notes column of your data.edit_log table.
-
-The Load ID will look something like this: “LOADID:2014-12-2-7-17-23884” (e.g.: the timestamp by year-month-day-hour-minute-microsecond) of the start of your resource load, so that may help you find the correct Load ID if you are unsure.
-
-Once you have the correct Load ID, you can delete all of the resources created during a load with the following command::
-
-	$ python manage.py packages -o remove_resources –load_id YOUR_LOADID
