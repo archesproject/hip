@@ -149,18 +149,69 @@ class ConditionForm(ResourceForm):
         }
 
     def update(self, data):
-        self.update_nodes('CONDITION_TYPE.E55', data)
+        self.update_nodes('CONDITION_ASSESSMENT.E41', data)
 
     def load(self):
-        self.data['domains']['CONDITION_TYPE_E55'] = Concept().get_e55_domain('CONDITION_TYPE.E55')
-        default_description_type = self.data['domains']['CONDITION_TYPE_E55'][0]
-        self.data['defaults']['CONDITION_TYPE_E55'] = {
-            'CONDITION_TYPE_E55__entityid': '',
-            'CONDITION_TYPE_E55__value': '',
-            'CONDITION_TYPE_E55__label': ''
+        ret = {
+            'CONDITION_ASSESSMENT.E41': {
+
+            }
         }
-        if self.resource:
-            self.data['CONDITION_TYPE_E55'] = self.get_nodes('CONDITION_TYPE.E55')
+
+        ret = []
+        entities = self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E41')
+        for entity in entities:
+            ret.append({'nodes': entity.flatten()})
+
+        data = [{
+            "child_entities": [
+                {
+                    "child_entities": [
+                        {
+                            "child_entities": [], 
+                            "label": "HP06. 1-3 story commercial building", 
+                            "value": "073c60d5-cf42-43a7-9fa6-0626ef773102", 
+                            "entitytypeid": "THREAT_TYPE.E55", 
+                            "entityid": "de1025e2-df55-44a9-b9cf-1c6d31c0edd2", 
+                            "property": "P42", 
+                            "businesstablename": "domains"
+                        }, 
+                        {
+                            "child_entities": [], 
+                            "label": "Historic", 
+                            "value": "5f465ea9-9cc7-4932-90b3-9c63672f1aff", 
+                            "entitytypeid": "DISTURBANCE_TYPE.E55", 
+                            "entityid": "de30db8a-2bdb-461b-8680-cf80efc9a506", 
+                            "property": "P42", 
+                            "businesstablename": "domains"
+                        }
+                    ], 
+                    "label": "", 
+                    "value": "", 
+                    "entitytypeid": "CONDITION_STATE.E3", 
+                    "entityid": "4695dd87-be5d-45ff-9652-7f9116053768", 
+                    "property": "-P41", 
+                    "businesstablename": ""
+                }
+            ], 
+            "label": "", 
+            "value": "", 
+            "entitytypeid": "CONDITION_ASSESSMENT.E41", 
+            "entityid": "602e0153-cfd7-44c4-a163-f955edd99144", 
+            "property": "-P108", 
+            "businesstablename": ""
+        }]
+
+
+        self.data['CONDITION_ASSESSMENT.E41'] = {
+            'child_entities': data, #self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E41'),
+            'domains': {
+                'DISTURBANCE_TYPE.E55': Concept().get_e55_domain('DISTURBANCE_TYPE.E55'),
+                'CONDITION_TYPE.E55' : Concept().get_e55_domain('CONDITION_TYPE.E55'),
+                'THREAT_TYPE.E55' : Concept().get_e55_domain('THREAT_TYPE.E55'),
+                'RECOMMENDATION_TYPE.E55' : Concept().get_e55_domain('RECOMMENDATION_TYPE.E55')
+            }
+        }
 
 class ClassificationForm(ResourceForm):
     @staticmethod
