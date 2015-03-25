@@ -440,31 +440,99 @@ Included Authority Files
 
 HIP comes with the following authority files included.
 
-+----------------------------------------------------+-----------------------+-------------------------+
-|   Authority File                                   |     Description       |   Entity Type Node      |
-+====================================================+=======================+=========================+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
-|                                                    |                       |                         |
-+----------------------------------------------------+-----------------------+-------------------------+
++----------------------------------------------------+-----------------------+---------------------------------------+
+|   Authority File                                   |     Description       |   Entity Type Node                    |
++====================================================+=======================+=======================================+
+|                                                    |                       | ACTIVITY_TYPE.E55                     |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | ACTOR_TYPE.E55                        |
++----------------------------------------------------+-----------------------+---------------------------------------+ 
+|                                                    |                       | ADDRESS_TYPE.E55                      |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | ADMINISTRATIVE_SUBDIVISION_TYPE.E55   |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | ANCILLARY_FEATURE_TYPE.E55            |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | ANCILLARY_FEATURE.E55                 |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | BEGINNING_OF_EXISTENCE_TYPE.E55       |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | COMPONENT_TYPE.E55                    |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | CONDITION_TYPE.E55                    |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | CONSTRUCTION_TECHNIQUE.E55            |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | CULTURAL_PERIOD.E55                   |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | DESCRIPTION_TYPE.E55                  |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | DISTURBANCE_TYPE.E55                  |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | ELIGIBILITY_REQUIREMENT_TYPE.E55      |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | END_OF_EXISTENCE_TYPE.E55             |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | EVALUATION_CRITERIA_TYPE.E55          |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | EXTERNAL_XREF_TYPE.E55                |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | GEOMETRY_QUALIFIER.E55                |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | HERITAGE_RESOURCE_GROUP_TYPE.E55      |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | HERITAGE_RESOURCE_GROUP_USE_TYPE.E55  |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | HERITAGE_RESOURCE_TYPE.E55            |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | HERITAGE_RESOURCE_USE_TYPE.E55        |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | HISTORICAL_EVENT_TYPE.E55             |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | IDENTIFIER_TYPE.E55                   |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | INFORMATION_CARRIER_FORMAT_TYPE.E55   |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | INFORMATION_RESOURCE_TYPE.E55         |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | INTEGRITY_TYPE.E55                    |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | KEYWORD.E55                           |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | LANGUAGE.E55                          |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | MATERIAL.E57                          |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | MEASUREMENT_TYPE.E55                  |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | MODIFICATION_TYPE.E55                 |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | NAME_TYPE.E55                         |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | RECOMMENDATION_TYPE.E55               |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | RESOURCE_TYPE_CLASSIFICATION.E55      |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | RIGHT_TYPE.E55                        |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | SETTING_TYPE.E55                      |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | STATUS.E55                            |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | STYLE.E55                             |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | THREAT_TYPE.E55                       |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | TITLE_TYPE.E55                        |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | TYPE_OF_DESIGNATION_OR_PROTECTION.E55 |
++----------------------------------------------------+-----------------------+---------------------------------------+
+|                                                    |                       | UNIT_OF_MEASUREMENT.E55               |
++----------------------------------------------------+-----------------------+---------------------------------------+
+
+
+
+
 
 If you chose the default install option, these authority files were automatically loaded to your concept scheme and can be edited using the RDM (more on that in 'Using Arches HIP').
 
@@ -478,11 +546,11 @@ In some instances you may wish to modify the existing HIP authority files. The f
 
 2.) Navigate to your authority files directory. And open the file you wish to modify.
 
-3.) If you would like to edit an existing concept simply change the PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider for that concept. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
+3.) If you would like to edit an existing concept simply change the PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider for that concept as necessary. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
-4.) If you would like to add a concept, create a unique conceptid for the concept (remember this id must be unique both interal to the authority file and between authority files) and then add your desired PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider.
+4.) If you would like to add a concept, create a unique conceptid for the concept (remember this id must be unique both interal to the authority file and between authority files) and then add your desired PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider.
 
-5.) Make sure to review the guidlines of creating a concept in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
+5.) Make sure to review the guidlines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
 
 
 Loading Authority Files
@@ -490,7 +558,7 @@ Loading Authority Files
 
 To load authority documents, navigate to /myHIPapp and run the following command::
 	
-	python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
+	$ python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
 
 During load the authority files go through a set of validations. If there are errors in your authority documents load will fail and you will have to correct the errors before you try to load the authority files again.
 
@@ -503,10 +571,6 @@ Business Data
 This section outlines how to create and load business data into Arches-HIP. Arches-HIP allows you to load data from a .arches file or a .shp file. If you would like to load arches without business data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own business data skip to 'Loading Business Data.' And if you would like to create and load your own Arches-HIP business data this whole section is for you.
 
 
-.. Note::  .arches vs .shp: why use one file format over another?
-
-
-
 Creating Business Data
 ----------------------
 
@@ -514,6 +578,12 @@ In some ways you can think of the Arches-HIP business data as an intersection be
 
 Creating a .arches file
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+For general directions on how to create a .arches file you'll want to refer to the 'Loading Business Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_. This section will review rules specific to creating a .arches file based on HIP graphs.
+
+...
+
+
 
 
 
@@ -572,7 +642,7 @@ Loading Business Data
 
 To load business data, navigate to /myHIPapp and run the following command::
 	
-	python manage.py packages -o load_resources -s ‘path to file’
+	$ python manage.py packages -o load_resources -s ‘path to file’
 
 Note: This command works for both .arches and .shp files.
 
@@ -595,4 +665,4 @@ The Load ID will look something like this: “LOADID:2014-12-2-7-17-23884” (e.
 
 Once you have the correct Load ID, you can delete all of the resources created during a load with the following command::
 
-	python manage.py packages -o remove_resources –load_id YOUR_LOADID
+	$ python manage.py packages -o remove_resources –load_id YOUR_LOADID
