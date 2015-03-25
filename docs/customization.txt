@@ -6,7 +6,7 @@ There are lots of ways that you can customize your Arches-HIP application to bes
 
 Most of these will require comfort with modifying Python, HTML, CSS and/or Javascript files but are designed to be simple changes that can be easily applied without diving deep into the rest of the Arches or Arches-HIP code.
 
-.. note:: In a production environment (using Apache), you will generally need to run ``collectstatic`` and restart Apache to apply these changes.
+.. note:: In a production environment (using Apache), you will generally need to run ``collectstatic`` (https://docs.djangoproject.com/en/1.6/ref/contrib/staticfiles/#collectstatic) and restart Apache to apply these changes.
 
     No action should be required when using the development server (Django).
 
