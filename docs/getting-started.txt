@@ -12,7 +12,7 @@ What do I need to know to use this guide?
 -----------------------------------------
 
 Arches HIP is designed to let you manage many types of cultural heritage
-data. And while we've tried to make it easy to install Arches, you'll
+data. And while we've tried to make it easy to install HIP, you'll
 need to make some decisions on how you wish to describe and manage the
 information that goes into Arches HIP. But don't worry, we've also included
 lots of examples and well-thought-out defaults for setting up the
@@ -32,17 +32,7 @@ little help along the way, or check out the resources at
 System Requirements
 ===================
 
-There are a few things to know about Arches before we get started.
-
-Arches HIP has the following software dependencies:
-
-* PostgreSQL relational database (version 9.3)
-* PostGIS (version 2.x) spatial module for PostgreSQL
-* Python (version 2.7.6 - there seem to be issues with later versions of python) 
-* GEOS
-
-These instructions will walk you through the necessary steps to load all
-the required dependencies and get Arches up and running quickly.
+There are a few things to know about Arches HIP before we get started.
 
 Please note that HIP has been developed for modern browsers. It supports:
 
@@ -52,19 +42,12 @@ Please note that HIP has been developed for modern browsers. It supports:
 * Opera
 * Internet Explorer 10 or higher.
 
-Requirements
-~~~~~~~~~~~~
-
 -  At least 4GB of RAM for evaulation and testing, or 8 to 16GB for
    production.
 -  10GB minimum to install the codebase and test dataset, but diskspace
    requirements will vary greatly depending on the size of your dataset
 
-
-Installation
-============
-
-It's important to recognize that Arches is designed to manage large,
+It's important to recognize that Arches HIP is designed to manage large,
 enterprise-scale Cultural Heritage inventories. The software is
 sophisticated and is designed to be support extensive customization.
 This means that there are many ways to deploy Arches HIP.
@@ -74,9 +57,17 @@ and the in the more straight-forward manner possible. These
 installation instructions provide step-by-step guidelines for installing
 Arches HIP.
 
+Dependencies
+============
 
-Installing Arches Dependencies
--------------------------------
+* PostgreSQL relational database (version 9.3)
+* PostGIS (version 2.x) spatial module for PostgreSQL
+* Python (version 2.7.6 - there seem to be issues with later versions of python) 
+* GEOS
+
+These instructions will provide some guidance on installing 
+the required dependencies and getting HIP up and running quickly.
+
 
 .. toctree::
    :maxdepth: 2
@@ -85,15 +76,18 @@ Installing Arches Dependencies
    installing-dependencies-windows
 
 
-Installing Arches
------------------
-Generally arches applications (in the case below 'my_hip_app') are installed in a project directory (in the case below 'Projects'). A virtual environment ('ENV') is created at the same directory as your arches application, so if you have multiple arches applications, they can share the same virtual environment.:
+Installation
+============
+
+For the installation process you will need **pip** installed on your system. If you don't already have it, you can find instructions to install it here: https://pip.pypa.io/en/latest/installing.html
+
+Generally Arches applications (in the case below 'my_hip_app') are installed in a project directory (in the case below 'Projects'). A virtual environment ('ENV') is created at the same directory as your arches application, so if you have multiple arches applications, they can share the same virtual environment.:
 ::
     /Projects
       /ENV (virtual environment where arches gets installed)
-      /myhipapp
+      /my_hip_app
 
-With your Arches dependencies installed, you are now ready to install Arches. 
+With your Arches dependencies installed, you are now ready to install HIP. 
 
 1.  Install virtualenv and create your Python virtual environment:
 ::
@@ -115,20 +109,28 @@ On Windows:
     > \path\to\ENV\Scripts\activate
 
 2. Install the arches_hip module
+
 For this step your virtual environment must be activated. You will know that's the case if you see the name of your virutal environment in parentheses proceeding your command prompt like so ``(ENV)`` .
 ::
     (ENV)$ pip install arches_hip
 
-3. Create the Arches application scaffolding:
+3. Create the HIP application scaffolding:
+
 In your Projects directory run the following command replacing 'my_hip_app' with the name of your arches application:
 :: 
     (ENV)$ arches-app create my_hip_app --app arches_hip
 
-4. Configure your application settings
-Your application should now have a structure similar to the structure below. If that's the case, you can configure your application here :doc:`/customization` (recommended) or continue to the next installation step:
+4. Install ElasticSearch
+
+Navigate to the directory containing manage.py 
+::
+  (ENV)$ cd my_hip_app/
+  (ENV)$ python manage.py packages -o setup_elasticsearch
+
+Your project directory should now look something like this:
 ::
     /Projects
-      /ENV (virtual environment where arches gets installed)
+      /ENV (virtual environment where arches_hip gets installed)
       /my_hip_app
         manage.py
         wsgi.py
@@ -137,6 +139,7 @@ Your application should now have a structure similar to the structure below. If 
             settings.py
             setup.py
             urls.py
+            /elasticsearch
             /logs
             /media
             /models
@@ -145,25 +148,69 @@ Your application should now have a structure similar to the structure below. If 
             /tests
             /views
 
-5. Install ElasticSearch
-Navigate to the directory containing manage.py 
-::
-  (ENV)$ python manage.py packages -o setup_elasticsearch
 
-6. Start ElasticSearch
+Settings
+========
+
+Open the settings.py file in my_hip_app/my_hip_app
+
+There are a few changes that you may need to make in order for your application to install and run properly.
+
+**Database Settings**
+
+Be sure that the name of your postgis template in your settings matches your postgis template in postgres. If it doesn't, uncomment the line (remove the ``#`` at the start of each line) below and replace 'template_postgis_20' with the name of your template.
+::
+
+  #DATABASES['default']['POSTGIS_TEMPLATE'] = 'template_postgis_20' 
+The default password used in HIP is 'postgis'. You may have already set your Postgres password to something more secure. If so, uncomment the line below and replace 'postgis' with your Postgres connection password. 
+::
+
+  #DATABASES['default']['PASSWORD'] = 'postgis' 
+
+**Map Settings**
+
+The map center, zoom and extent will likely need to be updated to reflect your study region::
+    
+    #DEFAULT_MAP_X = 0
+    #DEFAULT_MAP_Y = 0
+    #DEFAULT_MAP_ZOOM = 0
+    #MAP_MIN_ZOOM = 0
+    #MAP_MAX_ZOOM = 19
+    #MAP_EXTENT = '-13228037.69691764,3981296.0184014924,-13123624.71628009,4080358.407059081'
+
+To use these settings, you will need to 'uncomment' them, and then change their values to meet your needs.
+
+``DEFAULT_MAP_X`` and ``DEFAULT_MAP_Y`` are the x and y (respectively) coordinate values which all maps will be centered on by default.  ``MAP_EXTENT`` is a string 'bounding box' [min x, min y, max x, max y] representing the extent to which all maps will be constrained.  
+
+All of these coordinates are expressed in the web standard Spherical Mercator projection (http://spatialreference.org/ref/sr-org/6864/).  A simple converter tool to go between Lat/Long and Spherical Mercator coordinates can be found here: http://mal2.ch/stuff/latlontomercator.html
+
+``DEFAULT_MAP_ZOOM`` is the default zoom level that all maps will start on.  ``MAP_MIN_ZOOM`` and ``MAP_MAX_ZOOM`` are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
+
+**Basemap and Geocoding Settings**
+
+By default, Arches-HIP will use Bing services for basemaps and geocoding; if you want to use these, you will need to get a Bing Maps Key (https://msdn.microsoft.com/en-us/library/ff428642.aspx) and add it to your ``settings.py`` file like so::
+    
+    BING_KEY = 'my-bing-key'
+
+
+Running Arches-HIP
+==================
+
+1. Start ElasticSearch
+
 Open a new command terminal and run the following command
 ::
     $ /my_hip_app/my_hip_app/elasticsearch/elasticsearch-1.4.1/bin/elasticsearch
 You can minimize this terminal and let it run in the background
 
-7. Create your database
-Using your first terminal
+2. Create your database
+**Using your previous terminal**
 ::
     (ENV)$ python manage.py packages -o install
 
 .. note::
 
-    This step will drop and recreate a database with your with the following name: arches_my_hip_app as well as load any concept schemes or business data that you may have defined in your settings during customization.
+    This step will drop and recreate a database with your with the following name: arches_my_hip_app as well as load any concept schemes or business data that you may have defined in your settings.
 
 .. note::
 
@@ -171,7 +218,7 @@ Using your first terminal
 
     DATABASES['default']['POSTGIS_TEMPLATE'] = 'the name of your postgis template' 
 
-8. Run arches
+3. Run arches
 Open a new terminal. **Be sure to activate your virtual environment for this terminal as well**.
 Navigate to your application's manage.py file and run:
 ::
@@ -180,6 +227,18 @@ Now you can open a browser window and see your application running at:
 ::
     http://localhost:8000/
 
+
+Next steps:
+
+Now that Arches is running, you will need to load your concept scheme and resource data. You can get started on that here: :doc:`/loading-data`
+
+
+Before you go live...
+=====================
+
+- Disallow access to port 9200 on prod machine
+- Set DEBUG = False on prod machine
+
 .. note::
 
     We use the Django development server to make it easy for you to
@@ -187,21 +246,3 @@ Now you can open a browser window and see your application running at:
     Arches to use a production quality web server such as Apache if you want
     to use Arches in production. See the chapter on Arches configuration for
     guidance on how to complete this step.
-
-Next steps:
-
-Now that Arches is running, you will need to load your concept scheme and resource data.  
-
-Settings
-========
-
-
-Running Arches-HIP
-==================
-
-
-Before you go live...
-=====================
-
-- Disallow access to port 9200 on prod machine
-- Set DEBUG = False on prod mahchine

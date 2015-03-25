@@ -4,51 +4,68 @@
 {% block form_content %}
 
 <!-- Spacer for small screens -->
+<div id="condition-section">
+    <!-- Related Information Objects Container -->
+    <div>
 
-        <!-- Related Information Objects Container -->
-        <div id="related-files-list">
+        <!-- Related Images Title -->
+        <div class="row margin-bottom-10">
+            <div class="col-xs-12">
 
-            <!-- Related Images Title -->
-            <div class="row margin-bottom-10">
-                <div class="col-xs-12">
-
-                    <!-- Images -->
-                    <div class="padding-left-10">
+                <!-- Images -->
+                <div class="padding-left-10">
+                    
+                    <dl style="margin-bottom: 0px;">
+                        <!-- Title -->
+                        <dt>
+                            <h5 id="arches-names-form" class="section-headline">Resource Condition</h5>
+                        </dt>
                         
-                        <dl style="margin-bottom: 0px;">
-                            <!-- Title -->
-                            <dt>
-                                <h5 id="arches-names-form" class="section-headline">Resource Condition</h5>
-                            </dt>
-                            
-                        </dl>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Default, Start with no related resources -->
+        <div class="row margin-top-minus-5 margin-bottom-10" id="no-files" style="">
+            <div class="col-xs-12">
+
+                <div class="margin-left-5">
+                    <dl class="margin-bottom-10"> 
+                        
+                        <dd class="margin-left-5">
+                            <div class="">
+                                <p class="arches-CRUD-child text-primary">The condition of this resource hasn't been assessed yet</p>
+                            </div>
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <!-- End Default -->
+
+        <div data-bind="with: getGraphs('CONDITION_ASSESSMENT.E41')">
+            <div data-bind="foreach: entities">
+                <span data-bind="text: entitytypeid"></span>
+            </div>
+            <div data-bind="with: getChildGraphs('CONDITION_STATE.E3')">
+                <div data-bind="foreach: entities">
+                    <span data-bind="text: entitytypeid"></span>
+                </div>
+                <div data-bind="with: getChildGraphs('THREAT_TYPE.E55')">
+                    <div data-bind="foreach: entities">
+                        <span data-bind="text: entitytypeid"></span>
                     </div>
                 </div>
             </div>
+        </div>
 
-
-            <!-- Default, Start with no related resources -->
-            <div class="row margin-top-minus-5 margin-bottom-10" id="no-files" style="">
-                <div class="col-xs-12">
-
-                    <div class="margin-left-5">
-                        <dl class="margin-bottom-10"> 
-                            
-                            <dd class="margin-left-5">
-                                <div class="">
-                                    <p class="arches-CRUD-child text-primary">The condition of this resource hasn't been assessed yet</p>
-                                </div>
-                            </dd>
-
-                        </dl>
-                    </div>
-                </div>
-            </div>
-            <!-- End Default -->
-
-
-            <!-- Condition Assessements-->
-            <div class="row margin-top-minus-5 margin-bottom-10" id="completed-evaluations" style="display: none;">
+        <!-- Condition Assessements-->
+        <div data-bind="foreach: entities">
+            <span data-bind="text: entitytypeid"></span>
+            <div  class="row margin-top-minus-5 margin-bottom-10" id="completed-evaluations" style="display: block;">
                 <div class="col-xs-12">
 
                     <div class="arches-crud-record margin-left-5">
@@ -102,12 +119,22 @@
 
                         <dl>   
                             <dt class="arches-evaluation-header">Threats</dt>
-                            <dd class="arches-evaluation-content">
-                                Looting
-                            </dd>
-                            <dd class="arches-evaluation-content">
-                                Vandalism
-                            </dd>
+                            <div data-bind="foreach: child_entities">
+                                <div data-bind="foreach: child_entities">
+                                    <span data-bind="text: entitytypeid"></span>
+                                    <div data-bind="if: entitytypeid() === 'THREAT_TYPE.E55'">
+                                        <dd data-bind="text: label" class="arches-evaluation-content">
+                                            
+                                        </dd>
+                                        <!-- <dd class="arches-evaluation-content">
+                                            Looting
+                                        </dd>
+                                        <dd class="arches-evaluation-content">
+                                            Vandalism
+                                        </dd> -->
+                                    </div>
+                                </div>
+                            </div>
                         </dl>
 
                         <dl>   
@@ -123,235 +150,257 @@
                     </div>
                 </div>
             </div>
-            <!-- End Completed Condition Assessements -->
-
         </div>
-        <!-- End Related Information Objects Container -->
+        <!-- End Completed Condition Assessements -->
+
+    </div>
+    <!-- End Related Information Objects Container -->
 
 
-        <!-- Upload Files Wizard Container --> 
-        <div id="upload-wizard" class="" style="display: none;">     
-            <div class="padding-10" id="crud">
-                <div>
-                    
-                    <!-- Arches form container -->
-                    <dl>
-                        <dd class="arches-RDM-labels">
-                            <div class="row">
-                                <div class="col-xs-12 padding-left-0">
+    <!-- Condition Assessement Wizard Container --> 
+    <div class="" style="display: block;">     
+        <div class="padding-10" id="crud" data-bindihgfjhgf="with: getEditedGraph('CONDITION_STATE.E3')">
+           <!--  <div data-bind="foreach: child_entities"><div data-bind="text: entitytypeid"></div></div> -->
+            <div>
                 
-                                    <!-- Start Wizard -->
-                                    <form class="margin-top-20" id="wizard-1" novalidate="novalidate">
-                                        <div id="bootstrap-wizard-1" class="col-sm-12">
-                                            <div class="form-bootstrapWizard">
-                                                <ul class="bootstrapWizard form-wizard">
-                                                    <li class="active" data-target="#step1" style="width: 25%">
-                                                        <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">Part 1: Summary</span> </a>
-                                                    </li>
-                                                    <li data-target="#step2" style="width: 25%">
-                                                        <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">Part 2: Images</span> </a>
-                                                    </li>
-                                                    <li data-target="#step3" style="width: 25%">
-                                                        <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">Part 3: Disturbances, Threats</span> </a>
-                                                    </li>
-                                                    <li data-target="#step4" style="width: 25%">
-                                                        <a href="#tab4" data-toggle="tab"> <span class="step">4</span> <span class="title">Part 4: Recommendations</span> </a>
-                                                    </li>
-                                                </ul>
-                                                <div class="clearfix"></div>
+                <!-- Arches form container -->
+                <dl>
+                    <dd class="arches-RDM-labels">
+                        <div class="row">
+                            <div class="col-xs-12 padding-left-0">
+            
+                                <!-- Start Wizard -->
+                                <form class="margin-top-20" id="wizard-1" novalidate="novalidate">
+                                    <div id="bootstrap-wizard-1" class="col-sm-12">
+                                        <div class="form-bootstrapWizard">
+                                            <ul class="bootstrapWizard form-wizard">
+                                                <li class="active" data-target="#step1" style="width: 25%">
+                                                    <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">Part 1: Summary</span> </a>
+                                                </li>
+                                                <li data-target="#step2" style="width: 25%">
+                                                    <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">Part 2: Images</span> </a>
+                                                </li>
+                                                <li data-target="#step3" style="width: 25%">
+                                                    <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">Part 3: Disturbances, Threats</span> </a>
+                                                </li>
+                                                <li data-target="#step4" style="width: 25%">
+                                                    <a href="#tab4" data-toggle="tab"> <span class="step">4</span> <span class="title">Part 4: Recommendations</span> </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        
+                                        <!-- Wizard Tabs -->
+                                        <div class="tab-content" style="margin-top: 20px;">
+
+                                            <!-- Tab 1: Summary -->
+                                            <div class="tab-pane active" id="tab1" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Part 1</strong> Assessment Summary</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    Start your condition assessment by describing the overall condition of the resource and the date you observed the resource.
+                                                </div>
+
+                                                <!-- Overall Condition, Date Observed -->
+                                                <div>
+                                                    <dl class="">   
+
+                                                        <dd class="">
+                                                            <div class="row">
+
+                                                                <!-- Condition and dates -->
+                                                                <div class="col-xs-12 col-sm-6">
+                                                                               
+                                                                    <div style="padding-right: 5px;padding-left: 0px;">
+                                                                        <!-- <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('CONDITION_TYPE.E55', 'value'), dataKey: 'CONDITION_TYPE.E55'}">
+                                                                        </input> -->
+                                                                    </div>
+
+                                                                    <!-- Spacer for xs screens -->
+                                                                <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
+
+                                                                </div>
+
+
+                                                                <!-- Date -->
+                                                                <div class="col-xs-12 col-sm-6">
+
+                                                                    <div class="input-group datetimepicker" style ="height: 36px; padding-top: 2px; float: left" >
+                                                                        <input type="text" placeholder="Date assessed" class="form-control datepicker" data-date-format="DD/MM/YY" >
+                                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+
+                                                                </div>    
+                                                            </div>
+                                                        </dd>
+
+                                                    </dl>
+
+                                                    <!-- Description -->
+                                                    <dl>   
+                                                        <dt>
+                                                            <h5 id="" class="section-headline" style="margin-top: 30px;">Description</h5>
+                                                        </dt>
+
+                                                        <!-- HTML Editor -->
+                                                        <dd class="">
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+
+                                                                    <form class="form-inline" role="form">
+                                                                        <div class="form-group" style="width: 100%;">
+                                                                            
+                                                                            <!-- Simple HTML Editor -->
+                                                                            <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                                                                <div class="summernote"></div>  
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </dd>
+                                                        <!-- End Form -->
+                                                    </dl> 
+                                                </div>  
+                                            </div>
+
+                                            
+                                            <!-- Tab 2: Upload Files -->
+                                            <div class="tab-pane" id="tab2" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Part 2</strong> Upload Images</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    You can (optionally) upload images that show the condition of the resource during your assessment. 
+                                                </div>
+                                                
+                                                <dl>   
+                                                    <div action="upload.php" class="dropzone" id="mydropzone"></div>
+                                                </dl>
+                                            </div>
+                                            <!-- End Tab 2: Upload Files -->
+
+
+                                            <!-- Tab 3: Threats/Disturbances -->
+                                            <div class="tab-pane" id="tab3" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Part 3</strong> Disturbances and Threats</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    Describe the threats and disturbances present during your condition assessment.
+                                                </div>
+
+                                                <!-- Form for screens > XS -->
+                                                <dl class="">   
+
+                                                    <dd class="">
+                                                        <div class="row">
+
+                                                            <!-- Disturbance -->
+                                                            <div class="col-xs-12">
+                                                                           
+                                                                <h5 class="margin-bottom-5">Disturbances (actual impacts)</h5>
+                                                                
+                                                                <div style="padding-right: 5px;padding-left: 0px;">
+                                                                   <!--  <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('DISTURBANCE_TYPE.E55', 'value'), dataKey: 'DISTURBANCE_TYPE.E55'}">
+                                                                    </input> -->
+                                                                </div>
+
+                                                                <!-- Spacer for xs screens -->
+                                                                <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
+
+                                                                {% include 'views/components/add-item-button.htm' %}
+
+                                                            </div>
+
+
+                                                            <!-- Threats -->
+                                                            <div id="threat-section" class="col-xs-12 margin-top-20">
+                                                                           
+                                                                <h5 class="margin-bottom-5">Threats (possible impacts)</h5>
+                                                                
+                                                                <div style="padding-right: 5px;padding-left: 0px;">
+                                                                    <!-- <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('THREAT_TYPE.E55', 'value'), dataKey: 'THREAT_TYPE.E55'}">
+                                                                    </input> -->
+                                                                </div>
+
+                                                                <!-- Spacer for xs screens -->
+                                                                <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
+
+                                                                {% include 'views/components/add-item-button.htm' %}
+
+                                                            </div>
+
+                                                        </div>
+                                                    </dd>
+                                                </dl> 
                                             </div>
                                             
-                                            <!-- Wizard Tabs -->
-                                            <div class="tab-content" style="margin-top: 20px;">
+                                            
+                                            <!-- Tab 4: Recommendations -->
+                                            <div class="tab-pane" id="tab4" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Part 4</strong> Management Recommendations</h3>
 
-                                                <!-- Tab 1: Summary -->
-                                                <div class="tab-pane active" id="tab1" style="min-height: 330px;">
-                                                    <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 1</strong> Assessment Summary</h3>
-
-                                                    <div class="alert alert-info fade in">
-                                                        <i class="fa-fw fa fa-info"></i>
-                                                        Start your condition assessment by describing the overall condition of the resource and the date you observed the resource.
-                                                    </div>
-
-                                                    <!-- Overall Condition, Date Observed -->
-                                                    <div id="condition-section">
-                                                        <dl class="">   
-
-                                                            <dd class="">
-                                                                <div class="row">
-
-                                                                    <!-- Condition and dates -->
-                                                                    <div class="col-xs-12 col-sm-6">
-                                                                                   
-                                                                        <div style="width:40%; height: 36px; padding-top: 2px; display:inline-block; float: left" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-condition-type" data-bind="select2: { data: domains.CONDITION_TYPE_E55, placeholder: 'Type', viewModel: editing.CONDITION_TYPE_E55, conceptKey: 'CONDITION_TYPE_E55'}">    
-                                                                        </div>
-                                                                        <!-- Spacer for xs screens -->
-                                                                    <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
-
-                                                                    </div>
-
-
-                                                                    <!-- Date -->
-                                                                    <div class="col-xs-12 col-sm-6">
-
-                                                                        <div class="input-group datetimepicker" style ="width:40%; height: 36px; padding-top: 2px; padding-left: 6px; float: left" >
-                                                                            <input type="text" name="mydate" placeholder="Date assessed" class="form-control datepicker" data-date-format="DD/MM/YY" >
-                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                                        </div>
-
-                                                                    </div>    
-                                                                </div>
-                                                            </dd>
-
-                                                        </dl>
-
-                                                        <!-- Description -->
-                                                        <dl>   
-                                                            <dt>
-                                                                <h5 id="" class="section-headline" style="margin-top: 30px;">Description</h5>
-                                                            </dt>
-
-                                                            <!-- HTML Editor -->
-                                                            <dd class="">
-                                                                <div class="row">
-                                                                    <div class="col-xs-12">
-
-                                                                        <form class="form-inline" role="form">
-                                                                            <div class="form-group" style="width: 100%;">
-                                                                                
-                                                                                <!-- Simple HTML Editor -->
-                                                                                <div class="arches-html-editor margin-top-5" style="width: 100%;">
-                                                                                    <div class="summernote"></div>  
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </dd>
-                                                            <!-- End Form -->
-                                                        </dl> 
-                                                    </div>  
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    List the set of recommonded actions needed to protect and conserve this resource.
                                                 </div>
 
-                                                
-                                                <!-- Tab 2: Upload Files -->
-                                                <div class="tab-pane" id="tab2" style="min-height: 330px;">
-                                                    <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 2</strong> Upload Images</h3>
 
-                                                    <div class="alert alert-info fade in">
-                                                        <i class="fa-fw fa fa-info"></i>
-                                                        You can (optionally) upload images that show the condition of the resource during your assessment. 
-                                                    </div>
-                                                    
-                                                    <dl>   
-                                                        <div action="upload.php" class="dropzone" id="mydropzone"></div>
-                                                    </dl>
-                                                </div>
-                                                <!-- End Tab 2: Upload Files -->
+                                                <!-- Form for screens > XS -->
+                                                <dl class="">   
 
+                                                    <dd class="">
+                                                        <div class="row">
 
-                                                <!-- Tab 3: Threats/Disturbances -->
-                                                <div class="tab-pane" id="tab3" style="min-height: 330px;">
-                                                    <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 3</strong> Disturbances and Threats</h3>
-
-                                                    <div class="alert alert-info fade in">
-                                                        <i class="fa-fw fa fa-info"></i>
-                                                        Describe the threats and disturbances present during your condition assessment.
-                                                    </div>
-
-                                                    <!-- Form for screens > XS -->
-                                                    <dl class="">   
-
-                                                        <dd class="">
-                                                            <div class="row">
-
-                                                                <!-- Disturbance -->
+                                                            <div class="col-xs-12">
+                                                                
+                                                                <!-- Recommendations -->
                                                                 <div class="col-xs-12">
                                                                                
-                                                                    <h5 class="margin-bottom-5">Disturbances (actual impacts)</h5>
-                                                                    <input class="disturbances" id="" name="" style="width:100%;"  value="">
+                                                                    <h5 class="margin-bottom-5">Management Recommendations</h5>
+                                                                    <div style="padding-right: 5px;padding-left: 0px;">
+                                                                        <!-- <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('RECOMMENDATION_TYPE.E55', 'value'), dataKey: 'RECOMMENDATION_TYPE.E55'}">
+                                                                        </input> -->
+                                                                    </div>
 
-                                                                    <!-- Spacer for xs screens -->
-                                                                    <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
-
-                                                                </div>
-
-
-                                                                <!-- Threats -->
-                                                                <div class="col-xs-12 margin-top-20">
-                                                                               
-                                                                    <h5 class="margin-bottom-5">Threats (possible impacts)</h5>
-                                                                    <input class="threats" id="" name="" style="width:100%;"  value="">
-
-                                                                    <!-- Spacer for xs screens -->
-                                                                    <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
+                                                                    {% include 'views/components/add-item-button.htm' %}
 
                                                                 </div>
 
                                                             </div>
-                                                        </dd>
-                                                    </dl> 
-                                                </div>
-                                                
-                                                
-                                                <!-- Tab 4: Recommendations -->
-                                                <div class="tab-pane" id="tab4" style="min-height: 330px;">
-                                                    <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 4</strong> Management Recommendations</h3>
 
-                                                    <div class="alert alert-info fade in">
-                                                        <i class="fa-fw fa fa-info"></i>
-                                                        List the set of recommonded actions needed to protect and conserve this resource.
-                                                    </div>
+                                                        </div>
+                                                    </dd>
 
-
-                                                    <!-- Form for screens > XS -->
-                                                    <dl class="">   
-
-                                                        <dd class="">
-                                                            <div class="row">
-
-                                                                <div class="col-xs-12">
-                                                                    
-                                                                    <!-- Recommendations -->
-                                                                    <div class="col-xs-12">
-                                                                                   
-                                                                        <h5 class="margin-bottom-5">Management Recommendations</h5>
-                                                                        <input class="recommendations" id="" name="" style="width:100%;"  value="">
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-                                                        </dd>
-
-                                                    </dl>
-                                                </div>
-                                                <!-- End Tab 4 -->
-
+                                                </dl>
                                             </div>
-                                            <!-- End Wizard Tabs -->
+                                            <!-- End Tab 4 -->
 
                                         </div>
-                                    </form>
-                                    <!-- End Wizard -->
+                                        <!-- End Wizard Tabs -->
 
-                                </div>
+                                    </div>
+                                </form>
+                                <!-- End Wizard -->
+
                             </div>
+                        </div>
 
-                        </dd>
-                    </dl>
-                    <!-- End Arches form container -->
+                    </dd>
+                </dl>
+                <!-- End Arches form container -->
 
-                </div>
             </div>
         </div>
-        <!-- Upload Files Wizard Container --> 
-
+    </div>
+    <!-- End Condition Assessement Wizard Container --> 
+</div>
 
 {% endblock form_content %}
