@@ -272,9 +272,46 @@ class LocationForm(ResourceForm):
         }
 
     def update(self, data):
-        
+        self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)
         return
 
     def load(self):
+        self.data['SPATIAL_COORDINATES_GEOMETRY.E47'] = {
+            'branch_lists': self.get_nodes('SPATIAL_COORDINATES_GEOMETRY.E47'),
+            'domains': {
+                'GEOMETRY_QUALIFIER.E55': Concept().get_e55_domain('GEOMETRY_QUALIFIER.E55')
+            }
+        }
+
+        self.data['PLACE_ADDRESS.E45'] = {
+            'branch_lists': self.get_nodes('PLACE_ADDRESS.E45'),
+            'domains': {
+                'ADDRESS_TYPE.E55': Concept().get_e55_domain('ADDRESS_TYPE.E55')
+            }
+        }
         
+        self.data['DESCRIPTION_OF_LOCATION.E62'] = {
+            'branch_lists': self.get_nodes('DESCRIPTION_OF_LOCATION.E62'),
+            'domains': {}
+        }
+
+        self.data['SETTING_TYPE.E55'] = {
+            'branch_lists': self.get_nodes('SETTING_TYPE.E55'),
+            'domains': {
+                'SETTING_TYPE.E55': Concept().get_e55_domain('SETTING_TYPE.E55')
+            }
+        }
+
+        self.data['ADMINISTRATIVE_SUBDIVISION.E48'] = {
+            'branch_lists': self.get_nodes('ADMINISTRATIVE_SUBDIVISION.E48'),
+            'domains': {
+                'ADMINISTRATIVE_SUBDIVISION_TYPE.E55': Concept().get_e55_domain('ADMINISTRATIVE_SUBDIVISION_TYPE.E55')
+            }
+        }
+
+        self.data['PLACE_APPELLATION_CADASTRAL_REFERENCE.E44'] = {
+            'branch_lists': self.get_nodes('PLACE_APPELLATION_CADASTRAL_REFERENCE.E44'),
+            'domains': {}
+        }
+
         return

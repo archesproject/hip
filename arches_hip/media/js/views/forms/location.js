@@ -1,14 +1,72 @@
 define([
     'jquery',
     'underscore',
+    'knockout',
     'openlayers',
     'views/forms/base',
     'views/forms/sections/branch-list',
     'views/map',
-], function ($, _, ol, BaseForm, BranchList, MapView) {
+    'summernote'
+], function ($, _, ko, ol, BaseForm, BranchList, MapView) {
     return BaseForm.extend({
         initialize: function() {
             BaseForm.prototype.initialize.apply(this);
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('#geom-list-section')[0],
+                data: this.data,
+                dataKey: 'SPATIAL_COORDINATES_GEOMETRY.E47',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
+            }));
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('#address-section')[0],
+                data: this.data,
+                dataKey: 'PLACE_ADDRESS.E45',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
+            }));
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('#description-section')[0],
+                data: this.data,
+                dataKey: 'DESCRIPTION_OF_LOCATION.E62',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
+            }));
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('#setting-section')[0],
+                data: this.data,
+                dataKey: 'SETTING_TYPE.E55',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
+            }));
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('#admin-area-section')[0],
+                data: this.data,
+                dataKey: 'ADMINISTRATIVE_SUBDIVISION.E48',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
+            }));
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('#parcel-section')[0],
+                data: this.data,
+                dataKey: 'PLACE_APPELLATION_CADASTRAL_REFERENCE.E44',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
+            }));
+
+
 
             var featureOverlay = new ol.FeatureOverlay({
               style: new ol.style.Style({
@@ -36,6 +94,56 @@ define([
                 el: $('#map')
             });
 
+            ko.applyBindings(map, $('#basemaps-panel')[0]);
+            
+            $("#inventory-home").click(function (){ 
+                $("#overlay-panel").addClass("hidden");
+                $("#basemaps-panel").addClass("hidden");
+
+                $("#inventory-basemaps").removeClass("arches-map-tools-pressed");
+                $("#inventory-basemaps").addClass("arches-map-tools");
+
+                $("#inventory-overlays").removeClass("arches-map-tools-pressed");
+                $("#inventory-overlays").addClass("arches-map-tools");
+
+
+                $("#inventory-home").addClass("arches-map-tools-pressed");
+                $("#inventory-home").removeClass("arches-map-tools");
+                
+                return false;
+            });
+            $("#inventory-basemaps").click(function (){ 
+                $("#overlay-panel").addClass("hidden");
+                $("#basemaps-panel").removeClass("hidden");
+
+                $("#inventory-home").removeClass("arches-map-tools-pressed");
+                $("#inventory-home").addClass("arches-map-tools");
+
+                $("#inventory-overlays").removeClass("arches-map-tools-pressed");
+                $("#inventory-overlays").addClass("arches-map-tools");
+
+                $("#inventory-basemaps").addClass("arches-map-tools-pressed");
+                $("#inventory-basemaps").removeClass("arches-map-tools");
+                
+                return false;
+            });
+
+            $("#inventory-overlays").click(function (){ 
+                $("#overlay-panel").removeClass("hidden");
+                $("#basemaps-panel").addClass("hidden");
+
+                $("#inventory-home").removeClass("arches-map-tools-pressed");
+                $("#inventory-home").addClass("arches-map-tools");
+
+                $("#inventory-basemaps").removeClass("arches-map-tools-pressed");
+                $("#inventory-basemaps").addClass("arches-map-tools");
+
+                $("#inventory-overlays").addClass("arches-map-tools-pressed");
+                $("#inventory-overlays").removeClass("arches-map-tools");
+
+                return false;
+            });
+
             featureOverlay.setMap(map.map);
 
             var modify = new ol.interaction.Modify({
@@ -46,46 +154,6 @@ define([
               }
             });
             map.map.addInteraction(modify);
-
-            
-            var geometryType = 'Polygon';
-
-
-            var draw;
-            function addInteraction() {
-
-              draw = new ol.interaction.Draw({
-                features: featureOverlay.getFeatures(),
-                type: geometryType //(typeSelect.value)
-              });
-              map.map.addInteraction(draw);
-
-            }
-
-
-            //Set up geometry selection tools.  
-            $(".geometry").click(function (){ 
-                
-                geometryType = $(this).attr('id');
-                map.map.removeInteraction(draw);
-                addInteraction();
-
-                //close panel
-                $("#inventory-home").click();
-                //$("#overlay-panel").addClass("hidden");
-
-                //show geometry type selection
-                //$("#geometry-type").removeClass("hidden");
-
-
-                //keep page from re-loading
-                return false;
-
-            }); 
-            $(".geometry").select('click');
-
-
-            addInteraction();
         }
     });
 });
