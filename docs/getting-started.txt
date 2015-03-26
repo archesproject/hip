@@ -120,6 +120,11 @@ In your Projects directory run the following command replacing 'my_hip_app' with
 :: 
     (ENV)$ arches-app create my_hip_app --app arches_hip
 
+.. note::
+  Windows users may get an error like: **'arches-app' is not recognized as an internal or external command, operable program or batch file.** If that occurs, you may need to specify the path to the arches-app command. Be sure to ad 'python' to the beginning of the command to ensure that you use your virtual environment's Python. For example
+  ::
+    (ENV)> python path\to\ENV\Scripts\arches-app create my_hip_app --app arches_hip
+
 4. Install ElasticSearch
 
 Navigate to the directory containing manage.py 
