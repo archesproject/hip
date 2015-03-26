@@ -126,6 +126,12 @@ class ClassificationForm(ResourceForm):
                     'MODIFICATION_TYPE.E55': Concept().get_e55_domain('MODIFICATION_TYPE.E55'),
                 }
             }
+            self.data['ANCILLARY_FEATURE_TYPE.E55'] = {
+                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'domains': {
+                    'ANCILLARY_FEATURE_TYPE.E55' : Concept().get_e55_domain('ANCILLARY_FEATURE_TYPE.E55')
+                }
+            }
 
 
 class DescriptionForm(ResourceForm):

@@ -3,6 +3,20 @@
 
 {% block form_content %}
 <!-- Classification CRUD Form -->
+<style type="text/css" scoped>
+/*@media screen and (max-width: 600px) {
+    div
+    {
+      background-color: blue;
+    }
+}
+@media screen and (max-width: 300px) {
+    div
+    {
+      background-color: red;
+    }
+}*/
+</style>
 <div id="classification-section">
     <div class="row">
         <div class="col-xs-12">
@@ -56,21 +70,6 @@
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
-
-                                            <!-- <div class="form-group" style="width:25%;">
-                                                <div class="input-group">
-                                                    <input type="text" name="mydate" placeholder="From" class="form-control datepicker" data-dateformat="dd/mm/yy">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>&nbsp;
-
-                                            <div class="form-group" style="width:25%;">
-                                                <div class="input-group">
-                                                    <input type="text" name="mydate" placeholder="To" class="form-control datepicker" data-dateformat="dd/mm/yy">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div> -->
-                                            <!-- End Period, From/To Dates -->
 
                                         </div>
                                     </div>
@@ -160,7 +159,7 @@
     <!-- End Classification Records -->
 </div>
 
-<hr class="devider arches-RDM-divider">
+<hr class="divider arches-RDM-divider">
 
 
 <!-- Components CRUD Form -->
@@ -272,114 +271,109 @@
 
 <hr class="divider arches-RDM-divider">
 
+<div id="related-features-section">
+    <!-- Related Features CRUD Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">Related Features</h5>
+                    </dt>
 
-<!-- Related Features CRUD Form -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="padding-left-10">
-            
-            <dl>
-                <!-- Title -->
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">Related Features</h5>
-                </dt>
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
 
-                <!-- Form -->
-                <dd class="arches-RDM-labels">
+                        <div class="row">
 
-                    <div class="row">
+                            <div class="col-xs-12">
 
-                        <div class="col-xs-12">
-
-                            <!-- Form for screens > xs -->
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- Related Features -->     
-                                    <input class="related-features" id="" name="" style="width:75%"  value="">&nbsp;
-
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
+                                <!-- Form for screens > xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- Related Features -->     
+                                    <input style="width:75%;" class="select2 arches-select2-crud-form resource-type related-features" id="ancillary-type-dropdown" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), placeholder: '{% trans "Technique" %}', multiple: false, dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
+                                        <!-- Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %} 
+                                        <!-- End Add Button -->
                                     </div>
-                                    <!-- End Add Button -->
+                                </form>
+                                <!-- Form for screens > xs -->
 
-                                </div>
-                            </form>
-                            <!-- Form for screens > xs -->
+                                <!-- Form for screens = xs -->
+                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- Related Features -->     
+                                        <input class="related-features" id="" name="" style="width:100%"  value="">
 
-                            <!-- Form for screens = xs -->
-                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- Related Features -->     
-                                    <input class="related-features" id="" name="" style="width:100%"  value="">
+                                        <!-- Add Button -->
+                                        <div class="btn-group" style="margin-top: 5px;">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group" style="margin-top: 5px;">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
                                     </div>
-                                    <!-- End Add Button -->
+                                </form>
+                                <!-- Form for screens = xs -->
 
-                                </div>
-                            </form>
-                            <!-- Form for screens = xs -->
+                            </div>
 
                         </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
 
-                    </div>
-                </dd>
-                <!-- End Form -->
-            </dl>
-
+            </div>
         </div>
     </div>
-</div>
-<!-- End Related Features CRUD -->
+    <!-- End Related Features CRUD -->
 
-<!-- Related Features Records -->
-<div class="row">
-    <div class="col-xs-12">
+    <!-- Related Features Records -->
+    <div class="row">
+        <div class="col-xs-12">
 
-        <!-- Address -->
-        <div class="arches-crud-child-section">
-            <dl>
-                <dd class="arches-CRUD-child-title">
-                    This resource has these related features:
-                </dd>
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        This resource has these related features:
+                    </dd>
 
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="related1-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                        <a href="" id="related1" class="arches-CRUD-child manage-address" title="Edit this record">Outhouse
-                        </a>
-                    </div>
-                </dd>
 
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="related2-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                        <a href="" id="related2" class="arches-CRUD-child manage-address" title="Edit this record">Garage
-                        </a>
-                    </div>
-                </dd>
 
-            </dl>
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Modifications Defined" %}</div>   
+                        
+                        <div data-bind='foreach: getBranchLists()'>
+                            <dl class="margin-bottom-0"> 
+                            
+                    <dd class="margin-left-5">
+                        <div class="">
+                            <a href="#" title="Delete this record"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                            <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="{% trans "Edit this record" %}" data-bind='text: nodes.get("ANCILLARY_FEATURE_TYPE.E55", "label"), click: $parent.editItem.bind($parent)'></a>
+                        </div>
+                    </dd>
+                            </dl>
 
+                        </div>
+                    </dd>
+
+
+
+                </dl>
+
+            </div>
         </div>
     </div>
 </div>
