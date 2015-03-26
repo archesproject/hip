@@ -12,14 +12,21 @@ define([
         initialize: function() {
             BaseForm.prototype.initialize.apply(this);
 
-            this.addBranchList(new BranchList({
+            var map = new MapView({
+                el: $('#map')
+            });
+
+            var locationBranchList = new BranchList({
                 el: this.$el.find('#geom-list-section')[0],
                 data: this.data,
                 dataKey: 'SPATIAL_COORDINATES_GEOMETRY.E47',
                 validateBranch: function (nodes) {
                     return this.validateHasValues(nodes);
-                }
-            }));
+                },
+                baseLayers: map.baseLayers
+            });
+
+            this.addBranchList(locationBranchList);
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#address-section')[0],
@@ -66,8 +73,6 @@ define([
                 }
             }));
 
-
-
             var featureOverlay = new ol.FeatureOverlay({
               style: new ol.style.Style({
                 fill: new ol.style.Fill({
@@ -89,12 +94,6 @@ define([
                 })
               })
             });
-            
-            var map = new MapView({
-                el: $('#map')
-            });
-
-            ko.applyBindings(map, $('#basemaps-panel')[0]);
             
             $("#inventory-home").click(function (){ 
                 $("#overlay-panel").addClass("hidden");

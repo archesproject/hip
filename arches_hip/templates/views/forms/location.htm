@@ -2,186 +2,186 @@
 {% load i18n %}
 
 {% block form_content %}
-
-<!-- Map -->
-<div class="row margin-bottom-10">
-    <div class="col-xs-12">
-
-        <!-- Resource Mapped Locations -->
-        <div class="margin-bottom-10 padding-left-10">
-            <dl>
-
-                <!-- Title -->
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">{% trans 'Mapped Locations' %}</h5>
-                </dt>
-
-                <!-- Map -->
-                <div id="map" class="map arches-report-map margin-left-0 margin-top-10"></div>
-                
-                <!-- Geometry Type -->
-                <div id="geometry-type" class="geometry-type" style="margin-top: -490px; margin-bottom: 463px; padding-right: 10px;">
-
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-6">
-                            <div class="form-group">       
-                                <input class="geometry-selection" id="geometry-selection" name="" style="width:100%"  value="">
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!-- End Geometry Type -->
-                  
-            </dl>
-        </div>
-
-        <!-- Map Tools Panel -->
-        <div class="row">
-            <div class="col-xs-4 col-xs-offset-1" style="">
-
-                <div id="basemaps-panel" class="tools-panel hidden" style="margin-top: -490px; overflow-y: scroll; border-top-left-radius: 5px; border-top-right-radius: 5px; height: 435px;">
-                    <div class="modal-header arches-modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            ×
-                        </button>
-                        <h4 class="modal-title">
-                            {% trans 'Basemaps' %}
-                        </h4>
-                    </div>
-
-                    <!-- Body Content -->
-                    <div class="modal-body padding-top-0 padding-bottom-0" data-bind='foreach: baseLayers'>
-
-                        <div class="row">
-                            <hr class="arches-layer-divider" style="border-top: 0px; margin-top: 5px;" />
-
-                            <div class="arches-basemap-entry" style="margin-right: 7px;">
-                        
-                                <div class="" style="">
-                                    <a data-bind="attr: { id: id, title: name }" class="basemap info-click" data-rel="" href="javascript:void(0);">
-                                        <span class="">  
-                                            <img data-bind="attr: { src: icon }" class="arches-basemap-thumbnail" alt="" />
-                                            <span class="zoom-icon"></span>                   
-                                        </span>                                              
-                                    </a>                    
-                                    <span class="arches-basemap-caption-search">
-                                        <a data-bind="attr: { id: id }, text: name" class="caption-text-search hover-effect basemap info-click" href="javascript:void(0);"> </a>
-                                    </span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- End Body Content -->
-
-                </div>
-            </div>
-        </div>
-        <!-- End Map Tools Panel -->
-
-        <!-- Overlays Panel -->
-        <div class="row">
-            <div class="col-xs-4 col-xs-offset-1" style="">
-
-                <div id="overlay-panel" class="tools-panel hidden" style="margin-top: -490px; overflow-y: scroll; overflow-x: hidden; border-top-left-radius: 5px; border-top-right-radius: 5px; height: 435px;">
-                    <div class="modal-header arches-modal-header">
-
-                        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">
-                            ×
-                        </button>
-
-                        <h4 class="modal-title">
-                            Geometry Tools
-                        </h4>
-                    </div>
-        
-                    <!-- Body Content -->
-                    <div class="modal-body padding-top-10 padding-bottom-0" style="padding-left: 5px; padding-right: 5px;">
-                        
-                        <!-- List overlays -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                
-                                <dl>
-                                    
-                                    <dd class="">
-                                        <div class="arches-tool-item" id="">
-                                            
-                                            <a href="" id="Point" class="arches-tool-text geometry info-link" title=""><i class="fa fa-dot-circle-o"></i> Draw new point
-                                            </a>
-                                        </div>
-                                    </dd>
-
-                                    <dd class="">
-                                        <div class="arches-tool-item" id="">
-                                            
-                                            <a href="" id="LineString" class="arches-tool-text geometry info-link" title=""><i class="fa fa-minus"></i> Draw new line
-                                            </a>
-                                        </div>
-                                    </dd>
-
-                                    <dd class="">
-                                        <div class="arches-tool-item" id="">
-                                            
-                                            <a href="" id="Polygon" class="arches-tool-text geometry info-link" title=""><i class="fa fa-square-o"></i> Draw new polygon
-                                            </a>
-                                        </div>
-                                    </dd>
-
-                                    <dd class="">
-                                        <div class="arches-tool-item" id="">
-                                            
-                                            <a href="" id="" class="arches-tool-text" title=""><i class="fa fa-upload"></i> Import .gpx file
-                                            </a>
-                                        </div>
-                                    </dd>
-
-                                    <dd class="">
-                                        <div class="arches-tool-item" id="">
-                                            
-                                            <a href="" id="" class="arches-tool-text" title=""><i class="fa fa-code"></i> Import WKT (Well Known Text)
-                                            </a>
-                                        </div>
-                                    </dd>
-                                    
-                                </dl>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Body Content -->
-
-                </div>
-            </div>
-        </div>
-        <!-- End Overlays Panel -->
-
-        <!-- Map Tools -->
-        <div class="row">
-            <div class="col-xs-11 col-xs-offset-1" style="margin-top: -100px;">
-
-                <div class="btn-group" style="">
-
-                    <button id="inventory-home" type="button" class="btn btn-primary arches-map-tools-pressed hidden" style="width: 50px; border: 1px solid rgba(206,217,233,.95);"><i class="fa fa-caret-down"></i>
-                    </button>
-
-                    <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-globe"></i> Basemaps
-                    </button>
-
-                    <button id="inventory-overlays" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-plus"></i> Add Geometry
-                    </button>
-
-            </div>
-
-            </div>
-        </div>
-        <!-- End Map Tools -->
-
-    </div>
-</div>
 <div id="geom-list-section">
+    <!-- Map -->
+    <div class="row margin-bottom-10">
+        <div class="col-xs-12">
+
+            <!-- Resource Mapped Locations -->
+            <div class="margin-bottom-10 padding-left-10">
+                <dl>
+
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">{% trans 'Mapped Locations' %}</h5>
+                    </dt>
+
+                    <!-- Map -->
+                    <div id="map" class="map arches-report-map margin-left-0 margin-top-10"></div>
+                    
+                    <!-- Geometry Type -->
+                    <div id="geometry-type" class="geometry-type" style="margin-top: -490px; margin-bottom: 463px; padding-right: 10px;">
+
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-6">
+                                <div class="form-group">       
+                                    <input class="geometry-selection" id="geometry-selection" name="" style="width:100%"  value="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- End Geometry Type -->
+                      
+                </dl>
+            </div>
+
+            <!-- Map Tools Panel -->
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-1" style="">
+
+                    <div id="basemaps-panel" class="tools-panel hidden" style="margin-top: -490px; overflow-y: scroll; border-top-left-radius: 5px; border-top-right-radius: 5px; height: 435px;">
+                        <div class="modal-header arches-modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title">
+                                {% trans 'Basemaps' %}
+                            </h4>
+                        </div>
+
+                        <!-- Body Content -->
+                        <div class="modal-body padding-top-0 padding-bottom-0" data-bind='foreach: baseLayers'>
+
+                            <div class="row">
+                                <hr class="arches-layer-divider" style="border-top: 0px; margin-top: 5px;" />
+
+                                <div class="arches-basemap-entry" style="margin-right: 7px;">
+                            
+                                    <div class="" style="">
+                                        <a data-bind="attr: { id: id, title: name }" class="basemap info-click" data-rel="" href="javascript:void(0);">
+                                            <span class="">  
+                                                <img data-bind="attr: { src: icon }" class="arches-basemap-thumbnail" alt="" />
+                                                <span class="zoom-icon"></span>                   
+                                            </span>                                              
+                                        </a>                    
+                                        <span class="arches-basemap-caption-search">
+                                            <a data-bind="attr: { id: id }, text: name" class="caption-text-search hover-effect basemap info-click" href="javascript:void(0);"> </a>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Body Content -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Map Tools Panel -->
+
+            <!-- Overlays Panel -->
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-1" style="">
+
+                    <div id="overlay-panel" class="tools-panel hidden" style="margin-top: -490px; overflow-y: scroll; overflow-x: hidden; border-top-left-radius: 5px; border-top-right-radius: 5px; height: 435px;">
+                        <div class="modal-header arches-modal-header">
+
+                            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+
+                            <h4 class="modal-title">
+                                {% trans 'Geometry Tools' %}
+                            </h4>
+                        </div>
+            
+                        <!-- Body Content -->
+                        <div class="modal-body padding-top-10 padding-bottom-0" style="padding-left: 5px; padding-right: 5px;">
+                            
+                            <!-- List overlays -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    
+                                    <dl>
+                                        
+                                        <dd class="">
+                                            <div class="arches-tool-item">
+                                                
+                                                <a href="" id="Point" class="arches-tool-text geometry info-link" title=""><i class="fa fa-dot-circle-o"></i> {% trans 'Draw new point' %}
+                                                </a>
+                                            </div>
+                                        </dd>
+
+                                        <dd class="">
+                                            <div class="arches-tool-item">
+                                                
+                                                <a href="" id="LineString" class="arches-tool-text geometry info-link" title=""><i class="fa fa-minus"></i> {% trans 'Draw new line' %}
+                                                </a>
+                                            </div>
+                                        </dd>
+
+                                        <dd class="">
+                                            <div class="arches-tool-item">
+                                                
+                                                <a href="" id="Polygon" class="arches-tool-text geometry info-link" title=""><i class="fa fa-square-o"></i> {% trans 'Draw new polygon' %}
+                                                </a>
+                                            </div>
+                                        </dd>
+
+                                        <dd class="">
+                                            <div class="arches-tool-item">
+                                                
+                                                <a href="" class="arches-tool-text" title=""><i class="fa fa-upload"></i> {% trans 'Import .gpx file' %}
+                                                </a>
+                                            </div>
+                                        </dd>
+
+                                        <dd class="">
+                                            <div class="arches-tool-item">
+                                                
+                                                <a href="" class="arches-tool-text" title=""><i class="fa fa-code"></i> {% trans 'Import WKT (Well Known Text)' %}
+                                                </a>
+                                            </div>
+                                        </dd>
+                                        
+                                    </dl>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Body Content -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Overlays Panel -->
+
+            <!-- Map Tools -->
+            <div class="row">
+                <div class="col-xs-11 col-xs-offset-1" style="margin-top: -100px;">
+
+                    <div class="btn-group" style="">
+
+                        <button id="inventory-home" type="button" class="btn btn-primary arches-map-tools-pressed hidden" style="width: 50px; border: 1px solid rgba(206,217,233,.95);"><i class="fa fa-caret-down"></i>
+                        </button>
+
+                        <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-globe"></i> {% trans 'Basemaps' %}
+                        </button>
+
+                        <button id="inventory-overlays" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-plus"></i> {% trans 'Add Geometry' %}
+                        </button>
+
+                </div>
+
+                </div>
+            </div>
+            <!-- End Map Tools -->
+
+        </div>
+    </div>
+
     <!-- Geometry Records -->
     <div class="row margin-bottom-10">
         <div class="col-xs-12">
@@ -190,7 +190,7 @@
             <div class="arches-crud-child-section">
                 <dl>
                     <dd class="arches-CRUD-child-title">
-                        This resource is represented by the following geometries:
+                        {% trans 'This resource is represented by the following geometries:' %}
                     </dd>
 
                     <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No geometries defined" %}</div>   
@@ -225,7 +225,7 @@ parcel-section
 
                     <!-- Title -->
                     <dt>
-                        <h5 id="arches-names-form" class="section-headline">Addresses</h5>
+                        <h5 id="arches-names-form" class="section-headline">{% trans 'Addresses' %}</h5>
                     </dt>
 
                     <!-- Form -->
@@ -242,7 +242,7 @@ parcel-section
                                         <input class="form-control" style="width: 50%; height: 32px;" id="address" placeholder="resource address" data-bind='value: getEditedNode("PLACE_ADDRESS.E45", "value")'>
                                         
                                         <!-- Address Type -->
-                                        <input style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form address-type" id="" placeholder="type" data-bind="select2: {value: getEditedNode('ADDRESS_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'ADDRESS_TYPE.E55'}">
+                                        <input style="width:30%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form address-type" placeholder="type" data-bind="select2: {value: getEditedNode('ADDRESS_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'ADDRESS_TYPE.E55'}">
                                         <!-- Address Type -->
                                         
                                         {% include 'views/components/add-item-button.htm' %}
@@ -260,7 +260,7 @@ parcel-section
                                         <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
                                         
                                         <!-- Address Type -->
-                                        <input style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form address-type" id="" placeholder="type" data-bind="select2: {value: getEditedNode('ADDRESS_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'ADDRESS_TYPE.E55'}">
+                                        <input style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form address-type" placeholder="type" data-bind="select2: {value: getEditedNode('ADDRESS_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'ADDRESS_TYPE.E55'}">
                                         <!-- Address Type -->
 
                                         <!-- Spacer (for xs screens) -->
@@ -291,13 +291,13 @@ parcel-section
             <div class="arches-crud-child-section">
                 <dl>
                     <dd class="arches-CRUD-child-title">
-                        This resource has the following addresses:
+                        {% trans 'This resource has the following addresses:' %}
                     </dd>
-                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Names Defined" %}</div>   
+                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Addresses Defined" %}</div>   
 
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">
-                            <div class="arches-crud-record" id="address1-record">
+                            <div class="arches-crud-record">
                                 <a href="" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                 <a href="" class="arches-CRUD-child manage-address" title="Edit this address" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('PLACE_ADDRESS.E45', 'value')"></a>&nbsp; <span class="text-muted arches-crud-type-identifier">(<span data-bind="text: nodes.get('ADDRESS_TYPE.E55', 'label')"></span>)</span>
                             </div>
@@ -324,7 +324,7 @@ parcel-section
 
                 <!-- Title -->
                 <dt>
-                    <h5 id="arches-names-form" class="section-headline">Location Description</h5>
+                    <h5 id="arches-names-form" class="section-headline">{% trans 'Location Description' %}</h5>
                 </dt>
 
                 <dd class="arches-RDM-labels">
@@ -360,7 +360,7 @@ parcel-section
 
                     <!-- Title -->
                     <dt>
-                        <h5 id="arches-names-form" class="section-headline">Settings</h5>
+                        <h5 id="arches-names-form" class="section-headline">{% trans 'Settings' %}</h5>
                     </dt>
 
                     <!-- Admin Areas CRUD -->
@@ -373,25 +373,9 @@ parcel-section
                                 <form class="form-inline arches-form hidden-xs" role="form">
                                     <div class="form-group margin-top-5" style="width: 100%">
                                        
-                                        <select style="width:50%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form location-setting" id="" placeholder="setting"> 
-                                            <option value="1">Attached 1 side</option>
-                                            <option value="2">Attached 2 sides</option>
-                                            <option value="3">Corner</option>
-                                            <option value="4">Flush at sidewalk</option>
-                                        </select>&nbsp;
+                                        <input data-bind="select2: {value: getEditedNode('SETTING_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'SETTING_TYPE.E55'}" style="width:50%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form location-setting" placeholder="setting">
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group">
-                                            <button type="button" id="address_button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %}
                                     </div>
                                 </form>
                                 <!-- fEn orm for screens > xs -->
@@ -400,28 +384,12 @@ parcel-section
                                 <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                     <div class="form-group margin-top-5" style="width: 100%">
                                        
-                                        <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form location-setting" id="" placeholder="setting"> 
-                                            <option value="1">Attached 1 side</option>
-                                            <option value="2">Attached 2 sides</option>
-                                            <option value="3">Corner</option>
-                                            <option value="4">Flush at sidewalk</option>
-                                        </select>
+                                        <input data-bind="select2: {value: getEditedNode('SETTING_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'SETTING_TYPE.E55'}" style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form location-setting" placeholder="setting">
 
                                         <!-- Spacer (for xs screens) -->
                                         <div class="margin-top-10 hidden-sm hidden-md hidden-lg"></div>
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group">
-                                            <button type="button" id="address_button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %}
                                     </div>
                                 </form>
                                 <!-- End form for screens = xs -->
@@ -443,22 +411,19 @@ parcel-section
             <div class="arches-crud-child-section">
                 <dl>
                     <dd class="arches-CRUD-child-title">
-                        This resource has the following Settings:
+                        {% trans 'This resource has the following Settings:' %}
                     </dd>
 
-                    <dd class="margin-left-5">
-                        <div class="arches-crud-record">
-                            <a href="#" class="arches-CRUD-child" title="Remove this setting"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" title="Edit this setting">Corner</a>
-                        </div>
-                    </dd>
+                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Settings Defined" %}</div>   
 
-                    <dd class="margin-left-5">
-                        <div class="arches-crud-record">
-                            <a href="#" class="arches-CRUD-child" title="Remove this setting"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" title="Edit this setting">Flush at sidewalk</a>
-                        </div>
-                    </dd>
+                    <div data-bind='foreach: getBranchLists()'>
+                        <dd class="margin-left-5">
+                            <div class="arches-crud-record">
+                                <a href="" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="" class="arches-CRUD-child manage-address" title="Edit this setting" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SETTING_TYPE.E55', 'label')"></a>
+                            </div>
+                        </dd>
+                    </div>
 
                 </dl>
             </div>
@@ -483,7 +448,7 @@ parcel-section
 
                     <!-- Title -->
                     <dt>
-                        <h5 id="arches-names-form" class="section-headline">Administrative Areas</h5>
+                        <h5 id="arches-names-form" class="section-headline">{% trans 'Administrative Areas' %}</h5>
                     </dt>
 
                     <!-- Admin Areas CRUD -->
@@ -496,27 +461,11 @@ parcel-section
                                 <form class="form-inline arches-form hidden-xs" role="form">
                                     <div class="form-group margin-top-5" style="width: 100%">
                                        
-                                        <select style="width:50%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form admin-area-type" id="" placeholder="Admin Area Type"> 
-                                            <option value="1">City Council District</option>
-                                            <option value="2">Neighborhood District</option>
-                                            <option value="3">Parish</option>
-                                            <option value="4">County</option>
-                                        </select>&nbsp;
+                                        <input data-bind="select2: {value: getEditedNode('ADMINISTRATIVE_SUBDIVISION_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'ADMINISTRATIVE_SUBDIVISION_TYPE.E55'}" style="width:50%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form admin-area-type" placeholder="Admin Area Type">&nbsp;
 
-                                        <input class="form-control" id="ad_area_type" style="width: 30%; height: 32px;" placeholder="Area Name">
+                                        <input class="form-control" id="ad_area_type" style="width: 30%; height: 32px;" placeholder="Area Name" data-bind='value: getEditedNode("ADMINISTRATIVE_SUBDIVISION.E48", "value")'>
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group">
-                                            <button type="button" id="address_button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %}
                                     </div>
                                 </form>
                                 <!-- fEn orm for screens > xs -->
@@ -525,33 +474,17 @@ parcel-section
                                 <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                     <div class="form-group margin-top-5" style="width: 100%">
                                        
-                                        <select style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form admin-area-type" id="" placeholder="Admin Area Type"> 
-                                            <option value="1">City Council District</option>
-                                            <option value="2">Neighborhood District</option>
-                                            <option value="3">Parish</option>
-                                            <option value="4">County</option>
-                                        </select>
+                                        <input data-bind="select2: {value: getEditedNode('ADMINISTRATIVE_SUBDIVISION_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'ADMINISTRATIVE_SUBDIVISION_TYPE.E55'}" style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form admin-area-type" placeholder="Admin Area Type">
 
                                         <!-- Spacer (for xs screens) -->
                                         <div class="margin-top-10 hidden-sm hidden-md hidden-lg"></div>
 
-                                        <input class="form-control" id="ad_area_type" style="width: 100%; height: 32px;" placeholder="Area Name">
+                                        <input class="form-control" id="ad_area_type" style="width: 100%; height: 32px;" placeholder="Area Name" data-bind='value: getEditedNode("ADMINISTRATIVE_SUBDIVISION.E48", "value")'>
 
                                         <!-- Spacer (for xs screens) -->
                                         <div class="margin-top-10 hidden-sm hidden-md hidden-lg"></div>
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group">
-                                            <button type="button" id="address_button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %}
                                     </div>
                                 </form>
                                 <!-- fEn orm for screens = xs -->
@@ -574,30 +507,19 @@ parcel-section
             <div class="arches-crud-child-section">
                 <dl>
                     <dd class="arches-CRUD-child-title">
-                        This resource is located in the following Administrative Areas:
+                        {% trans 'This resource is located in the following Administrative Areas:' %}
                     </dd>
 
-                    <dd class="margin-left-5">
-                        <div class="arches-crud-record">
-                            <a href="#" class="arches-CRUD-child" title="Remove this relationship"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" title="Edit this area">Apsley</a>&nbsp; <span class="text-muted arches-crud-type-identifier">(Parish)</span>
-                        </div>
-                    </dd>
+                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Administrative Areas Defined" %}</div>   
 
-                    <dd class="margin-left-5">
-                        <div class="arches-crud-record">
-                            <a href="#" class="arches-CRUD-child" title="Remove this relationship"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" title="Edit this area">Sacramento</a>&nbsp; <span class="text-muted arches-crud-type-identifier">(County)</span>
-                        </div>
-                    </dd>
-
-                    <dd class="margin-left-5">
-                        <div class="arches-crud-record">
-                            <a href="#" class="arches-CRUD-child" title="Remove this relationship"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" title="Edit this area">Metropolitan Transporation District</a>&nbsp; <span class="text-muted arches-crud-type-identifier">(Regional Government Agency)</span>
-                        </div>
-                    </dd>
-
+                    <div data-bind='foreach: getBranchLists()'>
+                        <dd class="margin-left-5">
+                            <div class="arches-crud-record">
+                                <a href="#" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="#" class="arches-CRUD-child" title="Edit this area" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('ADMINISTRATIVE_SUBDIVISION.E48', 'value')"></a>&nbsp; <span class="text-muted arches-crud-type-identifier">(<span data-bind="text: nodes.get('ADMINISTRATIVE_SUBDIVISION_TYPE.E55', 'label')"></span>)</span>
+                            </div>
+                        </dd>
+                    </div>
                 </dl>
             </div>
             <!-- End List Admin Area Records -->
@@ -621,7 +543,7 @@ parcel-section
                     
                     <!-- Title -->
                     <dt>
-                        <h5 id="arches-names-form" class="section-headline">Cadastral References</h5>
+                        <h5 id="arches-names-form" class="section-headline">{% trans 'Cadastral References' %}</h5>
                     </dt>
                      
                     <!-- Cadastral CRUD -->
@@ -635,20 +557,9 @@ parcel-section
                                 <form class="form-inline arches-form hidden-xs" role="form">
                                     <div class="form-group margin-top-5" style="width: 100%">
                                         
-                                        <input class="form-control arches-form-input" id="ad_apn" style="width: 30%;" placeholder="Parcel Number">
+                                        <input class="form-control arches-form-input" id="ad_apn" style="width: 30%;" placeholder="Parcel Number" data-bind='value: getEditedNode("PLACE_APPELLATION_CADASTRAL_REFERENCE.E44", "value")'>
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group">
-                                            <button type="button" id="address_button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %}
 
                                     </div>
                                 </form>
@@ -658,23 +569,12 @@ parcel-section
                                 <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                     <div class="form-group margin-top-5" style="width: 100%">
                                         
-                                        <input class="form-control arches-form-input" id="ad_apn" style="width: 100%;" placeholder="Parcel Number">
+                                        <input class="form-control arches-form-input" id="ad_apn" style="width: 100%;" placeholder="Parcel Number" data-bind='value: getEditedNode("PLACE_APPELLATION_CADASTRAL_REFERENCE.E44", "value")'>
 
                                         <!-- Spacer (for xs screens) -->
                                         <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group">
-                                            <button type="button" id="address_button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        {% include 'views/components/add-item-button.htm' %}
 
                                     </div>
                                 </form>
@@ -700,11 +600,16 @@ parcel-section
                         This resource is related to the following Parcels:
                     </dd>  
 
-                    <dd class="margin-left-5">
-                        <div class="">
-                            <p class="arches-CRUD-child text-primary">No parcels entered</p>
-                        </div>
-                    </dd> 
+                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Parcels Defined" %}</div>   
+
+                    <div data-bind='foreach: getBranchLists()'>
+                        <dd class="margin-left-5">
+                            <div class="arches-crud-record">
+                                <a href="#" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="#" class="arches-CRUD-child" title="Edit this area" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('PLACE_APPELLATION_CADASTRAL_REFERENCE.E44', 'value')"></a>
+                            </div>
+                        </dd>
+                    </div>
                     
                 </dl>
             </div>
