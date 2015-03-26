@@ -86,6 +86,46 @@ class SummaryForm(ResourceForm):
 
             self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
 
+class ClassificationForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'classification',
+            'icon': 'fa-asterisk',
+            'name': _('Classification/Components'),
+            'class': ClassificationForm
+        }
+
+    def update(self, data):
+        self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
+        self.update_nodes('COMPONENT.E18', data)
+        return
+
+    def load(self):
+        if self.resource:
+            self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
+                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'domains': {
+                    'HERITAGE_RESOURCE_TYPE.E55': Concept().get_e55_domain('HERITAGE_RESOURCE_TYPE.E55'),
+                    'HERITAGE_RESOURCE_USE_TYPE.E55' : Concept().get_e55_domain('HERITAGE_RESOURCE_USE_TYPE.E55'),
+                    'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55'),
+                    'STYLE.E55' : Concept().get_e55_domain('STYLE.E55')
+                }
+            }
+            self.data['COMPONENT.E18'] = {
+                'branch_lists': self.get_nodes('COMPONENT.E18'),
+                'domains': {
+                    'CONSTRUCTION_TECHNIQUE.E55': Concept().get_e55_domain('CONSTRUCTION_TECHNIQUE.E55'),
+                    'MATERIAL.E57' : Concept().get_e55_domain('MATERIAL.E57'),
+                    'COMPONENT_TYPE.E55' : Concept().get_e55_domain('COMPONENT_TYPE.E55')
+                }
+            }
+            self.data['MODIFICATION_EVENT.E11'] = {
+                'branch_lists': self.get_nodes('MODIFICATION_EVENT.E11'),
+                'domains': {
+                    'MODIFICATION_TYPE.E55': Concept().get_e55_domain('MODIFICATION_TYPE.E55'),
+                }
+            }
 
 
 class DescriptionForm(ResourceForm):
@@ -213,31 +253,6 @@ class ConditionForm(ResourceForm):
             }
         }
 
-class ClassificationForm(ResourceForm):
-    @staticmethod
-    def get_info():
-        return {
-            'id': 'classification',
-            'icon': 'fa-asterisk',
-            'name': _('Classification/Components'),
-            'class': ClassificationForm
-        }
-
-    def update(self, data):
-        self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
-        return
-
-    def load(self):
-        self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
-            'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
-            'domains': {
-                'HERITAGE_RESOURCE_TYPE.E55': Concept().get_e55_domain('HERITAGE_RESOURCE_TYPE.E55'),
-                'HERITAGE_RESOURCE_USE_TYPE.E55' : Concept().get_e55_domain('HERITAGE_RESOURCE_USE_TYPE.E55'),
-                'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55'),
-                'STYLE.E55' : Concept().get_e55_domain('STYLE.E55')
-            }
-        }
-        return
 
 
 class LocationForm(ResourceForm):

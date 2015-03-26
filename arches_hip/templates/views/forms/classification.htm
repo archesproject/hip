@@ -28,9 +28,9 @@
                                         <!-- Resource Type/Use/Style -->     
                                         <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
                                 " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "Type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></input>
-                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-use-type-dropdown
                                 " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "Use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></input>
-                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="style-dropdown
                                 " data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "Style" %}', multiple: false, dataKey: 'STYLE.E55'}"></input>
 
                                         {% include 'views/components/add-item-button.htm' %}
@@ -40,19 +40,19 @@
 
                                         <!-- Period and From/To Dates -->
                                         <div>
-                                            <div style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                            <div style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown
                                 " data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "Period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
                                         
-                                            <div class="col-sm-4 form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
+                                            <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
                                                 <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                                    <input type="text" id="date" placeholder="{% trans 'Date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                                    <input type="text" id="date" placeholder="{% trans 'From' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
+                                            <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
                                                 <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                                    <input type="text" id="date" placeholder="{% trans 'Date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                                    <input type="text" id="date" placeholder="{% trans 'To' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -92,24 +92,23 @@
                                         <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
                                 " data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "Period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
 
-                                        <!-- From/To Dates -->
-                                        <div class="col-sm-4 form-group" style="padding-left: 0px; padding-right: 0px; width: 100%;">
-                                            <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                                <input type="text" id="fromdate" placeholder="{% trans 'Date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                        </div>
+                                <!-- From/To Dates -->
+                                <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 100%;">
+                                    <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
+                                        <input type="text" id="fromdate" placeholder="{% trans 'From' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
 
-                                        <div class="col-sm-4 form-group" style="padding-left: 0px; padding-right: 0px; width: 100%;">
-                                            <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                                <input type="text" id="todate" placeholder="{% trans 'Date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                        <!-- End From/To Dates -->
+                                <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 100%;">
+                                    <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
+                                        <input type="text" id="todate" placeholder="{% trans 'To' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <!-- End From/To Dates -->
 
-                                        {% include 'views/components/add-item-button.htm' %}
-
+                                        {% include 'views/components/add-item-button.htm' %} 
                                     </div>
                                 </form>
                                 <!-- End XS Screens -->
@@ -165,124 +164,113 @@
 
 
 <!-- Components CRUD Form -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="padding-left-10">
-            
-            <dl>
-                <!-- Title -->
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">Components</h5>
-                </dt>
+<div id="component-section">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="padding-left-10">
+                
+                <dl>
+                    <!-- Title -->
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">Components</h5>
+                    </dt>
 
-                <!-- Form -->
-                <dd class="arches-RDM-labels">
+                    <!-- Form -->
+                    <dd class="arches-RDM-labels">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-xs-12">
+                            <div class="col-xs-12">
 
-                            <!-- Input for screens > xs -->
-                            <form class="form-inline arches-form hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- Component/Technique/Material -->     
-                                    <input class="component" id="" name="" style="width:25%;"  value="">&nbsp;
-                                    <input class="technique" id="" name="" style="width:25%;"  value="">&nbsp;
-                                    <input class="material" id="" name="" style="width:25%;"  value="">&nbsp;
+                                <!-- Input for screens > xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- Component/Technique/Material -->       
+                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('COMPONENT_TYPE.E55', 'value'), placeholder: '{% trans "Component" %}', multiple: false, dataKey: 'COMPONENT_TYPE.E55'}"></input>
+                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('CONSTRUCTION_TECHNIQUE.E55', 'value'), placeholder: '{% trans "Technique" %}', multiple: false, dataKey: 'CONSTRUCTION_TECHNIQUE.E55'}"></input>
+                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('MATERIAL.E57', 'value'), placeholder: '{% trans "Material" %}', multiple: false, dataKey: 'MATERIAL.E57'}"></input>
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
+                                            {% include 'views/components/add-item-button.htm' %}
+
                                     </div>
-                                    <!-- End Add Button -->
+                                </form>
+                                <!-- End Input for screens > xs -->
 
-                                </div>
-                            </form>
-                            <!-- End Input for screens > xs -->
+                                <!-- Input for screens = xs -->
+                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                    <div class="form-group" style="width: 100%">
+                                        
+                                        <!-- Component/Technique/Material -->     
+                                        <input class="component" id="" name="" style="width:100%;margin-top: 5px;"  value="">
+                                        <input class="technique" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+                                        <input class="material" id="" name="" style="width:100%; margin-top: 5px;"  value="">
 
-                            <!-- Input for screens = xs -->
-                            <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- Component/Technique/Material -->     
-                                    <input class="component" id="" name="" style="width:100%;margin-top: 5px;"  value="">
-                                    <input class="technique" id="" name="" style="width:100%; margin-top: 5px;"  value="">
-                                    <input class="material" id="" name="" style="width:100%; margin-top: 5px;"  value="">
+                                        <!-- Add Button -->
+                                        <div class="btn-group" style=" margin-top: 5px;">
+                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                <i class="fa fa-chevron-down"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>                            
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Discard edits</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- End Add Button -->
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group" style=" margin-top: 5px;">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
                                     </div>
-                                    <!-- End Add Button -->
+                                </form>
+                                <!-- End Input for screens = xs -->
 
-                                </div>
-                            </form>
-                            <!-- End Input for screens = xs -->
 
+                            </div>
 
                         </div>
+                    </dd>
+                    <!-- End Form -->
+                </dl>
 
-                    </div>
-                </dd>
-                <!-- End Form -->
-            </dl>
+            </div>
+        </div>
+    </div>
+        <!-- Component Records -->
+    <div class="row">
+        <div class="col-xs-12">
 
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        This resource has these components:
+                    </dd>
+
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Components Defined" %}</div>   
+
+                        <div data-bind='foreach: getBranchLists()'>
+                            <div class="arches-crud-record">
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this record"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this name">
+                                    <span data-bind='text: nodes.get("COMPONENT_TYPE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Component" %}),</span>
+                                    <span data-bind='text: nodes.get("CONSTRUCTION_TECHNIQUE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Technique" %}),</span>
+                                    <span data-bind='text: nodes.get("MATERIAL.E57", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Material" %}),</span>
+                                </a>
+                            </div>
+                        </div>
+                    </dd>
+
+                </dl>
+            </div>
         </div>
     </div>
 </div>
 <!-- End Components CRUD -->
 
-<!-- Components Records -->
-<div class="row">
-    <div class="col-xs-12">
-
-        <!-- Address -->
-        <div class="arches-crud-child-section">
-            <dl>
-                <dd class="arches-CRUD-child-title">
-                    This resource has these components:
-                </dd>
-
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="component1-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                        <a href="" id="component1" class="arches-CRUD-child manage-address" title="Edit this record">Roof<span class="text-muted arches-crud-type-identifier"> (component)&nbsp; </span> Hip<span class="text-muted arches-crud-type-identifier"> (technique)&nbsp; </span> Slate<span class="text-muted arches-crud-type-identifier"> (material)</span> 
-                        </a>
-                    </div>
-                </dd>
-
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="component2-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                        <a href="" id="component2" class="arches-CRUD-child manage-address" title="Edit this record">Chimney<span class="text-muted arches-crud-type-identifier"> (component)&nbsp; </span> Stacked<span class="text-muted arches-crud-type-identifier"> (technique)&nbsp; </span> Brick<span class="text-muted arches-crud-type-identifier"> (material)</span> 
-                        </a>
-                    </div>
-                </dd>
-
-            </dl>
-
-        </div>
-    </div>
-</div>
-<!-- End Components Records -->
-
-
-<hr class="devider arches-RDM-divider">
+<hr class="divider arches-RDM-divider">
 
 
 <!-- Related Features CRUD Form -->
@@ -402,6 +390,7 @@
 
 
 <!-- Modifications CRUD Form -->
+<div id="modification-section">
 <div class="row">
     <div class="col-xs-12">
         <div class="padding-left-10">
@@ -424,26 +413,15 @@
                                 <div class="form-group" style="width: 100%">
                                     
                                     <!-- Mods -->     
-                                    <input class="modifications" id="" name="" style="width:75%"  value="">&nbsp;
+                                    <input style="width:75%; height: 36px; padding-top: 2px; padding-right: 4px; display: inline-block;" class="modifications select2 arches-select2-crud-form name-type hidden-xs" id="resource-modification-type" data-bind="select2: {value: getEditedNode('MODIFICATION_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'MODIFICATION_TYPE.E55'}"></input>
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
-
+                                    {% include 'views/components/add-item-button.htm' %} 
                                     <!-- Simple HTML Editor -->
                                     <div class="arches-html-editor margin-top-5" style="width: 75%;">
-                                        <div class="summernote"></div>  
+                                        <div class="summernote" data-bind="summernote: {value: getEditedNode('MODIFICATION_DESCRIPTION.E62', 'value'), options:{}, dataKey: 'MODIFICATION_DESCRIPTION.E62'}">
+                                        </div>
                                     </div>
-
+                                    <!-- Simple HTML Editor -->
                                 </div>
                             </form>
                             <!-- Form for screens > xs -->
@@ -460,24 +438,10 @@
                                         <div class="summernote"></div>  
                                     </div>
 
-                                    <!-- Add Button -->
-                                    <div class="btn-group" style="margin-top: 5px;">
-                                        <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                            <i class="fa fa-chevron-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>                            
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Discard edits</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- End Add Button -->
-
+                                    {% include 'views/components/add-item-button.htm' %} 
                                 </div>
                             </form>
                             <!-- Form for screens = xs -->
-
-
                         </div>
 
                     </div>
@@ -491,31 +455,46 @@
 <!-- End Modifications CRUD -->
 
 <!-- Modification Records -->
-<div class="row">
-    <div class="col-xs-12">
+    <div class="row">
+        <div class="col-xs-12">
 
-        <!-- Address -->
-        <div class="arches-crud-child-section">
-            <dl>
-                <dd class="arches-CRUD-child-title">
-                    This resource has these modifications:
-                </dd>
+            <!-- Address -->
+            <div class="arches-crud-child-section">
+                <dl>
+                    <dd class="arches-CRUD-child-title">
+                        {% trans "This resource has these modifications:" %}
+                    </dd>
 
-                <dd class="margin-left-5">
-                    <div class="arches-crud-record" id="modification1-record">
-                        <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                        <a href="" id="classification1" class="arches-CRUD-child manage-address" title="Edit this record">Roof Modification
-                            <div class="arches-RDM-note" style="margin-left: -10px;">
-                                Here's where the modification description will go.  The text might be long or short; it may be styled using the HTML editor, or the text might be really simple...;
-                            </div>
-                        </a>
-                    </div>
-                </dd>
+                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Modifications Defined" %}</div>   
+                        
+                        <div data-bind='foreach: getBranchLists()'>
+                            <dl class="margin-bottom-0"> 
+                            
+                                <dd>
+                                    <div class="">
+                                        <a href="#" title="Remove this description"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                        <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="{% trans "Edit this description" %}" data-bind='text: nodes.get("MODIFICATION_TYPE.E55", "label"), click: $parent.editItem.bind($parent)'></a>
+                                    </div>
+                                </dd>
+                            </dl>
 
-            </dl>
+                            <dl> 
 
+                                <dd>
+                                    <div class="note-editable custom-scroll arches-evaluation-content" contenteditable="true" data-bind='{html: nodes.get("MODIFICATION_DESCRIPTION.E62", "value")}'></div>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </dd>
+                </dl>
+            </div>
         </div>
     </div>
 </div>
+
+
+
 <!-- End Modifications Records -->
 {% endblock form_content %}
