@@ -3,20 +3,7 @@
 
 {% block form_content %}
 <!-- Classification CRUD Form -->
-<style type="text/css" scoped>
-/*@media screen and (max-width: 600px) {
-    div
-    {
-      background-color: blue;
-    }
-}
-@media screen and (max-width: 300px) {
-    div
-    {
-      background-color: red;
-    }
-}*/
-</style>
+
 <div id="classification-section">
     <div class="row">
         <div class="col-xs-12">
@@ -37,25 +24,21 @@
 
                                 <!-- Screens greater than xs -->
                                 <form class="form-inline arches-form hidden-xs" role="form">
-                                    <div class="form-group" style="width: 100%;">
+                                    <div class="form-group hidden-xs" style="width: 100%;">
                                         
                                         <!-- Resource Type/Use/Style -->     
-                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "Type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></input>
-                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-use-type-dropdown
-                                " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "Use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></input>
-                                        <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="style-dropdown
-                                " data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "Style" %}', multiple: false, dataKey: 'STYLE.E55'}"></input>
+                                            <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></input>
+                                            <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-use-type-dropdown" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></input>
+                                            <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="style-dropdown" data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "style" %}', multiple: false, dataKey: 'STYLE.E55'}"></input>
 
                                         {% include 'views/components/add-item-button.htm' %}
 
                                         <!-- Spacer -->
-                                        <div class="margin-top-5 hidden-xs"></div>
+                                        <div class="margin-top-5"></div>
 
                                         <!-- Period and From/To Dates -->
                                         <div>
-                                            <div style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown
-                                " data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "Period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
+                                            <div style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "Period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
                                         
                                             <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
                                                 <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
@@ -81,34 +64,34 @@
                                 <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                     <div class="form-group" style="width: 100%;">
                                         
-                                        <!-- Resource Type/Period/Style -->     
-                                        <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "Type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></div>
-                                        <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "Use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></div>
-                                        <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                " data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "Syle" %}', multiple: false, dataKey: 'STYLE.E55'}"></div>
-                                        <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                " data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "Period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
+                                            <!-- Resource Type/Period/Style -->     
+                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></div>
+                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></div>
+                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "style" %}', multiple: false, dataKey: 'STYLE.E55'}"></div>
+                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
 
-                                <!-- From/To Dates -->
-                                <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 100%;">
-                                    <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                        <input type="text" id="fromdate" placeholder="{% trans 'From' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <!-- From/To Dates -->
+                                    <div class="form-group" style="padding-left: 0px; padding-right: 0px; margin-bottom:3px; margin-top:3px; width: 100%;">
+                                        <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
+                                            <input type="text" id="fromdate" placeholder="{% trans 'from' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 100%;">
-                                    <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                        <input type="text" id="todate" placeholder="{% trans 'To' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <div class="form-group" style="padding-left: 0px; padding-right: 0px; margin-bottom:3px; margin-top:3px; width: 100%;">
+                                        <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
+                                            <input type="text" id="todate" placeholder="{% trans 'to' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- End From/To Dates -->
+                                    <!-- End From/To Dates -->
 
-                                        {% include 'views/components/add-item-button.htm' %} 
-                                    </div>
+                                            {% include 'views/components/add-item-button.htm' %} 
+                                        </div>
                                 </form>
                                 <!-- End XS Screens -->
 
@@ -187,11 +170,11 @@
                                         
                                         <!-- Component/Technique/Material -->       
                                         <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('COMPONENT_TYPE.E55', 'value'), placeholder: '{% trans "Component" %}', multiple: false, dataKey: 'COMPONENT_TYPE.E55'}"></input>
+                                    " data-bind="select2: {value: getEditedNode('COMPONENT_TYPE.E55', 'value'), placeholder: '{% trans "component" %}', multiple: false, dataKey: 'COMPONENT_TYPE.E55'}"></input>
                                         <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('CONSTRUCTION_TECHNIQUE.E55', 'value'), placeholder: '{% trans "Technique" %}', multiple: false, dataKey: 'CONSTRUCTION_TECHNIQUE.E55'}"></input>
+                                    " data-bind="select2: {value: getEditedNode('CONSTRUCTION_TECHNIQUE.E55', 'value'), placeholder: '{% trans "technique" %}', multiple: false, dataKey: 'CONSTRUCTION_TECHNIQUE.E55'}"></input>
                                         <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('MATERIAL.E57', 'value'), placeholder: '{% trans "Material" %}', multiple: false, dataKey: 'MATERIAL.E57'}"></input>
+                                    " data-bind="select2: {value: getEditedNode('MATERIAL.E57', 'value'), placeholder: '{% trans "material" %}', multiple: false, dataKey: 'MATERIAL.E57'}"></input>
 
                                             {% include 'views/components/add-item-button.htm' %}
 
@@ -202,29 +185,21 @@
                                 <!-- Input for screens = xs -->
                                 <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                     <div class="form-group" style="width: 100%">
-                                        
-                                        <!-- Component/Technique/Material -->     
-                                        <input class="component" id="" name="" style="width:100%;margin-top: 5px;"  value="">
-                                        <input class="technique" id="" name="" style="width:100%; margin-top: 5px;"  value="">
-                                        <input class="material" id="" name="" style="width:100%; margin-top: 5px;"  value="">
 
-                                        <!-- Add Button -->
-                                        <div class="btn-group" style=" margin-top: 5px;">
-                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Add Button -->
+                                        
+                                        <!-- Component/Technique/Material -->       
+                                        <input style="width:100%;margin-top: 5px;" class="select2 arches-select2-crud-form component" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('COMPONENT_TYPE.E55', 'value'), placeholder: '{% trans "component" %}', multiple: false, dataKey: 'COMPONENT_TYPE.E55'}"></input>
+                                        <input style="width:100%;margin-top: 5px;" class="select2 arches-select2-crud-form technique" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('CONSTRUCTION_TECHNIQUE.E55', 'value'), placeholder: '{% trans "technique" %}', multiple: false, dataKey: 'CONSTRUCTION_TECHNIQUE.E55'}"></input>
+                                        <input style="width:100%;margin-top: 5px;margin-bottom:5px" class="select2 arches-select2-crud-form material" id="resource-type-dropdown
+                                    " data-bind="select2: {value: getEditedNode('MATERIAL.E57', 'value'), placeholder: '{% trans "material" %}', multiple: false, dataKey: 'MATERIAL.E57'}"></input>
+
+                                            {% include 'views/components/add-item-button.htm' %}
 
                                     </div>
                                 </form>
                                 <!-- End Input for screens = xs -->
-
 
                             </div>
 
@@ -295,7 +270,7 @@
                                     <div class="form-group" style="width: 100%">
                                         
                                         <!-- Related Features -->     
-                                    <input style="width:75%;" class="select2 arches-select2-crud-form resource-type related-features" id="ancillary-type-dropdown" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), placeholder: '{% trans "Technique" %}', multiple: false, dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
+                                    <input style="width:75%;" class="select2 arches-select2-crud-form resource-type related-features" id="ancillary-type-dropdown" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), placeholder: '{% trans "related feature" %}', multiple: false, dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
                                         <!-- Add Button -->
                                         {% include 'views/components/add-item-button.htm' %} 
                                         <!-- End Add Button -->
@@ -306,23 +281,11 @@
                                 <!-- Form for screens = xs -->
                                 <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                     <div class="form-group" style="width: 100%">
-                                        
-                                        <!-- Related Features -->     
-                                        <input class="related-features" id="" name="" style="width:100%"  value="">
-
+                                                                                <!-- Related Features -->     
+                                    <input style="width:100%; margin-bottom: 5px" class="select2 arches-select2-crud-form resource-type related-features" id="ancillary-type-dropdown" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), placeholder: '{% trans "related feature" %}', multiple: false, dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
                                         <!-- Add Button -->
-                                        <div class="btn-group" style="margin-top: 5px;">
-                                            <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                <i class="fa fa-chevron-down"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>                            
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Discard edits</a></li>
-                                            </ul>
-                                        </div>
+                                        {% include 'views/components/add-item-button.htm' %} 
                                         <!-- End Add Button -->
-
                                     </div>
                                 </form>
                                 <!-- Form for screens = xs -->
@@ -353,7 +316,7 @@
 
 
                     <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Modifications Defined" %}</div>   
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Related Features Defined" %}</div>   
                         
                         <div data-bind='foreach: getBranchLists()'>
                             <dl class="margin-bottom-0"> 
@@ -407,7 +370,7 @@
                                 <div class="form-group" style="width: 100%">
                                     
                                     <!-- Mods -->     
-                                    <input style="width:75%; height: 36px; padding-top: 2px; padding-right: 4px; display: inline-block;" class="modifications select2 arches-select2-crud-form name-type hidden-xs" id="resource-modification-type" data-bind="select2: {value: getEditedNode('MODIFICATION_TYPE.E55', 'value'), placeholder: 'Type', dataKey: 'MODIFICATION_TYPE.E55'}"></input>
+                                    <input style="width:75%; height: 36px; padding-top: 2px; padding-right: 4px; display: inline-block;" class="modifications select2 arches-select2-crud-form name-type hidden-xs" id="resource-modification-type" data-bind="select2: {value: getEditedNode('MODIFICATION_TYPE.E55', 'value'), placeholder: 'modification type', dataKey: 'MODIFICATION_TYPE.E55'}"></input>
 
                                     {% include 'views/components/add-item-button.htm' %} 
                                     <!-- Simple HTML Editor -->
@@ -423,13 +386,14 @@
                             <!-- Form for screens = xs -->
                             <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
                                 <div class="form-group" style="width: 100%">
-                                    
+                                                                        <!-- Mods -->     
                                     <!-- Mods -->     
-                                    <input class="modifications" id="" name="" style="width:100%;"  value="">
+                                    <input style="width:100%;" class="modifications select2 arches-select2-crud-form name-type" id="resource-modification-type" data-bind="select2: {value: getEditedNode('MODIFICATION_TYPE.E55', 'value'), placeholder: 'modification type', dataKey: 'MODIFICATION_TYPE.E55'}"></input>
 
                                     <!-- Simple HTML Editor -->
-                                    <div class="arches-html-editor margin-top-5" style="width: 100%;">
-                                        <div class="summernote"></div>  
+                                    <div class="arches-html-editor margin-top-5" style="width: 100%; margin-bottom:5px">
+                                        <div class="summernote" data-bind="summernote: {value: getEditedNode('MODIFICATION_DESCRIPTION.E62', 'value'), options:{}, dataKey: 'MODIFICATION_DESCRIPTION.E62'}">
+                                        </div>
                                     </div>
 
                                     {% include 'views/components/add-item-button.htm' %} 
