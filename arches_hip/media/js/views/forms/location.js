@@ -12,6 +12,7 @@ define([
     var wkt = new ol.format.WKT();
     return BaseForm.extend({
         initialize: function() {
+            var self = this;
             BaseForm.prototype.initialize.apply(this);
 
             var map = new MapView({
@@ -124,6 +125,7 @@ define([
                         var geom = cloneFeature.getGeometry();
                         geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
                         getGeomNode(branch).value(wkt.writeGeometry(geom));
+                        self.trigger('change', 'geometrychange', branch);
                     });
 
                     featureOverlay.addFeature(feature);
@@ -159,6 +161,7 @@ define([
                     });
                     locationBranchList.viewModel.branch_lists.push(branch);
                     map.map.removeInteraction(draw);
+                    self.trigger('change', 'geometrychange', branch);
                 });
                 map.map.addInteraction(draw);
 
