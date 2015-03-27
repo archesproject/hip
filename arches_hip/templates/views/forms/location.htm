@@ -23,7 +23,7 @@
                     <div id="geometry-type" class="geometry-type" style="margin-top: -490px; margin-bottom: 463px; padding-right: 10px;">
 
                         <div class="row">
-                            <div class="col-xs-6 col-xs-offset-6">
+                            <div class="col-xs-6 col-xs-offset-6" data-bind="attr: { 'style': getEditedNode('SPATIAL_COORDINATES_GEOMETRY.E47', 'value')() === '' ? 'opacity:0;' : '' }">
                                 <div class="form-group" style="width:100%;">       
                                     <input class="geometry-selection" id="geometry-selection" name="" style="width:100%" data-bind="select2: {value: getEditedNode('GEOMETRY_QUALIFIER.E55', 'value'), placeholder: 'Type', dataKey: 'GEOMETRY_QUALIFIER.E55'}">
                                 </div>
