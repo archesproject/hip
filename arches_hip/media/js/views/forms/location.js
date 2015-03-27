@@ -19,6 +19,30 @@ define([
                 el: $('#map')
             });
 
+            map.on('layerDropped', function (layer) {
+                var features = layer.getSource().getFeatures();
+
+                locationBranchList.removeEditedBranch();
+                _.each(features, function(feature, i) {
+                    var branch = koMapping.fromJS({
+                        'editing':ko.observable(i===features.length-1),
+                        'nodes': ko.observableArray(locationBranchList.defaults)
+                    });
+                    var geom = feature.getGeometry();
+                    geom.transform(layer.getSource().getProjection(), ol.proj.get('EPSG:4326'));
+                    _.each(branch.nodes(), function(node) {
+                        if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
+                            node.value(wkt.writeGeometry(geom));
+                        }
+                    });
+                    locationBranchList.viewModel.branch_lists.push(branch);
+                });
+
+                map.map.removeLayer(layer);
+                self.trigger('change', 'geometrychange');
+                zoomToFeatureOverlay();
+            });
+
             var getGeomNode = function (branch) {
                 var geomNode = null;
                 _.each(branch.nodes(), function(node) {
@@ -113,6 +137,22 @@ define([
               })
             });
 
+            var zoomToFeatureOverlay = function () {
+                var extent = null;
+                _.each(featureOverlay.getFeatures().getArray(), function(feature) {
+                    var featureExtent = feature.getGeometry().getExtent();
+                    if (!extent) {
+                        extent = featureExtent;
+                    } else {
+                        extent = ol.extent.extend(extent, featureExtent);
+                    }
+                });
+
+                if (extent) {
+                    map.map.getView().fitExtent(extent, (map.map.getSize()));
+                }
+            }
+
             var refreshFreatureOverlay = function () {
                 featureOverlay.getFeatures().clear();
                 _.each(locationBranchList.getBranchLists(), function(branch) {
@@ -139,19 +179,7 @@ define([
 
             locationBranchList.viewModel.branch_lists.subscribe(refreshFreatureOverlay);
             refreshFreatureOverlay();
-            var extent = null;
-            _.each(featureOverlay.getFeatures().getArray(), function(feature) {
-                var featureExtent = feature.getGeometry().getExtent();
-                if (!extent) {
-                    extent = featureExtent;
-                } else {
-                    extent = ol.extent.extend(extent, featureExtent);
-                }
-            });
-
-            if (extent) {
-                map.map.getView().fitExtent(extent, (map.map.getSize()));
-            }
+            zoomToFeatureOverlay();
 
             var draw = null;
             
