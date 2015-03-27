@@ -157,7 +157,8 @@ define([
                             node.value(wkt.writeGeometry(geom));
                         }
                     });
-                    locationBranchList.viewModel.branch_lists.push(branch); 
+                    locationBranchList.viewModel.branch_lists.push(branch);
+                    map.map.removeInteraction(draw);
                 });
                 map.map.addInteraction(draw);
 
