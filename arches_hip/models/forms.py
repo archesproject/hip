@@ -188,8 +188,10 @@ class ActivitySummaryForm(ResourceForm):
                     'END_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
                 }
             }
-
-            self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+            try:
+                self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+            except IndexError:
+                pass
 
         def update(self, data, files):
             self.update_nodes('NAME.E41', data)
@@ -455,15 +457,18 @@ class DescriptionForm(ResourceForm):
 
     def load(self, lang):
         description_types = Concept().get_e55_domain('DESCRIPTION_TYPE.E55')
-        default_description_type = description_types[2]
-        if self.resource:
-            self.data['DESCRIPTION.E62'] = {
-                'branch_lists': self.get_nodes('DESCRIPTION.E62'),
-                'domains': {'DESCRIPTION_TYPE.E55' : description_types},
-                'defaults': {
-                    'DESCRIPTION_TYPE.E55': default_description_type['id'],
+        try:
+            default_description_type = description_types[2]
+            if self.resource:
+                self.data['DESCRIPTION.E62'] = {
+                    'branch_lists': self.get_nodes('DESCRIPTION.E62'),
+                    'domains': {'DESCRIPTION_TYPE.E55' : description_types},
+                    'defaults': {
+                        'DESCRIPTION_TYPE.E55': default_description_type['id'],
+                    }
                 }
-            }
+        except IndexError:
+            pass
 
 
 class MeasurementForm(ResourceForm):
@@ -953,9 +958,10 @@ class ActorSummaryForm(ResourceForm):
                 'domains': {
                     'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
             }
-
-            self.data['primaryname_conceptid'] = self.data['APPELLATION.E41']['domains']['NAME_TYPE.E55'][3]['id']
-
+            try:
+                self.data['primaryname_conceptid'] = self.data['APPELLATION.E41']['domains']['NAME_TYPE.E55'][3]['id']
+            except IndexError:
+                pass
 
 
 class PhaseForm(ResourceForm):
@@ -1145,18 +1151,21 @@ class RelatedResourcesForm(ResourceForm):
 
         relationship_types = Concept().get_e55_domain('ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55')
 
-        default_relationship_type = relationship_types[0]['id']
-        if len(relationship_types) > 6:
-            default_relationship_type = relationship_types[6]['id']
+        try:
+            default_relationship_type = relationship_types[0]['id']
+            if len(relationship_types) > 6:
+                default_relationship_type = relationship_types[6]['id']
 
-        self.data['related-resources'] = {
-            'branch_lists': data,
-            'domains': {
-                'RELATIONSHIP_TYPES.E32': relationship_types
-            },
-            'default_relationship_type':  default_relationship_type
-        }
-        self.data['resource-id'] = self.resource.entityid
+            self.data['related-resources'] = {
+                'branch_lists': data,
+                'domains': {
+                    'RELATIONSHIP_TYPES.E32': relationship_types
+                },
+                'default_relationship_type':  default_relationship_type
+            }
+            self.data['resource-id'] = self.resource.entityid
+        except IndexError:
+            pass
 
 
 class DistrictClassificationForm(ResourceForm):
