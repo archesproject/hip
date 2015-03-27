@@ -39,7 +39,8 @@ class Resource(ArchesResource):
                     forms.DescriptionForm.get_info(),
                     forms.MeasurementForm.get_info(),
                     forms.ConditionForm.get_info(),
-                    forms.LocationForm.get_info()
+                    forms.LocationForm.get_info(),
+                    forms.ExternalReferenceForm.get_info()
                 ]
             })      
 

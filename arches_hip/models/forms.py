@@ -99,6 +99,7 @@ class ClassificationForm(ResourceForm):
     def update(self, data):
         self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
         self.update_nodes('COMPONENT.E18', data)
+        self.update_nodes('MODIFICATION_EVENT.E11', data)
         return
 
     def load(self):
@@ -133,6 +134,29 @@ class ClassificationForm(ResourceForm):
                 }
             }
 
+
+class ExternalReferenceForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'external-reference',
+            'icon': 'fa-asterisk',
+            'name': _('External System References'),
+            'class': ExternalReferenceForm
+        }
+
+    def update(self, data):
+        self.update_nodes('EXTERNAL_RESOURCE.E1', data)
+        return
+
+    def load(self):
+        if self.resource:
+            self.data['EXTERNAL_RESOURCE.E1'] = {
+                'branch_lists': self.get_nodes('EXTERNAL_RESOURCE.E1'),
+                'domains': {
+                    'EXTERNAL_REF_TYPE.E55': Concept().get_e55_domain('EXTERNAL_XREF_TYPE.E55'),
+                }
+            }
 
 class DescriptionForm(ResourceForm):
     @staticmethod
