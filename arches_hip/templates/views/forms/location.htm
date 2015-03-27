@@ -23,9 +23,9 @@
                     <div id="geometry-type" class="geometry-type" style="margin-top: -490px; margin-bottom: 463px; padding-right: 10px;">
 
                         <div class="row">
-                            <div class="col-xs-6 col-xs-offset-6">
-                                <div class="form-group">       
-                                    <input class="geometry-selection" id="geometry-selection" name="" style="width:100%"  value="">
+                            <div class="col-xs-6 col-xs-offset-6" data-bind="attr: { 'style': getEditedNode('SPATIAL_COORDINATES_GEOMETRY.E47', 'value')() === '' ? 'opacity:0;' : '' }">
+                                <div class="form-group" style="width:100%;">       
+                                    <input class="geometry-selection" id="geometry-selection" name="" style="width:100%" data-bind="select2: {value: getEditedNode('GEOMETRY_QUALIFIER.E55', 'value'), placeholder: 'Type', dataKey: 'GEOMETRY_QUALIFIER.E55'}">
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,9 @@
                                         <dd class="">
                                             <div class="arches-tool-item">
                                                 
-                                                <a href="" id="Point" class="arches-tool-text geometry info-link" title=""><i class="fa fa-dot-circle-o"></i> {% trans 'Draw new point' %}
+                                                <a href="javascript:void(0);" data-geometrytype="Point" class="arches-tool-text geometry-btn info-link" title="">
+                                                    <i class="fa fa-dot-circle-o"></i>
+                                                    {% trans 'Draw new point' %}
                                                 </a>
                                             </div>
                                         </dd>
@@ -117,7 +119,9 @@
                                         <dd class="">
                                             <div class="arches-tool-item">
                                                 
-                                                <a href="" id="LineString" class="arches-tool-text geometry info-link" title=""><i class="fa fa-minus"></i> {% trans 'Draw new line' %}
+                                                <a href="javascript:void(0);" data-geometrytype="LineString" class="arches-tool-text geometry-btn info-link" title="">
+                                                    <i class="fa fa-minus"></i>
+                                                    {% trans 'Draw new line' %}
                                                 </a>
                                             </div>
                                         </dd>
@@ -125,7 +129,9 @@
                                         <dd class="">
                                             <div class="arches-tool-item">
                                                 
-                                                <a href="" id="Polygon" class="arches-tool-text geometry info-link" title=""><i class="fa fa-square-o"></i> {% trans 'Draw new polygon' %}
+                                                <a href="javascript:void(0);" data-geometrytype="Polygon" class="arches-tool-text geometry-btn info-link" title="">
+                                                    <i class="fa fa-square-o"></i>
+                                                    {% trans 'Draw new polygon' %}
                                                 </a>
                                             </div>
                                         </dd>
@@ -133,7 +139,9 @@
                                         <dd class="">
                                             <div class="arches-tool-item">
                                                 
-                                                <a href="" class="arches-tool-text" title=""><i class="fa fa-upload"></i> {% trans 'Import .gpx file' %}
+                                                <a href="javascript:void(0);" class="arches-tool-text" title="">
+                                                    <i class="fa fa-upload"></i>
+                                                    {% trans 'Import .gpx file' %}
                                                 </a>
                                             </div>
                                         </dd>
@@ -141,7 +149,9 @@
                                         <dd class="">
                                             <div class="arches-tool-item">
                                                 
-                                                <a href="" class="arches-tool-text" title=""><i class="fa fa-code"></i> {% trans 'Import WKT (Well Known Text)' %}
+                                                <a href="javascript:void(0);" class="arches-tool-text" title="">
+                                                    <i class="fa fa-code"></i>
+                                                    {% trans 'Import WKT (Well Known Text)' %}
                                                 </a>
                                             </div>
                                         </dd>
@@ -160,22 +170,20 @@
 
             <!-- Map Tools -->
             <div class="row">
-                <div class="col-xs-11 col-xs-offset-1" style="margin-top: -100px;">
 
-                    <div class="btn-group" style="">
+                <div class="btn-group" style="top:-100px;left:85px;">
 
-                        <button id="inventory-home" type="button" class="btn btn-primary arches-map-tools-pressed hidden" style="width: 50px; border: 1px solid rgba(206,217,233,.95);"><i class="fa fa-caret-down"></i>
-                        </button>
+                    <button id="inventory-home" type="button" class="btn btn-primary arches-map-tools-pressed hidden" style="width: 50px; border: 1px solid rgba(206,217,233,.95);"><i class="fa fa-caret-down"></i>
+                    </button>
 
-                        <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-globe"></i> {% trans 'Basemaps' %}
-                        </button>
+                    <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-globe"></i> {% trans 'Basemaps' %}
+                    </button>
 
-                        <button id="inventory-overlays" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-plus"></i> {% trans 'Add Geometry' %}
-                        </button>
-
-                </div>
+                    <button id="inventory-overlays" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-plus"></i> {% trans 'Add Geometry' %}
+                    </button>
 
                 </div>
+
             </div>
             <!-- End Map Tools -->
 
@@ -198,7 +206,7 @@
                     <dd class="margin-left-5" data-bind='foreach: getBranchLists()'>
                         <div class="arches-crud-record">
                             <a href="#" class="arches-CRUD-child" title="Remove this geometry"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SPATIAL_COORDINATES_GEOMETRY.E47', 'value')" title="Edit this geometry"></a>&nbsp; <span class="text-muted arches-crud-type-identifier" data-bind="text: nodes.get('GEOMETRY_QUALIFIER.E55', 'label')"></span>
+                            <a href="#" class="arches-CRUD-child" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SPATIAL_COORDINATES_GEOMETRY.E47', 'value').split('(')[0].toLowerCase(), attr: { 'style': editing() ? 'font-weight:bold;' : '' }" title="Edit this geometry"></a>&nbsp; <span class="text-muted arches-crud-type-identifier" data-bind="text: nodes.get('GEOMETRY_QUALIFIER.E55', 'label')"></span>
                         </div>
                     </dd>
 
@@ -298,8 +306,8 @@ parcel-section
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">
                             <div class="arches-crud-record">
-                                <a href="" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="" class="arches-CRUD-child manage-address" title="Edit this address" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('PLACE_ADDRESS.E45', 'value')"></a>&nbsp; <span class="text-muted arches-crud-type-identifier">(<span data-bind="text: nodes.get('ADDRESS_TYPE.E55', 'label')"></span>)</span>
+                                <a href="javascript:void(0);" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0);" class="arches-CRUD-child manage-address" title="Edit this address" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('PLACE_ADDRESS.E45', 'value')"></a>&nbsp; <span class="text-muted arches-crud-type-identifier">(<span data-bind="text: nodes.get('ADDRESS_TYPE.E55', 'label')"></span>)</span>
                             </div>
                         </dd>
                     </div>
@@ -419,8 +427,8 @@ parcel-section
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">
                             <div class="arches-crud-record">
-                                <a href="" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="" class="arches-CRUD-child manage-address" title="Edit this setting" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SETTING_TYPE.E55', 'label')"></a>
+                                <a href="javascript:void(0);" class="arches-CRUD-child" title="Remove this relationship" data-bind="click: $parent.deleteItem.bind($parent)"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0);" class="arches-CRUD-child manage-address" title="Edit this setting" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SETTING_TYPE.E55', 'label')"></a>
                             </div>
                         </dd>
                     </div>
