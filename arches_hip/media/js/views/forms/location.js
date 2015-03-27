@@ -64,11 +64,14 @@ define([
                 dataKey: 'PLACE_ADDRESS.E45'
             }));
 
-            this.addBranchList(new BranchList({
+            var descriptionBranchList = new BranchList({
                 el: this.$el.find('#description-section')[0],
                 data: this.data,
-                dataKey: 'DESCRIPTION_OF_LOCATION.E62'
-            }));
+                dataKey: 'DESCRIPTION_OF_LOCATION.E62',
+                singleEdit: true
+            });
+
+            this.addBranchList(descriptionBranchList);
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#setting-section')[0],
