@@ -23,24 +23,15 @@
 
                                                         <!-- Screens greater than xs -->
                                                         <form class="form-inline arches-form hidden-xs" role="form">
-                                                            <div class="form-group" style="width: 100%;">
+                                                            <div class="form-group" style="width: 100%; margin-left:12px">
                                                                 
                                                                 <!-- System Type -->  
-                                                            <input style="width:25%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form reference-type" id="resource-type-dropdown" data-bind="select2: {value: getEditedNode('EXTERNAL_XREF_TYPE.E55', 'value'), placeholder: '{% trans "reference type" %}', multiple: false, dataKey: 'EXTERNAL_XREF_TYPE.E55'}"></input>
+                                                            <input style="width:50%; height: 36px; padding: 2px;" class="select2 arches-select2-crud-form reference-type" id="" data-bind="select2: {value: getEditedNode('EXTERNAL_XREF_TYPE.E55', 'value'), placeholder: '{% trans "reference type" %}', multiple: false, dataKey: 'EXTERNAL_XREF_TYPE.E55'}"></input>
                                                                 <!-- Value -->
                                                             <input class="form-control arches-form-input hidden-xs" id="resource-name" style="width: 30%;" placeholder="value" data-bind='value: getEditedNode("EXTERNAL_XREF.E42", "value")'>     
                                                             
                                                                 <!-- Add Button -->
-                                                                <div class="btn-group">
-                                                                    <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
-                                                                    <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
-                                                                        <i class="fa fa-chevron-down"></i>
-                                                                        <span class="sr-only">Toggle Dropdown</span>                            
-                                                                    </button>
-                                                                    <ul class="dropdown-menu" role="menu">
-                                                                        <li><a href="#">Discard edits</a></li>
-                                                                    </ul>
-                                                                </div>
+                                                            {% include 'views/components/add-item-button.htm' %} 
                                                                 <!-- End Add Button -->
                                                                 
                                                             </div>
@@ -97,28 +88,31 @@
 
                                     <!-- Address -->
                                     <div class="arches-crud-child-section">
-                                        <dl>
+
+                                       <dl>
                                             <dd class="arches-CRUD-child-title">
-                                                This resource has the following external system references:
+                                                {% trans "This resource has the following external system references:" %}
                                             </dd>
 
-                                            <dd class="margin-left-5">
-                                                <div class="arches-crud-record" id="classification1-record">
-                                                    <a href="" class="arches-CRUD-child" title="Delete this reference"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                                    <a href="" id="classification1" class="arches-CRUD-child" title="Edit this reference">Los Angeles Historic Cultural Monument Number  466211
-                                                    </a>
+                                            <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
+                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No External System References Defined" %}</div>   
+
+                                                <div data-bind='foreach: getBranchLists()'>
+                                                    <div class="arches-crud-record">
+                                                        <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this reference"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                                        <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this value" %}">
+                                                        <span class="text-muted arches-crud-type-identifier">
+                                                            <span data-bind='text: nodes.get("EXTERNAL_XREF_TYPE.E55", "label")'></span>
+                                                        </span>
+                                                        <span data-bind='text: nodes.get("EXTERNAL_XREF.E42", "value")' style="padding-right:2px;">
+                                                        </span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </dd>
 
-                                            <dd class="margin-left-5">
-                                                <div class="arches-crud-record" id="classification1-record">
-                                                    <a href="" class="arches-CRUD-child" title="Delete this reference"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                                    <a href="" id="classification1" class="arches-CRUD-child" title="Edit this reference">URL  www.domain-name.com/rest/90073
-                                                    </a>
-                                                </div>
-                                            </dd>
-  
                                         </dl>
+
                                     </div>
                                 </div>
                             </div>

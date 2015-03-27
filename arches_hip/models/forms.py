@@ -154,7 +154,7 @@ class ExternalReferenceForm(ResourceForm):
             self.data['EXTERNAL_RESOURCE.E1'] = {
                 'branch_lists': self.get_nodes('EXTERNAL_RESOURCE.E1'),
                 'domains': {
-                    'EXTERNAL_REF_TYPE.E55': Concept().get_e55_domain('EXTERNAL_XREF_TYPE.E55'),
+                    'EXTERNAL_XREF_TYPE.E55': Concept().get_e55_domain('EXTERNAL_XREF_TYPE.E55'),
                 }
             }
 
