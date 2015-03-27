@@ -2,12 +2,14 @@ define([
     'jquery',
     'underscore',
     'knockout',
+    'knockout-mapping', 
     'openlayers',
     'views/forms/base',
     'views/forms/sections/branch-list',
     'views/map',
     'summernote'
-], function ($, _, ko, ol, BaseForm, BranchList, MapView) {
+], function ($, _, ko, koMapping, ol, BaseForm, BranchList, MapView) {
+    var wkt = new ol.format.WKT();
     return BaseForm.extend({
         initialize: function() {
             BaseForm.prototype.initialize.apply(this);
@@ -16,61 +18,73 @@ define([
                 el: $('#map')
             });
 
+            var getGeomNode = function (branch) {
+                var geomNode = null;
+                _.each(branch.nodes(), function(node) {
+                    if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
+                        geomNode = node;
+                    }
+                });
+                return geomNode;
+            };
+
             var locationBranchList = new BranchList({
                 el: this.$el.find('#geom-list-section')[0],
                 data: this.data,
                 dataKey: 'SPATIAL_COORDINATES_GEOMETRY.E47',
-                validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
+                getBranchLists: function() {    
+                    var branch_lists = [];
+                    _.each(this.viewModel.branch_lists(), function(list){
+                        _.each(list.nodes(), function(node) {
+                            if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47' && node.value() !== '') {
+                                branch_lists.push(list);
+                            }
+                        });
+                    }, this);
+                    return branch_lists;
+                },
+                removeEditedBranch: function(){
+                    var branch = this.getEditedBranch();
+                    if (branch) {
+                        branch.editing(false);
+                    }
+                    return branch;
                 },
                 baseLayers: map.baseLayers
             });
+
+            locationBranchList.addDefaultNode('SPATIAL_COORDINATES_GEOMETRY.E47', '')
 
             this.addBranchList(locationBranchList);
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#address-section')[0],
                 data: this.data,
-                dataKey: 'PLACE_ADDRESS.E45',
-                validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
-                }
+                dataKey: 'PLACE_ADDRESS.E45'
             }));
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#description-section')[0],
                 data: this.data,
-                dataKey: 'DESCRIPTION_OF_LOCATION.E62',
-                validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
-                }
+                dataKey: 'DESCRIPTION_OF_LOCATION.E62'
             }));
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#setting-section')[0],
                 data: this.data,
-                dataKey: 'SETTING_TYPE.E55',
-                validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
-                }
+                dataKey: 'SETTING_TYPE.E55'
             }));
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#admin-area-section')[0],
                 data: this.data,
-                dataKey: 'ADMINISTRATIVE_SUBDIVISION.E48',
-                validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
-                }
+                dataKey: 'ADMINISTRATIVE_SUBDIVISION.E48'
             }));
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#parcel-section')[0],
                 data: this.data,
-                dataKey: 'PLACE_APPELLATION_CADASTRAL_REFERENCE.E44',
-                validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
-                }
+                dataKey: 'PLACE_APPELLATION_CADASTRAL_REFERENCE.E44'
             }));
 
             var featureOverlay = new ol.FeatureOverlay({
@@ -93,6 +107,61 @@ define([
                   })
                 })
               })
+            });
+
+            var refreshFreatureOverlay = function () {
+                featureOverlay.getFeatures().clear();
+                _.each(locationBranchList.getBranchLists(), function(branch) {
+                    var geom = wkt.readGeometry(getGeomNode(branch).value());
+                    geom.transform(ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'));
+                    var feature = new ol.Feature({
+                        geometry: geom,
+                        branch: branch
+                    });
+
+                    feature.on('change', function () {
+                        var cloneFeature = feature.clone();
+                        var geom = cloneFeature.getGeometry();
+                        geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
+                        getGeomNode(branch).value(wkt.writeGeometry(geom));
+                    });
+
+                    featureOverlay.addFeature(feature);
+                });
+            }
+
+            locationBranchList.viewModel.branch_lists.subscribe(refreshFreatureOverlay);
+            refreshFreatureOverlay();
+            
+            var draw = null;
+            
+            $(".geometry-btn").click(function (){ 
+                var geometryType = $(this).data('geometrytype');
+                if (draw) {
+                    map.map.removeInteraction(draw);
+                }
+                draw = new ol.interaction.Draw({
+                    features: featureOverlay.getFeatures(),
+                    type: geometryType
+                });
+                draw.on('drawend', function(e) {
+                    locationBranchList.removeEditedBranch();
+                    var branch = koMapping.fromJS({
+                        'editing':ko.observable(true), 
+                        'nodes': ko.observableArray(locationBranchList.defaults)
+                    });
+                    var geom = e.feature.getGeometry();
+                    geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
+                    _.each(branch.nodes(), function(node) {
+                        if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
+                            node.value(wkt.writeGeometry(geom));
+                        }
+                    });
+                    locationBranchList.viewModel.branch_lists.push(branch); 
+                });
+                map.map.addInteraction(draw);
+
+                $("#inventory-home").click();
             });
             
             $("#inventory-home").click(function (){ 
@@ -141,6 +210,10 @@ define([
                 $("#inventory-overlays").removeClass("arches-map-tools");
 
                 return false;
+            });
+
+            $(".close").click(function (){ 
+                $("#inventory-home").click()
             });
 
             featureOverlay.setMap(map.map);
