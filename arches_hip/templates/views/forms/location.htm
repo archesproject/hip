@@ -170,22 +170,20 @@
 
             <!-- Map Tools -->
             <div class="row">
-                <div class="col-xs-11 col-xs-offset-1" style="margin-top: -100px;">
 
-                    <div class="btn-group" style="">
+                <div class="btn-group" style="top:-100px;left:85px;">
 
-                        <button id="inventory-home" type="button" class="btn btn-primary arches-map-tools-pressed hidden" style="width: 50px; border: 1px solid rgba(206,217,233,.95);"><i class="fa fa-caret-down"></i>
-                        </button>
+                    <button id="inventory-home" type="button" class="btn btn-primary arches-map-tools-pressed hidden" style="width: 50px; border: 1px solid rgba(206,217,233,.95);"><i class="fa fa-caret-down"></i>
+                    </button>
 
-                        <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-globe"></i> {% trans 'Basemaps' %}
-                        </button>
+                    <button id="inventory-basemaps" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-globe"></i> {% trans 'Basemaps' %}
+                    </button>
 
-                        <button id="inventory-overlays" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-plus"></i> {% trans 'Add Geometry' %}
-                        </button>
-
-                </div>
+                    <button id="inventory-overlays" type="button" class="btn btn-primary arches-map-tools"><i class="fa fa-plus"></i> {% trans 'Add Geometry' %}
+                    </button>
 
                 </div>
+
             </div>
             <!-- End Map Tools -->
 
@@ -208,7 +206,7 @@
                     <dd class="margin-left-5" data-bind='foreach: getBranchLists()'>
                         <div class="arches-crud-record">
                             <a href="#" class="arches-CRUD-child" title="Remove this geometry"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                            <a href="#" class="arches-CRUD-child" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SPATIAL_COORDINATES_GEOMETRY.E47', 'value')" title="Edit this geometry"></a>&nbsp; <span class="text-muted arches-crud-type-identifier" data-bind="text: nodes.get('GEOMETRY_QUALIFIER.E55', 'label')"></span>
+                            <a href="#" class="arches-CRUD-child" data-bind="click: $parent.editItem.bind($parent), text: nodes.get('SPATIAL_COORDINATES_GEOMETRY.E47', 'value').split('(')[0].toLowerCase(), attr: { 'style': editing() ? 'font-weight:bold;' : '' }" title="Edit this geometry"></a>&nbsp; <span class="text-muted arches-crud-type-identifier" data-bind="text: nodes.get('GEOMETRY_QUALIFIER.E55', 'label')"></span>
                         </div>
                     </dd>
 
