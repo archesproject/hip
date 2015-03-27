@@ -136,7 +136,20 @@ define([
 
             locationBranchList.viewModel.branch_lists.subscribe(refreshFreatureOverlay);
             refreshFreatureOverlay();
-            
+            var extent = null;
+            _.each(featureOverlay.getFeatures().getArray(), function(feature) {
+                var featureExtent = feature.getGeometry().getExtent();
+                if (!extent) {
+                    extent = featureExtent;
+                } else {
+                    extent = ol.extent.extend(extent, featureExtent);
+                }
+            });
+
+            if (extent) {
+                map.map.getView().fitExtent(extent, (map.map.getSize()));
+            }
+
             var draw = null;
             
             $(".geometry-btn").click(function (){ 
