@@ -125,6 +125,8 @@ define([
                         var geom = cloneFeature.getGeometry();
                         geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
                         getGeomNode(branch).value(wkt.writeGeometry(geom));
+                        locationBranchList.removeEditedBranch();
+                        branch.editing(true);
                         self.trigger('change', 'geometrychange', branch);
                     });
 
