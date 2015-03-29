@@ -91,7 +91,7 @@ class ClassificationForm(ResourceForm):
     def get_info():
         return {
             'id': 'classification',
-            'icon': 'fa-asterisk',
+            'icon': 'fa fa-bar-chart-o',
             'name': _('Classification/Components'),
             'class': ClassificationForm
         }
@@ -140,7 +140,7 @@ class ExternalReferenceForm(ResourceForm):
     def get_info():
         return {
             'id': 'external-reference',
-            'icon': 'fa-asterisk',
+            'icon': 'fa-random',
             'name': _('External System References'),
             'class': ExternalReferenceForm
         }
