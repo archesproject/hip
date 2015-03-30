@@ -19,9 +19,7 @@ define([
                 el: $('#map')
             });
 
-            map.on('layerDropped', function (layer) {
-                var features = layer.getSource().getFeatures();
-
+            var bulkAddFeatures = function (features) {
                 locationBranchList.removeEditedBranch();
                 _.each(features, function(feature, i) {
                     var branch = koMapping.fromJS({
@@ -29,7 +27,7 @@ define([
                         'nodes': ko.observableArray(locationBranchList.defaults)
                     });
                     var geom = feature.getGeometry();
-                    geom.transform(layer.getSource().getProjection(), ol.proj.get('EPSG:4326'));
+                    geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
                     _.each(branch.nodes(), function(node) {
                         if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
                             node.value(wkt.writeGeometry(geom));
@@ -38,9 +36,16 @@ define([
                     locationBranchList.viewModel.branch_lists.push(branch);
                 });
 
-                map.map.removeLayer(layer);
                 self.trigger('change', 'geometrychange');
                 zoomToFeatureOverlay();
+            };
+
+            map.on('layerDropped', function (layer) {
+                var features = layer.getSource().getFeatures();
+
+                bulkAddFeatures(features);
+
+                map.map.removeLayer(layer);
             });
 
             var getGeomNode = function (branch) {
@@ -264,6 +269,47 @@ define([
 
             $(".close").click(function (){ 
                 $("#inventory-home").click()
+            });
+
+            var formatConstructors = [
+                ol.format.GPX,
+                ol.format.GeoJSON,
+                ol.format.KML
+            ];
+
+            $('.geom-upload').on('change', function() {
+                if (this.files.length > 0) {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function(e) { 
+                        var features = [];
+                        var result = this.result;
+                        _.each(formatConstructors, function(formatConstructor) {
+                            var format = new formatConstructor();
+                            var readFeatures;
+                            try {
+                                readFeatures = format.readFeatures(result);
+                            } catch (e) {
+                                readFeatures = null;
+                            }
+                            if (readFeatures !== null) {
+                                _.each(readFeatures, function (feature) {
+                                    var featureProjection = format.readProjection(result);
+                                    var transform = ol.proj.getTransform(featureProjection, ol.proj.get('EPSG:3857'));
+                                    var geometry = feature.getGeometry();
+                                    if (geometry) {
+                                        geometry.applyTransform(transform);
+                                    }
+                                    features.push(feature);
+                                });
+                            }
+                        });
+                        if (features.length > 0) {
+                            bulkAddFeatures(features);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
             });
 
             featureOverlay.setMap(map.map);
