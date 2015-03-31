@@ -137,23 +137,18 @@
                                         </dd>
 
                                         <dd class="">
-                                            <div class="arches-tool-item">
+                                            <div class="arches-tool-item file-upload">
                                                 
-                                                <a href="javascript:void(0);" class="arches-tool-text" title="">
+                                                <a href="javascript:void(0);" data-geometrytype="Polygon" class="arches-tool-text geometry-btn info-link" title="">
                                                     <i class="fa fa-upload"></i>
-                                                    {% trans 'Import .gpx file' %}
+                                                    {% trans 'Add from gpx, kml, or geojson' %}
                                                 </a>
+                                                <input type="file" class="upload geom-upload" accept=".gpx, .kml, .geojson, .json"/>
                                             </div>
                                         </dd>
 
-                                        <dd class="">
-                                            <div class="arches-tool-item">
-                                                
-                                                <a href="javascript:void(0);" class="arches-tool-text" title="">
-                                                    <i class="fa fa-code"></i>
-                                                    {% trans 'Import WKT (Well Known Text)' %}
-                                                </a>
-                                            </div>
+                                        <dd class="geom-file-instructions">
+                                            {% trans '(or drag and drop the file onto the map)' %}
                                         </dd>
                                         
                                     </dl>
@@ -169,7 +164,7 @@
             <!-- End Overlays Panel -->
 
             <!-- Map Tools -->
-            <div class="row">
+            <div class="row" style="height:0px;">
 
                 <div class="btn-group" style="top:-100px;left:85px;">
 
@@ -201,7 +196,7 @@
                         {% trans 'This resource is represented by the following geometries:' %}
                     </dd>
 
-                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No geometries defined" %}</div>   
+                    <div data-bind="visible: getBranchLists().length == 0" class="margin-left-5 txt-color-blue">{% trans "No geometries defined" %}</div>   
 
                     <dd class="margin-left-5" data-bind='foreach: getBranchLists()'>
                         <div class="arches-crud-record">
@@ -301,7 +296,7 @@ parcel-section
                     <dd class="arches-CRUD-child-title">
                         {% trans 'This resource has the following addresses:' %}
                     </dd>
-                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Addresses Defined" %}</div>   
+                    <div data-bind="visible: getBranchLists().length == 0" class="margin-left-5 txt-color-blue">{% trans "No Addresses Defined" %}</div>   
 
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">
@@ -338,10 +333,6 @@ parcel-section
                 <dd class="arches-RDM-labels">
                     
                     <!-- Simple HTML Editor -->
-                    <div class="arches-html-editor">
-                        <div class="summernote"></div>  
-                    </div>
-
                     <div class="arches-html-editor">
                         <div class="summernote" data-bind="summernote: {value: getEditedNode('DESCRIPTION_OF_LOCATION.E62', 'value'), options:{}}"></div>
                     </div>
@@ -422,7 +413,7 @@ parcel-section
                         {% trans 'This resource has the following Settings:' %}
                     </dd>
 
-                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Settings Defined" %}</div>   
+                    <div data-bind="visible: getBranchLists().length == 0" class="margin-left-5 txt-color-blue">{% trans "No Settings Defined" %}</div>   
 
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">
@@ -518,7 +509,7 @@ parcel-section
                         {% trans 'This resource is located in the following Administrative Areas:' %}
                     </dd>
 
-                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Administrative Areas Defined" %}</div>   
+                    <div data-bind="visible: getBranchLists().length == 0" class="margin-left-5 txt-color-blue">{% trans "No Administrative Areas Defined" %}</div>   
 
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">
@@ -608,7 +599,7 @@ parcel-section
                         This resource is related to the following Parcels:
                     </dd>  
 
-                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Parcels Defined" %}</div>   
+                    <div data-bind="visible: getBranchLists().length == 0" class="margin-left-5 txt-color-blue">{% trans "No Parcels Defined" %}</div>   
 
                     <div data-bind='foreach: getBranchLists()'>
                         <dd class="margin-left-5">

@@ -19,6 +19,35 @@ define([
                 el: $('#map')
             });
 
+            var bulkAddFeatures = function (features) {
+                locationBranchList.removeEditedBranch();
+                _.each(features, function(feature, i) {
+                    var branch = koMapping.fromJS({
+                        'editing':ko.observable(i===features.length-1),
+                        'nodes': ko.observableArray(locationBranchList.defaults)
+                    });
+                    var geom = feature.getGeometry();
+                    geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
+                    _.each(branch.nodes(), function(node) {
+                        if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
+                            node.value(wkt.writeGeometry(geom));
+                        }
+                    });
+                    locationBranchList.viewModel.branch_lists.push(branch);
+                });
+
+                self.trigger('change', 'geometrychange');
+                zoomToFeatureOverlay();
+            };
+
+            map.on('layerDropped', function (layer) {
+                var features = layer.getSource().getFeatures();
+
+                bulkAddFeatures(features);
+
+                map.map.removeLayer(layer);
+            });
+
             var getGeomNode = function (branch) {
                 var geomNode = null;
                 _.each(branch.nodes(), function(node) {
@@ -64,11 +93,14 @@ define([
                 dataKey: 'PLACE_ADDRESS.E45'
             }));
 
-            this.addBranchList(new BranchList({
+            var descriptionBranchList = new BranchList({
                 el: this.$el.find('#description-section')[0],
                 data: this.data,
-                dataKey: 'DESCRIPTION_OF_LOCATION.E62'
-            }));
+                dataKey: 'DESCRIPTION_OF_LOCATION.E62',
+                singleEdit: true
+            });
+
+            this.addBranchList(descriptionBranchList);
 
             this.addBranchList(new BranchList({
                 el: this.$el.find('#setting-section')[0],
@@ -110,6 +142,22 @@ define([
               })
             });
 
+            var zoomToFeatureOverlay = function () {
+                var extent = null;
+                _.each(featureOverlay.getFeatures().getArray(), function(feature) {
+                    var featureExtent = feature.getGeometry().getExtent();
+                    if (!extent) {
+                        extent = featureExtent;
+                    } else {
+                        extent = ol.extent.extend(extent, featureExtent);
+                    }
+                });
+
+                if (extent) {
+                    map.map.getView().fitExtent(extent, (map.map.getSize()));
+                }
+            }
+
             var refreshFreatureOverlay = function () {
                 featureOverlay.getFeatures().clear();
                 _.each(locationBranchList.getBranchLists(), function(branch) {
@@ -136,19 +184,7 @@ define([
 
             locationBranchList.viewModel.branch_lists.subscribe(refreshFreatureOverlay);
             refreshFreatureOverlay();
-            var extent = null;
-            _.each(featureOverlay.getFeatures().getArray(), function(feature) {
-                var featureExtent = feature.getGeometry().getExtent();
-                if (!extent) {
-                    extent = featureExtent;
-                } else {
-                    extent = ol.extent.extend(extent, featureExtent);
-                }
-            });
-
-            if (extent) {
-                map.map.getView().fitExtent(extent, (map.map.getSize()));
-            }
+            zoomToFeatureOverlay();
 
             var draw = null;
             
@@ -233,6 +269,47 @@ define([
 
             $(".close").click(function (){ 
                 $("#inventory-home").click()
+            });
+
+            var formatConstructors = [
+                ol.format.GPX,
+                ol.format.GeoJSON,
+                ol.format.KML
+            ];
+
+            $('.geom-upload').on('change', function() {
+                if (this.files.length > 0) {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function(e) { 
+                        var features = [];
+                        var result = this.result;
+                        _.each(formatConstructors, function(formatConstructor) {
+                            var format = new formatConstructor();
+                            var readFeatures;
+                            try {
+                                readFeatures = format.readFeatures(result);
+                            } catch (e) {
+                                readFeatures = null;
+                            }
+                            if (readFeatures !== null) {
+                                _.each(readFeatures, function (feature) {
+                                    var featureProjection = format.readProjection(result);
+                                    var transform = ol.proj.getTransform(featureProjection, ol.proj.get('EPSG:3857'));
+                                    var geometry = feature.getGeometry();
+                                    if (geometry) {
+                                        geometry.applyTransform(transform);
+                                    }
+                                    features.push(feature);
+                                });
+                            }
+                        });
+                        if (features.length > 0) {
+                            bulkAddFeatures(features);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
             });
 
             featureOverlay.setMap(map.map);
