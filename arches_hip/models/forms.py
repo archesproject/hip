@@ -209,6 +209,8 @@ class MeasurementForm(ResourceForm):
             }
 
 class ConditionForm(ResourceForm):
+    baseentity = None
+
     @staticmethod
     def get_info():
         return {
@@ -218,111 +220,53 @@ class ConditionForm(ResourceForm):
             'class': ConditionForm
         }
 
-    def update(self, data):
-        self.update_nodes('CONDITION_ASSESSMENT.E41', data)
-
-    def load(self):
-        ret = {
-            'CONDITION_ASSESSMENT.E14': {
-
-            }
-        }
-
+    def get_nodes(self, entity, entitytypeid):
         ret = []
-        entities = self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E14')
+        entities = entity.find_entities_by_type_id(entitytypeid)
         for entity in entities:
             ret.append({'nodes': entity.flatten()})
 
-        import datetime
-        data = [{
-            "child_entities": [
-                {
-                    "child_entities": [
-                        {
-                            "child_entities": [], 
-                            "label": "biological", 
-                            "value": "21f47eb1-0cd5-4c0d-9331-d3cffabd9b59", 
-                            "entitytypeid": "THREAT_TYPE.E55", 
-                            "entityid": "de1025e2-df55-44a9-b9cf-1c6d31c0edd2", 
-                            "property": "P42", 
-                            "businesstablename": "domains"
-                        }, 
-                        {
-                            "child_entities": [], 
-                            "label": "inappropriate use", 
-                            "value": "a90cc978-abc0-4fb0-94ed-a929747678e5", 
-                            "entitytypeid": "DISTURBANCE_TYPE.E55", 
-                            "entityid": "de30db8a-2bdb-461b-8680-cf80efc9a506", 
-                            "property": "P42", 
-                            "businesstablename": "domains"
-                        }, 
-                        {
-                            "child_entities": [], 
-                            "label": "Some condition description here.....", 
-                            "value": "Some condition description here.....", 
-                            "entitytypeid": "CONDITION_DESCRIPTION.E62", 
-                            "entityid": "de30db8a-2bdb-461b-8680-cf80efc9a506", 
-                            "property": "P42", 
-                            "businesstablename": "strings"
-                        }, 
-                        {
-                            "child_entities": [], 
-                            "label": "very bad", 
-                            "value": "7109fc68-4fec-4431-bc55-3c4a6a4488d6", 
-                            "entitytypeid": "CONDITION_TYPE.E55", 
-                            "entityid": "de30db8a-2bdb-461b-8680-cf80efc9a506", 
-                            "property": "P42", 
-                            "businesstablename": "domains"
-                        }, 
-                        {
-                            "child_entities": [], 
-                            "label": datetime.datetime.now(), 
-                            "value": datetime.datetime.now(), 
-                            "entitytypeid": "DATE_CONDITION_ASSESSED.E49", 
-                            "entityid": "de30db8a-2bdb-461b-8680-cf80efc9a506", 
-                            "property": "P42", 
-                            "businesstablename": "strings"
-                        }
-                    ], 
-                    "label": "", 
-                    "value": "", 
-                    "entitytypeid": "CONDITION_STATE.E3", 
-                    "entityid": "4695dd87-be5d-45ff-9652-7f9116053768", 
-                    "property": "-P41", 
-                    "businesstablename": ""
-                },
-                {
-                    "child_entities": [
-                        {
-                            "child_entities": [], 
-                            "label": "fire mitigation", 
-                            "value": "0dcfc64c-67d2-4e7c-b65f-ff521db335a8", 
-                            "entitytypeid": "RECOMMENDATION_TYPE.E55", 
-                            "entityid": "de1025e2-df55-44a9-b9cf-1c6d31c0edd2", 
-                            "property": "P42", 
-                            "businesstablename": "domains"
-                        }
-                    ], 
-                    "label": "", 
-                    "value": "", 
-                    "entitytypeid": "MANAGEMENT_RECOMMENDATION.E89", 
-                    "entityid": "4695dd87-be5d-45ff-9652-7f9116053768", 
-                    "property": "-P41", 
-                    "businesstablename": ""
-                }
-            ], 
-            "label": "", 
-            "value": "", 
-            "entitytypeid": "CONDITION_ASSESSMENT.E14", 
-            "entityid": "602e0153-cfd7-44c4-a163-f955edd99144", 
-            "property": "-P108", 
-            "businesstablename": "",
-            "editing": False
-        }]
+        return ret
 
+    def update_nodes(self, entitytypeid, data):
+        for value in data[entitytypeid]:
+            for newentity in value['nodes']:
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
 
-        self.data['CONDITION_ASSESSMENT.E14'] = {
-            'child_entities': data, #self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E14'),
+                if self.baseentity == None:
+                    self.baseentity = entity
+                else:
+                    self.baseentity.merge(entity)
+
+    def update(self, data):
+
+        for value in data['CONDITION_ASSESSMENT.E14']:
+            for node in value['nodes']:
+                if node['entitytypeid'] == 'CONDITION_ASSESSMENT.E14' and node['entityid'] != '':
+                    #remove the node
+                    print self.resource.to_json()
+                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+                    print self.resource.to_json()
+
+        if self.schema == None:
+            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+
+        self.update_nodes('CONDITION_TYPE.E55', data)
+        self.update_nodes('THREAT_TYPE.E55', data)
+        self.update_nodes('RECOMMENDATION_TYPE.E55', data)
+        self.update_nodes('DATE_CONDITION_ASSESSED.E49', data)
+        self.update_nodes('CONDITION_DESCRIPTION.E62', data)
+        self.update_nodes('DISTURBANCE_TYPE.E55', data)
+
+        self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
+        self.resource.trim()
+
+                   
+    def load(self):
+
+        self.data = {
+            'data': [],
             'domains': {
                 'DISTURBANCE_TYPE.E55': Concept().get_e55_domain('DISTURBANCE_TYPE.E55'),
                 'CONDITION_TYPE.E55' : Concept().get_e55_domain('CONDITION_TYPE.E55'),
@@ -331,42 +275,35 @@ class ConditionForm(ResourceForm):
             }
         }
 
-        # temp = Entity(data[0])
+        condition_assessment_entities = self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E14')
 
-        # self.resource.append_child(temp)
-
-        # self.data = {
-        #     'data': [],
-        #     'domains': {
-        #         'DISTURBANCE_TYPE.E55': Concept().get_e55_domain('DISTURBANCE_TYPE.E55'),
-        #         'CONDITION_TYPE.E55' : Concept().get_e55_domain('CONDITION_TYPE.E55'),
-        #         'THREAT_TYPE.E55' : Concept().get_e55_domain('THREAT_TYPE.E55'),
-        #         'RECOMMENDATION_TYPE.E55' : Concept().get_e55_domain('RECOMMENDATION_TYPE.E55')
-        #     }
-        # }
-
-        # condition_assessment_entities = self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E14')
-        # for entity in condition_assessment_entities:
-        #     self.data['data'].append({
-        #         'DISTURBANCE_TYPE.E55': {
-        #             'branch_lists': self.get_nodes('DISTURBANCE_TYPE.E55')
-        #         },
-        #         'CONDITION_TYPE.E55': {
-        #             'branch_lists': self.get_nodes('CONDITION_TYPE.E55')
-        #         },
-        #         'THREAT_TYPE.E55': {
-        #             'branch_lists': self.get_nodes('THREAT_TYPE.E55')
-        #         },
-        #         'RECOMMENDATION_TYPE.E55': {
-        #             'branch_lists': self.get_nodes('RECOMMENDATION_TYPE.E55')
-        #         },
-        #         'DATE_CONDITION_ASSESSED.E49': {
-        #             'branch_lists': self.get_nodes('DATE_CONDITION_ASSESSED.E49')
-        #         },
-        #         'CONDITION_DESCRIPTION.E62': {
-        #             'branch_lists': self.get_nodes('CONDITION_DESCRIPTION.E62')
-        #         }
-        #     })
+        for entity in condition_assessment_entities:
+            self.data['data'].append({
+                'DISTURBANCE_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'DISTURBANCE_TYPE.E55')
+                },
+                'CONDITION_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'CONDITION_TYPE.E55')
+                },
+                'THREAT_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'THREAT_TYPE.E55')
+                },
+                'RECOMMENDATION_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'RECOMMENDATION_TYPE.E55')
+                },
+                'DATE_CONDITION_ASSESSED.E49': {
+                    'branch_lists': self.get_nodes(entity, 'DATE_CONDITION_ASSESSED.E49')
+                },
+                'CONDITION_DESCRIPTION.E62': {
+                    'branch_lists': self.get_nodes(entity, 'CONDITION_DESCRIPTION.E62')
+                },
+                'CONDITION_IMAGE.E73': {
+                    'branch_lists': self.get_nodes(entity, 'CONDITION_IMAGE.E73')
+                },
+                'CONDITION_ASSESSMENT.E14': {
+                    'branch_lists': self.get_nodes(entity, 'CONDITION_ASSESSMENT.E14')
+                }
+            })
 
 
 class LocationForm(ResourceForm):
