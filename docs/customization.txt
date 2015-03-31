@@ -82,7 +82,7 @@ To update that block to use the example search above for the word modern, I can 
 Google Analytics
 ================
 
-To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's settings.py file (line 14 by default).
+To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's ``settings.py`` file.
 
 Uncomment this line (remove the starting ``#``) if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
 
@@ -93,7 +93,7 @@ Enabling this setting will automatically configure the web application to includ
 Map Settings
 ============
 
-Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file (line 15 by default)::
+Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file::
     
     #DEFAULT_MAP_X = 0
     #DEFAULT_MAP_Y = 0
@@ -216,7 +216,20 @@ For example, if I wanted to symbolize my resource markers as pink Font Awesome h
 Geocoding
 =========
 
+By default, as mentioned above, Arches-HIP uses the Bing geocoder to drive location search on the Map page.  This can be customized by applying a new ``GEOCODING_PROVIDER`` in your application's ``settings.py`` file.  
+
+This setting should point to a python module with a simple interface:
+
+    * the module must have a method called ``find_candidates``
+    * ``find_candidates`` should accept a single argument, which is the string search query
+    * ``find_candidates`` should return a list of candidate locations as dictionaries with the following keys:
+
+        * ``id``: a unique id for the location
+        * ``text``: a text description (i.e. name or address) of the location
+        * ``geometry``: a GeoJSON object (as a python dictionary) containing the location's geometry
+        * ``score``: an optional score value used for sorting (descending) in results drop down
 
 Localization
 ============
 
+Arches-HIP has put all of the hooks in place in it's code and UI templates to handle being localized via Django's localization API.  For more information on how to localize your application using Django, see the Django documentation: https://docs.djangoproject.com/en/1.6/topics/i18n/translation/
