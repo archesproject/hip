@@ -19,26 +19,40 @@ define([
                 el: $('#map')
             });
 
-            var bulkAddFeatures = function (features) {
-                locationBranchList.removeEditedBranch();
-                _.each(features, function(feature, i) {
-                    var branch = koMapping.fromJS({
-                        'editing':ko.observable(i===features.length-1),
-                        'nodes': ko.observableArray(locationBranchList.defaults)
-                    });
-                    var geom = feature.getGeometry();
-                    geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
-                    _.each(branch.nodes(), function(node) {
-                        if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
-                            node.value(wkt.writeGeometry(geom));
-                        }
-                    });
-                    locationBranchList.viewModel.branch_lists.push(branch);
+            var addFeature = function (feature, editing) {
+                var branch = koMapping.fromJS({
+                    'editing': ko.observable(editing), 
+                    'nodes': ko.observableArray(locationBranchList.defaults)
                 });
+                var geom = feature.getGeometry();
+                if (editing) {
+                    locationBranchList.removeEditedBranch();
+                }
+                geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
+                _.each(branch.nodes(), function(node) {
+                    if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
+                        node.value(wkt.writeGeometry(geom));
+                    }
+                });
+                locationBranchList.viewModel.branch_lists.push(branch);
+                self.trigger('change', 'geometrychange', branch);
+            };
 
-                self.trigger('change', 'geometrychange');
+            var bulkAddFeatures = function (features) {
+                _.each(features, function(feature, i) {
+                    addFeature(feature, i===features.length-1);
+                });
                 zoomToFeatureOverlay();
             };
+
+            map.map.on('click', function(e) {
+                map.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+                    if (_.contains(feature.getKeys(), 'branch')) {
+                        locationBranchList.removeEditedBranch();
+                        feature.get('branch').editing(true);            
+                    }
+                });
+            });
 
             map.on('layerDropped', function (layer) {
                 var features = layer.getSource().getFeatures();
@@ -120,26 +134,31 @@ define([
                 dataKey: 'PLACE_APPELLATION_CADASTRAL_REFERENCE.E44'
             }));
 
+            var style = function (feature) {
+                var editing = feature.get('editing');
+                return [new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color: 'rgba(92, 184, 92, 0.5)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: '#5cb85c',
+                        width: editing ? 4 : 2
+                    }),
+                    image: new ol.style.Circle({
+                        radius: editing ? 9 : 7,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(92, 184, 92, 0.5)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#5cb85c',
+                            width: editing ? 4 : 2
+                        })
+                    })
+                })];
+            }
+
             var featureOverlay = new ol.FeatureOverlay({
-              style: new ol.style.Style({
-                fill: new ol.style.Fill({
-                  color: 'rgba(92, 184, 92, 0.5)'
-                }),
-                stroke: new ol.style.Stroke({
-                  color: '#5cb85c',
-                  width: 2
-                }),
-                image: new ol.style.Circle({
-                  radius: 7,
-                  fill: new ol.style.Fill({
-                    color: 'rgba(92, 184, 92, 0.5)'
-                  }),
-                  stroke: new ol.style.Stroke({
-                    color: '#5cb85c',
-                    width: 2
-                  })
-                })
-              })
+                style: style
             });
 
             var zoomToFeatureOverlay = function () {
@@ -165,7 +184,13 @@ define([
                     geom.transform(ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'));
                     var feature = new ol.Feature({
                         geometry: geom,
-                        branch: branch
+                        branch: branch,
+                        editing: branch.editing()
+                    });
+
+                    branch.editing.subscribe(function () {
+                        feature.set('editing', branch.editing());
+                        map.map.render();
                     });
 
                     feature.on('change', function () {
@@ -198,21 +223,8 @@ define([
                     type: geometryType
                 });
                 draw.on('drawend', function(e) {
-                    locationBranchList.removeEditedBranch();
-                    var branch = koMapping.fromJS({
-                        'editing':ko.observable(true), 
-                        'nodes': ko.observableArray(locationBranchList.defaults)
-                    });
-                    var geom = e.feature.getGeometry();
-                    geom.transform(ol.proj.get('EPSG:3857'), ol.proj.get('EPSG:4326'));
-                    _.each(branch.nodes(), function(node) {
-                        if (node.entitytypeid() === 'SPATIAL_COORDINATES_GEOMETRY.E47') {
-                            node.value(wkt.writeGeometry(geom));
-                        }
-                    });
-                    locationBranchList.viewModel.branch_lists.push(branch);
+                    addFeature(e.feature, true);
                     map.map.removeInteraction(draw);
-                    self.trigger('change', 'geometrychange', branch);
                 });
                 map.map.addInteraction(draw);
 
