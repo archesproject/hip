@@ -76,7 +76,7 @@ An image of each graph can be found below with details about the graphs attribut
 Activity.E7
 ~~~~~~~~~~~
 
-.. image :: ../../activity.png
+.. image :: activity.png
 
 +----------------------------------------------------+-----------------------+---------------------+
 |   Entity Type                                      |     Definition        |     Data Type       |
@@ -283,7 +283,7 @@ Activity.E7
 Actor.E39
 ~~~~~~~~~
 
-.. image :: ../../actor.png
+.. image :: actor.png
 
 +----------------------------------------------------+-----------------------+---------------------+
 |   Entity Type                                      |     Definition        |     Data Type       |
@@ -468,19 +468,19 @@ Actor.E39
 Heritage Resource.E18
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. image :: ../../heritage_resource.png
+.. image :: heritage_resource.png
 
 Heritage Resource Group.E27
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. image :: ../../heritage_resource_group.png
+.. image :: heritage_resource_group.png
 
 Historical Event.E5
 ~~~~~~~~~~~~~~~~~~~
-.. image :: ../../historical_event.png
+.. image :: historical_event.png
 
 Information Resource.E73
 ~~~~~~~~~~~~~~~~~~~~~~~~
-.. image :: ../../information_resource.png
+.. image :: information_resource.png
 
 
 Authority Files
