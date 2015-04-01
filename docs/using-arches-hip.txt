@@ -12,7 +12,7 @@ Administration
 
 Arches uses the very powerful Django administration application to drive system administration.  This interface is available at: ``{ your application url }/admin``
 
-From here, administrator users can manage users, groups and permissions.  Arches-HIP will automatically create permissions for each entity type tracked, so that administrators can manage access to Arches data on a per entity basis
+From here, administrator users can manage users, groups and permissions.  Arches-HIP will automatically create permissions for each entity type tracked, so that administrators can manage access to Arches data on a per entity basis.  You will find these permissions available to be assigned to users and groups in the Django administration application.
 
 For more on using the Django administration interface, please see the Django documentation: https://docs.djangoproject.com/en/1.6/ref/contrib/admin/
 
