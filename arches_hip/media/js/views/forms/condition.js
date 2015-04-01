@@ -66,7 +66,6 @@ define(['jquery',
 
             this.editAssessment = function(branchlist){
                 self.switchBranchForEdit(branchlist);
-                self.startWorkflow();
             }
 
             this.deleteAssessment = function(branchlist){
@@ -168,6 +167,10 @@ define(['jquery',
 
         },
 
+        startWorkflow: function() { 
+            this.switchBranchForEdit(this.getBlankFormData());
+        },
+
         switchBranchForEdit: function(conditionAssessmentData){
             this.prepareData(conditionAssessmentData);
 
@@ -177,6 +180,7 @@ define(['jquery',
             }, this);
 
             this.filebranchlist.addMockFiles();
+            this.toggleEditor();
         },
 
         prepareData: function(assessmentNode){
