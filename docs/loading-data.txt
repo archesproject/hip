@@ -33,13 +33,55 @@ To load business data, navigate to /my_hip_app and run the following command::
 
 Note: This command works for both .arches and .shp files.
 
-In addition to the validation that is performed on every .arches file from Arches, there is some specific HIP validation that a .arches file must pass as well.
-	
-	check_duplicates_in_group
-	# Checks if there are multiple instances of any one of the entity_types listed within the same group. 
-	# Each entity type listed should occur zero or one time in a group.
+Validation
+~~~~~~~~~~
 
-	check_paired_attributes
+In addition to the validation that is performed on every .arches file from Arches, there is some specific HIP validation that a .arches file must pass as well. These validations are listed below:
+	
+
+	1. Check Duplicates in Group - Some entity type groups should only ever contain zero or one of a certain entity type. For instance, every NAME.E41 should be associated to one and only one NAME_TYPE.E55. You may have multiple names per resource or the same name repated multiple times but each instance of NAME.E41 should be associated with one and only one NAME_TYPE.E55. Here's a list of entity types that must appear only zero or one times in a given group.
+
+		- 'ACTOR_APPELLATION.E82'
+		- 'ADDRESS_TYPE.E55'
+		- 'COMPONENT_TYPE.E55'
+		- 'CULTURAL_PERIOD.E55'
+		- 'DESCRIPTION.E62'
+		- 'DESCRIPTION_TYPE.E55'
+		- 'EVALUATION_CRITERIA_TYPE.E55'
+		- 'FILE_PATH.E62'
+		- 'FROM_DATE.E49'
+		- 'HERITAGE_RESOURCE_TYPE.E55'
+		- 'HERITAGE_RESOURCE_USE_TYPE.E55'
+		- 'NAME.E41'
+		- 'NAME_TYPE.E55'
+		- 'PLACE_ADDRESS.E45'
+		- 'RIGHT.E30'
+		- 'RIGHT_TYPE.E55'
+		- 'THUMBNAIL.E62'
+		- 'TITLE.E41'
+		- 'TITLE_TYPE.E55'
+		- 'TO_DATE.E49'
+
+	Remember there can be multiple instances of these entity types per resource just not per group within resource.
+
+	2. Check Paired Attributes - Some attributes should always be paired with another attribute. For example, for each NAME_TYPE.E55 in your .arches file there should be a corresponding NAME.E41, otherwise the NAME_TYPE.E55 does not describe anything. Arches-HIP checks to see that the following attriubtes are paired in your .arches file.
+
+		- 'BEGINNING_OF_EXISTENCE_TYPE.E55', 'START_DATE_OF_EXISTENCE.E49'
+	
+		- 'END_OF_EXISTENCE_TYPE.E55', 'END_DATE_OF_EXISTENCE.E49'
+		
+		- 'NAME.E41', 'NAME_TYPE.E55'
+		
+		- 'DESCRIPTION.E62', 'DESCRIPTION_TYPE.E55'
+		
+		- 'RIGHT.E30', 'RIGHT_TYPE.E55'
+		
+		- 'TITLE.E41', 'TITLE_TYPE.E55'
+		
+		- 'ACTOR_APPELLATION.E82', 'NAME_TYPE.E55'
+
+
+.. note:: Any validation errors that popup during data load can be view in the my_hip_app/my_hip_app/logs directory in the validation_errors.txt file.
 
 Bulk Removing Business Data
 ---------------------------
@@ -71,416 +113,39 @@ The HIP package includes the following six resource graphs for cataloging cultur
  - Historical Event.E5
  - Information Resource.E73
 
-An image of each graph can be found below with details about the graphs attributes. Remember not all nodes shown in the graph collect data. To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
+An image of each graph can be found below, details about the graphs attributes can be found in `Appendix A <appendix.html#appendix-a>`_. Remember not all nodes shown in the graph collect data. To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
 Activity.E7
 ~~~~~~~~~~~
 
-.. image :: ../../activity.png
-
-+----------------------------------------------------+-----------------------+---------------------+
-|   Entity Type                                      |     Definition        |     Data Type       |
-+====================================================+=======================+=====================+
-|                                                    | A reference code      |                     |
-|                                                    | to this resource in   |                     |
-|                                                    | another system. This  |                     |
-|                                                    | node would contain    |                     |
-|                                                    |                       |                     |
-| EXTERNAL_XREF.E42                                  | while the             |     strings         |
-|                                                    |                       |                     |
-|                                                    | node would contain the|                     |
-|                                                    | name of the external  |                     |
-|                                                    | to which this code is |                     |
-|                                                    | relevant.             |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    | A reference to the    |                     |
-|                                                    | external reference    |                     |
-|                                                    | system to which the   |                     |
-|                                                    | EXTERNAL_XREF.E42     |                     |
-| EXTERNAL_XREF_TYPE.E55                             | value refers. Note    |    domain value     |
-|                                                    | this needs to be a    |                     |
-|                                                    | conceptid from the    |                     |
-|                                                    | authority document    |                     |
-|                                                    | that corresponds to   |                     |
-|                                                    | this entity type.     |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|    KEYWORD.E55                                     |                       |    domain value     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|   PLACE_ADDRESS.E45                                |                       |       string        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|   ADDRESS_TYPE.E55                                 |                       |                     |
-|                                                    |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|DESCRIPTION_OF_LOCATION.E62                         |                       |       string        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|ADMINISTRATIVE_SUBDIVISION.E48                      |                       |      string??       |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|ADMINISTRATIVE_SUBDIVISION_TYPE.E55                 |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|SPATIAL_COORDINATES_GEOMETRY.E47                    |                       |    wkt geometry     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|GEOMETRY_QUALIFIER.E55                              |                       |    doamin value     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|      NAME.E41                                      |                       |        string       |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|     NAME_TYPE.E55                                  |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|    DESCRIPTION.E62                                 |                       |       string        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-| DESCRIPTION_TYPE.E55                               |                       |       string        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|   ACTIVITY_TYPE.E55                                |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|    FROM_DATE.E49                                   |                       |         date        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|     TO_DATE.E49                                    |                       |         date        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|START_DATE_OF_EXISTENCE.E49                         |                       |         date        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|BEGINNING_OF_EXISTENCE_TYPE.E55                     |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|END_DATE_OF_EXISTENCE.E49                           |                       |         date        |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|END_OF_EXISTENCE_TYPE.E55                           |                       |      domain value   |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-
+.. image :: activity.png
 
 
 Actor.E39
 ~~~~~~~~~
 
-.. image :: ../../actor.png
+.. image :: actor.png
 
-+----------------------------------------------------+-----------------------+---------------------+
-|   Entity Type                                      |     Definition        |     Data Type       |
-+====================================================+=======================+=====================+
-|                                                    | A reference code      |                     |
-|                                                    | to this resource in   |                     |
-|                                                    | another system. This  |                     |
-|                                                    | node would contain    |                     |
-|                                                    |                       |                     |
-| ACTOR_APPELLATION.E82                              | while the             |     strings         |
-|                                                    |                       |                     |
-|                                                    | node would contain the|                     |
-|                                                    | name of the external  |                     |
-|                                                    | to which this code is |                     |
-|                                                    | relevant.             |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  ACTOR_TYPE.E55                                    |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  ADDRESS_TYPE.E55                                  |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  BEGINNING_OF_EXISTENCE_TYPE.E55                   |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  CULTURAL_PERIOD.E55                               |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  DESCRIPTION_OF_LOCATION.E62                       |                       |     strings         |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  DESCRIPTION_TYPE.E55                              |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|   DESCRIPTION.E62                                  |                       |     strings         |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  END_DATE_OF_EXISTENCE.E49                         |                       |     dates           |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  END_OF_EXISTENCE_TYPE.E55                         |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  EPITHET.E82                                       |                       |     strings         |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  EXTERNAL_XREF_TYPE.E55                            |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  EXTERNAL_XREF.E42                                 |                       |     strings         |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|   FROM_DATE.E49                                    |                       |     dates           |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  KEYWORD.E55                                       |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  NAME_TYPE.E55                                     |                       |     domain value    |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|  PLACE_ADDRESS.E45                                 |                       |     strings         |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-| START_DATE_OF_EXISTENCE.E49                        |                       |     dates           |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-| TO_DATE.E49                                        |                       |     dates           |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-|                                                    |                       |                     |
-+----------------------------------------------------+-----------------------+---------------------+
 
 Heritage Resource.E18
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. image :: ../../heritage_resource.png
+.. image :: heritage_resource.png
+
 
 Heritage Resource Group.E27
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. image :: ../../heritage_resource_group.png
+.. image :: heritage_resource_group.png
+
 
 Historical Event.E5
 ~~~~~~~~~~~~~~~~~~~
-.. image :: ../../historical_event.png
+.. image :: historical_event.png
+
 
 Information Resource.E73
 ~~~~~~~~~~~~~~~~~~~~~~~~
-.. image :: ../../information_resource.png
+.. image :: information_resource.png
 
 
 Authority Files
@@ -493,101 +158,98 @@ Included Authority Files
 
 HIP comes with the following authority files included.
 
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|   Authority File                                   |     Description       |   Entity Type Node                    |
-+====================================================+=======================+=======================================+
-|                                                    |                       | ACTIVITY_TYPE.E55                     |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | ACTOR_TYPE.E55                        |
-+----------------------------------------------------+-----------------------+---------------------------------------+ 
-|                                                    |                       | ADDRESS_TYPE.E55                      |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | ADMINISTRATIVE_SUBDIVISION_TYPE.E55   |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | ANCILLARY_FEATURE_TYPE.E55            |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | ANCILLARY_FEATURE.E55                 |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | BEGINNING_OF_EXISTENCE_TYPE.E55       |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | COMPONENT_TYPE.E55                    |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | CONDITION_TYPE.E55                    |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | CONSTRUCTION_TECHNIQUE.E55            |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | CULTURAL_PERIOD.E55                   |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | DESCRIPTION_TYPE.E55                  |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | DISTURBANCE_TYPE.E55                  |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | ELIGIBILITY_REQUIREMENT_TYPE.E55      |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | END_OF_EXISTENCE_TYPE.E55             |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | EVALUATION_CRITERIA_TYPE.E55          |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | EXTERNAL_XREF_TYPE.E55                |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | GEOMETRY_QUALIFIER.E55                |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | HERITAGE_RESOURCE_GROUP_TYPE.E55      |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | HERITAGE_RESOURCE_GROUP_USE_TYPE.E55  |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | HERITAGE_RESOURCE_TYPE.E55            |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | HERITAGE_RESOURCE_USE_TYPE.E55        |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | HISTORICAL_EVENT_TYPE.E55             |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | IDENTIFIER_TYPE.E55                   |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | INFORMATION_CARRIER_FORMAT_TYPE.E55   |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | INFORMATION_RESOURCE_TYPE.E55         |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | INTEGRITY_TYPE.E55                    |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | KEYWORD.E55                           |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | LANGUAGE.E55                          |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | MATERIAL.E57                          |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | MEASUREMENT_TYPE.E55                  |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | MODIFICATION_TYPE.E55                 |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | NAME_TYPE.E55                         |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | RECOMMENDATION_TYPE.E55               |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | RESOURCE_TYPE_CLASSIFICATION.E55      |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | RIGHT_TYPE.E55                        |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | SETTING_TYPE.E55                      |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | STATUS.E55                            |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | STYLE.E55                             |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | THREAT_TYPE.E55                       |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | TITLE_TYPE.E55                        |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | TYPE_OF_DESIGNATION_OR_PROTECTION.E55 |
-+----------------------------------------------------+-----------------------+---------------------------------------+
-|                                                    |                       | UNIT_OF_MEASUREMENT.E55               |
-+----------------------------------------------------+-----------------------+---------------------------------------+
++----------------------------------------------------------+---------------------------------------+
+| Authority Document                                       | Entity Type                           |
++==========================================================+=======================================+
+| ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv                     | ACTIVITY_TYPE.E55                     |
++----------------------------------------------------------+---------------------------------------+
+| ACTOR_TYPE_AUTHORITY_DOCUMENT.csv                        | ACTOR_TYPE.E55                        |
++----------------------------------------------------------+---------------------------------------+
+| ADDRESS_TYPE_AUTHORITY_DOCUMENT.csv                      | ADDRESS_TYPE.E55                      |
++----------------------------------------------------------+---------------------------------------+
+| ADMINISTRATIVE_SUBDIVISION_TYPE_AUTHORITY_DOCUMENT.csv   | ADMINISTRATIVE_SUBDIVISION_TYPE.E55   |
++----------------------------------------------------------+---------------------------------------+
+| BEGINNING_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv       | BEGINNING_OF_EXISTENCE_TYPE.E55       |
++----------------------------------------------------------+---------------------------------------+
+| COMPONENT_TYPE_AUTHORITY_DOCUMENT.csv                    | COMPONENT_TYPE.E55                    |
++----------------------------------------------------------+---------------------------------------+
+| CONDITION_AUTHORITY_DOCUMENT.csv                         | CONDITION_TYPE.E55                    |
++----------------------------------------------------------+---------------------------------------+
+| CONSTRUCTION_TECHNIQUE_AUTHORITY_DOCUMENT.csv            | CONSTRUCTION_TECHNIQUE.E55            |
++----------------------------------------------------------+---------------------------------------+
+| CULTURAL_PERIOD_AUTHORITY_DOCUMENT.csv                   | CULTURAL_PERIOD.E55                   |
++----------------------------------------------------------+---------------------------------------+
+| DESCRIPTION_TYPE_AUTHORITY_DOCUMENT.csv                  | DESCRIPTION_TYPE.E55                  |
++----------------------------------------------------------+---------------------------------------+
+| DISTURBANCE_TYPE_AUTHORITY_DOCUMENT.csv                  | DISTURBANCE_TYPE.E55                  |
++----------------------------------------------------------+---------------------------------------+
+| ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY DOCUMENT.csv      | ELIGIBILITY_REQUIREMENT_TYPE.E55      |
++----------------------------------------------------------+---------------------------------------+
+| END_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv             | END_OF_EXISTENCE_TYPE.E55             |
++----------------------------------------------------------+---------------------------------------+
+| EVALUATION_CRITERIA_TYPE_AUTHORITY_DOCUMENT.csv          | EVALUATION_CRITERIA_TYPE.E55          |
++----------------------------------------------------------+---------------------------------------+
+| EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv                | EXTERNAL_XREF_TYPE.E55                |
++----------------------------------------------------------+---------------------------------------+
+| GEOMETRY_QUALIFIER_AUTHORITY_DOCUMENT.csv                | GEOMETRY_QUALIFIER.E55                |
++----------------------------------------------------------+---------------------------------------+
+| HERITAGE_RESOURCE_GROUP_TYPE_AUTHORITY_DOCUMENT.csv      | HERITAGE_RESOURCE_GROUP_TYPE.E55      |
++----------------------------------------------------------+---------------------------------------+
+| HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv            | HERITAGE_RESOURCE_TYPE.E55            |
++----------------------------------------------------------+---------------------------------------+
+| HISTORICAL_EVENT_TYPE_AUTHORITY_DOCUMENT.csv             | HISTORICAL_EVENT_TYPE.E55             |
++----------------------------------------------------------+---------------------------------------+
+| IDENTIFIER_TYPE_AUTHORITY_DOCUMENT.csv                   | IDENTIFIER_TYPE.E55                   |
++----------------------------------------------------------+---------------------------------------+
+| INFORMATION_CARRIER_FORMAT_AUTHORITY_DOCUMENT.csv        | INFORMATION_CARRIER_FORMAT_TYPE.E55   |
++----------------------------------------------------------+---------------------------------------+
+| INFORMATION_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv         | INFORMATION_RESOURCE_TYPE.E55         |
++----------------------------------------------------------+---------------------------------------+
+| INTEGRITY_TYPE_AUTHORITY_DOCUMENT.csv                    | INTEGRITY_TYPE.E55                    |
++----------------------------------------------------------+---------------------------------------+
+| KEYWORD_AUTHORITY_DOCUMENT.csv                           | KEYWORD.E55                           |
++----------------------------------------------------------+---------------------------------------+
+| LANGUAGE_AUTHORITY_DOCUMENT.csv                          | LANGUAGE.E55                          |
++----------------------------------------------------------+---------------------------------------+
+| MATERIAL_AUTHORITY_DOCUMENT.csv                          | MATERIAL.E57                          |
++----------------------------------------------------------+---------------------------------------+
+| MEASUREMENT_TYPE_AUTHORITY_DOCUMENT.csv                  | MEASUREMENT_TYPE.E55                  |
++----------------------------------------------------------+---------------------------------------+
+| MODIFICATION_TYPE_AUTHORITY_DOCUMENT.csv                 | MODIFICATION_TYPE.E55                 |
++----------------------------------------------------------+---------------------------------------+
+| NAME_TYPE_AUTHORITY_DOCUMENT.csv                         | NAME_TYPE.E55                         |
++----------------------------------------------------------+---------------------------------------+
+| RECOMMENDATION_TYPE_AUTHORITY_DOCUMENT.csv               | RECOMMENDATION_TYPE.E55               |
++----------------------------------------------------------+---------------------------------------+
+| RELATED_FEATURE_AUTHORITY_DOCUMENT.csv                   | ANCILLARY_FEATURE_TYPE.E55            |
++----------------------------------------------------------+---------------------------------------+
+| RESOURCE_CLASSIFICATION_AUTHORITY_DOCUMENT.csv           | RESOURCE_TYPE_CLASSIFICATION.E55      |
++----------------------------------------------------------+---------------------------------------+
+| RIGHT_TYPE_AUTHORITY_DOCUMENT.csv                        | RIGHT_TYPE.E55                        |
++----------------------------------------------------------+---------------------------------------+
+| SETTING_TYPE_AUTHORITY_DOCUMENT.csv                      | SETTING_TYPE.E55                      |
++----------------------------------------------------------+---------------------------------------+
+| STATUS_AUTHORITY_DOCUMENT.csv                            | STATUS.E55                            |
++----------------------------------------------------------+---------------------------------------+
+| STYLE_AUTHORITY_DOCUMENT.csv                             | STYLE.E55                             |
++----------------------------------------------------------+---------------------------------------+
+| THREAT_TYPE_AUTHORITY_DOCUMENT.csv                       | THREAT_TYPE.E55                       |
++----------------------------------------------------------+---------------------------------------+
+| TITLE_TYPE_AUTHORITY_DOCUMENT.csv                        | TITLE_TYPE.E55                        |
++----------------------------------------------------------+---------------------------------------+
+| TYPE_OF_DESIGNATION_OR_PROTECTION_AUTHORITY_DOCUMENT.csv | TYPE_OF_DESIGNATION_OR_PROTECTION.E55 |
++----------------------------------------------------------+---------------------------------------+
+| UNIT_OF_MEASUREMENT_AUTHORITY_DOCUMENT.csv               | UNIT_OF_MEASUREMENT.E55               |
++----------------------------------------------------------+---------------------------------------+
+| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_DISTRICT_USE_TYPE.E55        |
++----------------------------------------------------------+---------------------------------------+
+| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_RESOURCE_USE_TYPE.E55        |
++----------------------------------------------------------+---------------------------------------+
 
 
+If you chose the default install option, these authority files were automatically loaded to your concept scheme and can be edited using the RDM (more on that in 'Using Arches HIP'). More information on the entity types these authority documents describe can be found in `Appendix A <appendix.html#appendix-a>`_
 
 
-
-If you chose the default install option, these authority files were automatically loaded to your concept scheme and can be edited using the RDM (more on that in 'Using Arches HIP').
 
 Modifying HIP Authority Files
 -----------------------------
@@ -623,7 +285,7 @@ Creating a .arches file
 For general directions on how to create a .arches file you'll want to refer to the 'Loading Business Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_. This section will review rules specific to creating a .arches file based on HIP graphs.
 
 1. In this example we'll begin by creating a text file called example.arches and adding the following text to the first line.::
-
+	
 	//example.arches
 
 	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
@@ -646,11 +308,6 @@ For general directions on how to create a .arches file you'll want to refer to t
 	- Heritage Resource Group.E27
 	- Historical Event.E5
 	- Information Resource.E73
-
-
-RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
-10437|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1936-05-01|BEGINNING_OF_EXISTENCE.E63-0
-
 
  ::
 
@@ -689,6 +346,7 @@ Here the START_DATE_OF_EXISTENCE.E49 attribute is grouped together with a BEGINN
 	2. Some attributes must be paired with another attribute to have meaning. For instance, a BEGINNING_OF_EXISTENCE_TYPE.E55 attribute would have no meaing if not paired with a START_DATE_OF_EXISTENCE.E49 attribute.
 
 .. note:: Here is a list of attributes that must be paired in Arches-HIP:
+	
 	- 'BEGINNING_OF_EXISTENCE_TYPE.E55', 'START_DATE_OF_EXISTENCE.E49'
 	
 	- 'END_OF_EXISTENCE_TYPE.E55', 'END_DATE_OF_EXISTENCE.E49'
@@ -704,6 +362,9 @@ Here the START_DATE_OF_EXISTENCE.E49 attribute is grouped together with a BEGINN
 	- 'ACTOR_APPELLATION.E82', 'NAME_TYPE.E55'
 
 
+7.) In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
+
+.. note:: In order to create a relationship between two resources both resourceids referenced in the .relations file must be present in your .arches file.
 
 
 Creating a .shp file

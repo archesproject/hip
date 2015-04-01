@@ -12,3 +12,4 @@ Contents:
    loading-data
    using-arches-hip
    customization
+   appendix
