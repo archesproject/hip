@@ -32,7 +32,7 @@ class SummaryForm(ResourceForm):
             'class': SummaryForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
         self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
@@ -97,7 +97,7 @@ class ClassificationForm(ResourceForm):
             'class': ClassificationForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
         self.update_nodes('COMPONENT.E18', data)
         self.update_nodes('MODIFICATION_EVENT.E11', data)
@@ -146,7 +146,7 @@ class ExternalReferenceForm(ResourceForm):
             'class': ExternalReferenceForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('EXTERNAL_RESOURCE.E1', data)
         return
 
@@ -169,7 +169,7 @@ class DescriptionForm(ResourceForm):
             'class': DescriptionForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('DESCRIPTION.E62', data)
 
     def load(self):
@@ -195,7 +195,7 @@ class MeasurementForm(ResourceForm):
             'class': MeasurementForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('MEASUREMENT_TYPE.E55', data)
 
 
@@ -342,7 +342,7 @@ class LocationForm(ResourceForm):
             'class': LocationForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)
         self.update_nodes('PLACE_ADDRESS.E45', data)
         self.update_nodes('DESCRIPTION_OF_LOCATION.E62', data)
