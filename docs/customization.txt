@@ -25,21 +25,21 @@ You can add your own CSS style rules (applied application wide) in the following
 
 **Home Page**
 
-``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
+    ``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
 
-This is the content of the first page that your users will see, so you'll probably want to really make it your own. You should consider doing the following:
+    This is the content of the first page that your users will see, so you'll probably want to really make it your own. You should consider doing the following:
 
-* Update the images and text in the layer slider
-* Add you own text to the title block below the layer slider
-* Update the saved searches to suit your data (more on that below)
+        * Update the images and text in the layer slider
+        * Add you own text to the title block below the layer slider
+        * Update the saved searches to suit your data (more on that below)
 
 **Branding**
 
-The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
+    The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
 
-You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
+    You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
 
-For example, the header logo on all pages can be altered by modifying the ``<img>`` tag at line 52 of ``header.htm``.  This will change the header image on all web application pages.
+    For example, the header logo on all pages can be altered by modifying the ``<img>`` tag at line 52 of ``header.htm``.  This will change the header image on all web application pages.
 
 Saved Searches
 ==============
@@ -131,10 +131,10 @@ You can add more baseLayers by adding an object containing an OpenLayers 3 layer
 
 The objects you add should contain the following keys:
 
-* ``id``: String; a unique id for this layer
-* ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
-* ``icon``: String; a valid path to an image used as an icon in the basemap list
-* ``name``: String; a display name for this layer used in the basemap list
+    * ``id``: String; a unique id for this layer
+    * ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
+    * ``icon``: String; a valid path to an image used as an icon in the basemap list
+    * ``name``: String; a display name for this layer used in the basemap list
 
 For example, I can add a tile layer as a basemap layer like so::
 
@@ -165,12 +165,12 @@ You will find, again, at the bottom of this file an array being returned, this o
 
 However, in this case a little extra metadata is passed along with the layer instance in a Javascript object called a LayerModel.  The LayerModel is instantiated with an object with the following keys:
 
-* ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
-* ``icon``: String; a css class used for displaying an icon in the overlay list.  CSS rules can be added to ``package.css`` as described above
-* ``name``: String; a display name for this layer used in overlay list
-* ``description``: String; an optional description for the layer used in overlay list and for searching
-* ``categories``: Array; an optional list of categories (Strings) used as keywords for layer search
-* ``onMap``: Boolean; true to show this layer on the map by default
+    * ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
+    * ``icon``: String; a css class used for displaying an icon in the overlay list.  CSS rules can be added to ``package.css`` as described above
+    * ``name``: String; a display name for this layer used in overlay list
+    * ``description``: String; an optional description for the layer used in overlay list and for searching
+    * ``categories``: Array; an optional list of categories (Strings) used as keywords for layer search
+    * ``onMap``: Boolean; true to show this layer on the map by default
 
 For example, you could add a tile layer overlay like so::
 
@@ -203,9 +203,9 @@ Arches-HIP provides some simple settings for managing how resource markers are d
 
 These settings manage markers as follows:
 
-* ``RESOURCE_MARKER_ICON_UNICODE``: the Unicode value of the icon you want to use
-* ``RESOURCE_MARKER_ICON_FONT``: the font name you want to use ('octicons' or 'FontAwesome')
-* ``RESOURCE_MARKER_DEFAULT_COLOR``: the hex value of the color you want to use by default
+    * ``RESOURCE_MARKER_ICON_UNICODE``: the Unicode value of the icon you want to use
+    * ``RESOURCE_MARKER_ICON_FONT``: the font name you want to use ('octicons' or 'FontAwesome')
+    * ``RESOURCE_MARKER_DEFAULT_COLOR``: the hex value of the color you want to use by default
 
 For example, if I wanted to symbolize my resource markers as pink Font Awesome house icons (http://fortawesome.github.io/Font-Awesome/icon/home/), I could adjust my settings like so::
 
