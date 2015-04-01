@@ -375,7 +375,7 @@ Creating a ``.shp`` file
 		* ``FIELD_MAP``: a list of shapefile fields and their corresponding entity types. Each field must be enclosed in brackets, with the shapefile column name in the first position and the ``entitytypeid`` in the second.
 
 
-	..note:: The curly braces at the beginning and end of the file are important!
+	.. note:: The curly braces at the beginning and end of the file are important!
 
 
 #.	**Confirm Your Shapefile Data**
