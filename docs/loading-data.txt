@@ -7,31 +7,30 @@ Loading Data
 
 For this section you will need authority files and/or business data to load. There are currently a few options for for how to obtain this data:
 
-1. Download the sample HIP data from `here <http://www.google.com>`_.
-2. Modify the existing Arches-HIP authority files and create your own business data. Instructions `below <loading-data.html#modifying-hip-authority-files>`_.
-3. Create your own authority files and business data using instructions outlined in the Arches documentation `here <http://arches3.readthedocs.org/en/latest/arches-data/#loading-authority-files>`_.
+	#. Download the sample HIP data (link coming soon!).
+	#. Modify the existing Arches-HIP authority files and create your own business data. Instructions `below <loading-data.html#modifying-hip-authority-files>`_.
+	#. Create your own authority files and business data using instructions outlined in the Arches documentation on `Loading Authority Files <http://arches3.readthedocs.org/en/latest/arches-data/#loading-authority-files>`_.
 
 Loading Authority Files
 -----------------------
 
-To load authority documents, navigate to /my_hip_app and run the following command::
+To load authority documents, navigate to ``/my_hip_app`` and run the following command::
 	
 	$ python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
 
 During load the authority files go through a set of validations. If there are errors in your authority documents load will fail and you will have to correct the errors before you try to load the authority files again.
 
-
-.. note:: A detailed log of any errors detected in the authority files can be found here: /my_hip_app/logs/authority_file_errors.txt
+.. note:: A detailed log of any errors detected in the authority files can be found here: ``/my_hip_app/logs/authority_file_errors.txt``
 
 
 Loading Business Data
 ---------------------
 
-To load business data, navigate to /my_hip_app and run the following command::
+To load business data, navigate to ``/my_hip_app`` and run the following command::
 	
 	$ python manage.py packages -o load_resources -s ‘path to file’
 
-Note: This command works for both .arches and .shp files.
+.. note:: This command works for both ``.arches`` and ``.shp`` files.
 
 Validation
 ~~~~~~~~~~
@@ -88,7 +87,7 @@ Bulk Removing Business Data
 
 If you managed to load data that you did not intend to load, or if for some reason you changed your mind about loading your data, don’t worry. You can easily unload a batch of data from Arches.
 
-To do this you will need the Load ID that was created when you loaded your data. Arches writes the Load ID to the terminal you used to start the import, and the Load ID is also located in the notes column of your data.edit_log table.
+To do this you will need the Load ID that was created when you loaded your data. Arches writes the Load ID to the terminal you used to start the import, and the Load ID is also located in the notes column of your ``data.edit_log`` table.
 
 The Load ID will look something like this: “LOADID:2014-12-2-7-17-23884” (e.g.: the timestamp by year-month-day-hour-minute-microsecond) of the start of your resource load, so that may help you find the correct Load ID if you are unsure.
 
@@ -106,12 +105,12 @@ Included Graphs
 ---------------
 The HIP package includes the following six resource graphs for cataloging cultural heritage:
 
- - Activity.E7
- - Actor.E39
- - Heritage Resource.E18
- - Heritage Resource Group.E27
- - Historical Event.E5
- - Information Resource.E73
+	* Activity.E7
+	* Actor.E39
+	* Heritage Resource.E18
+	* Heritage Resource Group.E27
+	* Historical Event.E5
+	* Information Resource.E73
 
 An image of each graph can be found below, details about the graphs attributes can be found in `Appendix A <appendix.html#appendix-a>`_. Remember not all nodes shown in the graph collect data. To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
@@ -254,163 +253,137 @@ If you chose the default install option, these authority files were automaticall
 Modifying HIP Authority Files
 -----------------------------
 
-In some instances you may wish to modify the existing HIP authority files. The following steps outline how to modify these authority documents. These steps can be followed using excel as your text editor but the final file must be saved as a utf-8 formatted csv file.
+In some instances you may wish to modify the existing HIP authority files. The following steps outline how to modify these authority documents. These steps can be followed using excel as your text editor but the final file must be saved as a UTF-8 formatted CSV file.
 
-	
-1.) If you have not already, download the sample HIP authority files (link to HIP sample files here) and place them in a known location (we reccomend /my_hip_app/source_data/authority_files) 
-
-2.) Navigate to your authority files directory. Open the file you wish to modify.
-
-3.) If you would like to edit an existing concept simply change the PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider for that concept as necessary. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
-
-4.) If you would like to add a concept, create a unique conceptid for the concept (remember this id must be unique both interal to the authority file and between authority files) and then add your desired PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider.
-
-5.) Make sure to review the guidlines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
+	#. If you have not already, download the sample HIP authority files (link to HIP sample files here) and place them in a known location (we recommend ``/my_hip_app/source_data/authority_files``) 
+	#. Navigate to your authority files directory. Open the file you wish to modify.
+	#. If you would like to edit an existing concept simply change the PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider for that concept as necessary. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
+	#. If you would like to add a concept, create a unique ``conceptid`` for the concept (remember this id must be unique both internal to the authority file and between authority files) and then add your desired PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider.
+	#. Make sure to review the guidelines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
 
 
 Business Data
 =============
 
-This section outlines how to create and load business data into Arches-HIP. Arches-HIP allows you to load data from a .arches file or a .shp file. If you would like to load arches without business data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own business data skip to 'Loading Business Data.' And if you would like to create and load your own Arches-HIP business data this whole section is for you.
-
+This section outlines how to create and load business data into Arches-HIP. Arches-HIP allows you to load data from a ``.arches`` file or a ``.shp`` file. If you would like to load arches without business data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own business data skip to 'Loading Business Data.' And if you would like to create and load your own Arches-HIP business data this whole section is for you.
 
 Creating Business Data
 ----------------------
 
-In some ways you can think of the Arches-HIP business data as an intersection between the Arches-HIP resource graphs, the authority files, and your own unique data. The Arches-HIP resource graphs provide the skeleton of the .arches or .shp file you will create, the authority files provide the domain values and, most importantly your data populates the nodes of the Arches-HIP resource graphs with unique data.
+In some ways you can think of the Arches-HIP business data as an intersection between the Arches-HIP resource graphs, the authority files, and your own unique data. The Arches-HIP resource graphs provide the skeleton of the ``.arches`` or ``.shp`` file you will create, the authority files provide the domain values and, most importantly your data populates the nodes of the Arches-HIP resource graphs with unique data.
 
-Creating a .arches file
-~~~~~~~~~~~~~~~~~~~~~~~
+Creating a ``.arches`` file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For general directions on how to create a .arches file you'll want to refer to the 'Loading Business Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_. This section will review rules specific to creating a .arches file based on HIP graphs.
+For general directions on how to create a ``.arches`` file you'll want to refer to the 'Loading Business Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_. This section will review rules specific to creating a ``.arches`` file based on HIP graphs.
 
-1. In this example we'll begin by creating a text file called example.arches and adding the following text to the first line.::
-	
-	//example.arches
+#.	In this example we'll begin by creating a text file called ``example.arches`` and adding the following text to the first line::
 
-	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
 
-2.) On the second line enter your unique resourceid followed by a '|'.::
+#.	On the second line enter your unique resourceid followed by a ``|``::
 
-	//example.arches
+		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+		unique_resource_id|
 
-	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
-	unique_resource_id|
+#.	Now add a valid Arches-HIP resource type followed by a ``|``::
+		
+		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+		unique_resource_id|ACTIVITY.E7|
 
+	.. note:: Valid Arches-HIP resource types include: 
 
-3.) Now add a valid Arches-HIP resource type followed by a '|'. 
+		* Activity.E7
+		* Actor.E39
+		* Heritage Resource.E18
+		* Heritage Resource Group.E27
+		* Historical Event.E5
+		* Information Resource.E73
 
-.. note:: Valid Arches-HIP resource types include: 
+#.	Remember, ``ATTRIBUTENAME`` in the ``.arches`` file relates directly to entity type from a resource graph. In fact the only valid values for ``ATTRIBUTENAME`` in the ``.arches`` file are entity types from the resource graph indicated in ``RESOURCETYPE`` column.
 
-	- Activity.E7
-	- Actor.E39
-	- Heritage Resource.E18
-	- Heritage Resource Group.E27
-	- Historical Event.E5
-	- Information Resource.E73
+	Look `here <loading-data.html#resource-graphs>`_ for a list of entity types for each Arches-HIP resource. 
 
- ::
+	Add the entity type name from the graph to the ``ATTRIBUTENAME`` column in your CSV followed by a ``|``::
 
-	//example.arches
+		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+		unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|
 
-	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
-	unique_resource_id|ACTIVITY.E7|
+#.	Next in the ``ATTRIBUTENAME`` 'column' input your specific information for that attribute ensuring that it is in the correct format for that data type (i.e. is formatted correctly for the attributes business table) followed by a ``|``::
 
-4.) Remember, ATTRIBUTENAME in the .arches file relates directly to entity type from a resource graph. In fact the only valid values for ATTRIBUTENAME in the .arches file are entity types from the resource graph indicated in RESOURCETYPE column. Look `here <loading-data.html#resource-graphs>`_ for a list of entity types for each Arches-HIP resource. Add the entity type name from the graph to the ATTRIBUTENAME column in your csv followed by a '|'.::
+		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+		unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|
 
-	//example.arches
+#.	Finally, if the data item is to be grouped with another piece of data make sure to add a ``GROUPID`` that matches the other data item. If the data item is not intended to be grouped simply enter a generic value for ``GROUPID``::
 
-	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
-	unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|
+		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
+		unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|BEGINNING_OF_EXISTENCE.E63-0
+		unique_resource_id|ACTIVITY.E7|BEGINNING_OF_EXISTENCE_TYPE.E55|BEGIN_EXIST:1|BEGINNING_OF_EXISTENCE.E63-0
 
-5.) Next in the ATTRIBUTENAME 'column' input your specific information for that attribute ensuring that it is in the correct format for that data type (i.e. is formatted correctly for the attributes business table) followed by a '|'.::
+	Here the ``START_DATE_OF_EXISTENCE.E49`` attribute is grouped together with a ``BEGINNING_OF_EXISTENCE_TYPE.E55`` attribute.
 
-	//example.arches
+	.. note:: A few things to remember:
 
-	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
-	unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|
+		#. All attributes of a resource must be on adjacent lines in your .arches file.
+		#. Some attributes must be paired with another attribute to have meaning. For instance, a BEGINNING_OF_EXISTENCE_TYPE.E55 attribute would have no meaing if not paired with a START_DATE_OF_EXISTENCE.E49 attribute.
 
-6.) Finally, if the data item is to be grouped with another piece of data make sure to add a groupid that matches the other data item. If the data item is not intended to be grouped simply enter a generic groupid.::
+	.. note:: Here is a list of attributes that must be paired in Arches-HIP:
 
-	//example.arches
+		* ``BEGINNING_OF_EXISTENCE_TYPE.E55``, ``START_DATE_OF_EXISTENCE.E49``
+		* ``END_OF_EXISTENCE_TYPE.E55``, ``END_DATE_OF_EXISTENCE.E49``
+		* ``NAME.E41``, ``NAME_TYPE.E55``
+		* ``DESCRIPTION.E62``, ``DESCRIPTION_TYPE.E55``
+		* ``RIGHT.E30``, ``RIGHT_TYPE.E55``
+		* ``TITLE.E41``, ``TITLE_TYPE.E55``
+		* ``ACTOR_APPELLATION.E82``, ``NAME_TYPE.E55``
 
-	RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
-	unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|BEGINNING_OF_EXISTENCE.E63-0
-	unique_resource_id|ACTIVITY.E7|BEGINNING_OF_EXISTENCE_TYPE.E55|BEGIN_EXIST:1|BEGINNING_OF_EXISTENCE.E63-0
+#.	In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
 
-Here the START_DATE_OF_EXISTENCE.E49 attribute is grouped together with a BEGINNING_OF_EXISTENCE_TYPE.E55 attribute.
+	.. note:: In order to create a relationship between two resources both resourceids referenced in the .relations file must be present in your .arches file.
 
-.. note:: A Few Things to Remember:
-
-	1. All attributes of a resource must be on adjacent lines in your .arches file.
-	2. Some attributes must be paired with another attribute to have meaning. For instance, a BEGINNING_OF_EXISTENCE_TYPE.E55 attribute would have no meaing if not paired with a START_DATE_OF_EXISTENCE.E49 attribute.
-
-.. note:: Here is a list of attributes that must be paired in Arches-HIP:
-	
-	- 'BEGINNING_OF_EXISTENCE_TYPE.E55', 'START_DATE_OF_EXISTENCE.E49'
-	
-	- 'END_OF_EXISTENCE_TYPE.E55', 'END_DATE_OF_EXISTENCE.E49'
-	
-	- 'NAME.E41', 'NAME_TYPE.E55'
-	
-	- 'DESCRIPTION.E62', 'DESCRIPTION_TYPE.E55'
-	
-	- 'RIGHT.E30', 'RIGHT_TYPE.E55'
-	
-	- 'TITLE.E41', 'TITLE_TYPE.E55'
-	
-	- 'ACTOR_APPELLATION.E82', 'NAME_TYPE.E55'
-
-
-7.) In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
-
-.. note:: In order to create a relationship between two resources both resourceids referenced in the .relations file must be present in your .arches file.
-
-
-Creating a .shp file
-~~~~~~~~~~~~~~~~~~~~
+Creating a ``.shp`` file
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note:: A few things to keep in mind before we begin
 
-	1.) Your shapefile can contain only one resource type per shapefile. For example, you would need one shapefile to load Heritage Resources and a second shapefile for Activities.
+	* Your shapefile can contain only one resource type per shapefile. For example, you would need one shapefile to load Heritage Resources and a second shapefile for Activities.
+	* Your shapefile projection must be defined as WGS84 Lat/Lon (EPSG:4326).
 
-	2.) Your shapefile projection must be defined as WGS84 Lat/Lon (EPSG:4326).
+#.	**Create your configuration file**
 
-Step 1. Create your configuration file.
+	You’ll need to create configuration file to tell Arches how the fields in your shapefile correspond to nodes in a resource graph. The configuration file should have the same base name as your shapefile with the extension ``.config``. For example, if your shapefile is called ``heritage_resources.shp``, you will will need a ``heritage_resources.config`` file along with your ``heritage_resources.dbf``, etc.
 
-You’ll need to create configuration file to tell Arches how the fields in your shapefile correspond to nodes in a resource graph.The configuration file should have the same base name as your shapefile with the extension ‘.config’. For example, if your shapefile is called ‘heritage_resources.shp’, you will will need a ‘heritage_resources.config’ file along with your ‘heritage_resources.dbf’, etc.
+	The ``.config`` file is formatted in JSON as you can see in this example::
 
-The .config file is formatted in JSON as you can see in this example::
+		{
+			“RESOURCE_TYPE”: “HERITAGE_RESOURCE.E18″,
+			“GEOM_TYPE”: “SPATIAL_COORDINATES_GEOMETRY.E47″,
+			“FIELD_MAP”: [
+				[“status”,”STATUS.E55″],
+				[“start”,”START_DATE_OF_EXISTENCE.E49″],
+				[“name”,”NAME.E41″],
+				[“place_addr”,”PLACE_ADDRESS.E45″],
+				[“descrip”,”DESCRIPTION.E62″],
+				[“heri_type”,”HERITAGE_RESOURCE_TYPE.E55″]
+			]
+		}
+	
+	The JSON should contain the following properties: 
 
-	//heritage_resources.config
-
-	{
-		“RESOURCE_TYPE”: “HERITAGE_RESOURCE.E18″,
-		“GEOM_TYPE”: “SPATIAL_COORDINATES_GEOMETRY.E47″,
-		“FIELD_MAP”: [
-			[“status”,”STATUS.E55″],
-			[“start”,”START_DATE_OF_EXISTENCE.E49″],
-			[“name”,”NAME.E41″],
-			[“place_addr”,”PLACE_ADDRESS.E45″],
-			[“descrip”,”DESCRIPTION.E62″],
-			[“heri_type”,”HERITAGE_RESOURCE_TYPE.E55″]
-		]
-	}
- 
-“RESOURCE_TYPE” is the resource type of your shapefile.
-
-“GEOM_TYPE” is simply the name of the entitytype that Arches HIP uses to manage geometry.
-
-“FIELD_MAP” is where you list your shapefile fields and their corresponding entitytypes. Each field must be enclosed in brackets, with the shapefile column name in the first position and the entitytypeid (e.g.: node name) in the second.
+		* ``RESOURCE_TYPE``: the resource type of your shapefile.
+		* ``GEOM_TYPE``: the name of the entity type that Arches HIP uses to manage geometry.
+		* ``FIELD_MAP``: a list of shapefile fields and their corresponding entity types. Each field must be enclosed in brackets, with the shapefile column name in the first position and the ``entitytypeid`` in the second.
 
 
-Note also that the curly braces at the beginning and end of the file are important!
+	..note:: The curly braces at the beginning and end of the file are important!
 
 
-Step 2. Confirm Your Shapefile Data
+#.	**Confirm Your Shapefile Data**
 
-There are just a couple of details to keep in mind when creating your shapefile.
+	There are just a couple of details to keep in mind when creating your shapefile.
 
-Remember that the projection of your data must be EPSG:4326 (WGS84 Lat/Lon).
-The data type of your shapefile columns need to match the datatype of the nodes (entitytypes) to which they are mapped. For example, if you want to load a “name” column in your shapefile to “NAME.E41” (which the HIP defines as a “string” data type), you must ensure that your shapefile treats “name” as a string.
-If you want to load a field in your shapefile to an Arches controlled vocabulary, you’ll need to make sure that the values in the shapefile match a preferred label in Arches’ Reference Data Manager (RDM). For example, if you want to load values from your shapefile into the “HERITAGE_RESOURCE_TYPE.E55″ node, the values in your shapefile column must match a preferred label in the RDM scheme (by default Arches uses the “HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv” scheme)
+	Remember that the projection of your data must be EPSG:4326 (WGS84 Lat/Lon).
+
+	The data type of your shapefile columns need to match the datatype of the nodes (entitytypes) to which they are mapped. For example, if you want to load a “name” column in your shapefile to “NAME.E41” (which the HIP defines as a “string” data type), you must ensure that your shapefile treats “name” as a string.
+
+	If you want to load a field in your shapefile to an Arches controlled vocabulary, you’ll need to make sure that the values in the shapefile match a preferred label in Arches’ Reference Data Manager (RDM). For example, if you want to load values from your shapefile into the ``HERITAGE_RESOURCE_TYPE.E55`` node, the values in your shapefile column must match a preferred label in the RDM scheme (by default Arches uses the ``HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv`` scheme)
