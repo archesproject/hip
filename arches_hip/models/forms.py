@@ -391,3 +391,19 @@ class LocationForm(ResourceForm):
         }
 
         return
+
+class RelatedFilesForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'related-files',
+            'icon': 'fa-file-text-o',
+            'name': _('Images and Files'),
+            'class': RelatedFilesForm
+        }
+
+    def update(self, data, files):
+        return
+
+    def load(self):
+        return

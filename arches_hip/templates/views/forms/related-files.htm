@@ -1,0 +1,810 @@
+{% extends "views/forms/wizard-base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+
+<div>            
+    <!-- CRUD Form Container -->
+    <div id="crud" style="">
+                    
+        <!-- Related Information Objects Container -->
+        <div>
+
+            <!-- Related Images Title -->
+            <div class="row margin-bottom-10">
+                <div class="col-xs-12">
+
+                    <!-- Images -->
+                    <div class="padding-left-10">
+                        
+                        <dl style="margin-bottom: 0px;">
+                            <!-- Title -->
+                            <dt>
+                                <h5 id="arches-names-form" class="section-headline">Related Images</h5>
+                            </dt>
+                            
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- For Demo, Start with no related resources -->
+            <div class="row margin-top-minus-5 margin-bottom-10" style="">
+                <div class="col-xs-12">
+
+                    <div class="margin-left-5">
+                        <dl class="margin-bottom-10"> 
+                            
+                            <dd class="margin-left-5">
+                                <div class="">
+                                    <p class="arches-CRUD-child text-primary">This resource has no related files yet</p>
+                                </div>
+                            </dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <!-- End Demo -->
+
+            <!-- Realted Images -->
+            <div class="row margin-top-minus-5 margin-bottom-10" id="current-items" style="display: none;" data-bind="foreach: data.data, visible: true">
+                <div class="row">
+                    <div class="col-xs-12">      
+
+                        <!-- SuperBox Image Gallery -->
+                        <div class="superbox col-xs-12">
+                            
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="This is a caption associated with this particular image" title="Golden Gate Bridge" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-3.jpg" data-img="img/superbox/superbox-full-3.jpg" alt="Here's a very long caption, just to see how it renders on screen.  Really long captions could just be truncated..." title="Lines of Friendship" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-4.jpg" data-img="img/superbox/superbox-full-4.jpg" alt="Another caption" title="My new car!" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-5.jpg" data-img="img/superbox/superbox-full-5.jpg" alt="another caption" title="Study Time" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-6.jpg" data-img="img/superbox/superbox-full-6.jpg" alt="My first photoshop layer mask on a high end PSD template theme" title="San Francisco Bridge"  class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-18.jpg" data-img="img/superbox/superbox-full-18.jpg" alt="another caption" title="Hop Jop Mop" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-19.jpg" data-img="img/superbox/superbox-full-19.jpg" alt="another caption" title="Party Girls" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-20.jpg" data-img="img/superbox/superbox-full-20.jpg" alt="My first photoshop layer mask on a high end PSD template theme" title="Dragon Fly" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-21.jpg" data-img="img/superbox/superbox-full-21.jpg" alt="My first photoshop layer mask on a high end PSD template theme" title="Kinds Road" class="superbox-img">
+                            </div>
+
+                            <div class="superbox-list">
+                                <img src="img/superbox/superbox-thumb-22.jpg" data-img="img/superbox/superbox-full-22.jpg" alt="My first photoshop layer mask on a high end PSD template theme" title="Tokyo" class="superbox-img">
+                            </div>
+                            
+                            
+                            <div class="superbox-float"></div>
+                        </div>
+                        <!-- /SuperBox -->
+                        
+                        <div class="superbox-show" style="height:300px; display: none"></div>
+
+                    </div>
+                </div>
+                <!-- End Images -->
+
+                
+                <hr class="devider arches-RDM-divider">
+                        
+                
+                <!-- Related Files -->
+                <div class="padding-left-10">
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-12">
+
+                            <!-- Files -->
+                            <div class="">
+                                
+                                <dl style="margin-bottom: 0px;">
+                                    <!-- Title -->
+                                    <dt>
+                                        <h5 id="arches-names-form" class="section-headline" style="margin-left: 10px;">Related Files</h5>
+                                    </dt>
+                                    
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Related Files List-->
+                    <div class="row margin-bottom-5">
+                        <div class="col-xs-12">
+                            
+                            <dl>
+                               
+                                <dd class="margin-left-5">
+                                    <div class="arches-crud-record">
+                                        <a href="#" title="Remove this file"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                        <a href="#" id="related-1" class="arches-CRUD-child info-link related" title="Edit this file">English Heritage Investigation</a>&nbsp; <span class="text-muted">(relation: Describes, Format: pdf)</span>
+                                    </div>
+
+                                    <!-- Related Resource Data -->
+                                    <div id="related-1-crud" class="arches-related-resource" style="display: none;">
+                                        
+                                        <!-- Title/Sub-title -->
+                                        <h5 class="arches-search-title arches-related-resource-title" style="" href="#">Related File &nbsp;
+                                        
+                                            <span class="">
+                                                <small class="arches-search-subtitle"><i class="fa fa-file-o"></i>Information Resource</small>
+                                            </span>
+
+                                            <div class="btn-group pull-right arches-related-resource-button" style="margin-right: 20px;">
+                                                <button id="related-1-button" type="button" class="btn btn-xs btn-primary dropdown-toggle arches-RDM-button" data-toggle="dropdown">
+                                                    Describes/Is described by                            
+                                                </button>
+
+                                                <ul id="" class="dropdown-menu" role="menu">
+                                                    <li><a class="info_link relationship" href="#">Describes/Is described by</a></li>
+                                                    <li><a class="info_link relationship" href="#">Documents/Is documented by</a></li>
+                                                    <li><a class="info_link relationship" href="#">Represents/Is represented by</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="" class="info_link relationship">Clear selection</a></li>
+                                                    <li><a href="#">Close</a></li>
+                                                </ul>
+                                            </div>
+
+                                        </h5>
+                                        <!-- End Title/Sub-title -->
+
+                                        <!-- Form -->
+                                        <dl>
+                                            <dd class="arches-RDM-labels" style="padding-right: 20px;">
+                                                <div class="row">
+                                                    
+                                                    <!-- Title/Caption Form -->
+                                                    <div class="col-xs-12">
+
+                                                        <span class="" style="width: 100%;">
+
+                                                            <input class="form-control" id="" value="English Heritage Investigation" placeholder="Title">
+
+                                                            <!-- Spacer (for xs screens) -->
+                                                            <div class="margin-top-5"></div>
+
+                                                            <textarea class="form-control" rows="3" placeholder="Add a caption for the file here...">A report that catalogs several investigation efforts by EH, include a detailed summary of Castle Wolfenstein</textarea>
+
+                                                        </span>
+
+                                                    </div>
+
+                                                    <!-- Save/Cancel Buttons -->
+                                                    <div class="col-xs-12">
+                                                        <span class="pull-right margin-top-10 hidden-xs">  
+                                                            <button class="btn btn-danger" id="" style=""> 
+                                                                <i class="fa fa-times-circle"></i>&nbsp; Canel
+                                                            </button>
+
+                                                            <button class="btn btn-success" id="" style=""> 
+                                                                <i class="fa fa-check"></i>&nbsp; Save
+                                                            </button>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Related Resource Data -->
+
+                                </dd>
+
+                                <dd class="margin-left-5">
+                                    <div class="arches-crud-record">
+                                        <a href="#" title="Remove this file"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                        <a href="#" id="related-2" class="arches-CRUD-child info-link related" title="Edit this file" >Myers Survey of Los Angeles 2012</a>&nbsp; <span class="text-muted">(relation: Describes, Format: doc)</span>
+                                    </div>
+
+                                    <!-- Related Resource Data -->
+                                    <div id="related-2-crud" class="arches-related-resource" style="display: none;">
+                                        
+                                        <!-- Title/Sub-title -->
+                                        <h5 class="arches-search-title arches-related-resource-title" style="" href="#">Related File &nbsp;
+                                        
+                                            <span class="">
+                                                <small class="arches-search-subtitle"><i class="fa fa-file-o"></i>Information Resource</small>
+                                            </span>
+
+                                            <div class="btn-group pull-right arches-related-resource-button" style="margin-right: 20px;">
+                                                <button id="related-2-button" type="button" class="btn btn-xs btn-primary dropdown-toggle arches-RDM-button" data-toggle="dropdown">
+                                                    Describes/Is described by                            
+                                                </button>
+
+                                                <ul id="" class="dropdown-menu" role="menu">
+                                                    <li><a class="info_link relationship" href="#">Describes/Is described by</a></li>
+                                                    <li><a class="info_link relationship" href="#">Documents/Is documented by</a></li>
+                                                    <li><a class="info_link relationship" href="#">Represents/Is represented by</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="" class="info_link relationship">Clear selection</a></li>
+                                                    <li><a href="#">Close</a></li>
+                                                </ul>
+                                            </div>
+
+                                        </h5>
+                                        <!-- End Title/Sub-title -->
+
+                                        <!-- Form -->
+                                        <dl>
+                                            <dd class="arches-RDM-labels" style="padding-right: 20px;">
+                                                <div class="row">
+                                                    
+                                                    <!-- Title/Caption Form -->
+                                                    <div class="col-xs-12">
+
+                                                        <span class="" style="width: 100%;">
+
+                                                            <input class="form-control" id="" value="Myers Survey of Los Angeles 2012" placeholder="Title">
+
+                                                            <!-- Spacer (for xs screens) -->
+                                                            <div class="margin-top-5"></div>
+
+                                                            <textarea class="form-control" rows="3" placeholder="Add a caption for the file here...">A very nice little report that definitively summarizes the architectural aspects of Castle Wolfenstein</textarea>
+
+                                                        </span>
+
+                                                    </div>
+
+                                                    <!-- Save/Cancel Buttons -->
+                                                    <div class="col-xs-12">
+                                                        <span class="pull-right margin-top-10 hidden-xs">  
+                                                            <button class="btn btn-danger" id="" style=""> 
+                                                                <i class="fa fa-times-circle"></i>&nbsp; Canel
+                                                            </button>
+
+                                                            <button class="btn btn-success" id="" style=""> 
+                                                                <i class="fa fa-check"></i>&nbsp; Save
+                                                            </button>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Related Resource Data -->
+                                </dd>
+                                
+                                <dd class="margin-left-5">
+                                    <div class="arches-crud-record">
+                                        <a href="#" title="Remove this file"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                        <a href="#" id="related-3" class="arches-CRUD-child info-link related" title="Edit this file" >History of Watts</a>&nbsp; <span class="text-muted">(relation: Describes, Format: xls)</span>
+                                    </div>
+
+                                    <!-- Related Resource Data -->
+                                    <div id="related-3-crud" class="arches-related-resource" style="display: none;">
+                                        
+                                        <!-- Title/Sub-title -->
+                                        <h5 class="arches-search-title arches-related-resource-title" style="" href="#">Related File &nbsp;
+                                        
+                                            <span class="">
+                                                <small class="arches-search-subtitle"><i class="fa fa-file-o"></i>Information Resource</small>
+                                            </span>
+
+                                            <div class="btn-group pull-right arches-related-resource-button" style="margin-right: 20px;">
+                                                <button id="related-3-button" type="button" class="btn btn-xs btn-primary dropdown-toggle arches-RDM-button" data-toggle="dropdown">
+                                                    Describes/Is described by                            
+                                                </button>
+
+                                                <ul id="" class="dropdown-menu" role="menu">
+                                                    <li><a class="info_link relationship" href="#">Describes/Is described by</a></li>
+                                                    <li><a class="info_link relationship" href="#">Documents/Is documented by</a></li>
+                                                    <li><a class="info_link relationship" href="#">Represents/Is represented by</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="" class="info_link relationship">Clear selection</a></li>
+                                                    <li><a href="#">Close</a></li>
+                                                </ul>
+                                            </div>
+
+                                        </h5>
+                                        <!-- End Title/Sub-title -->
+
+                                        <!-- Form -->
+                                        <dl>
+                                            <dd class="arches-RDM-labels" style="padding-right: 20px;">
+                                                <div class="row">
+                                                    
+                                                    <!-- Title/Caption Form -->
+                                                    <div class="col-xs-12">
+
+                                                        <span class="" style="width: 100%;">
+
+                                                            <input class="form-control" id="" value="History of Watts" placeholder="Title">
+
+                                                            <!-- Spacer (for xs screens) -->
+                                                            <div class="margin-top-5"></div>
+
+                                                            <textarea class="form-control" rows="3" placeholder="Add a caption for the file here...">Summary of Castle Wolfenstein's place in the history of Watts</textarea>
+
+                                                        </span>
+
+                                                    </div>
+
+                                                    <!-- Save/Cancel Buttons -->
+                                                    <div class="col-xs-12">
+                                                        <span class="pull-right margin-top-10 hidden-xs">  
+                                                            <button class="btn btn-danger" id="" style=""> 
+                                                                <i class="fa fa-times-circle"></i>&nbsp; Canel
+                                                            </button>
+
+                                                            <button class="btn btn-success" id="" style=""> 
+                                                                <i class="fa fa-check"></i>&nbsp; Save
+                                                            </button>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Related Resource Data -->
+                                </dd>
+                            </dl>
+                    
+                        </div>
+                    </div>  
+                </div>
+                <!-- End Related Files List -->
+            
+            </div>
+            <!-- End Related File Container -->
+
+        </div>
+        <!-- End Related Information Objects Container -->
+
+
+        <!-- Upload Files Wizard Container --> 
+        <div style="display: none;" id="workflow-container">   
+            <div class="padding-10">
+                <div>
+                    
+                    <!-- Arches form container -->
+                    <dl>
+                        <dd class="arches-RDM-labels">
+                            <div class="row">
+                                <div class="col-xs-12 padding-left-0">
+                
+                                    <!-- Start Wizard -->
+                                    <form class="margin-top-20" id="wizard-1" novalidate="novalidate">
+                                        <div id="bootstrap-wizard-1" class="col-sm-12">
+                                            <div class="form-bootstrapWizard">
+                                                <ul class="bootstrapWizard form-wizard">
+                                                    <li class="active" data-target="#step1" style="width: 33%">
+                                                        <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">Part 1: Upload Files</span> </a>
+                                                    </li>
+                                                    <li data-target="#step2" style="width: 33%">
+                                                        <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">Part 2: Titles/Captions</span> </a>
+                                                    </li>
+                                                    <li data-target="#step3" style="width: 33%">
+                                                        <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">Part 3: Relationship</span> </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+                                            <!-- Wizard Tabs -->
+                                            <div class="tab-content arches-wizard-tab">
+                                                
+                                                <!-- Tab 1: Upload Files -->
+                                                <div class="tab-pane active" id="tab1" style="min-height: 330px;">
+                                                    <br>
+                                                    <h3 class="margin-bottom-5"><strong>Part 1</strong> Upload Files</h3>
+                                                    
+                                                    <dl>   
+                                                        <div action="upload.php" class="dropzone" id="mydropzone"></div>
+                                                    </dl>
+                                                </div>
+                                                <!-- End Tab 1: Upload Files -->
+
+
+                                                <!-- Tab 2: File Metadata -->
+                                                <div class="tab-pane" id="tab2" style="min-height: 330px;">
+                                                    <br>
+                                                    <h3 class="margin-bottom-5"><strong>Part 2</strong> File Information</h3>
+
+                                                    <div class="alert alert-info fade in">
+                                                        <i class="fa-fw fa fa-info"></i>
+                                                        Add a name/title and description for each file
+                                                    </div>
+
+                                                    <!-- Form for screens > XS -->
+                                                    <dl class="hidden-xs">   
+
+                                                        <dd class="arches-file-upload-record ">
+                                                            <div class="row">
+
+                                                                <div class="col-xs-12">
+                                                                    <p class="arches-title">
+                                                                        File name: Golden gate.png
+                                                                        <span class="arches-subtitle pull-right">
+                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 480 KB&nbsp;
+                                                                            <i class="fa-fw fa fa-file"></i> .png file
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div class="col-xs-12">
+
+                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" alt="" title="" class="">
+
+                                                                    <span class="pull-right" style="width: 80%;">
+
+                                                                        <input class="form-control " id="" placeholder="Title">
+
+                                                                        <!-- Spacer (for xs screens) -->
+                                                                        <div class="margin-top-5"></div>
+
+                                                                        <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+
+                                                                    </span>
+
+                                                                </div>    
+                                                            </div>
+                                                        </dd>
+
+                                                        <dd class="arches-file-upload-record">
+                                                            <div class="row">
+
+                                                                <div class="col-xs-12">
+                                                                    <p class="arches-title">
+                                                                        File name: Wolfenstein-aerial-10102014.tiff
+                                                                        <span class="arches-subtitle pull-right">
+                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 1.68 MB&nbsp;
+                                                                            <i class="fa-fw fa fa-file"></i> .tiff file
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div class="col-xs-12">
+
+                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
+
+                                                                    <span class="pull-right" style="width: 80%;">
+
+                                                                        <input class="form-control " id="" placeholder="Title">
+
+                                                                        <!-- Spacer (for xs screens) -->
+                                                                        <div class="margin-top-5"></div>
+
+                                                                        <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+
+                                                                    </span>
+
+                                                                </div>    
+                                                            </div>
+                                                        </dd>
+
+                                                    </dl>
+
+                                                    <!-- Form for XS screens -->
+                                                    <dl class="hidden-sm hidden-md hidden-lg">
+
+                                                        <dd>
+                                                            <div class="table-responsive">
+                                                                    
+                                                                <table class="table table-bordered table-striped">
+                                                                    <tbody>
+                                                                        <tr style="">
+                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" data-img="img/superbox/superbox-full-3.jpg" alt="" title="" class="">
+                                                                            </td>
+                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <input class="form-control " id="" placeholder="Title">
+
+                                                                                <!-- Spacer (for xs screens) -->
+                                                                                <div class="margin-top-5"></div>
+
+                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                            </td>    
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="" title="" class="">
+                                                                            </td>
+                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <input class="form-control " id="" placeholder="Title">
+
+                                                                                <!-- Spacer (for xs screens) -->
+                                                                                <div class="margin-top-5"></div>
+
+                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                            </td>    
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;"> 
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
+                                                                            </td>
+                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <input class="form-control " id="" placeholder="Title">
+
+                                                                                <!-- Spacer (for xs screens) -->
+                                                                                <div class="margin-top-5"></div>
+
+                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                            </td>    
+                                                                        </tr>   
+                                                                    </tbody>
+                                                                </table>
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                                
+                                                
+                                                <!-- Tab 3: Resource Status -->
+                                                <div class="tab-pane" id="tab3" style="min-height: 330px;">
+                                                    <br>
+                                                    <h3 class="margin-bottom-5"><strong>Part 3</strong> Describe Relationship</h3>
+
+                                                    <div class="alert alert-info fade in">
+                                                        <i class="fa-fw fa fa-info"></i>
+                                                        Describe the relationship each file has with the current resource
+                                                    </div>
+
+                                                    <!-- Form for screens > XS -->
+                                                    <dl class="hidden-xs">   
+
+                                                        <dd class="arches-file-upload-record ">
+                                                            <div class="row">
+
+                                                                <div class="col-xs-12">
+                                                                    <p class="arches-title">
+                                                                        File name: Golden gate.png
+                                                                        <span class="arches-subtitle pull-right">
+                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 480 KB&nbsp;
+                                                                            <i class="fa-fw fa fa-file"></i> .png file
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div class="col-xs-12">
+
+                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" alt="" title="" class="">
+
+                                                                    <span class="pull-right" style="width: 80%;">
+
+                                                                        <p class="arches-file-title">View from Wolfenstein Castle</p>
+                                                                        <p class="arches-file-description">
+                                                                            Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi.
+                                                                        </p>
+
+                                                                        <!-- Relationship -->  
+                                                                        <div class="form-group" style="width: 100%">   
+                                                                            <input class="relationship-type" id="" name="" style="width:100%;"  value="">
+                                                                        </div>
+
+                                                                    </span>
+
+                                                                </div>    
+                                                            </div>
+                                                        </dd>
+
+                                                        <dd class="arches-file-upload-record">
+                                                            <div class="row">
+
+                                                                <div class="col-xs-12">
+                                                                    <p class="arches-title">
+                                                                        File name: Wolfenstein-aerial-10102014.tiff
+                                                                        <span class="arches-subtitle pull-right">
+                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 1.68 MB&nbsp;
+                                                                            <i class="fa-fw fa fa-file"></i> .tiff file
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div class="col-xs-12">
+
+                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
+
+                                                                    <span class="pull-right" style="width: 80%;">
+
+                                                                        <p class="arches-file-title">Wolfenstein oblique aerial</p>
+                                                                        <p class="arches-file-description">
+                                                                            Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi.
+                                                                        </p>
+
+                                                                        <!-- Relationship -->  
+                                                                        <div class="form-group" style="width: 100%">   
+                                                                            <input class="relationship-type" id="" name="" style="width:100%;"  value="">
+                                                                        </div>
+
+                                                                    </span>
+
+                                                                </div>    
+                                                            </div>
+                                                        </dd>
+
+                                                    </dl>
+
+                                                    <!-- Form for XS screens -->
+                                                    <dl class="hidden-sm hidden-md hidden-lg">
+
+                                                        <dd>
+                                                            <div class="table-responsive">
+                                                                    
+                                                                <table class="table table-bordered table-striped">
+                                                                    <tbody>
+                                                                        <tr style="">
+                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" data-img="img/superbox/superbox-full-3.jpg" alt="" title="" class="">
+                                                                            </td>
+                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <input class="form-control " id="" placeholder="Title">
+
+                                                                                <!-- Spacer (for xs screens) -->
+                                                                                <div class="margin-top-5"></div>
+
+                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                            </td>    
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="" title="" class="">
+                                                                            </td>
+                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <input class="form-control " id="" placeholder="Title">
+
+                                                                                <!-- Spacer (for xs screens) -->
+                                                                                <div class="margin-top-5"></div>
+
+                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                            </td>    
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;"> 
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
+                                                                            </td>
+                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                                <input class="form-control " id="" placeholder="Title">
+
+                                                                                <!-- Spacer (for xs screens) -->
+                                                                                <div class="margin-top-5"></div>
+
+                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                            </td>    
+                                                                        </tr>   
+                                                                    </tbody>
+                                                                </table>
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+
+                                                </div>
+                                            </div>
+                                            <!-- End Wizard Tabs -->
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </dd>
+                    </dl>
+                    <!-- End Arches form container -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Upload Files Wizard Container --> 
+
+    </div>
+    <!-- End CRUD Container -->
+    
+    <div class="clearfix margin-bottom-10"></div>
+
+</div>
+<!-- End Content -->
+
+
+<!-- ++++++++++++  Modals ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<!-- Edit File Resource Modal -->
+<div id="EditFileResourceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content no-corners">
+          
+            <!-- Modal Header -->
+            <div class="modal-header arches-modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                <h4 class="modal-title">Edit File Resource <small>Related Resources</small></h4>
+            </div>
+            <!-- End Modal Header -->
+            
+        
+            <!-- Form -->
+            <div class="modal-body">
+
+                <!-- Image Title form -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        
+                        <form class="form-inline" role="form">
+                            <div class="form-group arches-modal-form-group">
+
+                                <h5 id="" class="arches-modal-section">Title</h5>
+                                <div class="form-group" style="width: 100%;">
+                                    
+                                    <input class="form-control" style="width: 100%;" id="" placeholder="Title">
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End Image Title form -->   
+
+
+                <!-- Image Description form -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        
+                        <form class="form-inline" role="form">
+                            <div class="form-group arches-modal-form-group">
+
+                                <h5 id="" class="arches-modal-section">Description</h5>
+                                <div class="form-group" style="width: 100%;">
+                                    
+                                    <textarea class="form-control" style="width: 100%;"rows="6" placeholder="Add a caption for the file here..."></textarea>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End Image Description form -->            
+
+            </div>
+            <!-- End Modal Body -->
+          
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+            </div>
+            <!-- End Modal Footer -->
+
+        </div>
+    </div>
+</div>
+<!-- End Edit File Resource Modal -->
+
+
+<!-- +++++++ End Modals ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+{% endblock form_content %}
