@@ -3,19 +3,66 @@ define(['jquery',
     'knockout',
     'views/forms/wizard-base', 
     'views/forms/sections/branch-list',
-    'views/forms/entity',
     'bootstrap-datetimepicker',
-    'summernote'], function ($, _, ko, WizardBase, BranchList, Entity, datetimepicker, summernote) {
+    'arches',
+    'dropzone',
+    'summernote',
+    'blueimp-gallery',
+    'blueimp-jquery',
+    'plugins/bootstrap-image-gallery.min'], function ($, _, ko, WizardBase, BranchList, datetimepicker, arches, dropzone, summernote) {
 
     return WizardBase.extend({
         initialize: function() {
-            var self = this;
             WizardBase.prototype.initialize.apply(this);
 
-            var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});
+            var self = this;
+            var dropzoneEl = this.$el.find('.dropzone');
+            var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});            
+            var currentEditedAssessment = this.getBlankFormData();
+
             date_picker.on('dp.change', function(evt){
                 $(this).find('input').trigger('change'); 
             });
+
+            // detect if dropzone is attached, and if not init
+            if (!dropzoneEl.hasClass('dz-clickable')) {
+                this.dropzoneInstance = new dropzone(dropzoneEl[0], {
+                    url: arches.urls.concept,
+                    acceptedFiles: 'image/*',
+                    addRemoveLinks: true,
+                    autoProcessQueue: false
+                });
+
+                this.dropzoneInstance.on("addedfile", function(file) {
+                    if (file.mock){
+
+                    }else{
+                        var el = self.el.appendChild(this.hiddenFileInput);
+                        el.setAttribute('name', _.uniqueId('file_'));
+                        self.filebranchlist.files.push({
+                            file: file,
+                            el: el
+                        })
+                        this.hiddenFileInput = false;
+                    }
+                });
+
+                this.dropzoneInstance.on("removedfile", function(filetoremove) {
+                    if (filetoremove.mock){
+                        self.filebranchlist.deleteItem(filetoremove.branchlist);
+                    }else{
+                        var index;
+                        _.each(self.filebranchlist.files, function(file, i){
+                            if (file.file === filetoremove){
+                                index = i;
+                            }
+                        }, this);
+
+                        self.el.removeChild(self.filebranchlist.files[index].el);
+                        self.filebranchlist.files.splice(index, 1);
+                    }
+                });
+            }
 
             this.editAssessment = function(branchlist){
                 self.switchBranchForEdit(branchlist);
@@ -28,7 +75,7 @@ define(['jquery',
 
             ko.applyBindings(this, this.$el.find('#existing-assessments')[0]);
 
-            var currentEditedAssessment = this.getBlankFormData(); //this.data.data[0];
+
             this.addBranchList(new BranchList({
                 data: currentEditedAssessment,
                 dataKey: 'CONDITION_ASSESSMENT.E14'
@@ -78,6 +125,46 @@ define(['jquery',
                 }
             }));
 
+            this.filebranchlist = this.addBranchList(new BranchList({
+                el: this.$el.find('#files-section')[0],
+                data: currentEditedAssessment,
+                dataKey: 'CONDITION_IMAGE.E73',
+                files: [],
+                validateBranch: function (nodes) {
+                    return true;
+                },
+                addMockFiles: function(){
+                    self.dropzoneInstance.removeAllFiles();
+                    $('.dz-preview.dz-image-preview').remove();
+                    _.each(this.getBranchLists(), function(list){
+                        // Create the mock file:
+                        var mockFile = { name: '', size: 0, mock: true, branchlist: list};
+                        var thumbnail = '';
+
+                        // And optionally show the thumbnail of the file:
+                        _.each(ko.toJS(list.nodes), function(node){
+                            if (node.entitytypeid === 'CONDITION_IMAGE_FILE_PATH.E62'){
+                                mockFile.name = node.value
+                            }
+                            if (node.entitytypeid === 'CONDITION_IMAGE_THUMBNAIL.E62'){
+                                thumbnail = node.value;
+                            }
+                        }, this);
+
+                        // Call the default addedfile event handler
+                        self.dropzoneInstance.emit("addedfile", mockFile);
+                        self.dropzoneInstance.emit("thumbnail", mockFile, thumbnail);
+
+                        // Make sure that there is no progress bar, etc...
+                        //self.dropzoneInstance.emit("complete", mockFile);
+
+                        // If you use the maxFiles option, make sure you adjust it to the
+                        // correct amount:
+                        // var existingFileCount = 1; // The number of files already uploaded
+                        // myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
+                    }, this);
+                }
+            }));
 
         },
 
@@ -88,6 +175,8 @@ define(['jquery',
                 branchlist.data = conditionAssessmentData;
                 branchlist.undoAllEdits();
             }, this);
+
+            this.filebranchlist.addMockFiles();
         },
 
         prepareData: function(assessmentNode){
@@ -118,6 +207,9 @@ define(['jquery',
                     'branch_lists': []
                 },
                 'CONDITION_DESCRIPTION.E62': {
+                    'branch_lists': []
+                },
+                'CONDITION_IMAGE.E73': {
                     'branch_lists': []
                 }
             })

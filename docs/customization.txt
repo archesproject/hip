@@ -25,21 +25,21 @@ You can add your own CSS style rules (applied application wide) in the following
 
 **Home Page**
 
-``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
+    ``index.htm`` contains the template for the main home page content.  You can modify this page to change the image slide show on the home page or modify the saved searches (more on that below).
 
-This is the content of the first page that your users will see, so you'll probably want to really make it your own. You should consider doing the following:
+    This is the content of the first page that your users will see, so you'll probably want to really make it your own. You should consider doing the following:
 
-* Update the images and text in the layer slider
-* Add you own text to the title block below the layer slider
-* Update the saved searches to suit your data (more on that below)
+        * Update the images and text in the layer slider
+        * Add you own text to the title block below the layer slider
+        * Update the saved searches to suit your data (more on that below)
 
 **Branding**
 
-The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
+    The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
 
-You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
+    You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
 
-For example, the header logo on all pages can be altered by modifying the ``<img>`` tag at line 52 of ``header.htm``.  This will change the header image on all web application pages.
+    For example, the header logo on all pages can be altered by modifying the ``<img>`` tag at line 52 of ``header.htm``.  This will change the header image on all web application pages.
 
 Saved Searches
 ==============
@@ -82,7 +82,7 @@ To update that block to use the example search above for the word modern, I can 
 Google Analytics
 ================
 
-To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's settings.py file (line 14 by default).
+To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's ``settings.py`` file.
 
 Uncomment this line (remove the starting ``#``) if it is commented, and paste in your own Google Analytics tracking id between the single quotes at the end of the line, eg::
 
@@ -93,7 +93,7 @@ Enabling this setting will automatically configure the web application to includ
 Map Settings
 ============
 
-Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file (line 15 by default)::
+Arches-HIP needs to be configured to properly zoom and constrain map interfaces by default.  This can be done by simply modifying some settings found in your application's ``settings.py`` file::
     
     #DEFAULT_MAP_X = 0
     #DEFAULT_MAP_Y = 0
@@ -131,10 +131,10 @@ You can add more baseLayers by adding an object containing an OpenLayers 3 layer
 
 The objects you add should contain the following keys:
 
-* ``id``: String; a unique id for this layer
-* ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
-* ``icon``: String; a valid path to an image used as an icon in the basemap list
-* ``name``: String; a display name for this layer used in the basemap list
+    * ``id``: String; a unique id for this layer
+    * ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
+    * ``icon``: String; a valid path to an image used as an icon in the basemap list
+    * ``name``: String; a display name for this layer used in the basemap list
 
 For example, I can add a tile layer as a basemap layer like so::
 
@@ -165,12 +165,12 @@ You will find, again, at the bottom of this file an array being returned, this o
 
 However, in this case a little extra metadata is passed along with the layer instance in a Javascript object called a LayerModel.  The LayerModel is instantiated with an object with the following keys:
 
-* ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
-* ``icon``: String; a css class used for displaying an icon in the overlay list.  CSS rules can be added to ``package.css`` as described above
-* ``name``: String; a display name for this layer used in overlay list
-* ``description``: String; an optional description for the layer used in overlay list and for searching
-* ``categories``: Array; an optional list of categories (Strings) used as keywords for layer search
-* ``onMap``: Boolean; true to show this layer on the map by default
+    * ``layer``: OpenLayers3 Layer; any valid OpenLayers 3 Layer instance, for more on OpenLayers 3 and layers see: http://openlayers.org/en/v3.3.0/doc/quickstart.html
+    * ``icon``: String; a css class used for displaying an icon in the overlay list.  CSS rules can be added to ``package.css`` as described above
+    * ``name``: String; a display name for this layer used in overlay list
+    * ``description``: String; an optional description for the layer used in overlay list and for searching
+    * ``categories``: Array; an optional list of categories (Strings) used as keywords for layer search
+    * ``onMap``: Boolean; true to show this layer on the map by default
 
 For example, you could add a tile layer overlay like so::
 
@@ -203,9 +203,9 @@ Arches-HIP provides some simple settings for managing how resource markers are d
 
 These settings manage markers as follows:
 
-* ``RESOURCE_MARKER_ICON_UNICODE``: the Unicode value of the icon you want to use
-* ``RESOURCE_MARKER_ICON_FONT``: the font name you want to use ('octicons' or 'FontAwesome')
-* ``RESOURCE_MARKER_DEFAULT_COLOR``: the hex value of the color you want to use by default
+    * ``RESOURCE_MARKER_ICON_UNICODE``: the Unicode value of the icon you want to use
+    * ``RESOURCE_MARKER_ICON_FONT``: the font name you want to use ('octicons' or 'FontAwesome')
+    * ``RESOURCE_MARKER_DEFAULT_COLOR``: the hex value of the color you want to use by default
 
 For example, if I wanted to symbolize my resource markers as pink Font Awesome house icons (http://fortawesome.github.io/Font-Awesome/icon/home/), I could adjust my settings like so::
 
@@ -216,7 +216,20 @@ For example, if I wanted to symbolize my resource markers as pink Font Awesome h
 Geocoding
 =========
 
+By default, as mentioned above, Arches-HIP uses the Bing geocoder to drive location search on the Map page.  This can be customized by applying a new ``GEOCODING_PROVIDER`` in your application's ``settings.py`` file.  
+
+This setting should point to a python module with a simple interface:
+
+    * the module must have a method called ``find_candidates``
+    * ``find_candidates`` should accept a single argument, which is the string search query
+    * ``find_candidates`` should return a list of candidate locations as dictionaries with the following keys:
+
+        * ``id``: a unique id for the location
+        * ``text``: a text description (i.e. name or address) of the location
+        * ``geometry``: a GeoJSON object (as a python dictionary) containing the location's geometry
+        * ``score``: an optional score value used for sorting (descending) in results drop down
 
 Localization
 ============
 
+Arches-HIP has put all of the hooks in place in it's code and UI templates to handle being localized via Django's localization API.  For more information on how to localize your application using Django, see the Django documentation: https://docs.djangoproject.com/en/1.6/topics/i18n/translation/

@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from arches.app.models.entity import Entity
 from arches.app.models.concept import Concept
 from arches.app.models.forms import ResourceForm
+from arches.app.utils.imageutils import generate_thumbnail
 from django.utils.translation import ugettext as _
 
 class SummaryForm(ResourceForm):
@@ -31,7 +32,7 @@ class SummaryForm(ResourceForm):
             'class': SummaryForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
         self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
@@ -96,7 +97,7 @@ class ClassificationForm(ResourceForm):
             'class': ClassificationForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
         self.update_nodes('COMPONENT.E18', data)
         self.update_nodes('MODIFICATION_EVENT.E11', data)
@@ -145,7 +146,7 @@ class ExternalReferenceForm(ResourceForm):
             'class': ExternalReferenceForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('EXTERNAL_RESOURCE.E1', data)
         return
 
@@ -168,7 +169,7 @@ class DescriptionForm(ResourceForm):
             'class': DescriptionForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('DESCRIPTION.E62', data)
 
     def load(self):
@@ -194,7 +195,7 @@ class MeasurementForm(ResourceForm):
             'class': MeasurementForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('MEASUREMENT_TYPE.E55', data)
 
 
@@ -229,28 +230,53 @@ class ConditionForm(ResourceForm):
         return ret
 
     def update_nodes(self, entitytypeid, data):
+        if self.schema == None:
+            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+
         for value in data[entitytypeid]:
-            for newentity in value['nodes']:
-                entity = Entity()
-                entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+            if entitytypeid == 'CONDITION_IMAGE.E73':
+                temp = None
+                for newentity in value['nodes']:
+                    if newentity['entitytypeid'] != 'CONDITION_IMAGE.E73':
+                        entity = Entity()
+                        entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
 
-                if self.baseentity == None:
-                    self.baseentity = entity
-                else:
-                    self.baseentity.merge(entity)
+                        if temp == None:
+                            temp = entity
+                        else:
+                            temp.merge(entity)
 
-    def update(self, data):
+                self.baseentity.merge_at(temp, 'CONDITION_STATE.E3')
+            else:
+                for newentity in value['nodes']:
+                    entity = Entity()
+                    entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                    if self.baseentity == None:
+                        self.baseentity = entity
+                    else:
+                        self.baseentity.merge(entity)
+
+    def update(self, data, files):
+        if len(files) > 0:
+            for f in files:
+                data['CONDITION_IMAGE.E73'].append({
+                    'nodes':[{
+                        'entitytypeid': 'CONDITION_IMAGE_FILE_PATH.E62',
+                        'entityid': '',
+                        'value': files[f]
+                    },{
+                        'entitytypeid': 'CONDITION_IMAGE_THUMBNAIL.E62',
+                        'entityid': '',
+                        'value': generate_thumbnail(files[f])
+                    }]
+                })
 
         for value in data['CONDITION_ASSESSMENT.E14']:
             for node in value['nodes']:
                 if node['entitytypeid'] == 'CONDITION_ASSESSMENT.E14' and node['entityid'] != '':
                     #remove the node
-                    print self.resource.to_json()
                     self.resource.filter(lambda entity: entity.entityid != node['entityid'])
-                    print self.resource.to_json()
-
-        if self.schema == None:
-            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
 
         self.update_nodes('CONDITION_TYPE.E55', data)
         self.update_nodes('THREAT_TYPE.E55', data)
@@ -258,10 +284,10 @@ class ConditionForm(ResourceForm):
         self.update_nodes('DATE_CONDITION_ASSESSED.E49', data)
         self.update_nodes('CONDITION_DESCRIPTION.E62', data)
         self.update_nodes('DISTURBANCE_TYPE.E55', data)
+        self.update_nodes('CONDITION_IMAGE.E73', data)
 
         self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
         self.resource.trim()
-
                    
     def load(self):
 
@@ -316,7 +342,7 @@ class LocationForm(ResourceForm):
             'class': LocationForm
         }
 
-    def update(self, data):
+    def update(self, data, files):
         self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)
         self.update_nodes('PLACE_ADDRESS.E45', data)
         self.update_nodes('DESCRIPTION_OF_LOCATION.E62', data)

@@ -32,7 +32,8 @@
         </div>
 
         <!-- Condition Assessements-->
-        <div class="arches-crud-record" id="current-items" style="display: none;" data-bind="foreach: data.data, visible: true">
+        <div id="current-items" style="display: none;" data-bind="foreach: data.data, visible: true">
+            <div class="arches-crud-record">
             <div  class="row margin-top-minus-5 margin-bottom-10" id="completed-evaluations" style="display: block;">
                 <div class="col-xs-12">
 
@@ -47,52 +48,83 @@
                             </dd>
                         </dl>
 
-                        <dl style="margin-left: 25px;">   
+                        <dl>   
                             <dt class="arches-evaluation-header">{% trans "Description" %}</dt>
                             <dd class="arches-evaluation-content" data-bind="if: $data['CONDITION_DESCRIPTION.E62'].branch_lists.length > 0">
                                 <span data-bind="html: $data['CONDITION_DESCRIPTION.E62'].branch_lists[0].nodes[0].value"></span>
                             </dd>
                         </dl>
 
-                        <dl style="margin-left: 25px;">
+                        <dl>
                             <dt class="arches-evaluation-header">{% trans "Images" %}</dt>
-                            <div class="col-xs-12">
-                                <div class="padding-10 margin-top-minus-5">
-                                    <div class="">
 
-                                        <!-- Images -->
-                                        <div class="row margin-bottom-30">
-                                            <div class="col-xs-12 shadow-wrapper md-margin-bottom-40">
-                                                <div data-bind="foreach: $data['CONDITION_IMAGE.E73'].branch_lists" class="box-shadow shadow-effect-2">
-                                                    <img style="width: 100%;" data-bind="attr: { src: nodes[0].label}" data-img="img/superbox/superbox-full-2.jpg" alt="Image Name" title="View Report" class="superbox-img img-bordered">
-                                                </div>
+                            <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+                            <div id="blueimp-gallery" class="blueimp-gallery">
+                                <!-- The container for the modal slides -->
+                                <div class="slides"></div>
+                                <!-- Controls for the borderless lightbox -->
+                                <h3 class="title"></h3>
+                                <a class="prev">‹</a>
+                                <a class="next">›</a>
+                                <a class="close">×</a>
+                                <a class="play-pause"></a>
+                                <ol class="indicator"></ol>
+                                <!-- The modal dialog, which will be used to wrap the lightbox content -->
+                                <div class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title"></h4>
                                             </div>
-
+                                            <div class="modal-body next"></div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default pull-left prev">
+                                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                                    {% trans "Previous" %}
+                                                </button>
+                                                <button type="button" class="btn btn-primary next">
+                                                    {% trans "Next" %}
+                                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <!-- End Images -->
-
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Section Content-->
+                            <div style="margin-left: 20px; padding-top: 5px;" data-bind="attr: {'id': 'links_' + $index()}">
+                                <div data-bind="foreach: $data['CONDITION_IMAGE.E73'].branch_lists">
+                                    <span data-bind="if: nodes[0].entitytypeid == 'CONDITION_IMAGE_FILE_PATH.E62'">
+                                        <a title="" data-gallery data-bind="attr: { href: nodes[0].value, 'data-gallery': 'links_' + $parentContext.$index()}" target="_blank">
+                                            <img alt="" style="width: 12.5%" data-bind="attr: { src: nodes[1].value}">
+                                        </a>
+                                    </span>
+                                    <span data-bind="if: nodes[0].entitytypeid == 'CONDITION_IMAGE_THUMBNAIL.E62'">
+                                        <a title="" data-gallery data-bind="attr: { href: nodes[1].value, 'data-gallery': 'links_' + $parentContext.$index()}" target="_blank">
+                                            <img alt="" style="width: 12.5%" data-bind="attr: { src: nodes[0].value}">
+                                        </a>
+                                    </span>
+                                </div>
+
+                            </div>
 
                         </dl>
 
-                        <dl style="margin-left: 25px;">   
+                        <dl>   
                             <dt class="arches-evaluation-header">{% trans "Disturbances" %}</dt>
                             <dd data-bind="foreach: $data['DISTURBANCE_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                                 <span data-bind="text: nodes[0].label"></span>
                             </dd>
                         </dl>
 
-                        <dl style="margin-left: 25px;">   
+                        <dl>   
                             <dt class="arches-evaluation-header">{% trans "Threats" %}</dt>
                                 <dd data-bind="foreach: $data['THREAT_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                                     <span data-bind="text: nodes[0].label"></span>
                                 </dd>
                         </dl>
 
-                        <dl style="margin-left: 25px;">   
+                        <dl>   
                             <dt class="arches-evaluation-header">{% trans "Recommendations" %}</dt>
 
                             <dd data-bind="foreach: $data['RECOMMENDATION_TYPE.E55'].branch_lists" class="arches-evaluation-content">
@@ -102,6 +134,7 @@
 
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         <!-- End Completed Condition Assessements -->
@@ -231,8 +264,8 @@
                                                     {% trans "You can (optionally) upload images that show the condition of the resource during your assessment." %}
                                                 </div>
                                                 
-                                                <dl>   
-                                                    <div action="upload.php" class="dropzone" id="mydropzone"></div>
+                                                <dl id="files-section">   
+                                                    <div class="dropzone" id="mydropzone"></div>
                                                 </dl>
                                             </div>
                                             <!-- End Tab 2: Upload Files -->
