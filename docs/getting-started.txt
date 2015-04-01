@@ -69,7 +69,7 @@ the required dependencies and getting HIP up and running quickly.
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    installing-dependencies-linux
    installing-dependencies-windows
