@@ -406,6 +406,33 @@ class RelatedFilesForm(ResourceForm):
         return
 
     def load(self):
+        # self.data = {
+        #     'data': [],
+        #     'domains': {
+        #         'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55': Concept().get_e55_domain('ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv')
+        #     }
+        # }
+
+        self.data['current-files'] = {
+            'branch_lists': [],
+            'domains': {'RELATIONSHIP_TYPES.E32': Concept().get_e55_domain('ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv')}
+        }
+
+        # condition_assessment_entities = self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E14')
+
+        # for relatedentity in condition_assessment_entities:
+        #     self.data['data'].append({
+        #         'current-files': {
+        #             'branch_lists': relatedentity.get_nodes(entity, 'TITLE.E41') + 
+        #                 relatedentity.get_nodes(entity, 'FILE_PATH.E62') +
+        #                 relatedentity.get_nodes(entity, 'THUMBNAIL.E62') +
+        #                 relatedentity.get_nodes(entity, 'DESCRIPTION.E62') + 
+        #                 #[{'nodes': entity.flatten()}]
+        #                 relatedentity.get_nodes(entity, 'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55')
+
+        #         }
+        #     })
+
         return
 
 
