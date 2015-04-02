@@ -407,3 +407,30 @@ class RelatedFilesForm(ResourceForm):
 
     def load(self):
         return
+
+
+class DesignationForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'designation',
+            'icon': 'fa-shield',
+            'name': _('Designation'),
+            'class': DesignationForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('PROTECTION_EVENT.E65', data)
+        return
+
+
+    def load(self):
+        if self.resource:
+            self.data['PROTECTION_EVENT.E65'] = {
+                'branch_lists': self.get_nodes('PROTECTION_EVENT.E65'),
+                'domains': {
+                    'TYPE_OF_DESIGNATION_OR_PROTECTION.E55' : Concept().get_e55_domain('TYPE_OF_DESIGNATION_OR_PROTECTION.E55')
+                }
+            }
+
+        return
