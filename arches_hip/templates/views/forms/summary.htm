@@ -169,13 +169,13 @@
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
                                 <div class="col-sm-6" style="padding-right: 5px;padding-left: 0px;">
-                                    <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" id="date-type" data-bind="select2: {value: getEditedNode('BEGINNING_OF_EXISTENCE_TYPE.E55,END_OF_EXISTENCE_TYPE.E55', 'value'), dataKey: 'important_dates'}">
+                                    <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" id="date-type" placeholder="Date type" data-bind="select2: {value: getEditedNode('BEGINNING_OF_EXISTENCE_TYPE.E55,END_OF_EXISTENCE_TYPE.E55', 'value'), dataKey: 'important_dates'}">
                                     </input>
                                 </div>
 
                                 <div class="col-sm-4 form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
                                     <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                        <input type="text" id="date" placeholder="{% trans 'Date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49', 'value')} ">
+                                        <input type="text" id="date" placeholder="{% trans 'yyyy-mm-dd' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49', 'value')} ">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
