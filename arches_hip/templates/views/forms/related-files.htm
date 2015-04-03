@@ -8,7 +8,7 @@
     <div id="crud" style="">
                     
         <!-- Related Information Objects Container -->
-        <div>
+        <div id="current-files-section">
 
             <!-- Related Images Title -->
             <div class="row margin-bottom-10">
@@ -29,7 +29,7 @@
             </div>
 
             <!-- For Demo, Start with no related resources -->
-            <div class="row margin-top-minus-5 margin-bottom-10" style="">
+            <div class="row margin-top-minus-5 margin-bottom-10" data-bind="visible: getBranchLists().length == 0">
                 <div class="col-xs-12">
 
                     <div class="margin-left-5">
@@ -48,7 +48,7 @@
             <!-- End Demo -->
 
             <!-- Realted Images -->
-            <div class="row margin-top-minus-5 margin-bottom-10" id="current-items" style="display: none;" data-bind="foreach: data.data, visible: true">
+            <div class="row margin-top-minus-5 margin-bottom-10" id="current-items" style="display: none;" data-bind="foreach: getBranchLists(), visible: true">
                 <div class="row">
                     <div class="col-xs-12">      
 
@@ -379,7 +379,7 @@
 
         <!-- Upload Files Wizard Container --> 
         <div style="display: none;" id="workflow-container">   
-            <div class="padding-10">
+            <div class="padding-10" id="new-files-section">
                 <div>
                     
                     <!-- Arches form container -->
@@ -415,7 +415,7 @@
                                                     <h3 class="margin-bottom-5"><strong>Part 1</strong> Upload Files</h3>
                                                     
                                                     <dl>   
-                                                        <div action="upload.php" class="dropzone" id="mydropzone"></div>
+                                                        <div class="dropzone" id="mydropzone"></div>
                                                     </dl>
                                                 </div>
                                                 <!-- End Tab 1: Upload Files -->
@@ -432,123 +432,67 @@
                                                     </div>
 
                                                     <!-- Form for screens > XS -->
-                                                    <dl class="hidden-xs">   
+                                                    <dl class="hidden-xs">  
 
-                                                        <dd class="arches-file-upload-record ">
-                                                            <div class="row">
+                                                        <div data-bind="foreach: $data"> 
+                                                            <dd class="arches-file-upload-record">
+                                                                <div class="row">
 
-                                                                <div class="col-xs-12">
-                                                                    <p class="arches-title">
-                                                                        File name: Golden gate.png
-                                                                        <span class="arches-subtitle pull-right">
-                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 480 KB&nbsp;
-                                                                            <i class="fa-fw fa fa-file"></i> .png file
+                                                                    <div class="col-xs-12">
+                                                                        <p class="arches-title">
+                                                                            <span data-bind="text: file.name"></span>
+                                                                            <span class="arches-subtitle pull-right">
+                                                                                <i class="fa-fw fa fa-cloud-upload"></i><span data-bind="text: (file.size/1000000).toFixed(2)"></span> Mb
+                                                                                <i class="fa-fw fa fa-file"></i><span data-bind="text: file.type"></span>
+                                                                            </span>
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-12">
+
+                                                                        <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
+
+                                                                        <span class="pull-right" style="width: 80%;">
+
+                                                                            <input class="form-control" style="width:100%;" placeholder="{% trans "Title" %}" data-bind="value: title">
+
+                                                                            <!-- Spacer (for xs screens) -->
+                                                                            <div class="margin-top-5"></div>
+
+                                                                            <textarea class="form-control" style="width:100%;" rows="3" placeholder="{% trans "Add a caption for the file here..." %}" data-bind="value: description"></textarea>
+
                                                                         </span>
-                                                                    </p>
 
+                                                                    </div>    
                                                                 </div>
-
-                                                                <div class="col-xs-12">
-
-                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" alt="" title="" class="">
-
-                                                                    <span class="pull-right" style="width: 80%;">
-
-                                                                        <input class="form-control " id="" placeholder="Title">
-
-                                                                        <!-- Spacer (for xs screens) -->
-                                                                        <div class="margin-top-5"></div>
-
-                                                                        <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
-
-                                                                    </span>
-
-                                                                </div>    
-                                                            </div>
-                                                        </dd>
-
-                                                        <dd class="arches-file-upload-record">
-                                                            <div class="row">
-
-                                                                <div class="col-xs-12">
-                                                                    <p class="arches-title">
-                                                                        File name: Wolfenstein-aerial-10102014.tiff
-                                                                        <span class="arches-subtitle pull-right">
-                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 1.68 MB&nbsp;
-                                                                            <i class="fa-fw fa fa-file"></i> .tiff file
-                                                                        </span>
-                                                                    </p>
-
-                                                                </div>
-
-                                                                <div class="col-xs-12">
-
-                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
-
-                                                                    <span class="pull-right" style="width: 80%;">
-
-                                                                        <input class="form-control " id="" placeholder="Title">
-
-                                                                        <!-- Spacer (for xs screens) -->
-                                                                        <div class="margin-top-5"></div>
-
-                                                                        <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
-
-                                                                    </span>
-
-                                                                </div>    
-                                                            </div>
-                                                        </dd>
+                                                            </dd>
+                                                        </div>
 
                                                     </dl>
 
                                                     <!-- Form for XS screens -->
                                                     <dl class="hidden-sm hidden-md hidden-lg">
 
-                                                        <dd>
+                                                        <dd class="arches-file-upload-record">
                                                             <div class="table-responsive">
                                                                     
                                                                 <table class="table table-bordered table-striped">
-                                                                    <tbody>
+                                                                    <tbody data-bind="foreach: $data">
                                                                         <tr style="">
                                                                             <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" data-img="img/superbox/superbox-full-3.jpg" alt="" title="" class="">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
                                                                             </td>
                                                                             <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="Title">
+                                                                                <input class="form-control " id="" placeholder="{% trans "Title" %}" data-bind="value: title">
 
                                                                                 <!-- Spacer (for xs screens) -->
                                                                                 <div class="margin-top-5"></div>
 
-                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                                <textarea class="form-control" rows="3" placeholder="{% trans "Add a caption for the file here..." %}" data-bind="value: description"></textarea>
                                                                             </td>    
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="" title="" class="">
-                                                                            </td>
-                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="Title">
-
-                                                                                <!-- Spacer (for xs screens) -->
-                                                                                <div class="margin-top-5"></div>
-
-                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
-                                                                            </td>    
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;"> 
-                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
-                                                                            </td>
-                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="Title">
-
-                                                                                <!-- Spacer (for xs screens) -->
-                                                                                <div class="margin-top-5"></div>
-
-                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
-                                                                            </td>    
-                                                                        </tr>   
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                                 
@@ -570,133 +514,73 @@
 
                                                     <!-- Form for screens > XS -->
                                                     <dl class="hidden-xs">   
+                                                        <div data-bind="foreach: $data"> 
+                                                            <dd class="arches-file-upload-record ">
+                                                                <div class="row">
 
-                                                        <dd class="arches-file-upload-record ">
-                                                            <div class="row">
-
-                                                                <div class="col-xs-12">
-                                                                    <p class="arches-title">
-                                                                        File name: Golden gate.png
-                                                                        <span class="arches-subtitle pull-right">
-                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 480 KB&nbsp;
-                                                                            <i class="fa-fw fa fa-file"></i> .png file
-                                                                        </span>
-                                                                    </p>
-
-                                                                </div>
-
-                                                                <div class="col-xs-12">
-
-                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" alt="" title="" class="">
-
-                                                                    <span class="pull-right" style="width: 80%;">
-
-                                                                        <p class="arches-file-title">View from Wolfenstein Castle</p>
-                                                                        <p class="arches-file-description">
-                                                                            Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi.
+                                                                    <div class="col-xs-12">
+                                                                        <p class="arches-title">
+                                                                            <span data-bind="text: file.name"></span>
+                                                                            <span class="arches-subtitle pull-right">
+                                                                                <i class="fa-fw fa fa-cloud-upload"></i><span data-bind="text: (file.size/1000000).toFixed(2)"></span> Mb
+                                                                                <i class="fa-fw fa fa-file"></i><span data-bind="text: file.type"></span>
+                                                                            </span>
                                                                         </p>
 
-                                                                        <!-- Relationship -->  
-                                                                        <div class="form-group" style="width: 100%">   
-                                                                            <input class="relationship-type" id="" name="" style="width:100%;"  value="">
-                                                                        </div>
+                                                                    </div>
 
-                                                                    </span>
+                                                                    <div class="col-xs-12">
 
-                                                                </div>    
-                                                            </div>
-                                                        </dd>
+                                                                        <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
 
-                                                        <dd class="arches-file-upload-record">
-                                                            <div class="row">
+                                                                        <span class="pull-right" style="width: 80%;">
 
-                                                                <div class="col-xs-12">
-                                                                    <p class="arches-title">
-                                                                        File name: Wolfenstein-aerial-10102014.tiff
-                                                                        <span class="arches-subtitle pull-right">
-                                                                            <i class="fa-fw fa fa-cloud-upload"></i> 1.68 MB&nbsp;
-                                                                            <i class="fa-fw fa fa-file"></i> .tiff file
+                                                                            <p class="arches-file-title" data-bind="text: title"></p>
+                                                                            <p class="arches-file-description" data-bind="text: description"></p>
+
+                                                                            <!-- Relationship -->  
+                                                                            <div class="form-group" style="width: 100%">   
+                                                                                <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="select2: {value: relationshiptype, placeholder: 'Type', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
+                                                                            </div>
+
                                                                         </span>
-                                                                    </p>
 
+                                                                    </div>    
                                                                 </div>
-
-                                                                <div class="col-xs-12">
-
-                                                                    <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
-
-                                                                    <span class="pull-right" style="width: 80%;">
-
-                                                                        <p class="arches-file-title">Wolfenstein oblique aerial</p>
-                                                                        <p class="arches-file-description">
-                                                                            Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi.
-                                                                        </p>
-
-                                                                        <!-- Relationship -->  
-                                                                        <div class="form-group" style="width: 100%">   
-                                                                            <input class="relationship-type" id="" name="" style="width:100%;"  value="">
-                                                                        </div>
-
-                                                                    </span>
-
-                                                                </div>    
-                                                            </div>
-                                                        </dd>
+                                                            </dd>
+                                                        </div>
 
                                                     </dl>
 
                                                     <!-- Form for XS screens -->
                                                     <dl class="hidden-sm hidden-md hidden-lg">
 
-                                                        <dd>
+                                                        <dd class="arches-file-upload-record">
                                                             <div class="table-responsive">
                                                                     
                                                                 <table class="table table-bordered table-striped">
-                                                                    <tbody>
+                                                                    <tbody data-bind="foreach: $data">
                                                                         <tr style="">
                                                                             <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" data-img="img/superbox/superbox-full-3.jpg" alt="" title="" class="">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
                                                                             </td>
                                                                             <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="Title">
+                                                                                <p class="arches-file-title" data-bind="text: title"></p>
+                                                                                <p class="arches-file-description" data-bind="text: description"></p>
 
-                                                                                <!-- Spacer (for xs screens) -->
-                                                                                <div class="margin-top-5"></div>
-
-                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
+                                                                                <!-- Relationship -->  
+                                                                                <div class="form-group" style="width: 100%">   
+                                                                                    <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="resource-name-type" data-bind="select2: {value: relationshiptype, placeholder: 'Type', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
+                                                                                </div>
                                                                             </td>    
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-2.jpg" data-img="img/superbox/superbox-full-2.jpg" alt="" title="" class="">
-                                                                            </td>
-                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="Title">
-
-                                                                                <!-- Spacer (for xs screens) -->
-                                                                                <div class="margin-top-5"></div>
-
-                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
-                                                                            </td>    
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;"> 
-                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" src="img/superbox/superbox-thumb-3.jpg" alt="" title="" class="">
-                                                                            </td>
-                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="Title">
-
-                                                                                <!-- Spacer (for xs screens) -->
-                                                                                <div class="margin-top-5"></div>
-
-                                                                                <textarea class="form-control" rows="3" placeholder="Add a caption for the file here..."></textarea>
-                                                                            </td>    
-                                                                        </tr>   
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                                 
                                                             </div>
                                                         </dd>
+
                                                     </dl>
 
                                                 </div>

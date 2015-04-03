@@ -1,0 +1,144 @@
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+
+
+                    
+        <!-- Actiions Start CRUD Form -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="padding-left-10">
+                    
+                    <dl>
+                        <!-- Title -->
+                        <dt>
+                            <h5 id="arches-names-form" class="section-headline">Activity Actions</h5>
+                        </dt>
+
+                        <!-- Form -->
+                        <dd class="arches-RDM-labels">
+
+                            <div class="row">
+
+                                <div class="col-xs-12 padding-left-0">
+
+                                <!-- Screens greater than xs -->
+                                <form class="form-inline arches-form hidden-xs" role="form">
+                                    <div class="form-group hidden-xs" style="width: 100%;">
+                                        
+                                        <!-- Period and From/To Dates -->
+                                        <div>
+                                            <div style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('ACTIVITY_TYPE.E55', 'value'), placeholder: '{% trans "start action" %}', multiple: false, dataKey: 'ACTIVITY_TYPE.E55'}"></div>&nbsp;
+                                        
+                                            <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
+                                                <div class="input-group datetimepicker" style ="width:100%;" >
+                                                    <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'start date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>&nbsp;
+
+                                            <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
+                                                <div class="input-group datetimepicker" style ="width:100%;" >
+                                                    <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'end date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+
+                                        {% include 'views/components/add-item-button.htm' %}
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- End Screens greater than xs -->
+                                    <!-- Form for screens > xs -->
+
+                                    <!-- Form for screens = xs -->
+                                    <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
+                                        <div class="form-group" style="width: 100%">
+
+                                            <input class="activity-start" id="" name="" style="width:100%;"  value="">
+
+                                            <!-- Spacer (for xs screens) -->
+                                            <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
+                                            <!-- Start Date -->
+                                            <div class="form-group" style="width:100%;">
+                                                <div class="input-group">
+                                                    <input type="text" name="mydate" placeholder="start date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                            <!-- Start Date -->
+                                            <div class="form-group" style="width:100%;">
+                                                <div class="input-group">
+                                                    <input type="text" name="mydate" placeholder="end date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Add Button -->
+                                            <div class="btn-group">
+                                                <button type="button" id="address-button" class="btn btn-primary" style="height: 32px;">Add</button>
+                                                <button type="button" class="btn btn-primary dropdown-toggle" style="height: 32px;" data-toggle="dropdown">
+                                                    <i class="fa fa-chevron-down"></i>
+                                                    <span class="sr-only">Toggle Dropdown</span>                            
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Discard edits</a></li>
+                                                </ul>
+                                            </div>
+                                            <!-- End Add Button -->
+
+                                        </div>
+                                    </form>
+                                    <!-- Form for screens = xs -->
+                                </div>
+                            </div>
+                        </dd>
+                        <!-- End Form -->
+                    </dl>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Activity Start CRUD -->
+
+        <!-- Activity Start Records -->
+        <div class="row">
+            <div class="col-xs-12">
+
+                <!-- Address -->
+                <div class="arches-crud-child-section">
+                    <dl>
+                        <dd class="arches-CRUD-child-title">
+                            This activity includes these start actions:
+                        </dd>
+
+                        <dd class="margin-left-5">
+                            <div class="arches-crud-record" id="">
+                                <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                <a href="" id="" class="arches-CRUD-child manage-address" title="Edit this record">Excavation<span class="text-muted arches-crud-type-identifier"> (Activity type)&nbsp; </span> December 1, 2010<span class="text-muted arches-crud-type-identifier"> (Start date)&nbsp; </span> </span> End date not recorded <span class="text-muted arches-crud-type-identifier"> (End date)&nbsp; </span>
+                                </a>
+                            </div>
+                        </dd>
+
+                        <dd class="margin-left-5">
+                            <div class="arches-crud-record" id="">
+                                <a href="" class="arches-CRUD-child" title="Delete this record"><i class="arches-CRUD-delete fa fa-trash-o"></i></a>
+                                <a href="" id="" class="arches-CRUD-child manage-address" title="Edit this record">Photo survey<span class="text-muted arches-crud-type-identifier"> (Activity type)&nbsp; </span> June 13, 2009<span class="text-muted arches-crud-type-identifier"> (Start date)&nbsp; </span> </span> June 15, 2009<span class="text-muted arches-crud-type-identifier"> (End date)&nbsp; </span>
+                                </a>
+                            </div>
+                        </dd>
+
+                    </dl>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Activity Start Records -->
+
+
+{% endblock form_content %}
