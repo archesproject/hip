@@ -434,3 +434,106 @@ class DesignationForm(ResourceForm):
             }
 
         return
+
+class RoleForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'roles',
+            'icon': 'fa-flash',
+            'name': _('Role'),
+            'class': RoleForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
+        return
+
+
+    def load(self):
+        if self.resource:
+            self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
+                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'domains': {
+                    'ACTOR_TYPE.E55' : Concept().get_e55_domain('ACTOR_TYPE.E55'),
+                    'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55')
+                }
+            }
+
+        return
+
+class ActorSummaryForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'actor-summary',
+            'icon': 'fa-tag',
+            'name': _('Actor Summary'),
+            'class': ActorSummaryForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('APPELLATION.E41', data)
+        self.update_nodes('EPITHET.E82', data)
+        self.update_nodes('BEGINNING_OF_EXISTENCE.E63', data)
+        self.update_nodes('END_OF_EXISTENCE.E64', data)
+        # self.update_nodes('KEYWORD.E55', data)
+        # self.update_nodes('ACTOR_TYPE.E55', data)
+
+        # beginning_of_existence_nodes = []
+        # end_of_existence_nodes = []
+        # for branch_list in data['important_dates']:
+        #     for node in branch_list['nodes']:
+        #         if node['entitytypeid'] == 'BEGINNING_OF_EXISTENCE_TYPE.E55':
+        #             beginning_of_existence_nodes.append(branch_list)
+        #         if node['entitytypeid'] == 'END_OF_EXISTENCE_TYPE.E55':
+        #             end_of_existence_nodes.append(branch_list)
+
+        # for branch_list in beginning_of_existence_nodes:
+        #     for node in branch_list['nodes']:        
+        #         if node['entitytypeid'] == 'START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49':
+        #             node['entitytypeid'] = 'START_DATE_OF_EXISTENCE.E49'
+
+        # for branch_list in end_of_existence_nodes:
+        #     for node in branch_list['nodes']:        
+        #         if node['entitytypeid'] == 'START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49':
+        #             node['entitytypeid'] = 'END_DATE_OF_EXISTENCE.E49'
+
+        # self.update_nodes('BEGINNING_OF_EXISTENCE.E63', {'BEGINNING_OF_EXISTENCE.E63':beginning_of_existence_nodes})
+        # self.update_nodes('END_OF_EXISTENCE.E64', {'END_OF_EXISTENCE.E64':end_of_existence_nodes})
+
+    def load(self):
+        if self.resource:
+            self.data['APPELLATION.E41'] = {
+                'branch_lists': self.get_nodes('APPELLATION.E41'),
+                'domains': {
+                    'NAME_TYPE.E55' : Concept().get_e55_domain('NAME_TYPE.E55')
+                }
+            }
+
+            self.data['EPITHET.E82'] = {
+                'branch_lists': self.get_nodes('EPITHET.E82'),
+            }
+
+
+            self.data['BEGINNING_OF_EXISTENCE.E63'] = {
+                'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63'),
+                'domains': {
+                    'BEGINNING_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55')
+                }
+            }
+
+            self.data['END_OF_EXISTENCE.E64'] = {
+                'branch_lists': self.get_nodes('END_OF_EXISTENCE.E64'),
+                'domains': {
+                    'END_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
+                }
+            }
+
+            self.data['KEYWORD.E55'] = {
+                'branch_lists': self.get_nodes('KEYWORD.E55'),
+                'domains': {
+                    'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
+            }
+
+            # self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
