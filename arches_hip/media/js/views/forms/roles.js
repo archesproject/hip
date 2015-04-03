@@ -13,7 +13,15 @@ define(['jquery', 'underscore', 'knockout-mapping', 'views/forms/base', 'views/f
                 data: this.data,
                 dataKey: 'PHASE_TYPE_ASSIGNMENT.E17',
                 validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
+                    var valid = true;
+                    _.each(nodes, function (node) {
+                        if (node.entitytypeid === 'ACTOR_TYPE.E55') {
+                            if (node.value === ''){
+                                valid = false;
+                            }
+                        }
+                    }, this);
+                    return valid;
                 }
             }));
         }
