@@ -293,7 +293,7 @@
                             <div data-bind='foreach: getBranchLists()'>
                                 <div class="arches-crud-record">
                                     <a href="javascript:void(0)" class="arches-CRUD-child" title="{% trans "Delete this begin date" %}"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="{% trans "Edit this begin date" %}"><span data-bind="{text: nodes.get('START_DATE_OF_EXISTENCE.E49', 'value')}" style="padding-right:2px"></span><span class="text-muted"> (</span><span class="text-muted" data-bind="{text: nodes.get('BEGINNING_OF_EXISTENCE_TYPE.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">)</span>
+                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="{% trans "Edit this begin date" %}"><span data-bind="{text: nodes.get('START_DATE_OF_EXISTENCE.E49', 'value').substr(0,10)}" style="padding-right:2px"></span><span class="text-muted"> (</span><span class="text-muted" data-bind="{text: nodes.get('BEGINNING_OF_EXISTENCE_TYPE.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">)</span>
                                     </a>
                                 </div>
                             </div>
@@ -401,7 +401,7 @@
                             <div data-bind='foreach: getBranchLists()'>
                                 <div class="arches-crud-record">
                                     <a href="javascript:void(0)" class="arches-CRUD-child" title="{% trans "Delete this begin date" %}"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="{% trans "Edit this begin date" %}"><span data-bind="{text: nodes.get('END_DATE_OF_EXISTENCE.E49', 'value')}" style="padding-right:2px"></span><span class="text-muted"> (</span><span class="text-muted" data-bind="{text: nodes.get('END_OF_EXISTENCE_TYPE.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">)</span>
+                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="{% trans "Edit this begin date" %}"><span data-bind="{text: nodes.get('END_DATE_OF_EXISTENCE.E49', 'value').substr(0,10)}" style="padding-right:2px"></span><span class="text-muted"> (</span><span class="text-muted" data-bind="{text: nodes.get('END_OF_EXISTENCE_TYPE.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">)</span>
                                     </a>
                                 </div>
                             </div>
