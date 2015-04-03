@@ -159,6 +159,30 @@ class ExternalReferenceForm(ResourceForm):
                 }
             }
 
+class ActivityActionsForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'activity-actions',
+            'icon': 'fa-random',
+            'name': _('Actions'),
+            'class': ActivityActionsForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
+        return
+
+    def load(self):
+        if self.resource:
+            self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
+                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'domains': {
+                    'ACTIVITY_TYPE.E55': Concept().get_e55_domain('ACTIVITY_TYPE.E55'),
+                }
+            }
+
+
 class DescriptionForm(ResourceForm):
     @staticmethod
     def get_info():

@@ -44,7 +44,16 @@ class Resource(ArchesResource):
                     forms.ExternalReferenceForm.get_info(),
                     forms.DesignationForm.get_info()
                 ]
-            })      
+            })   
+        elif self.entitytypeid == 'ACTIVITY.E7':
+            self.form_groups.append({
+                'id': 'resource-description',
+                'icon':'fa-folder',
+                'name': _('Resource Description'),
+                'forms': [
+                    forms.ActivityActionsForm.get_info(),
+                ]
+            })         
 
         self.form_groups.append({
             'id': 'resource-evaluation',
