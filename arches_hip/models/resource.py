@@ -51,6 +51,7 @@ class Resource(ArchesResource):
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
                 'forms': [
+                    forms.ActivitySummaryForm.get_info(),
                     forms.ActivityActionsForm.get_info(),
                 ]
             })         

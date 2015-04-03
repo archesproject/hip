@@ -21,6 +21,7 @@ from arches.app.models.concept import Concept
 from arches.app.models.forms import ResourceForm
 from arches.app.utils.imageutils import generate_thumbnail
 from django.utils.translation import ugettext as _
+import ipdb
 
 class SummaryForm(ResourceForm):
     @staticmethod
@@ -35,7 +36,8 @@ class SummaryForm(ResourceForm):
     def update(self, data, files):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
-        self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
+        if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':   
+            self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
 
         beginning_of_existence_nodes = []
         end_of_existence_nodes = []
@@ -181,6 +183,17 @@ class ActivityActionsForm(ResourceForm):
                     'ACTIVITY_TYPE.E55': Concept().get_e55_domain('ACTIVITY_TYPE.E55'),
                 }
             }
+
+
+class ActivitySummaryForm(SummaryForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'activity-summary',
+            'icon': 'fa-random',
+            'name': _('Resource Summary'),
+            'class': ActivitySummaryForm
+        }
 
 
 class DescriptionForm(ResourceForm):
