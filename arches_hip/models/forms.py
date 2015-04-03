@@ -528,7 +528,7 @@ class ActorSummaryForm(ResourceForm):
         self.update_nodes('EPITHET.E82', data)
         self.update_nodes('BEGINNING_OF_EXISTENCE.E63', data)
         self.update_nodes('END_OF_EXISTENCE.E64', data)
-
+        self.update_nodes('KEYWORD.E55', data)
 
     def load(self):
         if self.resource:
