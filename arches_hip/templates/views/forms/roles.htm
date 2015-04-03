@@ -41,14 +41,14 @@
 
                                     <div class="form-group datetimepicker" style="width:40%;">
                                         <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="From" id='date' class="form-control datepicker" data-dateformat="dd/mm/yy" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                            <input type="text" name="mydate" placeholder="From" id='date' class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>&nbsp;
 
                                     <div class="form-group datetimepicker" style="width:40%;">
                                         <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="To" id='date' class="form-control datepicker" data-dateformat="dd/mm/yy" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                            <input type="text" name="mydate" placeholder="To" id='date' class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
@@ -80,14 +80,14 @@
 
                                     <div class="form-group datetimepicker" style="width:100%;">
                                         <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="From" id='date' class="form-control datepicker" data-dateformat="dd/mm/yy" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                            <input type="text" name="mydate" placeholder="From" id='date' class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
 
                                     <div class="form-group datetimepicker" style="width:100%;">
                                         <div class="input-group">
-                                            <input type="text" name="mydate" placeholder="To" id='date' class="form-control datepicker" data-dateformat="dd/mm/yy" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                            <input type="text" name="mydate" placeholder="To" id='date' class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                 </dd>
                 <!-- End Form -->
             </dl>
-
+            <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "The role type value must be populated." %}</div>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -124,7 +124,7 @@
                             <div data-bind='foreach: getBranchLists()'>
                                 <div class="arches-crud-record">
                                     <a href="javascript:void(0)" class="arches-CRUD-child" title="{% trans "Delete this role" %}"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this role"><span data-bind="{text: nodes.get('ACTOR_TYPE.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">(Type) </span><span data-bind="{text: nodes.get('CULTURAL_PERIOD.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">(Period) </span><span data-bind="{text: nodes.get('FROM_DATE.E49', 'value')}" style="padding-right:2px"></span><span class="text-muted">(To date) </span><span data-bind="{text: nodes.get('TO_DATE.E49', 'value')}"></span><span class="text-muted">(From date)</span>
+                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this role"><span data-bind="{text: nodes.get('ACTOR_TYPE.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">(Type) </span><span data-bind="{text: nodes.get('CULTURAL_PERIOD.E55', 'label')}" style="padding-right:2px;"></span><span class="text-muted">(Period) </span><span data-bind="{text: nodes.get('FROM_DATE.E49', 'value').substr(0,10)}" style="padding-right:2px"></span><span class="text-muted">(To date) </span><span data-bind="{text: nodes.get('TO_DATE.E49', 'value').substr(0,10)}"></span><span class="text-muted">(From date)</span>
                                     </a>
                                 </div>
                             </div>

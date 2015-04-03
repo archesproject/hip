@@ -13,7 +13,28 @@ define(['jquery', 'underscore', 'knockout-mapping', 'views/forms/base', 'views/f
                 data: this.data,
                 dataKey: 'APPELLATION.E41',
                 validateBranch: function (nodes) {
-                    return this.validateHasValues(nodes);
+                    var valid = true;
+                    var primaryname_count = 0;
+                    var primaryname_conceptid = this.viewModel.primaryname_conceptid;
+                    _.each(nodes, function (node) {
+                        if (node.entitytypeid === 'ACTOR_APPELLATION.E82') {
+                            if (node.value === ''){
+                                valid = false;
+                            }
+                        }
+                        if (node.entitytypeid === 'NAME_TYPE.E55') {
+                            if (node.value === primaryname_conceptid){
+                                _.each(self.viewModel['branch_lists'], function (branch_list) {
+                                    _.each(branch_list.nodes, function (node) {
+                                        if (node.entitytypeid === 'NAME_TYPE.E55' && node.value === primaryname_conceptid) {
+                                            valid = false;
+                                        }
+                                    }, this);
+                                }, this);
+                            }
+                        }
+                    }, this);
+                    return valid;
                 }
             }));
 
