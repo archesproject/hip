@@ -40,9 +40,9 @@ define(['jquery', 'views/forms/base', 'views/forms/sections/branch-list', ], fun
                 }));
 
                 this.addBranchList(new BranchList({
-                    el: this.$el.find('#start-dates-section')[0],
+                    el: this.$el.find('#begin-dates-section')[0],
                     data: this.data,
-                    dataKey: 'important_dates',
+                    dataKey: 'BEGINNING_OF_EXISTENCE.E63',
                     validateBranch: function (nodes) {
                         return this.validateHasValues(nodes);
                     }
@@ -51,7 +51,7 @@ define(['jquery', 'views/forms/base', 'views/forms/sections/branch-list', ], fun
                 this.addBranchList(new BranchList({
                     el: this.$el.find('#end-dates-section')[0],
                     data: this.data,
-                    dataKey: 'important_dates',
+                    dataKey: 'END_OF_EXISTENCE.E64',
                     validateBranch: function (nodes) {
                         return this.validateHasValues(nodes);
                     }

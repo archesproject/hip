@@ -57,7 +57,7 @@ class Resource(ArchesResource):
                 ]
             })         
 
-        if self.entitytypeid == 'ACTOR.E39':
+        elif self.entitytypeid == 'ACTOR.E39':
             self.form_groups.append({
                 'id': 'resource-description',
                 'icon':'fa-folder',

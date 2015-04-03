@@ -166,7 +166,7 @@ class ActivityActionsForm(ResourceForm):
     def get_info():
         return {
             'id': 'activity-actions',
-            'icon': 'fa-random',
+            'icon': 'fa-flash',
             'name': _('Actions'),
             'class': ActivityActionsForm
         }
@@ -184,17 +184,50 @@ class ActivityActionsForm(ResourceForm):
                 }
             }
 
-
 class ActivitySummaryForm(SummaryForm):
     @staticmethod
     def get_info():
         return {
             'id': 'activity-summary',
-            'icon': 'fa-random',
+            'icon': 'fa-tag',
             'name': _('Resource Summary'),
             'class': ActivitySummaryForm
         }
 
+    def update(self, data, files):
+        self.update_nodes('NAME.E41', data)
+        self.update_nodes('KEYWORD.E55', data)
+        self.update_nodes('BEGINNING_OF_EXISTENCE.E63', data)
+        self.update_nodes('END_OF_EXISTENCE.E64', data)
+
+    def load(self):
+        if self.resource:
+
+            self.data['NAME.E41'] = {
+                'branch_lists': self.get_nodes('NAME.E41'),
+                'domains': {'NAME_TYPE.E55' : Concept().get_e55_domain('NAME_TYPE.E55')}
+            }
+
+            self.data['KEYWORD.E55'] = {
+                'branch_lists': self.get_nodes('KEYWORD.E55'),
+                'domains': {'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
+            }
+
+            self.data['BEGINNING_OF_EXISTENCE.E63'] = {
+                'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63'),
+                'domains': {
+                    'BEGINNING_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55')
+                }
+            }
+
+            self.data['END_OF_EXISTENCE.E64'] = {
+                'branch_lists': self.get_nodes('END_OF_EXISTENCE.E64'),
+                'domains': {
+                    'END_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
+                }
+            }
+
+            self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
 
 class DescriptionForm(ResourceForm):
     @staticmethod
@@ -471,7 +504,6 @@ class RelatedFilesForm(ResourceForm):
         #     })
 
         return
-
 
 class DesignationForm(ResourceForm):
     @staticmethod

@@ -58,7 +58,7 @@ def RESOURCE_TYPE_CONFIGS():
             'resourcetypeid': 'ACTIVITY.E7',
             'name': _('Activity'),
             'icon_class': 'fa fa-tasks',
-            'default_page': 'summary',
+            'default_page': 'activity-summary',
             'default_description': 'No description available',
             'description_node': _('INSERT RESOURCE DESCRIPTION NODE HERE'),
             'categories': [_('Resource')],
