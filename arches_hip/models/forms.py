@@ -610,3 +610,32 @@ class ActorSummaryForm(ResourceForm):
             }
 
             self.data['primaryname_conceptid'] = self.data['APPELLATION.E41']['domains']['NAME_TYPE.E55'][3]['id']
+
+
+
+class PhaseForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'phase',
+            'icon': 'fa-flash',
+            'name': _('Phase'),
+            'class': PhaseForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
+        return
+
+
+    def load(self):
+        if self.resource:
+            self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
+                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'domains': {
+                    'HISTORICAL_EVENT_TYPE.E55' : Concept().get_e55_domain('HISTORICAL_EVENT_TYPE.E55'),
+                    'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55')
+                }
+            }
+
+        return
