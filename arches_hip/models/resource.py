@@ -74,7 +74,7 @@ class Resource(ArchesResource):
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
                 'forms': [
-                    # forms.HistoricalEventSummaryForm.get_info(), 
+                    forms.HistoricalEventSummaryForm.get_info(), 
                     forms.PhaseForm.get_info()
                 ]
             })  

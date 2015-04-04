@@ -184,7 +184,7 @@ class ActivityActionsForm(ResourceForm):
                 }
             }
 
-class ActivitySummaryForm(SummaryForm):
+class ActivitySummaryForm(ResourceForm):
     @staticmethod
     def get_info():
         return {
@@ -228,6 +228,16 @@ class ActivitySummaryForm(SummaryForm):
             }
 
             self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+
+class HistoricalEventSummaryForm(ActivitySummaryForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'historical-event-summary',
+            'icon': 'fa-tag',
+            'name': _('Resource Summary'),
+            'class': HistoricalEventSummaryForm
+        }    
 
 class DescriptionForm(ResourceForm):
     @staticmethod

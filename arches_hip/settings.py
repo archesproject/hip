@@ -77,7 +77,7 @@ def RESOURCE_TYPE_CONFIGS():
             'resourcetypeid': 'HISTORICAL_EVENT.E5',
             'name': _('Historic Event'),
             'icon_class': 'fa fa-calendar',
-            'default_page': 'he-summary',
+            'default_page': 'historical-event-summary',
             'default_description': 'No description available',
             'description_node': _('INSERT RESOURCE DESCRIPTION NODE HERE'),
             'categories': [_('Resource')],
