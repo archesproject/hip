@@ -68,6 +68,17 @@ class Resource(ArchesResource):
                 ]
             })  
 
+        elif self.entitytypeid == 'HISTORICAL_EVENT.E5':
+            self.form_groups.append({
+                'id': 'resource-description',
+                'icon':'fa-folder',
+                'name': _('Resource Description'),
+                'forms': [
+                    # forms.HistoricalEventSummaryForm.get_info(), 
+                    forms.PhaseForm.get_info()
+                ]
+            })  
+
         self.form_groups.append({
             'id': 'resource-evaluation',
             'icon': 'fa-dashboard',

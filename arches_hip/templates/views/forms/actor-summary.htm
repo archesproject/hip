@@ -43,7 +43,7 @@
 
 
                                     <!-- XS Screens -->
-                                    <div class="form-group" style="width: 100%;">
+                                    <div class="form-group" style="width: 90%;">
 
                                         <input class="form-control arches-form-input" id="resource-name" style="width: 100%;" placeholder="Name" data-bind="{value: getEditedNode('ACTOR_APPELLATION.E82', 'value')}">&nbsp;
 
@@ -145,7 +145,7 @@
                                     <!-- Form for screens > xs -->
 
                                     <!-- Form for screens = xs -->
-                                    <div class="form-group" style="width: 100%">
+                                    <div class="form-group" style="width: 90%">
 
                                         <input class="form-control arches-form-input" id="resource-name" style="width: 100%;" placeholder="Epithet" data-bind="{value: getEditedNode('EPITHET.E82', 'value')}">&nbsp;
 
@@ -249,15 +249,21 @@
                             <div>
                                 <div>
                                     <!-- Form for screens = xs -->
-                                    <div class="form-group" style="width: 100%">
+                                    <div class="form-group" style="width: 90%">
 
                                         <!-- Birthdate -->
                                         <div class="form-group datetimepicker" style="width:100%;">
                                             <div class="input-group">
-                                                <input type="text" name="mydate" id="date" placeholder="Date" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('BEGINNING_OF_EXISTENCE_TYPE.E55', 'value')} ">
+                                                <input type="text" name="mydate" id="date" placeholder="Date" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('START_DATE_OF_EXISTENCE.E49', 'value')} ">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             </div>
                                         </div>&nbsp;
+
+                                        <input style="width:100%; display:inline-block;" class="title-type select2 arches-select2-crud-form name-type designation" id="resource-designation-type" data-bind="select2: {value: getEditedNode('BEGINNING_OF_EXISTENCE_TYPE.E55', 'value'),  placeholder: '{% trans "Type" %}', dataKey: 'BEGINNING_OF_EXISTENCE_TYPE.E55'}">&nbsp;
+
+
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
 
                                         <!-- Add Button -->
                                         {% include 'views/components/add-item-button.htm' %}
@@ -357,15 +363,19 @@
                             <div>
                                 <div>
                                     <!-- Form for screens = xs -->
-                                    <div class="form-group" style="width: 100%">
+                                    <div class="form-group" style="width: 90%">
 
                                         <!-- Birthdate -->
                                         <div class="form-group datetimepicker" style="width:100%;">
                                             <div class="input-group">
-                                                <input type="text" name="mydate" id="date" placeholder="From" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('END_OF_EXISTENCE_TYPE.E55', 'value')} ">
+                                                <input type="text" name="mydate" id="date" placeholder="Date" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('END_DATE_OF_EXISTENCE.E49', 'value')} ">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             </div>
                                         </div>&nbsp;
+
+                                        <input style="width:100%; display:inline-block;" class="title-type select2 arches-select2-crud-form name-type designation" id="resource-designation-type" data-bind="select2: {value: getEditedNode('END_OF_EXISTENCE_TYPE.E55', 'value'),  placeholder: '{% trans "Type" %}', dataKey: 'END_OF_EXISTENCE_TYPE.E55'}">&nbsp;
+
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
 
                                         <!-- Add Button -->
                                         {% include 'views/components/add-item-button.htm' %}
@@ -460,7 +470,10 @@
                                     <div class="form-group" style="width: 100%">
 
                                         <!-- Birthdate -->
-                                        <input style="width:80%; display:inline-block;" class="title-type select2 arches-select2-crud-form name-type designation" id="resource-designation-type" data-bind="select2: {value: getEditedNode('KEYWORD.E55', 'value'),  placeholder: '{% trans "Keyword" %}', dataKey: 'KEYWORD.E55'}">&nbsp;
+                                        <input style="width:90%; display:inline-block;" class="title-type select2 arches-select2-crud-form name-type designation" id="resource-designation-type" data-bind="select2: {value: getEditedNode('KEYWORD.E55', 'value'),  placeholder: '{% trans "Keyword" %}', dataKey: 'KEYWORD.E55'}">&nbsp;
+
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
+
                                         <!-- Add Button -->
                                         {% include 'views/components/add-item-button.htm' %}
                                         <!-- End Add Button -->
