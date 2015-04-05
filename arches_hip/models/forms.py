@@ -239,6 +239,58 @@ class HistoricalEventSummaryForm(ActivitySummaryForm):
             'class': HistoricalEventSummaryForm
         }    
 
+class InformationResourceSummaryForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'information-resource-summary',
+            'icon': 'fa-tag',
+            'name': _('Resource Summary'),
+            'class': InformationResourceSummaryForm
+        }   
+
+    def update(self, data, files):
+        self.update_nodes('TITLE.E41', data)
+        self.update_nodes('IDENTIFIER.E42', data)
+        self.update_nodes('KEYWORD.E55', data)
+        self.update_nodes('INFORMATION_CARRIER.E84', data)
+        self.update_nodes('LANGUAGE.E55', data)
+
+    def load(self):
+        if self.resource:
+
+            self.data['TITLE.E41'] = {
+                'branch_lists': self.get_nodes('TITLE.E41'),
+                'domains': {'TITLE_TYPE.E55' : Concept().get_e55_domain('TITLE_TYPE.E55')}
+            }
+
+            self.data['IDENTIFIER.E42'] = {
+                'branch_lists': self.get_nodes('IDENTIFIER.E42'),
+                'domains': {
+                    'IDENTIFIER_TYPE.E55' : Concept().get_e55_domain('IDENTIFIER_TYPE.E55')
+                }
+            }
+
+            self.data['INFORMATION_CARRIER.E84'] = {
+                'branch_lists': self.get_nodes('INFORMATION_CARRIER.E84'),
+                'domains': {
+                    'INFORMATION_CARRIER_FORMAT_TYPE.E55' : Concept().get_e55_domain('INFORMATION_CARRIER_FORMAT_TYPE.E55')
+                }
+            }
+
+            self.data['LANGUAGE.E55'] = {
+                'branch_lists': self.get_nodes('LANGUAGE.E55'),
+                'domains': {'LANGUAGE.E55' : Concept().get_e55_domain('LANGUAGE.E55')}
+            }
+
+            self.data['KEYWORD.E55'] = {
+                'branch_lists': self.get_nodes('KEYWORD.E55'),
+                'domains': {'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
+            }
+
+            # self.data['primaryname_conceptid'] = self.data['TITLE.E41']['domains']['TITLE_TYPE.E55'][3]['id']
+ 
+
 class DescriptionForm(ResourceForm):
     @staticmethod
     def get_info():

@@ -77,6 +77,16 @@ class Resource(ArchesResource):
                     forms.HistoricalEventSummaryForm.get_info(), 
                     forms.PhaseForm.get_info()
                 ]
+            }) 
+
+        elif self.entitytypeid == 'INFORMATION_RESOURCE.E73':
+            self.form_groups.append({
+                'id': 'resource-description',
+                'icon':'fa-folder',
+                'name': _('Resource Description'),
+                'forms': [
+                    forms.InformationResourceSummaryForm.get_info(), 
+                ]
             })  
 
         self.form_groups.append({

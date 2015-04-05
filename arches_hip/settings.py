@@ -115,7 +115,7 @@ def RESOURCE_TYPE_CONFIGS():
             'resourcetypeid': 'INFORMATION_RESOURCE.E73',
             'name': _('Information Resource'),
             'icon_class': 'fa fa-file-text-o',
-            'default_page': 'summary',
+            'default_page': 'information-resource-summary',
             'default_description': 'No description available',
             'description_node': _('INSERT RESOURCE DESCRIPTION NODE HERE'),
             'categories': [_('Resource')],
