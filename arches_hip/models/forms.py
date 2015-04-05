@@ -36,7 +36,7 @@ class SummaryForm(ResourceForm):
     def update(self, data, files):
         self.update_nodes('NAME.E41', data)
         self.update_nodes('KEYWORD.E55', data)
-        if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':   
+        if self.resource.entitytypeid in ('HERITAGE_RESOURCE.E18', 'HERITAGE_RESOURCE_GROUP.E27'):   
             self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
 
         beginning_of_existence_nodes = []
@@ -68,7 +68,7 @@ class SummaryForm(ResourceForm):
         }
 
         if self.resource:
-            if self.resource.entitytypeid == 'HERITAGE_RESOURCE.E18':            
+            if self.resource.entitytypeid in ('HERITAGE_RESOURCE.E18', 'HERITAGE_RESOURCE_GROUP.E27'):            
                 self.data['RESOURCE_TYPE_CLASSIFICATION.E55'] = {
                     'branch_lists': self.get_nodes('RESOURCE_TYPE_CLASSIFICATION.E55'),
                     'domains': {'RESOURCE_TYPE_CLASSIFICATION.E55' : Concept().get_e55_domain('RESOURCE_TYPE_CLASSIFICATION.E55')}
@@ -228,6 +228,37 @@ class ActivitySummaryForm(ResourceForm):
             }
 
             self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+
+
+    def update(self, data, files):
+        self.update_nodes('NAME.E41', data)
+        self.update_nodes('KEYWORD.E55', data)
+        if self.resource.entitytypeid == 'HERITAGE_RESOURCE_GROUP.E27':   
+            self.update_nodes('RESOURCE_TYPE_CLASSIFICATION.E55', data)
+
+        beginning_of_existence_nodes = []
+        end_of_existence_nodes = []
+        for branch_list in data['important_dates']:
+            for node in branch_list['nodes']:
+                if node['entitytypeid'] == 'BEGINNING_OF_EXISTENCE_TYPE.E55':
+                    beginning_of_existence_nodes.append(branch_list)
+                if node['entitytypeid'] == 'END_OF_EXISTENCE_TYPE.E55':
+                    end_of_existence_nodes.append(branch_list)
+
+        for branch_list in beginning_of_existence_nodes:
+            for node in branch_list['nodes']:        
+                if node['entitytypeid'] == 'START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49':
+                    node['entitytypeid'] = 'START_DATE_OF_EXISTENCE.E49'
+
+        for branch_list in end_of_existence_nodes:
+            for node in branch_list['nodes']:        
+                if node['entitytypeid'] == 'START_DATE_OF_EXISTENCE.E49,END_DATE_OF_EXISTENCE.E49':
+                    node['entitytypeid'] = 'END_DATE_OF_EXISTENCE.E49'
+
+        self.update_nodes('BEGINNING_OF_EXISTENCE.E63', {'BEGINNING_OF_EXISTENCE.E63':beginning_of_existence_nodes})
+        self.update_nodes('END_OF_EXISTENCE.E64', {'END_OF_EXISTENCE.E64':end_of_existence_nodes})
+
+
 
 class HistoricalEventSummaryForm(ActivitySummaryForm):
     @staticmethod
