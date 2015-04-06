@@ -557,6 +557,44 @@ class LocationForm(ResourceForm):
 
         return
 
+
+class CoverageForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'coverage',
+            'icon': 'fa-crosshairs',
+            'name': _('Coverage'),
+            'class': CoverageForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)    
+        self.update_nodes('DESCRIPTION_OF_LOCATION.E62', data)
+        self.update_nodes('TEMPORAL_COVERAGE_TIME-SPAN.E52', data)
+        return
+
+    def load(self):
+        self.data['SPATIAL_COORDINATES_GEOMETRY.E47'] = {
+            'branch_lists': self.get_nodes('SPATIAL_COORDINATES_GEOMETRY.E47'),
+            'domains': {
+                'GEOMETRY_QUALIFIER.E55': Concept().get_e55_domain('GEOMETRY_QUALIFIER.E55')
+            }
+        }
+        
+        self.data['DESCRIPTION_OF_LOCATION.E62'] = {
+            'branch_lists': self.get_nodes('DESCRIPTION_OF_LOCATION.E62'),
+            'domains': {}
+        }
+
+        self.data['TEMPORAL_COVERAGE_TIME-SPAN.E52'] = {
+            'branch_lists': self.get_nodes('TEMPORAL_COVERAGE_TIME-SPAN.E52'),
+            'domains': {}
+        }
+
+        return
+
+
 class RelatedFilesForm(ResourceForm):
     @staticmethod
     def get_info():

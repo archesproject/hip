@@ -107,6 +107,7 @@ class Resource(ArchesResource):
                 'name': _('Resource Description'),
                 'forms': [
                     forms.InformationResourceSummaryForm.get_info(), 
+                    forms.CoverageForm.get_info(),
                 ]
             })  
 
