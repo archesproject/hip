@@ -15,9 +15,9 @@ define([
             var self = this;
             var resourcetypeid = $('#resourcetypeid').val();
             var includeMap = (resourcetypeid !== 'ACTOR.E39');
-            var includeSettings = (resourcetypeid !== 'ACTOR.E39');
+            var includeSettings = !_.contains(['ACTOR.E39', 'ACTIVITY.E7', 'HERITAGE_RESOURCE_GROUP.E27', 'HISTORICAL_EVENT.E5'], resourcetypeid);
             var includeAdminAreas = (resourcetypeid !== 'ACTOR.E39');
-            var includeParcels = (resourcetypeid !== 'ACTOR.E39');
+            var includeParcels = !_.contains(['ACTOR.E39', 'ACTIVITY.E7', 'HISTORICAL_EVENT.E5'], resourcetypeid);
 
             BaseForm.prototype.initialize.apply(this);
 

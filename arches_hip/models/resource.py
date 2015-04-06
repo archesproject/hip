@@ -52,12 +52,12 @@ class Resource(ArchesResource):
                 'icon':'fa-folder',
                 'name': _('Resource Description'),
                 'forms': [
-                    forms.SummaryForm.get_info() 
+                    forms.SummaryForm.get_info(),
                     # forms.ClassificationForm.get_info(),
                     # forms.DescriptionForm.get_info(),
                     # forms.MeasurementForm.get_info(),
                     # forms.ConditionForm.get_info(),
-                    # forms.LocationForm.get_info(),
+                    forms.LocationForm.get_info(),
                     # forms.RelatedFilesForm.get_info(),
                     # forms.ExternalReferenceForm.get_info(),
                     # forms.DesignationForm.get_info()
@@ -72,6 +72,7 @@ class Resource(ArchesResource):
                 'forms': [
                     forms.ActivitySummaryForm.get_info(),
                     forms.ActivityActionsForm.get_info(),
+                    forms.LocationForm.get_info()
                 ]
             })         
 
@@ -94,7 +95,8 @@ class Resource(ArchesResource):
                 'name': _('Resource Description'),
                 'forms': [
                     forms.HistoricalEventSummaryForm.get_info(), 
-                    forms.PhaseForm.get_info()
+                    forms.PhaseForm.get_info(),
+                    forms.LocationForm.get_info(),
                 ]
             }) 
 
