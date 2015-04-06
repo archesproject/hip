@@ -21,7 +21,6 @@ from arches.app.models.concept import Concept
 from arches.app.models.forms import ResourceForm
 from arches.app.utils.imageutils import generate_thumbnail
 from django.utils.translation import ugettext as _
-import ipdb
 
 class SummaryForm(ResourceForm):
     @staticmethod
@@ -506,12 +505,15 @@ class LocationForm(ResourceForm):
         }
 
     def update(self, data, files):
-        self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)
+        if self.resource.entitytypeid not in ['ACTOR.E39']:
+            self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)
+            self.update_nodes('ADMINISTRATIVE_SUBDIVISION.E48', data)
+        if self.resource.entitytypeid not in ['ACTOR.E39', 'ACTIVITY.E7', 'HISTORICAL_EVENT.E5']:
+            self.update_nodes('PLACE_APPELLATION_CADASTRAL_REFERENCE.E44', data)
+        if self.resource.entitytypeid not in ['ACTOR.E39', 'ACTIVITY.E7', 'HERITAGE_RESOURCE_GROUP.E27', 'HISTORICAL_EVENT.E5']:
+            self.update_nodes('SETTING_TYPE.E55', data)
         self.update_nodes('PLACE_ADDRESS.E45', data)
         self.update_nodes('DESCRIPTION_OF_LOCATION.E62', data)
-        self.update_nodes('SETTING_TYPE.E55', data)
-        self.update_nodes('ADMINISTRATIVE_SUBDIVISION.E48', data)
-        self.update_nodes('PLACE_APPELLATION_CADASTRAL_REFERENCE.E44', data)
         return
 
     def load(self):
@@ -554,6 +556,44 @@ class LocationForm(ResourceForm):
         }
 
         return
+
+
+class CoverageForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'coverage',
+            'icon': 'fa-crosshairs',
+            'name': _('Coverage'),
+            'class': CoverageForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('SPATIAL_COORDINATES_GEOMETRY.E47', data)    
+        self.update_nodes('DESCRIPTION_OF_LOCATION.E62', data)
+        self.update_nodes('TEMPORAL_COVERAGE_TIME-SPAN.E52', data)
+        return
+
+    def load(self):
+        self.data['SPATIAL_COORDINATES_GEOMETRY.E47'] = {
+            'branch_lists': self.get_nodes('SPATIAL_COORDINATES_GEOMETRY.E47'),
+            'domains': {
+                'GEOMETRY_QUALIFIER.E55': Concept().get_e55_domain('GEOMETRY_QUALIFIER.E55')
+            }
+        }
+        
+        self.data['DESCRIPTION_OF_LOCATION.E62'] = {
+            'branch_lists': self.get_nodes('DESCRIPTION_OF_LOCATION.E62'),
+            'domains': {}
+        }
+
+        self.data['TEMPORAL_COVERAGE_TIME-SPAN.E52'] = {
+            'branch_lists': self.get_nodes('TEMPORAL_COVERAGE_TIME-SPAN.E52'),
+            'domains': {}
+        }
+
+        return
+
 
 class RelatedFilesForm(ResourceForm):
     @staticmethod
