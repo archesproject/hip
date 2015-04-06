@@ -2,6 +2,8 @@
 {% load i18n %}
 
 {% block form_content %}
+
+{% if resourcetypeid != 'ACTOR.E39' %}
 <div id="geom-list-section">
     <!-- Map -->
     <div class="row margin-bottom-10">
@@ -214,9 +216,9 @@
 
      
 <hr class="devider arches-RDM-divider">
-<!--
-parcel-section
--->
+
+{% endif %}
+
 <div id="address-section">
     <!-- Address CRUD Form -->
     <div class="row">
@@ -345,7 +347,7 @@ parcel-section
 </div>
 <!-- End Resource Location Descriptions -->
 
-
+{% if resourcetypeid != 'ACTOR.E39' %}
 <hr class="devider arches-RDM-divider">
 
 <div id="setting-section">
@@ -616,4 +618,5 @@ parcel-section
     </div>
     <!-- End Cadastral References Records-->
 </div>
+{% endif %}
 {% endblock form_content %}

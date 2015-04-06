@@ -82,7 +82,8 @@ class Resource(ArchesResource):
                 'name': _('Resource Description'),
                 'forms': [
                     forms.ActorSummaryForm.get_info(), 
-                    forms.RoleForm.get_info()
+                    forms.RoleForm.get_info(),
+                    forms.LocationForm.get_info()
                 ]
             })  
 
