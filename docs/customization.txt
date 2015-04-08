@@ -17,11 +17,11 @@ Modifying the home page and branding of your Arches-HIP application involves edi
 
 Your application starts with templates that you can use to start modifying the home page and branding of the web application.  These files are contained in the following folder::
     
-    {application name}/{application name}/templates/
+    my_hip_app/my_hip_app/templates/
 
 You can add your own CSS style rules (applied application wide) in the following file::
 
-    {application name}/{application name}/media/css/package.css
+    my_hip_app/my_hip_app/media/css/package.css
 
 **Home Page**
 
@@ -32,6 +32,32 @@ You can add your own CSS style rules (applied application wide) in the following
         * Update the images and text in the layer slider
         * Add you own text to the title block below the layer slider
         * Update the saved searches to suit your data (more on that below)
+
+    For example you can add or remove images to the layer slider as blocks of HTML like this::
+
+        <div class="ls-layer" style="">
+
+            <!-- Background -->
+            <img src="{% static 'img/arches_splash/slide1.jpg' %}" class="ls-s1" style="top: -450px; left: -400px; durationin: 0;" alt="Slide background">
+
+            <!-- Text -->
+            <span class="ls-s-1" style="line-height: 42px; font-size:22px; font-weight: 200; color:#fff; top:100px; left: 10px; slidedirection: top; slideoutdirection: bottom; durationin: 0; durationout: 3500;">
+            {% trans 'Arches Includes' %}
+            </span>
+
+            <span class="ls-s-1" style="line-height: 42px; font-size:42px; font-weight: 200; color:#fff; top:140px; left: 10px; slidedirection: top; slideoutdirection: bottom; durationin: 0; durationout: 3500;">
+            {% trans 'Activities and' %} </br>
+            {% trans 'Important Historic Events' %}
+            </span>
+
+            <!-- Photo Credit -->
+            <span class="ls-s-1" style="line-height: 16px; font-size:12px; color:#fff; top:470px; left: 750px; slidedirection: top; slideoutdirection: bottom; durationin: 0; durationout: 3500;">
+            {% trans 'Photo: Image Caption, ' %}<a href="javascript:void(0);">{% trans 'Photographer Name' %}</a>
+            </span>
+
+        </div>
+
+    Each block will create an item in the slider.  You can modify the ``src`` path in the ``<img>`` tag and update the text in the tags below it to make the item show an image and message of your choosing.
 
 **Branding**
 
@@ -54,8 +80,8 @@ For example, you could do a search for the word 'modern'.  You should see the pa
 
 There are two html templates in your project that contain saved searches, these files are::
 
-    {application name}/{application name}/templates/index.htm
-    {application name}/{application name}/templates/views/saved-searches.htm
+    my_hip_app/my_hip_app/templates/index.htm
+    my_hip_app/my_hip_app/templates/views/saved-searches.htm
 
 ``index.htm`` contains the saved searches for the home page and ``saved-searches.htm`` contains the saved searches for the search page.
 
@@ -121,7 +147,7 @@ By default, Arches-HIP will supply the application with Bing layers as basemaps,
 
 The basemap layers are added in the following file::
     
-    {application name}/{application name}/media/js/map/base-layers.js
+    my_hip_app/my_hip_app/media/js/map/base-layers.js
 
 You will notice that at the second to last line of this file, an array called ``baseLayers`` is returned::
 
@@ -159,7 +185,7 @@ Additional overlays can also be added to the Arches-HIP map interface.  This is 
 
 Overlays are added to the following file::
 
-    {application name}/{application name}/media/js/map/layers.js
+    my_hip_app/my_hip_app/media/js/map/layers.js
 
 You will find, again, at the bottom of this file an array being returned, this one called ``layers``.  Additional overlay layers can be added to the ``layers`` array prior to the line where it is returned.  
 
