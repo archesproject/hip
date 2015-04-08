@@ -1,458 +1,383 @@
-{% extends "views/forms/base.htm" %}
+{% extends "views/forms/wizard-base.htm" %}
 {% load i18n %}
 
 {% block form_content %}
-<!-- Classification CRUD Form -->
 
-<div id="classification-section">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="padding-left-10">
-                
-                <dl>
-                    <!-- Title -->
-                    <dt>
-                        <h5 id="arches-names-form" class="section-headline">Classification</h5>
-                    </dt>
+<!-- Spacer for small screens -->
+<div>
+    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "A type and date must be specified." %}</div>
+    <!-- Related Information Objects Container -->
+    <div id="existing-classifications">
 
-                    <!-- Form -->
-                    <dd class="arches-RDM-labels">
+        <!-- Related Images Title -->
+        <div class="row">
+            <div class="col-xs-12">
 
-                        <div class="row">
+                <!-- Images -->
+                <div class="padding-left-10">
+                    
+                    <dl style="margin-bottom: 0px;">
+                        <!-- Title -->
+                        <dt style="display: none;" data-bind="visible: true">
+                            <h5 id="arches-names-form" class="section-headline">{% trans "Resource Classification" %}</h5>
+                        </dt>
 
-                            <div class="col-xs-12">
-
-                                <!-- Screens greater than xs -->
-                                <form class="form-inline arches-form hidden-xs" role="form">
-                                    <div class="form-group hidden-xs" style="width: 100%;">
-                                        
-                                        <!-- Resource Type/Use/Style -->     
-                                            <input style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></input>&nbsp;
-                                            <input style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="resource-use-type-dropdown" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></input>&nbsp;
-                                            <input style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="style-dropdown" data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "style" %}', multiple: false, dataKey: 'STYLE.E55'}"></input>
-
-                                        {% include 'views/components/add-item-button.htm' %}
-
-                                        <!-- Spacer -->
-                                        <div class="margin-top-5"></div>
-
-                                        <!-- Period and From/To Dates -->
-                                        <div>
-                                            <div style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>&nbsp;
-                                        
-                                            <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
-                                                <div class="input-group datetimepicker" style ="width:100%;" >
-                                                    <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'From' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>&nbsp;
-
-                                            <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
-                                                <div class="input-group datetimepicker" style ="width:100%;" >
-                                                    <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'To' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- End Screens greater than xs -->
-
-
-                                <!-- XS Screens -->
-                                <form class="form-inline arches-form hidden-sm hidden-md hidden-lg" role="form">
-                                    <div class="form-group" style="width: 100%;">
-                                        
-                                            <!-- Resource Type/Period/Style -->     
-                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}"></div>
-                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}', multiple: false, dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}"></div>
-                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), placeholder: '{% trans "style" %}', multiple: false, dataKey: 'STYLE.E55'}"></div>
-                                            <div style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}"></div>
-
-                                    <!-- From/To Dates -->
-                                    <div class="form-group" style="padding-left: 0px; padding-right: 0px; margin-bottom:3px; margin-top:3px; width: 100%;">
-                                        <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                            <input type="text" id="fromdate" placeholder="{% trans 'from' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group" style="padding-left: 0px; padding-right: 0px; margin-bottom:3px; margin-top:3px; width: 100%;">
-                                        <div class="input-group datetimepicker" style ="width:100%; height: 34px;" >
-                                            <input type="text" id="todate" placeholder="{% trans 'to' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                    <!-- End From/To Dates -->
-
-                                            {% include 'views/components/add-item-button.htm' %} 
-                                        </div>
-                                </form>
-                                <!-- End XS Screens -->
-
-                            </div>
-                        </div>
-                    </dd>
-                    <!-- End Form -->
-                </dl>
-
-            </div>
-        </div>
-    </div>
-    <!-- End Address CRUD Form Container -->
-
-
-    <!-- Classification Records -->
-    <div class="row">
-        <div class="col-xs-12">
-
-            <!-- Address -->
-            <div class="arches-crud-child-section">
-                <dl>
-                    <dd class="arches-CRUD-child-title">
-                        This resource has been classified as:
-                    </dd>
-
-                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Classifications Defined" %}</div>   
-
-                        <div data-bind='foreach: getBranchLists()'>
-                            <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this name">
-                                    <span data-bind='text: nodes.get("HERITAGE_RESOURCE_TYPE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "type" %}),</span>
-                                    <span data-bind='text: nodes.get("HERITAGE_RESOURCE_USE_TYPE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "use" %}),</span>
-                                    <span data-bind='text: nodes.get("CULTURAL_PERIOD.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "period" %}),</span>
-                                    <span data-bind='text: nodes.get("STYLE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "style" %}),</span>
-                                    <span data-bind='text: nodes.get("FROM_DATE.E49", "value").substr(0,10)' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> - </span><span data-bind='text: nodes.get("TO_DATE.E49", "value").substr(0,10)' style="padding-right:2px;"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </dd>
-
-                </dl>
-            </div>
-        </div>
-    </div>
-    <!-- End Classification Records -->
-</div>
-
-<hr class="divider arches-RDM-divider">
-
-
-<!-- Components CRUD Form -->
-<div id="component-section">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="padding-left-10">
-                
-                <dl>
-                    <!-- Title -->
-                    <dt>
-                        <h5 id="arches-names-form" class="section-headline">Components</h5>
-                    </dt>
-
-                    <!-- Form -->
-                    <dd class="arches-RDM-labels">
-
-                        <div class="row">
-
-                            <div class="col-xs-12">
-
-                                <!-- Input for screens > xs -->
-                                <form class="form-inline hidden-xs" role="form">
-                                    <div class="form-group" style="width: 100%">
-                                        
-                                        <!-- Component/Technique/Material -->       
-                                        <input style="width:25%;" class="select2 arches-select2-crud-form resource" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('COMPONENT_TYPE.E55', 'value'), placeholder: '{% trans "component" %}', multiple: false, dataKey: 'COMPONENT_TYPE.E55'}"></input>&nbsp;
-                                        <input style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('CONSTRUCTION_TECHNIQUE.E55', 'value'), placeholder: '{% trans "technique" %}', multiple: false, dataKey: 'CONSTRUCTION_TECHNIQUE.E55'}"></input>&nbsp;
-                                        <input style="width:25%;" class="select2 arches-select2-crud-form resource-type" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('MATERIAL.E57', 'value'), placeholder: '{% trans "material" %}', multiple: false, dataKey: 'MATERIAL.E57'}"></input>
-
-                                            {% include 'views/components/add-item-button.htm' %}
-
-                                    </div>
-                                </form>
-                                <!-- End Input for screens > xs -->
-
-                                <!-- Input for screens = xs -->
-                                <form class="form-inline hidden-sm hidden-md hidden-lg" role="form">
-                                    <div class="form-group" style="width: 100%">
-
-                                        
-                                        <!-- Component/Technique/Material -->       
-                                        <input style="width:100%;margin-top: 5px;" class="select2 arches-select2-crud-form component" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('COMPONENT_TYPE.E55', 'value'), placeholder: '{% trans "component" %}', multiple: false, dataKey: 'COMPONENT_TYPE.E55'}"></input>
-                                        <input style="width:100%;margin-top: 5px;" class="select2 arches-select2-crud-form technique" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('CONSTRUCTION_TECHNIQUE.E55', 'value'), placeholder: '{% trans "technique" %}', multiple: false, dataKey: 'CONSTRUCTION_TECHNIQUE.E55'}"></input>
-                                        <input style="width:100%;margin-top: 5px;margin-bottom:5px" class="select2 arches-select2-crud-form material" id="resource-type-dropdown
-                                    " data-bind="select2: {value: getEditedNode('MATERIAL.E57', 'value'), placeholder: '{% trans "material" %}', multiple: false, dataKey: 'MATERIAL.E57'}"></input>
-
-                                            {% include 'views/components/add-item-button.htm' %}
-
-                                    </div>
-                                </form>
-                                <!-- End Input for screens = xs -->
-
-                            </div>
-
-                        </div>
-                    </dd>
-                    <!-- End Form -->
-                </dl>
-
-            </div>
-        </div>
-    </div>
-        <!-- Component Records -->
-    <div class="row">
-        <div class="col-xs-12">
-
-            <!-- Address -->
-            <div class="arches-crud-child-section">
-                <dl>
-                    <dd class="arches-CRUD-child-title">
-                        This resource has these components:
-                    </dd>
-
-                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Components Defined" %}</div>   
-
-                        <div data-bind='foreach: getBranchLists()'>
-                            <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this record"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this name">
-                                    <span data-bind='text: nodes.get("COMPONENT_TYPE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Component" %}),</span>
-                                    <span data-bind='text: nodes.get("CONSTRUCTION_TECHNIQUE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Technique" %}),</span>
-                                    <span data-bind='text: nodes.get("MATERIAL.E57", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Material" %}),</span>
-                                </a>
-                            </div>
-                        </div>
-                    </dd>
-
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Components CRUD -->
-
-<hr class="divider arches-RDM-divider">
-
-<div id="related-features-section">
-    <!-- Related Features CRUD Form -->
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="padding-left-10">
-                
-                <dl>
-                    <!-- Title -->
-                    <dt>
-                        <h5 id="arches-names-form" class="section-headline">Related Features</h5>
-                    </dt>
-
-                    <!-- Form -->
-                    <dd class="arches-RDM-labels">
-
-                        <div class="row">
-
-                            <div class="col-xs-12">
-
-                                <!-- Form for screens > xs -->
-                                <form class="form-inline hidden-xs" role="form">
-                                    <div class="form-group" style="width: 100%">
-                                        
-                                        <!-- Related Features -->     
-                                    <input style="width:75%;" class="select2 arches-select2-crud-form resource-type related-features" id="ancillary-type-dropdown" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), placeholder: '{% trans "related feature" %}', multiple: false, dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
-                                        <!-- Add Button -->
-                                        {% include 'views/components/add-item-button.htm' %} 
-                                        <!-- End Add Button -->
-                                    </div>
-                                </form>
-                                <!-- Form for screens > xs -->
-
-                                <!-- Form for screens = xs -->
-                                <form class="form-inline hidden-sm hidden-md hidden-lg" role="form">
-                                    <div class="form-group" style="width: 100%">
-                                                                                <!-- Related Features -->     
-                                    <input style="width:100%; margin-bottom: 5px" class="select2 arches-select2-crud-form resource-type related-features" id="ancillary-type-dropdown" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), placeholder: '{% trans "related feature" %}', multiple: false, dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
-                                        <!-- Add Button -->
-                                        {% include 'views/components/add-item-button.htm' %} 
-                                        <!-- End Add Button -->
-                                    </div>
-                                </form>
-                                <!-- Form for screens = xs -->
-
-                            </div>
-
-                        </div>
-                    </dd>
-                    <!-- End Form -->
-                </dl>
-
-            </div>
-        </div>
-    </div>
-    <!-- End Related Features CRUD -->
-
-    <!-- Related Features Records -->
-    <div class="row">
-        <div class="col-xs-12">
-
-            <!-- Address -->
-            <div class="arches-crud-child-section">
-                <dl>
-                    <dd class="arches-CRUD-child-title">
-                        This resource has these related features:
-                    </dd>
-
-
-
-                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Related Features Defined" %}</div>   
+                        <dt data-bind="visible: false">
+                            <h5 id="arches-names-form" class="section-headline modal-title loading"> {% trans "Loading ...." %}</h5>
+                        </dt>
                         
-                        <div data-bind='foreach: getBranchLists()'>
-                            <dl class="margin-bottom-0"> 
-                            
-                    <dd class="margin-left-5">
-                        <div class="">
-                            <a href="#" title="Delete this record"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                            <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="{% trans "Edit this record" %}" data-bind='text: nodes.get("ANCILLARY_FEATURE_TYPE.E55", "label"), click: $parent.editItem.bind($parent)'></a>
-                        </div>
-                    </dd>
-                            </dl>
-
-                        </div>
-                    </dd>
-
-
-
-                </dl>
-
+                    </dl>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- End Related Features Records -->
 
+        <!--Existing Classifications-->
+        <div id="current-items" style="display: none;" data-bind="foreach: data.data, visible: true">
+            <div class="arches-crud-record">
+            <div  class="row margin-top-minus-5 margin-bottom-10" style="display: block;">
+                <div class="col-xs-12">
 
- <hr class="devider arches-RDM-divider">
-
-
-<!-- Modifications CRUD Form -->
-<div id="modification-section">
-<div class="row">
-    <div class="col-xs-12">
-        <div class="padding-left-10">
-            
-            <dl>
-                <!-- Title -->
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">Modifications</h5>
-                </dt>
-
-                <!-- Form -->
-                <dd class="arches-RDM-labels">
-
-                    <div class="row">
-
-                        <div class="col-xs-12">
-
-                            <!-- Form for screens > xs -->
-                            <form class="form-inline hidden-xs" role="form">
-                                <div class="form-group" style="width: 100%">
-                                    
-                                    <!-- Mods -->     
-                                    <input style="width:75%; display: inline-block;" class="modifications select2 arches-select2-crud-form name-type hidden-xs" id="resource-modification-type" data-bind="select2: {value: getEditedNode('MODIFICATION_TYPE.E55', 'value'), placeholder: 'modification type', dataKey: 'MODIFICATION_TYPE.E55'}"></input>
-
-                                    {% include 'views/components/add-item-button.htm' %} 
-                                    <!-- Simple HTML Editor -->
-                                    <div class="arches-html-editor margin-top-5" style="width: 75%;">
-                                        <div class="summernote" data-bind="summernote: {value: getEditedNode('MODIFICATION_DESCRIPTION.E62', 'value'), options:{}, dataKey: 'MODIFICATION_DESCRIPTION.E62'}">
-                                        </div>
-                                    </div>
-                                    <!-- Simple HTML Editor -->
+                    <div class="margin-left-5">
+                        <dl class="margin-bottom-10"> 
+                            
+                            <dd>
+                                <div class="">
+                                    <h5>
+                                        <a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                        <a href="#" class="" title="Edit this assessment" data-bind="click: $root.editAssessment">{% trans "Classification" %} 
+<!--                                        <span data-bind="if: $data['FROM_DATE.E49'].branch_lists.length > 0">
+                                            <span data-bind="text: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CULTURAL_PERIOD.E55'].branch_lists[0].nodes[0].label"></span>
+                                            </span> -->
+                                        </a>
+                                    </h5>
                                 </div>
-                            </form>
-                            <!-- Form for screens > xs -->
+                            </dd>
+                        </dl>
 
-                            <!-- Form for screens = xs -->
-                            <form class="form-inline hidden-sm hidden-md hidden-lg" role="form">
-                                <div class="form-group" style="width: 100%">
-                                                                        <!-- Mods -->     
-                                    <!-- Mods -->     
-                                    <input style="width:100%;" class="modifications select2 arches-select2-crud-form name-type" id="resource-modification-type" data-bind="select2: {value: getEditedNode('MODIFICATION_TYPE.E55', 'value'), placeholder: 'modification type', dataKey: 'MODIFICATION_TYPE.E55'}"></input>
+                        <dl>   
+                            <dt class="arches-evaluation-header">{% trans "Resource Types" %}</dt>
+                            <dd class="arches-evaluation-content" data-bind="if: $data['HERITAGE_RESOURCE_TYPE.E55'].branch_lists.length > 0">
+                                <span data-bind="html: $data['HERITAGE_RESOURCE_TYPE.E55'].branch_lists[0].nodes[0].label"></span>
+                            </dd>
+                        </dl>
 
-                                    <!-- Simple HTML Editor -->
-                                    <div class="arches-html-editor margin-top-5" style="width: 100%; margin-bottom:5px">
-                                        <div class="summernote" data-bind="summernote: {value: getEditedNode('MODIFICATION_DESCRIPTION.E62', 'value'), options:{}, dataKey: 'MODIFICATION_DESCRIPTION.E62'}">
-                                        </div>
-                                    </div>
+                        <dl>   
+                            <dt class="arches-evaluation-header">{% trans "Related Features" %}</dt>
+                            <dd data-bind="foreach: $data['ANCILLARY_FEATURE_TYPE.E55'].branch_lists" class="arches-evaluation-content">
+                                <span data-bind="text: nodes[0].label"></span>
+                            </dd>
+                        </dl>
 
-                                    {% include 'views/components/add-item-button.htm' %} 
-                                </div>
-                            </form>
-                            <!-- Form for screens = xs -->
-                        </div>
+                        <dl>   
+                            <dt class="arches-evaluation-header">{% trans "Styles" %}</dt>
+                                <dd data-bind="foreach: $data['STYLE.E55'].branch_lists" class="arches-evaluation-content">
+                                    <span data-bind="text: nodes[0].label"></span>
+                                </dd>
+                        </dl>
 
                     </div>
-                </dd>
-                <!-- End Form -->
-            </dl>
-
+                </div>
+            </div>
+            </div>
         </div>
+        <!-- End Completed Condition Assessements -->
+
     </div>
-</div>
-<!-- End Modifications CRUD -->
+    <!-- End Related Information Objects Container -->
 
-<!-- Modification Records -->
-    <div class="row">
-        <div class="col-xs-12">
 
-            <!-- Address -->
-            <div class="arches-crud-child-section">
+    <!-- Condition Assessement Wizard Container --> 
+    <div style="display: none;" id="workflow-container">     
+        <div class="padding-10" id="crud">
+            <div>
+                
+                <!-- Arches form container -->
                 <dl>
-                    <dd class="arches-CRUD-child-title">
-                        {% trans "This resource has these modifications:" %}
-                    </dd>
+                    <dd class="arches-RDM-labels">
+                        <div class="row">
+                            <div class="col-xs-12 padding-left-0">
+            
+                                <!-- Start Wizard -->
+                                <form class="margin-top-20" id="wizard-1" novalidate="novalidate">
+                                    <div id="bootstrap-wizard-1" class="col-sm-12">
+                                        <div class="form-bootstrapWizard">
+                                            <ul class="bootstrapWizard form-wizard">
+                                                <li class="active" data-target="#step1" style="width: 25%">
+                                                    <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">{% trans "Part 1: Summary" %}</span> </a>
+                                                </li>
+                                                <li data-target="#step2" style="width: 25%">
+                                                    <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">{% trans "Part 2: Styles and Related Features" %}</span> </a>
+                                                </li>
+                                                <li data-target="#step3" style="width: 25%">
+                                                    <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">{% trans "Part 3: Something" %}</span> </a>
+                                                </li>
+                                                <li data-target="#step4" style="width: 25%">
+                                                    <a href="#tab4" data-toggle="tab"> <span class="step">4</span> <span class="title">{% trans "Part 4: Something Else" %}</span> </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        
+                                        <!-- Wizard Tabs -->
+                                        <div class="tab-content" style="margin-top: 20px;">
 
-                    <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Modifications Defined" %}</div>   
-                        
-                        <div data-bind='foreach: getBranchLists()'>
-                            <dl class="margin-bottom-0"> 
-                            
-                                <dd>
-                                    <div class="">
-                                        <a href="#" title="Remove this description"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-trash-o"></i></a>
-                                        <a href="#" class="arches-CRUD-child arches-CRUD-edit" title="{% trans "Edit this description" %}" data-bind='text: nodes.get("MODIFICATION_TYPE.E55", "label"), click: $parent.editItem.bind($parent)'></a>
+                                            <!-- Tab 1: Summary -->
+                                            <div class="tab-pane active" id="tab1" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>{% trans "Part 1" %}</strong> {% trans "Classification Summary" %}</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    {% trans "Start your condition assessment by describing the overall condition of the resource and the date you observed the resource." %}
+                                                </div>
+
+                                                <!-- Overall Condition, Date Observed -->
+                                                <div>
+                                                    <dl class="">   
+
+                                                        <dd class="" style="margin-bottom:5px">
+                                                            <div class="row">
+
+                                                                <!-- Classification and dates -->
+                                                                <div id="resource-type-section" class="col-xs-12 col-sm-6">
+                                                                               
+                                                                    <div style="padding-right: 0px; padding-left: 0px;">
+                                                                        <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}">
+                                                                        </input>
+
+                                                                    </div>
+                                                                    <!-- Spacer for xs screens -->
+                                                                    <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
+                                                                </div>
+
+                                                                <div id="resource-use-section" class="col-xs-12 col-sm-6">
+                                                                               
+                                                                    <div style="padding-right: 0px; padding-left: 0px;">
+                                                                            <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}',  dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}">
+                                                                            </input>
+                                                                        </div>
+                                                                        <!-- Spacer for xs screens -->
+                                                                    <div class="margin-top-5 hidden-lg hidden-md hidde-sm"></div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </dd>
+
+                                                        <dd class="">
+                                                            <div class="row">
+                                                                <!-- Classification and dates -->
+                                                                <div style="margin-left: 15px;">
+
+                                                                    <div  id="period-section" style="width:35%; padding-right:15px" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}">
+                                                                    </div>
+                                                                
+                                                                    <div  id="to-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
+                                                                        <div class="input-group datetimepicker" style ="width:100%;" >
+                                                                            <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'from' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div id="from-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
+                                                                        <div class="input-group datetimepicker" style ="width:100%;" >
+                                                                            <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'to' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </dd>
+
+
+                                                    </dl>
+
+                                                </div>  
+                                            </div>
+
+                                            
+                                            <!-- Tab 2: Upload Files -->
+                                            <div class="tab-pane" id="tab2" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>{% trans "Part 2" %}</strong> {% trans "Assessment Summary" %}</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    {% trans "Start your condition assessment by describing the overall condition of the resource and the date you observed the resource." %}
+                                                </div>
+
+                                                <!-- Overall Condition, Date Observed -->
+                                                <div>
+                                                <!-- Form for screens > XS -->
+                                                <dl id="related-features-section">
+                                                    <!-- Title -->
+                                                    <dt>
+                                                        <h5 id="arches-names-form" class="section-headline">{% trans "Disturbances (actual impacts)" %}</h5>
+                                                    </dt>
+
+                                                    <!-- Form -->
+                                                    <dd class="arches-RDM-labels">
+
+                                                        <div class="row">
+
+                                                            <div class="col-xs-12">
+
+                                                                <input style="height: 36px; width:80%; padding-top: 2px;" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('ANCILLARY_FEATURE_TYPE.E55', 'value'), dataKey: 'ANCILLARY_FEATURE_TYPE.E55'}"></input>
+
+                                                                {% include 'views/components/add-item-button.htm' %}
+
+                                                            </div>
+
+                                                            <!-- User's Selected Disturbances -->
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+
+                                                                    <div class="margin-left-5">
+                                                                        <dl class="margin-bottom-10"> 
+                                                                            
+                                                                            <dd class="margin-left-10 margin-top-5" style="display: none;" data-bind="visible: true">
+                                                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No disturbances selected" %}</div>   
+
+                                                                                <div data-bind="foreach: getBranchLists()">
+                                                                                    <div class="arches-crud-record">
+                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this type" %}"><span data-bind="text: nodes.get('ANCILLARY_FEATURE_TYPE.E55', 'label')" style="padding-right:2px;"></span></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </dd>
+
+                                                                        </dl>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </dd>
+                                                    <!-- End Form -->
+                                                </dl>
+
+                                                <dl id="style-section">
+                                                    <!-- Title -->
+                                                    <dt>
+                                                        <h5 id="arches-names-form" class="section-headline">{% trans "Styles" %}</h5>
+                                                    </dt>
+
+                                                    <!-- Form -->
+                                                    <dd class="arches-RDM-labels">
+
+                                                        <div class="row">
+
+                                                            <div class="col-xs-12">
+
+                                                                <input style="height: 36px; width:80%; padding-top: 2px;" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('STYLE.E55', 'value'), dataKey: 'STYLE.E55'}"></input>
+
+                                                                {% include 'views/components/add-item-button.htm' %}
+
+                                                            </div>
+
+                                                            <!-- User's Selected Recommendations -->
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+
+                                                                    <div class="margin-left-5">
+                                                                        <dl class="margin-bottom-10"> 
+                                                                            
+                                                                            <dd class="margin-left-10 margin-top-5" style="display: none;" data-bind="visible: true">
+                                                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No recommendations selected" %}</div>   
+
+                                                                                <div data-bind="foreach: getBranchLists()">
+                                                                                    <div class="arches-crud-record">
+                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this type" %}"><span data-bind="text: nodes.get('STYLE.E55', 'label')" style="padding-right:2px;"></span></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </dd>
+                                                                        </dl>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </dd>
+                                                    <!-- End Form -->
+                                                </dl>
+                                                </div>  
+                                            </div>
+                                            <!-- End Tab 2: Upload Files -->
+
+                                            <!-- Tab 3: Threats/Disturbances -->
+                                            <div class="tab-pane" id="tab3" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>{% trans "Part 3" %}</strong> {% trans "Disturbances and Threats" %}</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    {% trans "Describe the threats and disturbances present during your condition assessment." %}
+                                                </div>
+
+
+                                            </div>
+                                            
+                                            
+                                            <!-- Tab 4: Recommendations -->
+                                            <div class="tab-pane" id="tab4" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>{% trans "Part 4" %}</strong> {% trans "Styles" %}</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    {% trans "List the set of recommonded actions needed to protect and conserve this resource." %}
+                                                </div>
+
+
+
+                                            </div>
+                                            <!-- End Tab 4 -->
+
+                                        </div>
+                                        <!-- End Wizard Tabs -->
+
                                     </div>
-                                </dd>
-                            </dl>
+                                </form>
+                                <!-- End Wizard -->
 
-                            <dl> 
-
-                                <dd>
-                                    <div class="note-editable custom-scroll arches-evaluation-content" contenteditable="true" data-bind='{html: nodes.get("MODIFICATION_DESCRIPTION.E62", "value")}'></div>
-                                </dd>
-                            </dl>
-
+                            </div>
                         </div>
+
                     </dd>
                 </dl>
+                <!-- End Arches form container -->
+
             </div>
         </div>
     </div>
+    <!-- End Condition Assessement Wizard Container --> 
+
+    <div action="" class="modal fade confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="alertmodal" aria-hidden="true">
+        <div class="modal-dialog confirm-delete">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Are you ready to delete this assessment?" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 name="warning-text">{% trans "Condition State on" %}
+                    </h5>
+                    <div name="additional-info" style="max-height: 300px; overflow-y: scroll;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-u btn-u-default" data-dismiss="modal">{% trans "No" %}</button>
+                    <button class="btn-u btn-u-red confirm-delete-yes" href="javascript:void(0);" data-id="" data-action="delete">{% trans "Yes" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-
-
-<!-- End Modifications Records -->
 {% endblock form_content %}

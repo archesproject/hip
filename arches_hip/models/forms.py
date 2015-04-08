@@ -88,54 +88,6 @@ class SummaryForm(ResourceForm):
 
             self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
 
-class ClassificationForm(ResourceForm):
-    @staticmethod
-    def get_info():
-        return {
-            'id': 'classification',
-            'icon': 'fa fa-bar-chart-o',
-            'name': _('Classification/Components'),
-            'class': ClassificationForm
-        }
-
-    def update(self, data, files):
-        self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
-        self.update_nodes('COMPONENT.E18', data)
-        self.update_nodes('MODIFICATION_EVENT.E11', data)
-        return
-
-    def load(self):
-        if self.resource:
-            self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
-                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
-                'domains': {
-                    'HERITAGE_RESOURCE_TYPE.E55': Concept().get_e55_domain('HERITAGE_RESOURCE_TYPE.E55'),
-                    'HERITAGE_RESOURCE_USE_TYPE.E55' : Concept().get_e55_domain('HERITAGE_RESOURCE_USE_TYPE.E55'),
-                    'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55'),
-                    'STYLE.E55' : Concept().get_e55_domain('STYLE.E55')
-                }
-            }
-            self.data['COMPONENT.E18'] = {
-                'branch_lists': self.get_nodes('COMPONENT.E18'),
-                'domains': {
-                    'CONSTRUCTION_TECHNIQUE.E55': Concept().get_e55_domain('CONSTRUCTION_TECHNIQUE.E55'),
-                    'MATERIAL.E57' : Concept().get_e55_domain('MATERIAL.E57'),
-                    'COMPONENT_TYPE.E55' : Concept().get_e55_domain('COMPONENT_TYPE.E55')
-                }
-            }
-            self.data['MODIFICATION_EVENT.E11'] = {
-                'branch_lists': self.get_nodes('MODIFICATION_EVENT.E11'),
-                'domains': {
-                    'MODIFICATION_TYPE.E55': Concept().get_e55_domain('MODIFICATION_TYPE.E55'),
-                }
-            }
-            self.data['ANCILLARY_FEATURE_TYPE.E55'] = {
-                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
-                'domains': {
-                    'ANCILLARY_FEATURE_TYPE.E55' : Concept().get_e55_domain('ANCILLARY_FEATURE_TYPE.E55')
-                }
-            }
-
 
 class ExternalReferenceForm(ResourceForm):
     @staticmethod
@@ -257,6 +209,102 @@ class ActivitySummaryForm(ResourceForm):
         self.update_nodes('BEGINNING_OF_EXISTENCE.E63', {'BEGINNING_OF_EXISTENCE.E63':beginning_of_existence_nodes})
         self.update_nodes('END_OF_EXISTENCE.E64', {'END_OF_EXISTENCE.E64':end_of_existence_nodes})
 
+
+class ClassificationForm(ResourceForm):
+    baseentity = None
+
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'classification',
+            'icon': 'fa-asterisk',
+            'name': _('Classification/Components'),
+            'class': ClassificationForm
+        }
+
+    def get_nodes(self, entity, entitytypeid):
+        ret = []
+        entities = entity.find_entities_by_type_id(entitytypeid)
+        for entity in entities:
+            ret.append({'nodes': entity.flatten()})
+
+        return ret
+
+    def update_nodes(self, entitytypeid, data):
+        if self.schema == None:
+            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data[entitytypeid]:
+            for newentity in value['nodes']:
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if self.baseentity == None:
+                    self.baseentity = entity
+                else:
+                    self.baseentity.merge(entity)
+
+    def update(self, data, files):
+        import ipdb
+        ipdb.set_trace()
+        for value in data['PHASE_TYPE_ASSIGNMENT.E17']:
+            for node in value['nodes']:
+                if node['entitytypeid'] == 'CONDITION_ASSESSMENT.E14' and node['entityid'] != '':
+                    #remove the node
+                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+
+        self.update_nodes('HERITAGE_RESOURCE_TYPE.E55', data)
+        self.update_nodes('TO_DATE.E49', data)
+        self.update_nodes('FROM_DATE.E49', data)
+        self.update_nodes('HERITAGE_RESOURCE_USE_TYPE.E55', data)
+        self.update_nodes('CULTURAL_PERIOD.E55', data)
+        self.update_nodes('STYLE.E55', data)
+        self.update_nodes('ANCILLARY_FEATURE_TYPE.E55', data)
+
+        self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
+        self.resource.trim()
+                   
+    def load(self):
+
+        self.data = {
+            'data': [],
+            'domains': {
+                'HERITAGE_RESOURCE_TYPE.E55': Concept().get_e55_domain('HERITAGE_RESOURCE_TYPE.E55'),
+                'HERITAGE_RESOURCE_USE_TYPE.E55' : Concept().get_e55_domain('HERITAGE_RESOURCE_USE_TYPE.E55'),
+                'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55'),
+                'STYLE.E55' : Concept().get_e55_domain('STYLE.E55'),
+                'ANCILLARY_FEATURE_TYPE.E55' : Concept().get_e55_domain('ANCILLARY_FEATURE_TYPE.E55')
+            }
+        }
+
+        classification_entities = self.resource.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17')
+
+        for entity in classification_entities:
+            self.data['data'].append({
+                'HERITAGE_RESOURCE_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'HERITAGE_RESOURCE_TYPE.E55')
+                },
+                'HERITAGE_RESOURCE_USE_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'HERITAGE_RESOURCE_USE_TYPE.E55')
+                },
+                'CULTURAL_PERIOD.E55': {
+                    'branch_lists': self.get_nodes(entity, 'CULTURAL_PERIOD.E55')
+                },
+                'TO_DATE.E49': {
+                    'branch_lists': self.get_nodes(entity, 'TO_DATE.E49')
+                },
+                'FROM_DATE.E49': {
+                    'branch_lists': self.get_nodes(entity, 'FROM_DATE.E49')
+                },
+                'STYLE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'STYLE.E55')
+                },
+                'ANCILLARY_FEATURE_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'ANCILLARY_FEATURE_TYPE.E55')
+                },
+                'PHASE_TYPE_ASSIGNMENT.E17': {
+                    'branch_lists': self.get_nodes(entity, 'PHASE_TYPE_ASSESSMENT.E17')
+                }
+            })
 
 
 class HistoricalEventSummaryForm(ActivitySummaryForm):
