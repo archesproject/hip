@@ -210,6 +210,40 @@ class ActivitySummaryForm(ResourceForm):
         self.update_nodes('END_OF_EXISTENCE.E64', {'END_OF_EXISTENCE.E64':end_of_existence_nodes})
 
 
+class ComponentForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'component',
+            'icon': 'fa fa-bar-chart-o',
+            'name': _('Components'),
+            'class': ComponentForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('COMPONENT.E18', data)
+        self.update_nodes('MODIFICATION_EVENT.E11', data)
+        return
+
+    def load(self):
+        if self.resource:
+
+            self.data['COMPONENT.E18'] = {
+                'branch_lists': self.get_nodes('COMPONENT.E18'),
+                'domains': {
+                    'CONSTRUCTION_TECHNIQUE.E55': Concept().get_e55_domain('CONSTRUCTION_TECHNIQUE.E55'),
+                    'MATERIAL.E57' : Concept().get_e55_domain('MATERIAL.E57'),
+                    'COMPONENT_TYPE.E55' : Concept().get_e55_domain('COMPONENT_TYPE.E55')
+                }
+            }
+            self.data['MODIFICATION_EVENT.E11'] = {
+                'branch_lists': self.get_nodes('MODIFICATION_EVENT.E11'),
+                'domains': {
+                    'MODIFICATION_TYPE.E55': Concept().get_e55_domain('MODIFICATION_TYPE.E55'),
+                }
+            }
+            
+
 class ClassificationForm(ResourceForm):
     baseentity = None
 
@@ -218,7 +252,7 @@ class ClassificationForm(ResourceForm):
         return {
             'id': 'classification',
             'icon': 'fa-asterisk',
-            'name': _('Classification/Components'),
+            'name': _('Classifications'),
             'class': ClassificationForm
         }
 
