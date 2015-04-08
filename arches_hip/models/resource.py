@@ -22,6 +22,7 @@ from arches.app.models.resource import Resource as ArchesResource
 from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
 from arches_hip.models import forms
+from arches.app.models.forms import DeleteResourceForm
 from django.utils.translation import ugettext as _
 
 class Resource(ArchesResource):
@@ -111,14 +112,16 @@ class Resource(ArchesResource):
                 ]
             })  
 
-        self.form_groups.append({
-            'id': 'resource-evaluation',
-            'icon': 'fa-dashboard',
-            'name': _('Evaluate Resource'),
-            'forms': [
-                EditHistory.get_info()
-            ]
-        })
+        if self.entityid != '':
+            self.form_groups.append({
+                'id': 'manage-resource',
+                'icon': 'fa-wrench',
+                'name': _('Manage Resource'),
+                'forms': [
+                    EditHistory.get_info(),
+                    DeleteResourceForm.get_info()
+                ]
+            })
 
     def get_primary_name(self):
         displayname = super(Resource, self).get_primary_name()
