@@ -102,17 +102,11 @@
                                     <div id="bootstrap-wizard-1" class="col-sm-12">
                                         <div class="form-bootstrapWizard">
                                             <ul class="bootstrapWizard form-wizard">
-                                                <li class="active" data-target="#step1" style="width: 25%">
+                                                <li class="active" data-target="#step1" style="width: 50%">
                                                     <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">{% trans "Part 1: Summary" %}</span> </a>
                                                 </li>
-                                                <li data-target="#step2" style="width: 25%">
+                                                <li data-target="#step2" style="width: 50%">
                                                     <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">{% trans "Part 2: Styles and Related Features" %}</span> </a>
-                                                </li>
-                                                <li data-target="#step3" style="width: 25%">
-                                                    <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">{% trans "Part 3: Something" %}</span> </a>
-                                                </li>
-                                                <li data-target="#step4" style="width: 25%">
-                                                    <a href="#tab4" data-toggle="tab"> <span class="step">4</span> <span class="title">{% trans "Part 4: Something Else" %}</span> </a>
                                                 </li>
                                             </ul>
                                             <div class="clearfix"></div>
@@ -128,7 +122,7 @@
 
                                                 <div class="alert alert-info fade in">
                                                     <i class="fa-fw fa fa-info"></i>
-                                                    {% trans "Start your condition assessment by describing the overall condition of the resource and the date you observed the resource." %}
+                                                    {% trans "Start your classification by describing it's type, use and cultural period." %}
                                                 </div>
 
                                                 <!-- Overall Condition, Date Observed -->
@@ -205,7 +199,7 @@
 
                                                 <div class="alert alert-info fade in">
                                                     <i class="fa-fw fa fa-info"></i>
-                                                    {% trans "Start your condition assessment by describing the overall condition of the resource and the date you observed the resource." %}
+                                                    {% trans "Select this classification's related features and styles." %}
                                                 </div>
 
                                                 <!-- Overall Condition, Date Observed -->
@@ -214,7 +208,7 @@
                                                 <dl id="related-features-section">
                                                     <!-- Title -->
                                                     <dt>
-                                                        <h5 id="arches-names-form" class="section-headline">{% trans "Disturbances (actual impacts)" %}</h5>
+                                                        <h5 id="arches-names-form" class="section-headline">{% trans "Related Features" %}</h5>
                                                     </dt>
 
                                                     <!-- Form -->
@@ -308,35 +302,6 @@
                                                 </div>  
                                             </div>
                                             <!-- End Tab 2: Upload Files -->
-
-                                            <!-- Tab 3: Threats/Disturbances -->
-                                            <div class="tab-pane" id="tab3" style="min-height: 330px;">
-                                                <br>
-                                                <h3 class="margin-bottom-5"><strong>{% trans "Part 3" %}</strong> {% trans "Disturbances and Threats" %}</h3>
-
-                                                <div class="alert alert-info fade in">
-                                                    <i class="fa-fw fa fa-info"></i>
-                                                    {% trans "Describe the threats and disturbances present during your condition assessment." %}
-                                                </div>
-
-
-                                            </div>
-                                            
-                                            
-                                            <!-- Tab 4: Recommendations -->
-                                            <div class="tab-pane" id="tab4" style="min-height: 330px;">
-                                                <br>
-                                                <h3 class="margin-bottom-5"><strong>{% trans "Part 4" %}</strong> {% trans "Styles" %}</h3>
-
-                                                <div class="alert alert-info fade in">
-                                                    <i class="fa-fw fa fa-info"></i>
-                                                    {% trans "List the set of recommonded actions needed to protect and conserve this resource." %}
-                                                </div>
-
-
-
-                                            </div>
-                                            <!-- End Tab 4 -->
 
                                         </div>
                                         <!-- End Wizard Tabs -->
