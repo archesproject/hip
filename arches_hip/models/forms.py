@@ -247,7 +247,7 @@ class ClassificationForm(ResourceForm):
 
         for value in data['PHASE_TYPE_ASSIGNMENT.E17']:
             for node in value['nodes']:
-                if node['entitytypeid'] == 'CONDITION_ASSESSMENT.E14' and node['entityid'] != '':
+                if node['entitytypeid'] == 'PHASE_TYPE_ASSIGNMENT.E17' and node['entityid'] != '':
                     #remove the node
                     self.resource.filter(lambda entity: entity.entityid != node['entityid'])
 
@@ -301,7 +301,7 @@ class ClassificationForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'ANCILLARY_FEATURE_TYPE.E55')
                 },
                 'PHASE_TYPE_ASSIGNMENT.E17': {
-                    'branch_lists': self.get_nodes(entity, 'PHASE_TYPE_ASSESSMENT.E17')
+                    'branch_lists': self.get_nodes(entity, 'PHASE_TYPE_ASSIGNMENT.E17')
                 }
             })
 
