@@ -244,8 +244,7 @@ class ClassificationForm(ResourceForm):
                     self.baseentity.merge(entity)
 
     def update(self, data, files):
-        import ipdb
-        ipdb.set_trace()
+
         for value in data['PHASE_TYPE_ASSIGNMENT.E17']:
             for node in value['nodes']:
                 if node['entitytypeid'] == 'CONDITION_ASSESSMENT.E14' and node['entityid'] != '':
