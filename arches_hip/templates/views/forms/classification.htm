@@ -3,7 +3,45 @@
 
 {% block form_content %}
 
-<!-- Spacer for small screens -->
+<style type="text/css">
+
+    .cultural-period {
+        width:35%; 
+        padding-right:15px;
+    }
+
+    .from-date {
+        padding-left: 0px;
+        padding-right: 0px;
+        width: 30%;
+    }
+
+    .to-date {
+        padding-left: 0px;
+        padding-right: 0px;
+        width: 30%;
+    }
+
+    @media only screen and (max-width: 800px) {
+        .cultural-period {
+            width: 100%; 
+            padding-right:15px;
+            margin-top: -5px;
+        }
+        .from-date {
+            padding-top: 10px;
+            padding-right: 15px;
+            width: 100%;
+        }
+        .to-date {
+            margin-top: -5px;
+            padding-right: 15px;
+            width: 100%;
+        }
+    }
+
+</style>
+
 <div>
     <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "A type and date must be specified." %}</div>
     <!-- Related Information Objects Container -->
@@ -163,17 +201,17 @@
                                                                 <!-- Classification and dates -->
                                                                 <div style="margin-left: 15px;">
 
-                                                                    <div  id="period-section" style="width:35%; padding-right:15px" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}">
+                                                                    <div  id="period-section" class="select2 arches-select2-crud-form resource-type cultural-period" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}">
                                                                     </div>
                                                                 
-                                                                    <div  id="from-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
+                                                                    <div  id="from-date-section" class="form-group from-date">
                                                                         <div class="input-group datetimepicker" style ="width:100%;" >
                                                                             <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'from' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div id="to-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
+                                                                    <div id="to-date-section" class="form-group to-date">
                                                                         <div class="input-group datetimepicker" style ="width:100%;" >
                                                                             <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'to' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -232,7 +270,7 @@
                                                                         <dl class="margin-bottom-10"> 
                                                                             
                                                                             <dd class="margin-left-10 margin-top-5" style="display: none;" data-bind="visible: true">
-                                                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No disturbances selected" %}</div>   
+                                                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No related features selected" %}</div>   
 
                                                                                 <div data-bind="foreach: getBranchLists()">
                                                                                     <div class="arches-crud-record">
