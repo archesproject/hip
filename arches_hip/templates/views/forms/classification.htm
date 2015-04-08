@@ -45,9 +45,9 @@
                                     <h5>
                                         <a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                         <a href="#" class="" title="Edit this assessment" data-bind="click: $root.editAssessment">{% trans "Classification" %} 
-<!--                                        <span data-bind="if: $data['FROM_DATE.E49'].branch_lists.length > 0">
-                                            <span data-bind="text: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CULTURAL_PERIOD.E55'].branch_lists[0].nodes[0].label"></span>
-                                            </span> -->
+                                        <span data-bind="if: $data['TO_DATE.E49'].branch_lists.length > 0">
+                                        <span data-bind="text: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CULTURAL_PERIOD.E55'].branch_lists[0].nodes[0].label"></span>
+                                            </span>
                                         </a>
                                     </h5>
                                 </div>
@@ -172,14 +172,14 @@
                                                                     <div  id="period-section" style="width:35%; padding-right:15px" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}">
                                                                     </div>
                                                                 
-                                                                    <div  id="to-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
+                                                                    <div  id="from-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
                                                                         <div class="input-group datetimepicker" style ="width:100%;" >
                                                                             <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'from' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div id="from-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
+                                                                    <div id="to-date-section" class="form-group" style="padding-left: 0px; padding-right: 0px; width: 30%;">
                                                                         <div class="input-group datetimepicker" style ="width:100%;" >
                                                                             <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'to' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>

@@ -64,13 +64,19 @@ define(['jquery',
                 el: this.$el.find('#to-date-section')[0],
                 data: currentEditedClassification,
                 dataKey: 'TO_DATE.E49',
-                singleEdit: true
+                singleEdit: true,
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
             }));   
             this.addBranchList(new BranchList({
                 el: this.$el.find('#from-date-section')[0],
                 data: currentEditedClassification,
                 dataKey: 'FROM_DATE.E49',
-                singleEdit: true
+                singleEdit: true,
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
             }));   
 
         },
