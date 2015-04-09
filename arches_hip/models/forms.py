@@ -16,10 +16,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
+from arches.app.models.models import RelatedResource
 from arches.app.models.entity import Entity
+from arches.app.models.resource import Resource
 from arches.app.models.concept import Concept
 from arches.app.models.forms import ResourceForm
 from arches.app.utils.imageutils import generate_thumbnail
+from arches.app.views.concept import get_preflabel_from_valueid
 from django.utils.translation import ugettext as _
 
 class SummaryForm(ResourceForm):
@@ -60,7 +63,7 @@ class SummaryForm(ResourceForm):
         self.update_nodes('BEGINNING_OF_EXISTENCE.E63', {'BEGINNING_OF_EXISTENCE.E63':beginning_of_existence_nodes})
         self.update_nodes('END_OF_EXISTENCE.E64', {'END_OF_EXISTENCE.E64':end_of_existence_nodes})
 
-    def load(self):
+    def load(self, lang):
         self.data['important_dates'] = {
             'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63') + self.get_nodes('END_OF_EXISTENCE.E64'),
             'domains': {'important_dates' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55') + Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')}
@@ -105,7 +108,7 @@ class ExternalReferenceForm(ResourceForm):
         self.update_nodes('EXTERNAL_RESOURCE.E1', data)
         return
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['EXTERNAL_RESOURCE.E1'] = {
                 'branch_lists': self.get_nodes('EXTERNAL_RESOURCE.E1'),
@@ -128,7 +131,7 @@ class ActivityActionsForm(ResourceForm):
         self.update_nodes('PHASE_TYPE_ASSIGNMENT.E17', data)
         return
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
                 'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
@@ -153,7 +156,7 @@ class ActivitySummaryForm(ResourceForm):
         self.update_nodes('BEGINNING_OF_EXISTENCE.E63', data)
         self.update_nodes('END_OF_EXISTENCE.E64', data)
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
 
             self.data['NAME.E41'] = {
@@ -261,7 +264,7 @@ class ComponentForm(ResourceForm):
         self.resource.trim()
 
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
 
             self.data['COMPONENT.E18'] = {
@@ -336,7 +339,7 @@ class ClassificationForm(ResourceForm):
             self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
         self.resource.trim()
                    
-    def load(self):
+    def load(self, lang):
 
         self.data = {
             'data': [],
@@ -407,7 +410,7 @@ class InformationResourceSummaryForm(ResourceForm):
         self.update_nodes('INFORMATION_CARRIER.E84', data)
         self.update_nodes('LANGUAGE.E55', data)
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
 
             self.data['TITLE.E41'] = {
@@ -455,7 +458,7 @@ class DescriptionForm(ResourceForm):
     def update(self, data, files):
         self.update_nodes('DESCRIPTION.E62', data)
 
-    def load(self):
+    def load(self, lang):
         description_types = Concept().get_e55_domain('DESCRIPTION_TYPE.E55')
         default_description_type = description_types[2]
         if self.resource:
@@ -482,7 +485,7 @@ class MeasurementForm(ResourceForm):
         self.update_nodes('MEASUREMENT_TYPE.E55', data)
 
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['MEASUREMENT_TYPE.E55'] = {
                 'branch_lists': self.get_nodes('MEASUREMENT_TYPE.E55'),
@@ -571,7 +574,7 @@ class ConditionForm(ResourceForm):
         self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
         self.resource.trim()
                    
-    def load(self):
+    def load(self, lang):
 
         self.data = {
             'data': [],
@@ -636,7 +639,7 @@ class LocationForm(ResourceForm):
         self.update_nodes('DESCRIPTION_OF_LOCATION.E62', data)
         return
 
-    def load(self):
+    def load(self, lang):
         self.data['SPATIAL_COORDINATES_GEOMETRY.E47'] = {
             'branch_lists': self.get_nodes('SPATIAL_COORDINATES_GEOMETRY.E47'),
             'domains': {
@@ -694,7 +697,7 @@ class CoverageForm(ResourceForm):
         self.update_nodes('TEMPORAL_COVERAGE_TIME-SPAN.E52', data)
         return
 
-    def load(self):
+    def load(self, lang):
         self.data['SPATIAL_COORDINATES_GEOMETRY.E47'] = {
             'branch_lists': self.get_nodes('SPATIAL_COORDINATES_GEOMETRY.E47'),
             'domains': {
@@ -726,35 +729,67 @@ class RelatedFilesForm(ResourceForm):
         }
 
     def update(self, data, files):
+
+        for newfile in data.get('new-files', []):
+            resource = Resource()
+            resource.entitytypeid = 'INFORMATION_RESOURCE.E73'
+
+            resource.set_entity_value('TITLE.E41', newfile['title'])
+            #resource.set_entity_value('TITLE_TYPE.E55', ??)
+            if newfile.get('description') and len(newfile.get('description')) > 0:
+                resource.set_entity_value('DESCRIPTION.E62', newfile.get('description'))
+                #resource.set_entity_value('DESCRIPTION_TYPE.E55', ??)
+
+            resource.set_entity_value('FILE_PATH.E62', files[newfile['id']])
+            thumbnail = generate_thumbnail(files[newfile['id']])
+            if thumbnail != None:
+                resource.set_entity_value('THUMBNAIL.E62', thumbnail)
+            resource.save()
+            resource.index()
+
+            if self.resource.entityid == '':
+                self.resource.save()
+            self.resource.create_resource_relationship(resource.entityid, relationship_type_id=newfile['relationshiptype']['value'])
+
+
+        edited_file = data.get('current-files', None)
+        if edited_file:
+            updatedfile = edited_file['relationship']
+            resourcexid = updatedfile.get('resourcexid')            
+            entityid1 = updatedfile.get('entityid1')
+            entityid2 = updatedfile.get('entityid2')
+            relationship = RelatedResource.objects.get(pk=resourcexid)
+            relationship.relationshiptype = updatedfile.get('relationshiptype')
+            relationship.save()
+
+            title = ''
+            description = ''
+            for node in edited_file.get('nodes'):
+                if node['entitytypeid'] == 'TITLE.E41':
+                    title = node['value']
+                if node['entitytypeid'] == 'DESCRIPTION.E62':
+                    description = node['value']
+
+            relatedresourceid = entityid2 if self.resource.entityid == entityid1 else entityid1
+            relatedresource = Resource().get(relatedresourceid)
+            relatedresource.set_entity_value('TITLE.E41', title)
+            if description != '':
+                relatedresource.set_entity_value('DESCRIPTION.E62', description)
+            relatedresource.save()
+            relatedresource.index()
+
         return
 
-    def load(self):
-        # self.data = {
-        #     'data': [],
-        #     'domains': {
-        #         'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55': Concept().get_e55_domain('ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv')
-        #     }
-        # }
+    def load(self, lang):
+        data = []
+        for relatedentity in self.resource.get_related_resources(entitytypeid='INFORMATION_RESOURCE.E73'):
+            nodes = relatedentity['related_entity'].flatten()
+            data.append({'nodes': nodes, 'relationship': relatedentity['relationship'], 'relationshiptypelabel': get_preflabel_from_valueid(relatedentity['relationship'].relationshiptype, lang)['value']})
 
         self.data['current-files'] = {
-            'branch_lists': [],
+            'branch_lists': data,
             'domains': {'RELATIONSHIP_TYPES.E32': Concept().get_e55_domain('ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv')}
         }
-
-        # condition_assessment_entities = self.resource.find_entities_by_type_id('CONDITION_ASSESSMENT.E14')
-
-        # for relatedentity in condition_assessment_entities:
-        #     self.data['data'].append({
-        #         'current-files': {
-        #             'branch_lists': relatedentity.get_nodes(entity, 'TITLE.E41') + 
-        #                 relatedentity.get_nodes(entity, 'FILE_PATH.E62') +
-        #                 relatedentity.get_nodes(entity, 'THUMBNAIL.E62') +
-        #                 relatedentity.get_nodes(entity, 'DESCRIPTION.E62') + 
-        #                 #[{'nodes': entity.flatten()}]
-        #                 relatedentity.get_nodes(entity, 'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55')
-
-        #         }
-        #     })
 
         return
 
@@ -773,7 +808,7 @@ class DesignationForm(ResourceForm):
         return
 
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['PROTECTION_EVENT.E65'] = {
                 'branch_lists': self.get_nodes('PROTECTION_EVENT.E65'),
@@ -799,7 +834,7 @@ class RoleForm(ResourceForm):
         return
 
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
                 'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
@@ -828,7 +863,7 @@ class ActorSummaryForm(ResourceForm):
         self.update_nodes('END_OF_EXISTENCE.E64', data)
         self.update_nodes('KEYWORD.E55', data)
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['APPELLATION.E41'] = {
                 'branch_lists': self.get_nodes('APPELLATION.E41'),
@@ -881,7 +916,7 @@ class PhaseForm(ResourceForm):
         return
 
 
-    def load(self):
+    def load(self, lang):
         if self.resource:
             self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
                 'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
@@ -948,7 +983,7 @@ class EvaluationForm(ResourceForm):
 
 
 
-    def load(self):
+    def load(self, lang):
 
         self.data = {
             'data': [],
