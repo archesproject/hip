@@ -141,7 +141,7 @@ define(['jquery',
             this.confirm_delete_modal_yes.removeAttr('disabled');
 
             warningtext = this.confirm_delete_modal.find('.modal-body [name="warning-text"]').text();
-            // this.confirm_delete_modal.find('.modal-body [name="warning-text"]').text(warningtext + ' ' + branchlist['DATE_CONDITION_ASSESSED.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + branchlist['CONDITION_TYPE.E55'].branch_lists[0].nodes[0].label);           
+            this.confirm_delete_modal.find('.modal-body [name="warning-text"]').text(warningtext + ' ' + branchlist['HERITAGE_RESOURCE_TYPE.E55'].branch_lists[0].nodes[0].label);           
             this.confirm_delete_modal.modal('show');
         }
 
