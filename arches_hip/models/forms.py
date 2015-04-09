@@ -86,8 +86,10 @@ class SummaryForm(ResourceForm):
                 'domains': {'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
             }
 
-            self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
-
+            try:
+                self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+            except IndexError:
+                pass
 
 class ExternalReferenceForm(ResourceForm):
     @staticmethod
@@ -211,6 +213,8 @@ class ActivitySummaryForm(ResourceForm):
 
 
 class ComponentForm(ResourceForm):
+    baseentity = None
+
     @staticmethod
     def get_info():
         return {
@@ -224,6 +228,38 @@ class ComponentForm(ResourceForm):
         self.update_nodes('COMPONENT.E18', data)
         self.update_nodes('MODIFICATION_EVENT.E11', data)
         return
+
+    def update_nodes(self, entitytypeid, data):
+
+        self.resource.prune(entitytypes=[entitytypeid])
+
+        if self.schema == None:
+            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data[entitytypeid]:
+            baseentity = None
+            for newentity in value['nodes']:
+                entity = Entity()
+                if newentity['entitytypeid'] in self.schema:
+                    entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                    if baseentity == None:
+                        baseentity = entity
+                    else:
+                        baseentity.merge(entity)
+            
+            if entitytypeid == 'COMPONENT.E18':
+                production_entities = self.resource.find_entities_by_type_id('PRODUCTION.E12')
+
+                if len(production_entities) > 0:
+                    self.resource.merge_at(baseentity, 'PRODUCTION.E12')
+                else:
+                    self.resource.merge_at(baseentity, self.resource.entitytypeid)
+
+            else:
+                self.resource.merge_at(baseentity, self.resource.entitytypeid)
+
+        self.resource.trim()
+
 
     def load(self):
         if self.resource:
@@ -242,7 +278,7 @@ class ComponentForm(ResourceForm):
                     'MODIFICATION_TYPE.E55': Concept().get_e55_domain('MODIFICATION_TYPE.E55'),
                 }
             }
-            
+
 
 class ClassificationForm(ResourceForm):
     baseentity = None
@@ -251,7 +287,7 @@ class ClassificationForm(ResourceForm):
     def get_info():
         return {
             'id': 'classification',
-            'icon': 'fa-asterisk',
+            'icon': 'fa-adjust',
             'name': _('Classifications'),
             'class': ClassificationForm
         }
@@ -292,8 +328,12 @@ class ClassificationForm(ResourceForm):
         self.update_nodes('CULTURAL_PERIOD.E55', data)
         self.update_nodes('STYLE.E55', data)
         self.update_nodes('ANCILLARY_FEATURE_TYPE.E55', data)
+        production_entities = self.resource.find_entities_by_type_id('PRODUCTION.E12')
 
-        self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
+        if len(production_entities) > 0:
+            self.resource.merge_at(self.baseentity, 'PRODUCTION.E12')
+        else:
+            self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
         self.resource.trim()
                    
     def load(self):
@@ -528,7 +568,6 @@ class ConditionForm(ResourceForm):
         self.update_nodes('CONDITION_DESCRIPTION.E62', data)
         self.update_nodes('DISTURBANCE_TYPE.E55', data)
         self.update_nodes('CONDITION_IMAGE.E73', data)
-
         self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
         self.resource.trim()
                    
