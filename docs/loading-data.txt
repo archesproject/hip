@@ -5,11 +5,11 @@ Loading Data
 Loading Data
 ============
 
-For this section you will need authority files and/or business data to load. There are currently a few options for for how to obtain this data:
+For this section you will need authority files and/or cultural heritage data to load. There are currently a few options for for how to obtain this data:
 
 	#. Download the sample HIP data (link coming soon!).
-	#. Modify the existing Arches-HIP authority files and create your own business data. Instructions `below <loading-data.html#modifying-hip-authority-files>`_.
-	#. Create your own authority files and business data using instructions outlined in the Arches documentation on `Loading Authority Files <http://arches3.readthedocs.org/en/latest/arches-data/#loading-authority-files>`_.
+	#. Modify the existing Arches-HIP authority files and create your own cultural heritage data. Instructions `below <loading-data.html#modifying-hip-authority-files>`_.
+	#. Create your own authority files and cultural heritage data using instructions outlined in the Arches documentation on `Loading Authority Files <http://arches3.readthedocs.org/en/latest/arches-data/#loading-authority-files>`_.
 
 Loading Authority Files
 -----------------------
@@ -23,10 +23,10 @@ During load the authority files go through a set of validations. If there are er
 .. note:: A detailed log of any errors detected in the authority files can be found here: ``/my_hip_app/logs/authority_file_errors.txt``
 
 
-Loading Business Data
----------------------
+Loading Cultural Heritage Data
+------------------------------
 
-To load business data, navigate to ``/my_hip_app`` and run the following command::
+To load cultural heritage data, navigate to ``/my_hip_app`` and run the following command::
 	
 	$ python manage.py packages -o load_resources -s ‘path to file’
 
@@ -79,8 +79,8 @@ In addition to the validation that is performed on every ``.arches`` file from A
 
 .. note:: Any validation errors that occur during a data load can be viewed in the following file: ``my_hip_app/my_hip_app/logs/validation_errors.txt``
 
-Bulk Removing Business Data
----------------------------
+Bulk Removing Cultural Heritage Data
+------------------------------------
 
 If you managed to load data that you did not intend to load, or if for some reason you changed your mind about loading your data, don’t worry. You can easily unload a batch of data from Arches.
 
@@ -93,7 +93,7 @@ Once you have the correct Load ID, you can delete all of the resources created d
 	$ python manage.py packages -o remove_resources –load_id YOUR_LOADID
 
 
-In order to use HIP three types of data must be loaded to the database: resource graphs, authority documents and business data. Below we outline what data comes included with HIP, simple instructions on how this data can be modified and how to create your own business data.
+In order to use HIP three types of data must be loaded to the database: resource graphs, authority documents and cultural heritage data. Below we outline what data comes included with HIP, simple instructions on how this data can be modified and how to create your own cultural heritage data.
 
 Resource Graphs
 ===============
@@ -259,15 +259,15 @@ In some instances you may wish to modify the existing HIP authority files. The f
 	#. Make sure to review the guidelines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
 
 
-Business Data
-=============
+Cultural Heritage Data
+======================
 
-This section outlines how to create and load business data into Arches-HIP. Arches-HIP allows you to load data from a ``.arches`` file or a ``.shp`` file. If you would like to load arches without business data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own business data skip to 'Loading Business Data.' And if you would like to create and load your own Arches-HIP business data this whole section is for you.
+This section outlines how to create and load cultural heritage data into Arches-HIP. Arches-HIP allows you to load data from a ``.arches`` file or a ``.shp`` file. If you would like to load arches without cultural heritage data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own cultural heritage data skip to 'Loading cultural heritage Data.' And if you would like to create and load your own Arches-HIP cultural heritage data this whole section is for you.
 
-Creating Business Data
-----------------------
+Creating Cultural Heritage Data
+-------------------------------
 
-In some ways you can think of the Arches-HIP business data as an intersection between the Arches-HIP resource graphs, the authority files, and your own unique data. The Arches-HIP resource graphs provide the skeleton of the ``.arches`` or ``.shp`` file you will create, the authority files provide the domain values and, most importantly your data populates the nodes of the Arches-HIP resource graphs with unique data.
+In some ways you can think of the Arches-HIP cultural heritage data as an intersection between the Arches-HIP resource graphs, the authority files, and your own unique data. The Arches-HIP resource graphs provide the skeleton of the ``.arches`` or ``.shp`` file you will create, the authority files provide the domain values and, most importantly your data populates the nodes of the Arches-HIP resource graphs with unique data.
 
 Creating a ``.arches`` file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -11,5 +11,6 @@ Contents:
    getting-started
    loading-data
    using-arches-hip
+   system-administration
    customization
    appendix

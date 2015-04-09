@@ -285,7 +285,7 @@ class ClassificationForm(ResourceForm):
     def get_info():
         return {
             'id': 'classification',
-            'icon': 'fa-asterisk',
+            'icon': 'fa-adjust',
             'name': _('Classifications'),
             'class': ClassificationForm
         }

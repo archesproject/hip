@@ -24,6 +24,8 @@ We've written this guide assuming that you are comfortable working with
 your computer's command line, and that you can edit text files with
 ease.
 
+Arches HIP is built on the open source Arches framework.  The Arches documentation can be found here: http://arches3.readthedocs.org/en/latest/  This document may be useful for understanding Arches-HIP and will be referenced throughout the Arches HIP documentation.
+
 That's it! Feel free to tap a colleague on the shoulder if you need a
 little help along the way, or check out the resources at http://www.archesproject.org for more support.
 
@@ -246,13 +248,13 @@ Running Arches-HIP
 Before you go live...
 =====================
 
+We use the Django development server to make it easy for you to confirm that Arches has installed properly. 
+
+You WILL NEED to configure Arches to use a production quality web server such as Apache if you want to use Arches in production.  See the Django documentation for more on using Apache and mod_wsgi: https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/modwsgi/
+
+Some other things you'll want to make sure that you do:
+
+    * change the admin user name and password
     * Disallow access to port 9200 on prod machine
     * Set DEBUG = False on prod machine
-
-.. note::
-
-    We use the Django development server to make it easy for you to
-    confirm that Arches has installed properly. You WILL NEED to configure
-    Arches to use a production quality web server such as Apache if you want
-    to use Arches in production. See the chapter on Arches configuration for
-    guidance on how to complete this step.
+    * Make sure that your Elasticsearch instance is production ready: http://www.elastic.co/guide/en/elasticsearch/guide/master/deploy.html
