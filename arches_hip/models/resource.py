@@ -44,7 +44,8 @@ class Resource(ArchesResource):
                     forms.LocationForm.get_info(),
                     forms.RelatedFilesForm.get_info(),
                     forms.ExternalReferenceForm.get_info(),
-                    forms.DesignationForm.get_info()
+                    forms.DesignationForm.get_info(),
+                    forms.EvaluationForm.get_info()
                 ]   
             })   
 

@@ -1,0 +1,486 @@
+{% extends "views/forms/wizard-base.htm" %}
+{% load i18n %}
+
+{% block form_content %}
+
+<!-- Spacer for small screens -->
+<div>
+    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "A type and date must be specified." %}</div>
+    <!-- Related Information Objects Container -->
+    <div id="existing-assessments">
+
+        <!-- Related Images Title -->
+        <div class="row">
+            <div class="col-xs-12">
+
+                <!-- Images -->
+                <div class="padding-left-10">
+
+                    <dl style="margin-bottom: 0px;">
+                        <!-- Title -->
+                        <dt style="display: none;" data-bind="visible: true">
+                            <h5 id="arches-names-form" class="section-headline">{% trans "Resource Evaluation" %}</h5>
+                        </dt>
+
+                        <dt data-bind="visible: false">
+                            <h5 id="arches-names-form" class="section-headline modal-title loading"> {% trans "Loading ...." %}</h5>
+                        </dt>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- Condition Assessements-->
+        <div class="row margin-top-minus-5 margin-bottom-10" id="current-items" style="display: none;" data-bind="foreach: data.data, visible: true">
+            <div class="col-xs-12">
+
+                <div class="arches-crud-record margin-left-5">
+                    <dl class="margin-bottom-10"> 
+
+                        <dd>
+                            <div class="">
+                                <a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="#" class="arches-CRUD-child" title="Edit this evaluation" data-bind="click: $root.editAssessment">
+                                    <span data-bind="foreach: $data['EVALUATION_CRITERIA_TYPE.E55'].branch_lists" class="arches-evaluation-content">
+                                    <span data-bind="text: nodes[0].label"></span><br>
+                                    </span>
+                                </a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl>   
+                        <dt class="arches-evaluation-header">Reason Statement</dt>
+                            <dd class="arches-evaluation-content" data-bind="if: $data['REASONS.E62'].branch_lists.length > 0">
+                            <span data-bind="html: $data['REASONS.E62'].branch_lists[0].nodes[0].value"></span><br>
+                            </dd>
+                    </dl>
+
+                    <dl>   
+                        <dt class="arches-evaluation-header">Eligibility</dt>
+                            <dd data-bind="foreach: $data['ELIGIBILITY_REQUIREMENT_TYPE.E55'].branch_lists" class="arches-evaluation-content">
+                            <span data-bind="text: nodes[0].label"></span><br>
+                            </dd>
+                    </dl>
+
+                    <dl>   
+                        <dt class="arches-evaluation-header">Integrity</dt>
+                            <dd data-bind="foreach: $data['INTEGRITY_TYPE.E55'].branch_lists" class="arches-evaluation-content">
+                            <span data-bind="text: nodes[0].label"></span><br>
+                            </dd>
+                    </dl>
+
+                    <dl>   
+                        <dt class="arches-evaluation-header">Status Codes</dt>
+                            <dd data-bind="foreach: $data['STATUS.E55'].branch_lists" class="arches-evaluation-content">
+                            <span data-bind="text: nodes[0].label"></span><br>
+                            </dd>
+                    </dl>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Completed Condition Assessements -->
+    </div>
+    <!-- End Related Information Objects Container -->
+
+    <!-- Condition Assessement Wizard Container --> 
+    <div style="display: none;" id="workflow-container">     
+        <div class="padding-10" id="crud">
+            <div>
+
+                <!-- Arches form container -->
+                <dl>
+                    <dd class="arches-RDM-labels">
+                        <div class="row">
+                            <div class="col-xs-12 padding-left-0">
+
+                                <!-- Start Wizard -->
+                                <form class="margin-top-20" id="wizard-1" novalidate="novalidate">
+                                    <div id="bootstrap-wizard-1" class="col-sm-12">
+                                        <div class="form-bootstrapWizard">
+                                            <ul class="bootstrapWizard form-wizard">
+                                                <li class="active" data-target="#step1" style="width: 25%">
+                                                    <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">{% trans "Part 1: Evaluation Criteria" %}</span> </a>
+                                                </li>
+                                                <li data-target="#step2" style="width: 25%">
+                                                    <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">{% trans "Part 2: Eligibility/Integrity" %}</span> </a>
+                                                </li>
+                                                <li data-target="#step3" style="width: 25%">
+                                                    <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">{% trans "Part 3: Status" %}</span> </a>
+                                                </li>
+                                                <li data-target="#step4" style="width: 25%">
+                                                    <a href="#tab4" data-toggle="tab"> <span class="step">4</span> <span class="title">{% trans "Part 4: Review and Save" %}</span> </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+                                        <!-- Start Wizard -->
+                                        <div class="tab-content arches-wizard-tab">
+
+                                            <!-- Tab 1: Context -->
+                                            <div class="tab-pane active" id='tab1'>
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Part 1</strong> Evaluation Criteria</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    Start the resource evaluation by selecting the context and reason you will use to evaluate this resource...
+                                                </div>
+                                                <div>
+                                                    <div id="evaluation-section">
+                                                        <dl>  
+                                                            <!-- Form -->
+                                                            <dd>
+
+                                                                <div>
+
+                                                                    <!-- Status Code form -->
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <div class="form-group" style="width: 100%;">
+
+                                                                                <!-- Threats Input-->   
+                                                                                <h5 class="section-headline margin-bottom-5">Evaluation Criteria</h5>  
+                                                                                <input style="width:100%; display:inline-block;" class="select2 arches-select2-crud-form name-type designation" data-bind="select2: {value: getEditedNode('EVALUATION_CRITERIA_TYPE.E55', 'value'),  placeholder: '{% trans "Evaluation Criteria" %}', dataKey: 'EVALUATION_CRITERIA_TYPE.E55'}">&nbsp;&nbsp;
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End Status form -->
+                                                                </div>
+
+                                                            </dd>
+                                                            <!-- End Form -->
+                                                        </dl>
+                                                    </div>
+                                                    <div id="description-section">
+                                                        <dl>   
+                                                            <dt>
+                                                                <h5 id="" class="section-headline" style="margin-top: 30px;">{% trans "Description" %}</h5>
+                                                            </dt>
+
+                                                            <!-- HTML Editor -->
+                                                            <dd class="">
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <div class="form-group" style="width: 100%;">   
+                                                                            <!-- Simple HTML Editor -->
+                                                                            <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                                                                <div class="summernote" data-bind="summernote: {value: getEditedNode('REASONS.E62', 'value'), options:{}}"></div>  
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </dd>
+                                                            <!-- End Form -->
+                                                        </dl> 
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Tab 2: Eligibility and Integrity -->
+                                            <div class="tab-pane" id="tab2" style="min-height: 330px;">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Part 2</strong> Eligibility and Integrity</h3>
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    Select all the eligibility and integrity criteria for this resource
+                                                </div>
+
+                                                <dl> 
+
+                                                    <!-- Form -->
+                                                    <dd class="">
+                                                        <div class="">
+                                                            <!-- Eligibility form -->
+                                                            <div id="eligibility-section">
+                                                                <dl>   
+
+                                                                    <!-- Form -->
+                                                                    <dd class="">
+
+                                                                        <div class="">
+
+                                                                            <!-- Status Code form -->
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                    <div class="form-group" style="width: 100%;">
+
+                                                                                        <!-- Threats Input-->   
+                                                                                        <h5 class="section-headline margin-bottom-5">Eligibility Criteria</h5>  
+                                                                                        <input style="width:80%; display:inline-block;" class="select2 arches-select2-crud-form name-type designation" data-bind="select2: {value: getEditedNode('ELIGIBILITY_REQUIREMENT_TYPE.E55', 'value'),  placeholder: '{% trans "Eligibility" %}', dataKey: 'ELIGIBILITY_REQUIREMENT_TYPE.E55'}">&nbsp;&nbsp;
+
+                                                                                        <!-- Add Button -->
+                                                                                        {% include 'views/components/add-item-button.htm' %}
+                                                                                        <!-- End Add Button -->
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Status form -->
+
+                                                                            <!-- User's Selected Status Codes -->
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                    <div class="margin-left-5">
+                                                                                        <dl class="margin-bottom-10"> 
+
+                                                                                            <dd class="margin-left-10 margin-top-5" style="display: none;" data-bind="visible: true">
+                                                                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No eligibility criteria selected" %}</div>   
+
+                                                                                                <div data-bind="foreach: getBranchLists()">
+                                                                                                    <div class="arches-crud-record">
+                                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this eligibility criteria"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this eligibility criteria" %}"><span data-bind="text: nodes.get('ELIGIBILITY_REQUIREMENT_TYPE.E55', 'label')" style="padding-right:2px;"></span></a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </dd>
+                                                                                        </dl>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End User's Selected Status Codes -->
+
+                                                                        </div>
+
+                                                                    </dd>
+                                                                    <!-- End Form -->
+                                                                </dl>
+                                                            </div>
+
+                                                            <!-- Integrity form -->
+                                                            <div id="integrity-section">
+                                                                <dl>   
+
+                                                                    <!-- Form -->
+                                                                    <dd class="">
+
+                                                                        <div class="">
+
+                                                                            <!-- Status Code form -->
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                    <div class="form-group" style="width: 100%;">
+
+                                                                                        <!-- Threats Input-->   
+                                                                                        <h5 class="section-headline margin-bottom-5">Integrity Criteria</h5>  
+                                                                                        <input style="width:80%; display:inline-block;" class="select2 arches-select2-crud-form name-type designation" data-bind="select2: {value: getEditedNode('INTEGRITY_TYPE.E55', 'value'),  placeholder: '{% trans "Integrity" %}', dataKey: 'INTEGRITY_TYPE.E55'}">&nbsp;&nbsp;
+
+                                                                                        <!-- Add Button -->
+                                                                                        {% include 'views/components/add-item-button.htm' %}
+                                                                                        <!-- End Add Button -->
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Status form -->
+
+                                                                            <!-- User's Selected Status Codes -->
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                    <div class="margin-left-5">
+                                                                                        <dl class="margin-bottom-10"> 
+
+                                                                                            <dd class="margin-left-10 margin-top-5" style="display: none;" data-bind="visible: true">
+                                                                                                <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No integrity criteria selected" %}</div>   
+
+                                                                                                <div data-bind="foreach: getBranchLists()">
+                                                                                                    <div class="arches-crud-record">
+                                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this integrity criteria"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                                                                                        <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this integrity criteria" %}"><span data-bind="text: nodes.get('INTEGRITY_TYPE.E55', 'label')" style="padding-right:2px;"></span></a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </dd>
+                                                                                        </dl>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End User's Selected Status Codes -->
+
+                                                                        </div>
+
+                                                                    </dd>
+                                                                    <!-- End Form -->
+                                                                </dl>
+                                                            </div>
+
+                                                        </div>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+
+
+                                            <!-- Tab 3: Resource Status -->
+                                            <div class="tab-pane" id="tab3" style="min-height: 330px;">
+                                                <div id="status-section">
+                                                    <br>
+                                                    <h3 class="margin-bottom-5"><strong>Part 3</strong> Resource Status</h3>
+
+                                                    <div class="alert alert-info fade in">
+                                                        <i class="fa-fw fa fa-info"></i>
+                                                        Start by selecting the status code type.  Then pick the appropriate code...
+                                                    </div>
+
+                                                    <dl>   
+
+                                                        <!-- Form -->
+                                                        <dd class="">
+
+                                                            <div class="">
+
+                                                                <!-- Status Code form -->
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+
+                                                                        <form class="form-inline arches-form" role="form">
+                                                                            <div class="form-group" style="width: 100%;">
+
+                                                                                <!-- Threats Input-->   
+                                                                                <h5 class="section-headline margin-bottom-5">Status</h5>  
+                                                                                <input style="width:80%; display:inline-block;" class="select2 arches-select2-crud-form name-type designation" data-bind="select2: {value: getEditedNode('STATUS.E55', 'value'),  placeholder: '{% trans "Status" %}', dataKey: 'STATUS.E55'}">&nbsp;&nbsp;
+
+                                                                                <!-- Add Button -->
+                                                                                {% include 'views/components/add-item-button.htm' %}
+                                                                                <!-- End Add Button -->
+
+                                                                            </div>
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Status form -->
+
+                                                                <!-- User's Selected Status Codes -->
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <div class="margin-left-5">
+                                                                            <dl class="margin-bottom-10"> 
+
+                                                                                <dd class="margin-left-10 margin-top-5" style="display: none;" data-bind="visible: true">
+                                                                                    <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No statuses selected" %}</div>   
+
+                                                                                    <div data-bind="foreach: getBranchLists()">
+                                                                                        <div class="arches-crud-record">
+                                                                                            <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this status"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                                                                            <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this status" %}"><span data-bind="text: nodes.get('STATUS.E55', 'label')" style="padding-right:2px;"></span></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </dd>
+                                                                            </dl>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End User's Selected Status Codes -->
+
+                                                            </div>
+
+                                                        </dd>
+                                                        <!-- End Form -->
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Tab 4: Review and Save -->
+                                            <div class="tab-pane" id="tab4">
+                                                <br>
+                                                <h3 class="margin-bottom-5"><strong>Review and Save</strong></h3>
+
+
+                                                <div class="alert alert-info fade in">
+                                                    <i class="fa-fw fa fa-info"></i>
+                                                    Review your input and save (or go back to the appropriate step and edit your input)
+                                                </div>
+
+                                                <dl class="margin-bottom-10">   
+                                                    <dt>
+                                                        <h5 class="section-headline" style="margin-top: 20px;">You entered:</h5>
+                                                    </dt>
+                                                </dl>
+
+                                                <!-- Summarize Input -->
+                                                <div class="well">
+
+                                                    <dl id="evaluation-summary-section">   
+                                                        <dt class="arches-report-header">Context</dt>
+                                                        <div data-bind="foreach: getBranchLists()">
+                                                            <span data-bind="text: nodes.get('EVALUATION_CRITERIA_TYPE.E55', 'label')" style="padding-right:2px;"></span><br>
+                                                        </div>
+                                                    </dl>
+
+                                                    <dl id="description-summary-section">   
+                                                        <dt class="arches-report-header">Reason Statement</dt>
+                                                        <div data-bind="foreach: getBranchLists()">
+                                                            <span data-bind="text: nodes.get('REASONS.E62', 'value')" style="padding-right:2px;"></span><br>
+                                                        </div>
+                                                    </dl>
+
+                                                    <dl id="eligibility-summary-section">   
+                                                        <dt class="arches-report-header">Eligibility</dt>
+                                                        <div data-bind="foreach: getBranchLists()">
+                                                            <span data-bind="text: nodes.get('ELIGIBILITY_REQUIREMENT_TYPE.E55', 'label')" style="padding-right:2px;"></span><br>
+                                                        </div>
+                                                    </dl>
+
+                                                    <dl id="integrity-summary-section">   
+                                                        <dt class="arches-report-header">Integrity</dt>
+                                                        <div data-bind="foreach: getBranchLists()">
+                                                            <span data-bind="text: nodes.get('INTEGRITY_TYPE.E55', 'label')" style="padding-right:2px;"></span><br>
+                                                        </div>
+                                                    </dl>
+
+                                                    <dl id="status-summary-section">   
+                                                        <dt class="arches-report-header">Status Codes</dt>
+                                                        <div data-bind="foreach: getBranchLists()">
+                                                            <span data-bind="text: nodes.get('STATUS.E55', 'label')" style="padding-right:2px;"></span><br>
+                                                        </div>
+                                                    </dl>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Start Wizard -->
+
+                                    </div>
+                                </form>
+                                <!-- End Wizard -->
+
+                            </div>
+                        </div>
+
+                    </dd>
+                </dl>
+                <!-- End Arches form container -->
+
+            </div>
+        </div>
+    </div>
+    <!-- End Condition Assessement Wizard Container --> 
+
+    <div action="" class="modal fade confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="alertmodal" aria-hidden="true">
+        <div class="modal-dialog confirm-delete">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Are you ready to delete this assessment?" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 name="warning-text">{% trans "Evaluation Assessment on" %}
+                    </h5>
+                    <div name="additional-info" style="max-height: 300px; overflow-y: scroll;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-u btn-u-default" data-dismiss="modal">{% trans "No" %}</button>
+                    <button class="btn-u btn-u-red confirm-delete-yes" href="javascript:void(0);" data-id="" data-action="delete">{% trans "Yes" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock form_content %}

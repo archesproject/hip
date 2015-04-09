@@ -853,3 +853,94 @@ class PhaseForm(ResourceForm):
             }
 
         return
+
+
+class EvaluationForm(ResourceForm):
+    baseentity = None
+
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'evaluation',
+            'icon': 'fa-star-half-o',
+            'name': _('Evaluation Criteria'),
+            'class': EvaluationForm
+        }
+
+    def get_nodes(self, entity, entitytypeid):
+        ret = []
+        entities = entity.find_entities_by_type_id(entitytypeid)
+        for entity in entities:
+            ret.append({'nodes': entity.flatten()})
+
+        return ret
+
+    def update_nodes(self, entitytypeid, data):
+        if self.schema == None:
+            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+
+        for value in data[entitytypeid]:
+            for newentity in value['nodes']:
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if self.baseentity == None:
+                    self.baseentity = entity
+                else:
+                    self.baseentity.merge(entity)
+
+
+
+    def update(self, data, files):
+        # for value in data['EVALUATION_CRITERIA_ASSIGNMENT.E13']:
+        #     for node in value['nodes']:
+        #         if node['entitytypeid'] == 'EVALUATION_CRITERIA_ASSIGNMENT.E13' and node['entityid'] != '':
+        #             #remove the node
+        #             self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+
+        self.update_nodes('STATUS.E55', data)
+        self.update_nodes('EVALUATION_CRITERIA_TYPE.E55', data)
+        self.update_nodes('ELIGIBILITY_REQUIREMENT_TYPE.E55', data)
+        self.update_nodes('INTEGRITY_TYPE.E55', data)
+        self.update_nodes('REASONS.E62', data)
+
+        self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
+        self.resource.trim()
+
+
+
+    def load(self):
+
+        self.data = {
+            'data': [],
+            'domains': {
+                'STATUS.E55': Concept().get_e55_domain('STATUS.E55'),
+                'EVALUATION_CRITERIA_TYPE.E55' : Concept().get_e55_domain('EVALUATION_CRITERIA_TYPE.E55'),
+                'INTEGRITY_TYPE.E55' : Concept().get_e55_domain('INTEGRITY_TYPE.E55'),
+                'ELIGIBILITY_REQUIREMENT_TYPE.E55' : Concept().get_e55_domain('ELIGIBILITY_REQUIREMENT_TYPE.E55')
+            }
+        }
+
+        evaluation_assessment_entities = self.resource.find_entities_by_type_id('EVALUATION_CRITERIA_ASSIGNMENT.E13')
+
+        for entity in evaluation_assessment_entities:
+            self.data['data'].append({
+                'STATUS.E55': {
+                    'branch_lists': self.get_nodes(entity, 'STATUS.E55')
+                },
+                'EVALUATION_CRITERIA_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'EVALUATION_CRITERIA_TYPE.E55')
+                },
+                'INTEGRITY_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'INTEGRITY_TYPE.E55')
+                },
+                'ELIGIBILITY_REQUIREMENT_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'ELIGIBILITY_REQUIREMENT_TYPE.E55')
+                },
+                'REASONS.E62': {
+                    'branch_lists': self.get_nodes(entity, 'REASONS.E62')
+                },
+                'EVALUATION_CRITERIA_ASSIGNMENT.E13': {
+                    'branch_lists': self.get_nodes(entity, 'EVALUATION_CRITERIA_ASSIGNMENT.E13')
+                }
+            })
