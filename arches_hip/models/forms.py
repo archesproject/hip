@@ -86,8 +86,10 @@ class SummaryForm(ResourceForm):
                 'domains': {'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
             }
 
-            self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
-
+            try:
+                self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
+            except IndexError:
+                pass
 
 class ExternalReferenceForm(ResourceForm):
     @staticmethod
