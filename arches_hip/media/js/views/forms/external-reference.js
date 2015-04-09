@@ -17,7 +17,7 @@ define(['jquery', 'views/forms/base', 'views/forms/sections/branch-list'], funct
                     if (/^https?:\/\//.test(value)) {
                         return value;
                     } else {
-                        return 'https://' + value;
+                        return 'http://' + value;
                     }
                 }
             }));
