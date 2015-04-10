@@ -793,6 +793,48 @@ class RelatedFilesForm(ResourceForm):
 
         return
 
+
+class FileUploadForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'file-upload',
+            'icon': 'fa-file-text-o',
+            'name': _('File Upload'),
+            'class': FileUploadForm
+        }
+
+    def update(self, data, files):
+        self.resource.prune(entitytypes=['FILE_PATH.E62', 'THUMBNAIL.E62'])
+        self.resource.trim()
+
+        if files:
+            for key, value in files.items():
+                self.resource.set_entity_value('FILE_PATH.E62', value)
+                thumbnail = generate_thumbnail(value)
+                if thumbnail != None:
+                    self.resource.set_entity_value('THUMBNAIL.E62', thumbnail)
+        return
+
+
+    def load(self, lang):
+        if self.resource:
+            self.data['INFORMATION_RESOURCE.E73'] = {
+                'branch_lists': self.get_nodes('INFORMATION_RESOURCE.E73'),
+                'is_image': is_image(self.resource)
+            }
+
+        return   
+
+def is_image(resource):
+    for format_type in resource.find_entities_by_type_id('INFORMATION_CARRIER_FORMAT_TYPE.E55'):
+        concept = Concept().get(id=format_type['conceptid'], include=['undefined'])
+        for value in concept.values:
+            if value.value == 'Y' and value.type == 'ViewableInBrowser':
+                return True
+    return False
+
+
 class DesignationForm(ResourceForm):
     @staticmethod
     def get_info():

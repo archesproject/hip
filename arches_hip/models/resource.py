@@ -111,6 +111,8 @@ class Resource(ArchesResource):
                 'forms': [
                     forms.InformationResourceSummaryForm.get_info(), 
                     forms.CoverageForm.get_info(),
+                    forms.DescriptionForm.get_info(),
+                    forms.FileUploadForm.get_info()
                 ]
             })  
 

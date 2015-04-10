@@ -82,7 +82,7 @@ define(['jquery',
                     return true;
                 },
                 editItem: function(model){
-                    var modaldialog = $('#EditFileResourceModal');
+                    var modaldialog = $('#edit_file_resource_modal');
                     modaldialog.modal().show();
 
                     this.editor.model = model;
