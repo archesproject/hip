@@ -1,0 +1,174 @@
+#########################
+Arches-HIP Data Resources
+#########################
+
+
+Arches-HIP is designed to allow you to create cultural heritage inventories that consist of 6 primary resource types:
+
+
+    * **Heritage Resources:** These are culturally significant objects such as buildings and archaeological sites.  However, Heritage Resources may any object that an organization regards as important.  Examples include air raid sirens, statues, canals, roads, gates, bridges, etc.
+
+    * **Heritage Resource Groups** These are collections of heritage resources that are best regarded as a group.  In Europe, such resources are often referred to as ensembles.  In the United States, districts or landscapes may be inventoried as Heritage Resource Groups.
+
+    * **Activity** In Arches-HIP, activities are resources that occur over a period of time.  Examples include surveys, investigations, excavations, literature review, and other actions.
+    * **Historic Event** These are culturally significant occurrences.  Examples include the 1906 San Francisco Earthquake, Coronation of Napoleon, and the Normandy Beach landings in WWII.
+
+    * **Actor** In Arches-HIP actor resources are persons, groups of people, or organizations.
+
+    * **Information Objects**  These are objects that encode information such as an image (either digital or a traditional photograph), documents, signs, inscriptions, or 33 1/3 rpm records.
+
+
+Each HIP resource provides a rich list of attributes that can be used to describe a cultural heritage feature in detail.  The set of attributes that make up a resource is defined using a Graph.  
+
+Arches-HIP implements one Graph for each resource type.  A key capability of Arches-HIP is that each Graph implements the CIDOC CRM (http://www.cidoc-crm.org/) ontology to impart meaning to each attribute in a resource graph.
+
+
+
+
+HIP Graphs
+---------------
+You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <appendix.html#appendix-a>`_): 
+
+To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
+
+
+Heritage Resource.E18
+~~~~~~~~~~~~~~~~~~~~~
+
+.. image :: heritage_resource.png
+
+
+Heritage Resource Group.E27
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. image :: heritage_resource_group.png
+
+Activity.E7
+~~~~~~~~~~~
+
+.. image :: activity.png
+
+
+Historical Event.E5
+~~~~~~~~~~~~~~~~~~~
+.. image :: historical_event.png
+
+
+Actor.E39
+~~~~~~~~~
+
+.. image :: actor.png
+
+
+Information Resource.E73
+~~~~~~~~~~~~~~~~~~~~~~~~
+.. image :: information_resource.png
+
+
+
+Representing Information in Arches-HIP
+======================================
+Arches-HIP Graphs define the semantics and types of data associated with each resource.  If you look at each Graph closely, you will see the attributes that describe a resource.  For example, most Graphs have a branch that describes "Place".  One way to describe place is with an address.  Another way to describe place is with spatial coordinates.  Arches-HIP provides data entry screens that make it easy to enter these data.
+
+In many cases, Arches-HIP assumes that you will want to limit the values for an attribute to a list of approved terms.  For example, you will likely want to limit the terms used to describe the condition of a resource to values such as "good", "fair", "poor".  Arches-HIP allows you to define the exact terms you wish to use for these kinds of attributes.
+
+Arches-HIP includes an "Authority File" for every attribute that is constrained by a controlled vocabulary.  Note that a "controlled vocabulary" is nothing more than a listing of terms that will be used to describe an attribute of a resource.  HIP gives you a lot of flexibility in defining your controlled vocabularies.  They may be simple word lists (like the example for describing the condition of a resource) or a full-flegded thesaurus.
+
+
+
+Included Authority Files
+------------------------
+
+HIP comes with the following authority files included.
+
++----------------------------------------------------------+---------------------------------------+
+| Authority Document                                       | Entity Type                           |
++==========================================================+=======================================+
+| ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv                     | ACTIVITY_TYPE.E55                     |
++----------------------------------------------------------+---------------------------------------+
+| ACTOR_TYPE_AUTHORITY_DOCUMENT.csv                        | ACTOR_TYPE.E55                        |
++----------------------------------------------------------+---------------------------------------+
+| ADDRESS_TYPE_AUTHORITY_DOCUMENT.csv                      | ADDRESS_TYPE.E55                      |
++----------------------------------------------------------+---------------------------------------+
+| ADMINISTRATIVE_SUBDIVISION_TYPE_AUTHORITY_DOCUMENT.csv   | ADMINISTRATIVE_SUBDIVISION_TYPE.E55   |
++----------------------------------------------------------+---------------------------------------+
+| BEGINNING_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv       | BEGINNING_OF_EXISTENCE_TYPE.E55       |
++----------------------------------------------------------+---------------------------------------+
+| COMPONENT_TYPE_AUTHORITY_DOCUMENT.csv                    | COMPONENT_TYPE.E55                    |
++----------------------------------------------------------+---------------------------------------+
+| CONDITION_AUTHORITY_DOCUMENT.csv                         | CONDITION_TYPE.E55                    |
++----------------------------------------------------------+---------------------------------------+
+| CONSTRUCTION_TECHNIQUE_AUTHORITY_DOCUMENT.csv            | CONSTRUCTION_TECHNIQUE.E55            |
++----------------------------------------------------------+---------------------------------------+
+| CULTURAL_PERIOD_AUTHORITY_DOCUMENT.csv                   | CULTURAL_PERIOD.E55                   |
++----------------------------------------------------------+---------------------------------------+
+| DESCRIPTION_TYPE_AUTHORITY_DOCUMENT.csv                  | DESCRIPTION_TYPE.E55                  |
++----------------------------------------------------------+---------------------------------------+
+| DISTURBANCE_TYPE_AUTHORITY_DOCUMENT.csv                  | DISTURBANCE_TYPE.E55                  |
++----------------------------------------------------------+---------------------------------------+
+| ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY DOCUMENT.csv      | ELIGIBILITY_REQUIREMENT_TYPE.E55      |
++----------------------------------------------------------+---------------------------------------+
+| END_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv             | END_OF_EXISTENCE_TYPE.E55             |
++----------------------------------------------------------+---------------------------------------+
+| EVALUATION_CRITERIA_TYPE_AUTHORITY_DOCUMENT.csv          | EVALUATION_CRITERIA_TYPE.E55          |
++----------------------------------------------------------+---------------------------------------+
+| EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv                | EXTERNAL_XREF_TYPE.E55                |
++----------------------------------------------------------+---------------------------------------+
+| GEOMETRY_QUALIFIER_AUTHORITY_DOCUMENT.csv                | GEOMETRY_QUALIFIER.E55                |
++----------------------------------------------------------+---------------------------------------+
+| HERITAGE_RESOURCE_GROUP_TYPE_AUTHORITY_DOCUMENT.csv      | HERITAGE_RESOURCE_GROUP_TYPE.E55      |
++----------------------------------------------------------+---------------------------------------+
+| HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv            | HERITAGE_RESOURCE_TYPE.E55            |
++----------------------------------------------------------+---------------------------------------+
+| HISTORICAL_EVENT_TYPE_AUTHORITY_DOCUMENT.csv             | HISTORICAL_EVENT_TYPE.E55             |
++----------------------------------------------------------+---------------------------------------+
+| IDENTIFIER_TYPE_AUTHORITY_DOCUMENT.csv                   | IDENTIFIER_TYPE.E55                   |
++----------------------------------------------------------+---------------------------------------+
+| INFORMATION_CARRIER_FORMAT_AUTHORITY_DOCUMENT.csv        | INFORMATION_CARRIER_FORMAT_TYPE.E55   |
++----------------------------------------------------------+---------------------------------------+
+| INFORMATION_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv         | INFORMATION_RESOURCE_TYPE.E55         |
++----------------------------------------------------------+---------------------------------------+
+| INTEGRITY_TYPE_AUTHORITY_DOCUMENT.csv                    | INTEGRITY_TYPE.E55                    |
++----------------------------------------------------------+---------------------------------------+
+| KEYWORD_AUTHORITY_DOCUMENT.csv                           | KEYWORD.E55                           |
++----------------------------------------------------------+---------------------------------------+
+| LANGUAGE_AUTHORITY_DOCUMENT.csv                          | LANGUAGE.E55                          |
++----------------------------------------------------------+---------------------------------------+
+| MATERIAL_AUTHORITY_DOCUMENT.csv                          | MATERIAL.E57                          |
++----------------------------------------------------------+---------------------------------------+
+| MEASUREMENT_TYPE_AUTHORITY_DOCUMENT.csv                  | MEASUREMENT_TYPE.E55                  |
++----------------------------------------------------------+---------------------------------------+
+| MODIFICATION_TYPE_AUTHORITY_DOCUMENT.csv                 | MODIFICATION_TYPE.E55                 |
++----------------------------------------------------------+---------------------------------------+
+| NAME_TYPE_AUTHORITY_DOCUMENT.csv                         | NAME_TYPE.E55                         |
++----------------------------------------------------------+---------------------------------------+
+| RECOMMENDATION_TYPE_AUTHORITY_DOCUMENT.csv               | RECOMMENDATION_TYPE.E55               |
++----------------------------------------------------------+---------------------------------------+
+| RELATED_FEATURE_AUTHORITY_DOCUMENT.csv                   | ANCILLARY_FEATURE_TYPE.E55            |
++----------------------------------------------------------+---------------------------------------+
+| RESOURCE_CLASSIFICATION_AUTHORITY_DOCUMENT.csv           | RESOURCE_TYPE_CLASSIFICATION.E55      |
++----------------------------------------------------------+---------------------------------------+
+| RIGHT_TYPE_AUTHORITY_DOCUMENT.csv                        | RIGHT_TYPE.E55                        |
++----------------------------------------------------------+---------------------------------------+
+| SETTING_TYPE_AUTHORITY_DOCUMENT.csv                      | SETTING_TYPE.E55                      |
++----------------------------------------------------------+---------------------------------------+
+| STATUS_AUTHORITY_DOCUMENT.csv                            | STATUS.E55                            |
++----------------------------------------------------------+---------------------------------------+
+| STYLE_AUTHORITY_DOCUMENT.csv                             | STYLE.E55                             |
++----------------------------------------------------------+---------------------------------------+
+| THREAT_TYPE_AUTHORITY_DOCUMENT.csv                       | THREAT_TYPE.E55                       |
++----------------------------------------------------------+---------------------------------------+
+| TITLE_TYPE_AUTHORITY_DOCUMENT.csv                        | TITLE_TYPE.E55                        |
++----------------------------------------------------------+---------------------------------------+
+| TYPE_OF_DESIGNATION_OR_PROTECTION_AUTHORITY_DOCUMENT.csv | TYPE_OF_DESIGNATION_OR_PROTECTION.E55 |
++----------------------------------------------------------+---------------------------------------+
+| UNIT_OF_MEASUREMENT_AUTHORITY_DOCUMENT.csv               | UNIT_OF_MEASUREMENT.E55               |
++----------------------------------------------------------+---------------------------------------+
+| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_DISTRICT_USE_TYPE.E55        |
++----------------------------------------------------------+---------------------------------------+
+| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_RESOURCE_USE_TYPE.E55        |
++----------------------------------------------------------+---------------------------------------+
+
+
+More information on the entity types these authority documents describe can be found in `Appendix A <appendix.html#appendix-a>`_
+
+
