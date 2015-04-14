@@ -69,7 +69,7 @@ def home_page(request):
             'active_page': 'Search',
             'min_date': min_max_dates['val__min'].year if min_max_dates['val__min'] != None else 0,
             'max_date': min_max_dates['val__max'].year if min_max_dates['val__min'] != None else 1,
-            'formdata': JSONSerializer().serialize(data)
+            'timefilterdata': JSONSerializer().serialize(data)
         }, 
         context_instance=RequestContext(request))
 
