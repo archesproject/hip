@@ -48,7 +48,7 @@ The very first step to loading your cultural heritage data into Arches-HIP is to
 
 
 Step 1: Create and Load Controlled Vocabularies into Arches-HIP
-===============================================================
+---------------------------------------------------------------
 
 Start your data load with a review of Arches-HIP's default authority documents.  Navigate to ``/my_hip_app/my_hip_app/source_data/concepts/authority_files`` to view the set of authority files.  You'll want to review the default entries in each file before loading the authority files into Arches-HIP.
 
@@ -60,11 +60,11 @@ In some instances you may wish to modify the existing HIP authority files. You h
 
 
 Modifying HIP Authority Files
------------------------------
+=============================
 
 The following steps outline how to modify the authority documents before you load them into HIP. These steps can be followed using excel as your text editor but the final file must be saved as a UTF-8 formatted CSV file.
 
-Note: You can find a summary of authority documents, their format, and steps for modifying them at `Arches Documentation <http://arches3.readthedocs.org/en/latest/arches-data/#resource-graphs>`_ under the **Loading Reference Data** section
+Note: You can find a summary of authority documents, their format, and steps for modifying them at `Arches Documentation <http://arches3.readthedocs.org/en/latest/arches-data/#resource-graphs>`_ under the **Reference Data Graph** section
 
 The steps for modifying authority documents BEFORE you load them into Arches-HIP is:
 
@@ -77,13 +77,13 @@ The steps for modifying authority documents BEFORE you load them into Arches-HIP
 
 
 Modifying Authority Files using the Reference Data Manager
-----------------------------------------------------------
+==========================================================
 
 After you load authority files into Arches-HIP, you may use the Reference Data Manager to modify the terms in each controlled vocabulary.  
 
 
 Load Authority Files
---------------------
+====================
 
 To load authority documents, navigate to ``/my_hip_app`` and run the following command::
 	
@@ -96,7 +96,7 @@ During load the authority files go through a set of validations. If there are er
 
 
 Step 2: Creating and Loading Cultural Heritage Data into Arches-HIP
-===================================================================
+-------------------------------------------------------------------
 
 This section outlines how to create and load cultural heritage data into Arches-HIP. Arches-HIP allows you to load data from a ``.arches`` file or from a GIS (Geographic Information System) using a ``.shp`` file. 
 
@@ -106,13 +106,12 @@ If you would like to create and load your own Arches-HIP cultural heritage data 
 
 
 Creating Cultural Heritage Data
--------------------------------
+===============================
 
 The Arches-HIP resource graphs provide the skeleton of the ``.arches`` or ``.shp`` file you will create, the authority files define the acceptable values for certain attributes, and your own heritage data populates the nodes of the Arches-HIP resource graphs with unique data.
 
 
-Creating a ``.arches`` file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Creating a ``.arches`` file**
 
 For general directions on how to create a ``.arches`` file you'll want to refer to the 'Loading Business Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_. This section will review rules specific to creating a ``.arches`` file based on HIP graphs.
 
@@ -182,8 +181,7 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 
 
 
-Creating a ``.shp`` configuration file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Creating a ``.shp`` configuration file**
 
 .. note:: A few things to keep in mind before we begin
 
@@ -232,7 +230,7 @@ Creating a ``.shp`` configuration file
 
 
 Load Heritage Data Files
-------------------------
+========================
 
 To load cultural heritage data, navigate to ``/my_hip_app`` and run the following command::
 	
@@ -241,8 +239,7 @@ To load cultural heritage data, navigate to ``/my_hip_app`` and run the followin
 .. note:: This command works for both ``.arches`` and ``.shp`` files.
 
 
-Arches-HIP Data Validation
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Arches-HIP Data Validation**
 
 In addition to the validation that is performed on every ``.arches`` file from Arches, there is some specific HIP validation that a ``.arches`` file must pass as well. These validations are listed below:
 	
@@ -303,188 +300,8 @@ Once you have the correct Load ID, you can delete all of the resources created d
 	$ python manage.py packages -o remove_resources –load_id YOUR_LOADID
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 In order to use HIP three types of data must be loaded to the database: resource graphs, authority documents and cultural heritage data. Below we outline what data comes included with HIP, simple instructions on how this data can be modified and how to create your own cultural heritage data.
 
-Resource Graphs
-===============
 
-Included Graphs
----------------
-The HIP package includes the following six resource graphs for cataloging cultural heritage:
-
-	* Activity.E7
-	* Actor.E39
-	* Heritage Resource.E18
-	* Heritage Resource Group.E27
-	* Historical Event.E5
-	* Information Resource.E73
-
-An image of each graph can be found below, details about the graphs attributes can be found in `Appendix A <appendix.html#appendix-a>`_. Remember not all nodes shown in the graph collect data. To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
-
-Activity.E7
-~~~~~~~~~~~
-
-.. image :: activity.png
-
-
-Actor.E39
-~~~~~~~~~
-
-.. image :: actor.png
-
-
-Heritage Resource.E18
-~~~~~~~~~~~~~~~~~~~~~
-
-.. image :: heritage_resource.png
-
-
-Heritage Resource Group.E27
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. image :: heritage_resource_group.png
-
-
-Historical Event.E5
-~~~~~~~~~~~~~~~~~~~
-.. image :: historical_event.png
-
-
-Information Resource.E73
-~~~~~~~~~~~~~~~~~~~~~~~~
-.. image :: information_resource.png
-
-
-Authority Files
-===============
-
-All of the entity types above with a business table of 'domains' correspond to an authority file. For more information on authority files see the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
-
-Included Authority Files
-------------------------
-
-HIP comes with the following authority files included.
-
-+----------------------------------------------------------+---------------------------------------+
-| Authority Document                                       | Entity Type                           |
-+==========================================================+=======================================+
-| ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv                     | ACTIVITY_TYPE.E55                     |
-+----------------------------------------------------------+---------------------------------------+
-| ACTOR_TYPE_AUTHORITY_DOCUMENT.csv                        | ACTOR_TYPE.E55                        |
-+----------------------------------------------------------+---------------------------------------+
-| ADDRESS_TYPE_AUTHORITY_DOCUMENT.csv                      | ADDRESS_TYPE.E55                      |
-+----------------------------------------------------------+---------------------------------------+
-| ADMINISTRATIVE_SUBDIVISION_TYPE_AUTHORITY_DOCUMENT.csv   | ADMINISTRATIVE_SUBDIVISION_TYPE.E55   |
-+----------------------------------------------------------+---------------------------------------+
-| BEGINNING_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv       | BEGINNING_OF_EXISTENCE_TYPE.E55       |
-+----------------------------------------------------------+---------------------------------------+
-| COMPONENT_TYPE_AUTHORITY_DOCUMENT.csv                    | COMPONENT_TYPE.E55                    |
-+----------------------------------------------------------+---------------------------------------+
-| CONDITION_AUTHORITY_DOCUMENT.csv                         | CONDITION_TYPE.E55                    |
-+----------------------------------------------------------+---------------------------------------+
-| CONSTRUCTION_TECHNIQUE_AUTHORITY_DOCUMENT.csv            | CONSTRUCTION_TECHNIQUE.E55            |
-+----------------------------------------------------------+---------------------------------------+
-| CULTURAL_PERIOD_AUTHORITY_DOCUMENT.csv                   | CULTURAL_PERIOD.E55                   |
-+----------------------------------------------------------+---------------------------------------+
-| DESCRIPTION_TYPE_AUTHORITY_DOCUMENT.csv                  | DESCRIPTION_TYPE.E55                  |
-+----------------------------------------------------------+---------------------------------------+
-| DISTURBANCE_TYPE_AUTHORITY_DOCUMENT.csv                  | DISTURBANCE_TYPE.E55                  |
-+----------------------------------------------------------+---------------------------------------+
-| ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY DOCUMENT.csv      | ELIGIBILITY_REQUIREMENT_TYPE.E55      |
-+----------------------------------------------------------+---------------------------------------+
-| END_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv             | END_OF_EXISTENCE_TYPE.E55             |
-+----------------------------------------------------------+---------------------------------------+
-| EVALUATION_CRITERIA_TYPE_AUTHORITY_DOCUMENT.csv          | EVALUATION_CRITERIA_TYPE.E55          |
-+----------------------------------------------------------+---------------------------------------+
-| EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv                | EXTERNAL_XREF_TYPE.E55                |
-+----------------------------------------------------------+---------------------------------------+
-| GEOMETRY_QUALIFIER_AUTHORITY_DOCUMENT.csv                | GEOMETRY_QUALIFIER.E55                |
-+----------------------------------------------------------+---------------------------------------+
-| HERITAGE_RESOURCE_GROUP_TYPE_AUTHORITY_DOCUMENT.csv      | HERITAGE_RESOURCE_GROUP_TYPE.E55      |
-+----------------------------------------------------------+---------------------------------------+
-| HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv            | HERITAGE_RESOURCE_TYPE.E55            |
-+----------------------------------------------------------+---------------------------------------+
-| HISTORICAL_EVENT_TYPE_AUTHORITY_DOCUMENT.csv             | HISTORICAL_EVENT_TYPE.E55             |
-+----------------------------------------------------------+---------------------------------------+
-| IDENTIFIER_TYPE_AUTHORITY_DOCUMENT.csv                   | IDENTIFIER_TYPE.E55                   |
-+----------------------------------------------------------+---------------------------------------+
-| INFORMATION_CARRIER_FORMAT_AUTHORITY_DOCUMENT.csv        | INFORMATION_CARRIER_FORMAT_TYPE.E55   |
-+----------------------------------------------------------+---------------------------------------+
-| INFORMATION_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv         | INFORMATION_RESOURCE_TYPE.E55         |
-+----------------------------------------------------------+---------------------------------------+
-| INTEGRITY_TYPE_AUTHORITY_DOCUMENT.csv                    | INTEGRITY_TYPE.E55                    |
-+----------------------------------------------------------+---------------------------------------+
-| KEYWORD_AUTHORITY_DOCUMENT.csv                           | KEYWORD.E55                           |
-+----------------------------------------------------------+---------------------------------------+
-| LANGUAGE_AUTHORITY_DOCUMENT.csv                          | LANGUAGE.E55                          |
-+----------------------------------------------------------+---------------------------------------+
-| MATERIAL_AUTHORITY_DOCUMENT.csv                          | MATERIAL.E57                          |
-+----------------------------------------------------------+---------------------------------------+
-| MEASUREMENT_TYPE_AUTHORITY_DOCUMENT.csv                  | MEASUREMENT_TYPE.E55                  |
-+----------------------------------------------------------+---------------------------------------+
-| MODIFICATION_TYPE_AUTHORITY_DOCUMENT.csv                 | MODIFICATION_TYPE.E55                 |
-+----------------------------------------------------------+---------------------------------------+
-| NAME_TYPE_AUTHORITY_DOCUMENT.csv                         | NAME_TYPE.E55                         |
-+----------------------------------------------------------+---------------------------------------+
-| RECOMMENDATION_TYPE_AUTHORITY_DOCUMENT.csv               | RECOMMENDATION_TYPE.E55               |
-+----------------------------------------------------------+---------------------------------------+
-| RELATED_FEATURE_AUTHORITY_DOCUMENT.csv                   | ANCILLARY_FEATURE_TYPE.E55            |
-+----------------------------------------------------------+---------------------------------------+
-| RESOURCE_CLASSIFICATION_AUTHORITY_DOCUMENT.csv           | RESOURCE_TYPE_CLASSIFICATION.E55      |
-+----------------------------------------------------------+---------------------------------------+
-| RIGHT_TYPE_AUTHORITY_DOCUMENT.csv                        | RIGHT_TYPE.E55                        |
-+----------------------------------------------------------+---------------------------------------+
-| SETTING_TYPE_AUTHORITY_DOCUMENT.csv                      | SETTING_TYPE.E55                      |
-+----------------------------------------------------------+---------------------------------------+
-| STATUS_AUTHORITY_DOCUMENT.csv                            | STATUS.E55                            |
-+----------------------------------------------------------+---------------------------------------+
-| STYLE_AUTHORITY_DOCUMENT.csv                             | STYLE.E55                             |
-+----------------------------------------------------------+---------------------------------------+
-| THREAT_TYPE_AUTHORITY_DOCUMENT.csv                       | THREAT_TYPE.E55                       |
-+----------------------------------------------------------+---------------------------------------+
-| TITLE_TYPE_AUTHORITY_DOCUMENT.csv                        | TITLE_TYPE.E55                        |
-+----------------------------------------------------------+---------------------------------------+
-| TYPE_OF_DESIGNATION_OR_PROTECTION_AUTHORITY_DOCUMENT.csv | TYPE_OF_DESIGNATION_OR_PROTECTION.E55 |
-+----------------------------------------------------------+---------------------------------------+
-| UNIT_OF_MEASUREMENT_AUTHORITY_DOCUMENT.csv               | UNIT_OF_MEASUREMENT.E55               |
-+----------------------------------------------------------+---------------------------------------+
-| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_DISTRICT_USE_TYPE.E55        |
-+----------------------------------------------------------+---------------------------------------+
-| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_RESOURCE_USE_TYPE.E55        |
-+----------------------------------------------------------+---------------------------------------+
-
-
-If you chose the default install option, these authority files were automatically loaded to your concept scheme and can be edited using the RDM (more on that in 'Using Arches HIP'). More information on the entity types these authority documents describe can be found in `Appendix A <appendix.html#appendix-a>`_
-
-
-
-Modifying HIP Authority Files
------------------------------
-
-In some instances you may wish to modify the existing HIP authority files. The following steps outline how to modify these authority documents. These steps can be followed using excel as your text editor but the final file must be saved as a UTF-8 formatted CSV file.
-
-	#. If you have not already, download the sample HIP authority files (link to HIP sample files here) and place them in a known location (we recommend ``/my_hip_app/source_data/authority_files``) 
-	#. Navigate to your authority files directory. Open the file you wish to modify.
-	#. If you would like to edit an existing concept simply change the PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider for that concept as necessary. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
-	#. If you would like to add a concept, create a unique ``conceptid`` for the concept (remember this id must be unique both internal to the authority file and between authority files) and then add your desired PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider.
-	#. Make sure to review the guidelines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
-
-
-Cultural Heritage Data
-======================
 
 

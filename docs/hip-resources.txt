@@ -24,7 +24,6 @@ Arches-HIP implements one Graph for each resource type.  A key capability of Arc
 
 
 
-
 HIP Graphs
 ---------------
 You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <appendix.html#appendix-a>`_): 
