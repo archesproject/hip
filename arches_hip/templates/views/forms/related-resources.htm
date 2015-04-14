@@ -1,50 +1,227 @@
                             <!-- Overall Condition CRUD Form -->
 {% extends "views/forms/base.htm" %}
+{% load staticfiles %}
 {% load i18n %}
 
 {% block form_controls %}
     <span class="save-discard-controls" style="display:none;">
         {{ block.super }}
     </span>
-    <span class="">
+    <span class="start-workflow-controls">
         <span class="pull-right margin-top-minus-10">  
             <button class="btn btn-primary start-workflow-btn" style="display: inline-block;"> 
-                <i class="fa fa-plus"></i>&nbsp; Relate
+                <i class="fa fa-plus"></i>&nbsp; {% trans 'Relate' %}
             </button>
         </span>
     </span>
 {% endblock form_controls %}
 
 {% block form_content %}                                
-<div class="row margin-bottom-10">
-    <div class="col-xs-12">
+<div class="relation-list">
+    <div class="row margin-bottom-10">
+        <div class="col-xs-12">
 
-        <div class="padding-left-10">
-            
-            <dl style="margin-bottom: 0px;">
-                <dt>
-                    <h5 id="arches-names-form" class="section-headline">{% trans 'Related Resources' %}</h5>
-                </dt>
+            <div class="padding-left-10">
                 
-            </dl>
+                <dl style="margin-bottom: 0px;">
+                    <dt>
+                        <h5 id="arches-names-form" class="section-headline">{% trans 'Related Resources' %}</h5>
+                    </dt>
+                    
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-minus-5 margin-bottom-10" id="no-relationships" style="">
+        <div class="col-xs-12">
+
+            <div class="margin-left-5">
+                <dl class="margin-bottom-10"> 
+                    
+                    <dd class="margin-left-5">
+                        <div class="">
+                            <p class="arches-CRUD-child text-primary">{% trans 'This resource has no relationships yet' %}</p>
+                        </div>
+                    </dd>
+
+                </dl>
+            </div>
         </div>
     </div>
 </div>
+<div class="relation-form" style="display:none;">
 
-<div class="row margin-top-minus-5 margin-bottom-10" id="no-relationships" style="">
-    <div class="col-xs-12">
+    <!--=== Default Resource Summary ===-->
+    <div class="margin-bottom-50">
+        <div class="row" id="search-results" style="margin-left:0px; margin-right:0px;">
+           <!-- Results Header -->
+                    <h2 id="search-results-count"  class="text-muted margin-left-5" style="margin-bottom: 30px;margin-top:0px"><span data-bind="text: total()"></span> Results &nbsp;
 
-        <div class="margin-left-5">
-            <dl class="margin-bottom-10"> 
-                
-                <dd class="margin-left-5">
-                    <div class="">
-                        <p class="arches-CRUD-child text-primary">{% trans 'This resource has no relationships yet' %}</p>
+                        <span class="hidden-xs" style="margin-top: -5px;">  
+                            <button class="btn btn-success btn-xs" id="map-filter-button" style=""> 
+                                <i class="fa fa-map-marker"></i> {% trans 'Map filter' %}
+                            </button>
+
+                            <button class="btn btn-success btn-xs" id="attribute-filter-button" style=""> 
+                                <i class="fa fa-map-marker"></i> {% trans 'Attribute filter' %}
+                            </button>
+
+                            <button class="btn btn-success btn-xs" id="time-filter-button" style=""> 
+                                <i class="fa fa-clock-o"></i> {% trans 'Time filter' %}
+                            </button>
+                        </span>
+
+                    </h2>
+            <!-- Results Header -->      
+
+             <!-- Attribute  Filter -->
+            <div class="row margin-top-minus-20" style="margin-right: 0px;"> 
+                       
+                <!-- Search Widget -->
+                <div id="attribute" class="arches-time-filter" style="margin-right: 5px; display: none;">
+
+
+                    <!--=== Search Widget Block ===-->
+                    <div class="" style="padding-bottom: 10px; padding-top: 30px; margin-bottom: 10px;">
+                        
+                        <!-- Search Terms -->
+                        <div class="">
+                            <div class="row" style="margin-bottom: 5px;">
+                                  
+                                <!-- Search Widget -->
+                                <div class="col-xs-12">     
+                                    <input class="select2 resource_search_widget arches-select2" name="" style="width:100%" placeholder="{% trans "Search for a resource..." %}" value="">
+                                </div>
+                                <!-- End Search Widget -->
+
+                            </div>
+                        </div>
+                        <!-- End Search Terms -->  
+
+                    </div>    
+                    <!--=== End Search Widget Block ===-->
+
+                </div>
+                <!-- End Search Widget -->
+
+                <!-- spacer -->
+                <div class="" style="margin-bottom: 20px;"></div>
+
+            </div>
+            <!-- Attribute  Filter -->
+
+              
+            <div class="s-results margin-bottom-50">
+                <div class="row" id="map-filter-container" data-filtertext="{% trans "Map Filter Enabled" %}" style="margin-right: 20px;"> 
+                    {% include 'views/search/map-filter.htm' %}
+                </div>
+                <div class="row" id="time-filter-container" data-filtertext="{% trans "Time Filter Enabled" %}"> 
+                    {% include 'views/search/time-filter.htm' %}
+                </div>
+                <div class="row" id="search-results-container"> 
+                    <!-- Content -->              
+                    <div style="padding-top: 0px;">
+                        <div class="row" style="">
+                            <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-7 col-md-3 map-loading loading-mask" style="display: none;">
+                                                    
+                                <img src="{% static 'img/spinner.gif' %}" height="28" width="28" style="margin-top: 2px;">
+                                <p class="map-loading-text">Loading results...</p>
+                               
+                            </div>
+                        </div>
+
+                        <!-- Begin Search Results -->
+                        <div class="col-xs-12">
+                            
+                            <div id="search-results-list" data-bind="foreach: results, visible: true" style="display: none;">
+
+                                <!-- Begin Search Item  -->
+                                <div  class="arches-search-item" data-bind="attr: { 'data-resourceid': resourceid }">
+                                    
+                                    <!-- Spacer -->
+                                    <hr class="margin-10">
+
+                                    <div class="inner-results padding-left-5">
+
+                                        <!-- Item Header -->
+                                        <h4>
+                                            <a class="arches-search-title" style="" data-bind="text: primaryname, attr: { href: 'reports/' + resourceid }" target="_blank"></a> 
+                                            &nbsp;
+                                            <span class="">
+                                                <small class="arches-search-subtitle"><i data-bind="attr: { class: typeIcon }"></i><span data-bind="text: typeName"></span></small>
+                                            </span>
+                                        </h4>
+
+                                        <!-- Sub-header -->
+                                        <ul class="list-inline up-ul">
+                                            {% if user_can_edit == True %}
+                                            <li>
+                                                <i class="arches-search-link fa fa-pencil"></i>&nbsp;
+                                                <a href="" data-bind="attr: {'href': 'resources/' +  entitytypeid + '/summary/' + resourceid}"><span class="arches-search-link">{% trans "Edit" %}</span></a>
+                                            </li>
+                                            {% endif %}
+
+                                            <li>
+                                                <i class="arches-search-link fa fa-sitemap"></i>
+                                                <a href="javascript:void(0);" class="info-link related-resources-graph" data-bind="attr: {'data-resourceid': resourceid, 'data-primaryname': primaryname, 'data-entitytypeid': entitytypeid}"><span class="arches-search-link" data-bind="attr: {'data-resourceid': resourceid, 'data-primaryname': primaryname, 'data-entitytypeid': entitytypeid}">{% trans "Related Resources" %}</span></a>
+                                            </li>
+
+                                            <li data-bind="visible: geometries().length > 0" >
+                                                <i class="arches-search-link fa fa-map-marker"></i>
+                                                <a href="javascript:void(0);" data-bind="attr: { 'data-resourceid': resourceid, 'data-geometries': JSON.stringify(geometries()) }" class="info-link navigate-map"><span class="arches-search-link">{% trans "Map" %}</span></a>
+                                            </li>
+
+                                        </ul>
+                                        <!-- End Item Sub-Header -->
+
+                                        <!-- Item Description -->
+                                        <p data-bind="text:description" class="arches-search-item-description">
+                                        </p>
+                                        <!-- End Item Description -->
+
+                                        <!-- Item Creator/Editor -->
+                                        <!-- This list is hidden for guests, but shown if user is logged in with editor privileges -->
+                                        <ul class="list-inline down-ul margin-bottom-10 {% if user_can_edit != True %}hidden{% endif %}">
+                                           
+                                            <li class="text-muted">
+                                                Entered April 14, 2014 by <a href="javascript:void(0);" class="text-primary">adalgity@getty.edu</a>
+                                            </li>
+
+                                            <li class="text-muted" style="padding-left: 0px;">
+                                                Last Updated: June 1, 2014 by <a href="javascript:void(0);" class="text-primary">phil.carlisle@eh.com</a>
+                                            </li>
+                                        </ul> 
+                                        <!-- End Item Creator/Editor -->
+
+                                        <div class="svg arches-related-resource-panel" style="display: none;">
+                                            {% include 'views/related-resources-graph.htm' %}
+                                        </div>
+
+
+                                        <!-- Spacer -->
+                                        <hr class="margin-10 margin-top-20">
+
+                                    </div>
+                                </div>
+                                <!-- End Search Item -->
+                            </div>
+
+                            <div class="margin-bottom-30"></div>
+
+                            <!-- Pagination -->
+                            <div id="paginator" data-bind="html: paginator"></div>
+                            <!-- End Pagination -->  
+
+                        </div> 
+                        <!-- End Search Results -->
+                                                   
                     </div>
-                </dd>
-
-            </dl>
+                    <!-- End Content --> 
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 {% endblock form_content %}
