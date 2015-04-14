@@ -1060,3 +1060,19 @@ class EvaluationForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'EVALUATION_CRITERIA_ASSIGNMENT.E13')
                 }
             })
+
+class RelatedResourcesForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'related-resources',
+            'icon': 'fa-exchange',
+            'name': _('Related Resources'),
+            'class': RelatedResourcesForm
+        }
+
+    def update(self, data, files):
+        return
+
+    def load(self, lang):
+        return
