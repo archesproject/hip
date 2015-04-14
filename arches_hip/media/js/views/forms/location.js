@@ -1,11 +1,14 @@
 define([
     'jquery',
     'underscore',
+    'arches',
+    'knockout', 
+    'knockout-mapping', 
     'views/forms/base',
     'views/forms/sections/branch-list',
     'views/forms/sections/location-branch-list',
     'summernote'
-], function ($, _, BaseForm, BranchList, LocationBranchList) {
+], function ($, _, arches, ko, koMapping, BaseForm, BranchList, LocationBranchList) {
     return BaseForm.extend({
         initialize: function() {
             var self = this;
@@ -14,15 +17,83 @@ define([
             var includeSettings = !_.contains(['ACTOR.E39', 'ACTIVITY.E7', 'HERITAGE_RESOURCE_GROUP.E27', 'HISTORICAL_EVENT.E5'], resourcetypeid);
             var includeAdminAreas = (resourcetypeid !== 'ACTOR.E39');
             var includeParcels = !_.contains(['ACTOR.E39', 'ACTIVITY.E7', 'HISTORICAL_EVENT.E5'], resourcetypeid);
+            var adminAreaTypeLookup = {};
 
             BaseForm.prototype.initialize.apply(this);
 
+            _.each(this.data["ADMINISTRATIVE_SUBDIVISION.E48"].domains["ADMINISTRATIVE_SUBDIVISION_TYPE.E55"], function (typeRecord) {
+                adminAreaTypeLookup[typeRecord.text] = typeRecord.id;
+            });
+
+            if (includeAdminAreas) {
+                var adminAreaBranchList = new BranchList({
+                    el: this.$el.find('#admin-area-section')[0],
+                    data: this.data,
+                    dataKey: 'ADMINISTRATIVE_SUBDIVISION.E48'
+                });
+                this.addBranchList(adminAreaBranchList);
+            }
+
             if (includeMap) {
-                this.addBranchList(new LocationBranchList({
+                var locationBranchList = new LocationBranchList({
                     el: this.$el.find('#geom-list-section')[0],
                     data: this.data,
                     dataKey: 'SPATIAL_COORDINATES_GEOMETRY.E47'
-                }));
+                });
+                locationBranchList.on('geometrychange', function(feature, wkt) {
+                    $.ajax({
+                        url: arches.urls.get_admin_areas + '?geom=' + wkt,
+                        success: function (response) {
+                            _.each(response.results, function(item) {
+                                var duplicate = false;
+                                _.each(adminAreaBranchList.viewModel.branch_lists(), function(branch) {
+                                    var sameName = false;
+                                    var sameType = false;
+                                    _.each(branch.nodes(), function (node) {
+                                        if (node.entitytypeid() === "ADMINISTRATIVE_SUBDIVISION_TYPE.E55" &&
+                                            node.label() === item.overlaytype) {
+                                            sameType = true;
+                                        }
+                                        if (node.entitytypeid() === "ADMINISTRATIVE_SUBDIVISION.E48" &&
+                                            node.value() === item.overlayvalue) {
+                                            sameName = true;
+                                        }
+                                    });
+                                    if (sameName && sameType) {
+                                        duplicate = true;
+                                    }
+                                });
+                                // adminAreaBranchList.viewModel.branch_lists
+                                if (adminAreaTypeLookup[item.overlaytype] && !duplicate) {
+                                    adminAreaBranchList.viewModel.branch_lists.push(koMapping.fromJS({
+                                        'editing':ko.observable(false),
+                                        'nodes': ko.observableArray([
+                                            koMapping.fromJS({
+                                              "property": "",
+                                              "entitytypeid": "ADMINISTRATIVE_SUBDIVISION_TYPE.E55",
+                                              "entityid": "",
+                                              "value": adminAreaTypeLookup[item.overlaytype],
+                                              "label": item.overlaytype,
+                                              "businesstablename": "",
+                                              "child_entities": []
+                                            }),
+                                            koMapping.fromJS({
+                                              "property": "",
+                                              "entitytypeid": "ADMINISTRATIVE_SUBDIVISION.E48",
+                                              "entityid": "",
+                                              "value": item.overlayvalue,
+                                              "label": "",
+                                              "businesstablename": "",
+                                              "child_entities": []
+                                            })
+                                        ])
+                                    }));
+                                }
+                            });
+                        }
+                    })
+                });
+                this.addBranchList(locationBranchList);
             }
 
             if (includeSettings) {
@@ -30,14 +101,6 @@ define([
                     el: this.$el.find('#setting-section')[0],
                     data: this.data,
                     dataKey: 'SETTING_TYPE.E55'
-                }));
-            }
-
-            if (includeAdminAreas) {
-                this.addBranchList(new BranchList({
-                    el: this.$el.find('#admin-area-section')[0],
-                    data: this.data,
-                    dataKey: 'ADMINISTRATIVE_SUBDIVISION.E48'
                 }));
             }
 

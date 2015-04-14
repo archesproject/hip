@@ -44,10 +44,19 @@ class Resource(ArchesResource):
                     forms.ConditionForm.get_info(),
                     forms.EvaluationForm.get_info(),
                     forms.RelatedFilesForm.get_info(),
-                    forms.ExternalReferenceForm.get_info(),
-                    forms.DesignationForm.get_info()
+                    forms.RelatedResourcesForm.get_info(),
+                    forms.ExternalReferenceForm.get_info()
                 ]   
-            })   
+            })
+            self.form_groups.append({
+                'id': 'evaluate-resource',
+                'icon':'fa-dashboard',
+                'name': _('Evaluate Resource'),
+                'forms': [
+                    forms.DesignationForm.get_info(),
+                    forms.EvaluationForm.get_info()
+                ]   
+            })
 
         if self.entitytypeid == 'HERITAGE_RESOURCE_GROUP.E27':
             self.form_groups.append({

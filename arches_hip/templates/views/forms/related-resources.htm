@@ -1,0 +1,50 @@
+                            <!-- Overall Condition CRUD Form -->
+{% extends "views/forms/base.htm" %}
+{% load i18n %}
+
+{% block form_controls %}
+    <span class="save-discard-controls" style="display:none;">
+        {{ block.super }}
+    </span>
+    <span class="">
+        <span class="pull-right margin-top-minus-10">  
+            <button class="btn btn-primary start-workflow-btn" style="display: inline-block;"> 
+                <i class="fa fa-plus"></i>&nbsp; Relate
+            </button>
+        </span>
+    </span>
+{% endblock form_controls %}
+
+{% block form_content %}                                
+<div class="row margin-bottom-10">
+    <div class="col-xs-12">
+
+        <div class="padding-left-10">
+            
+            <dl style="margin-bottom: 0px;">
+                <dt>
+                    <h5 id="arches-names-form" class="section-headline">{% trans 'Related Resources' %}</h5>
+                </dt>
+                
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="row margin-top-minus-5 margin-bottom-10" id="no-relationships" style="">
+    <div class="col-xs-12">
+
+        <div class="margin-left-5">
+            <dl class="margin-bottom-10"> 
+                
+                <dd class="margin-left-5">
+                    <div class="">
+                        <p class="arches-CRUD-child text-primary">{% trans 'This resource has no relationships yet' %}</p>
+                    </div>
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+{% endblock form_content %}
