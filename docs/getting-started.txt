@@ -70,34 +70,54 @@ These instructions will provide some guidance on installing
 the required dependencies and getting HIP up and running quickly.
 
 
-.. toctree::
-   :maxdepth: 1
 
-   installing-dependencies-linux
-   installing-dependencies-windows
+    `installing-dependencies-linux <http://arches3.readthedocs.org/en/latest/>`_
+    `installing-dependencies-windows <http://arches3.readthedocs.org/en/latest/>`_  
 
 
-Installation
-============
-
+**Note** 
 For the installation process you will need **pip** installed on your system. If you don't already have it, you can find instructions to install it here: https://pip.pypa.io/en/latest/installing.html
 
-Generally Arches applications (in the case below 'my_hip_app') are installed in a project directory (in the case below 'Projects'). A virtual environment ('ENV') is created at the same directory as your arches application, so if you have multiple arches applications, they can share the same virtual environment.::
+
+Installating Arches-HIP
+=======================
+
+These installation instructions will guide you through the installation and configuration proceess for the Arches-HIP application.  When we're done, you'll have the following folders on your system:: 
 
     /Projects
-      /ENV (virtual environment where arches gets installed)
+      /ENV
       /my_hip_app
+
+
+The **/ENV** folder is where the Arches framework and the Arches-HIP applications will be installed
+
+The **/my_hip_app** folder is a folder that will hold your custom settings for the HIP.  
+
+Custom settings include such things as the text and logos on the HIP home page, your map settings, and other information needed to ensure that the HIP meets your specific requirements.
+
 
 With your Arches dependencies installed, you are now ready to install HIP. 
 
-#.  Install virtualenv and create your Python virtual environment::
+
+#1.  Create an Arches folder
+
+    Create a folder called 'Projects' (or any other name that you prefer) on your computer.
+
+
+
+#2.  Install virtualenv
+    Open a command promot and type::
 
         $ pip install virtualenv
 
     .. note::
         Using apt-get to install virtualenv will install an older version that will result in errors in your Arches installation. Be sure to use pip for your virtualenv installation.
 
-    virtualenv creates a directory with it's own installation of Python and Python executables. Arches will be installed within this virtual environment. To do so, navigate to your Projects directory (or wherever you want to create your arches applications) and create your virtual environment with the following command::
+    virtualenv creates a directory with it's own installation of Python and Python executables. 
+
+
+#3. Create a virtual environment
+Arches and Arches-HIP will be installed within a virtual environment. To do so, navigate to your Projects directory (or wherever you created your Arches root folder) and create your virtual environment with the following command::
 
         $ virtualenv ENV
 
@@ -109,17 +129,17 @@ With your Arches dependencies installed, you are now ready to install HIP.
 
         On Windows::
 
-            > \path\to\ENV\Scripts\activate
+            > \path to 'Projects'\ENV\Scripts\activate
 
-#.  Install the arches_hip module
+#4.  Install the arches_hip module
 
     For this step your virtual environment must be activated. You will know that's the case if you see the name of your virtual environment in parentheses proceeding your command prompt like so ``(ENV)``::
 
         (ENV)$ pip install arches_hip
 
-#.  Create the HIP application scaffolding:
+#5.  Create the folder for your HIP customizations:
 
-    In your Projects directory run the following command replacing 'my_hip_app' with the name of your arches application::
+    Navigate to the **Projects** directory run the following command replacing 'my_hip_app' with the name you want to use for your version of Arches-HIP.  For example, the City of Los Angeles customization of the HIP is called 'HistoricPlacesLA' ::
 
         (ENV)$ arches-app create my_hip_app --app arches_hip
 
@@ -128,7 +148,7 @@ With your Arches dependencies installed, you are now ready to install HIP.
 
             (ENV)> python path\to\ENV\Scripts\arches-app create my_hip_app --app arches_hip
 
-#.  Install ElasticSearch
+#6.  Install ElasticSearch
 
     Navigate to the directory containing ``manage.py``::
 

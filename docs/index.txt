@@ -9,6 +9,7 @@ Contents:
 
    overview
    getting-started
+   hip-resources 
    loading-data
    using-arches-hip
    system-administration

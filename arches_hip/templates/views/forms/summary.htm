@@ -270,16 +270,16 @@
                 <dl>
                     <!-- Title -->
                     <dt>
-                        <h5 id="arches-subjects-form" class="section-headline">{% trans "Subjects" %}</h5>
+                        <h5 id="arches-subjects-form" class="section-headline">{% trans "Keywords" %}</h5>
                     </dt>
 
                     <!-- Form -->
                     <dd>
                         <div class="row">
                             <div class="col-xs-12">
-                                <input style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type hidden-xs" id="keyword-dropdown" data-bind="select2: {value: getEditedNode('KEYWORD.E55', 'value'), placeholder: 'Subject', dataKey: 'KEYWORD.E55'}"></input>
+                                <input style="width:80%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type hidden-xs" id="keyword-dropdown" data-bind="select2: {value: getEditedNode('KEYWORD.E55', 'value'), placeholder: 'Keyword', dataKey: 'KEYWORD.E55'}"></input>
 
-                                <input style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type  hidden-sm hidden-md hidden-lg" id="keyword-dropdown" data-bind="select2: {value: getEditedNode('KEYWORD.E55', 'value'), placeholder: 'Subject', dataKey: 'KEYWORD.E55'}"></input>
+                                <input style="width:100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form resource-type  hidden-sm hidden-md hidden-lg" id="keyword-dropdown" data-bind="select2: {value: getEditedNode('KEYWORD.E55', 'value'), placeholder: 'Keyword', dataKey: 'KEYWORD.E55'}"></input>
 
                                 <!-- Spacer (for xs screens) -->
                                 <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>
@@ -289,7 +289,7 @@
                         </div>
                     </dd>
                     <!-- End Form -->
-                    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "The subject must be populated." %}</div>
+                    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "The keyword must be populated." %}</div>
                 </dl>
 
             </div>
@@ -305,15 +305,15 @@
             <div class="arches-crud-child-section">
                 <dl>
                     <dd class="arches-CRUD-child-title">
-                        {% trans "These subjects are associated with this resource:" %}
+                        {% trans "These keywords are associated with this resource:" %}
                     </dd>
                     <dd class="margin-left-5" style="display: none;" data-bind="visible: true">
-                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Subjects Defined" %}</div>   
+                        <div data-bind="visible: getBranchLists().length == 0" class="txt-color-blue">{% trans "No Keywords Defined" %}</div>   
                         
                         <div data-bind='foreach: getBranchLists()'>
                             <div class="arches-crud-record">
-                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this subject"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this subject" %}"><span data-bind='{text: nodes.get("KEYWORD.E55", "label")}' style="padding-right:2px;"></span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this keyword"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this keyword" %}"><span data-bind='{text: nodes.get("KEYWORD.E55", "label")}' style="padding-right:2px;"></span>
                                 </a>
                             </div>
                         </div>
