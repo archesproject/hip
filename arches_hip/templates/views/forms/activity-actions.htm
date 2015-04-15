@@ -29,19 +29,19 @@
                                         
                                         <!-- Period and From/To Dates -->
                                         <div>
-                                            <div style="width:30%;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('ACTIVITY_TYPE.E55', 'value'), placeholder: '{% trans "start action" %}', multiple: false, dataKey: 'ACTIVITY_TYPE.E55'}">
+                                            <div style="width:30%;" class="select2 arches-select2-crud-form resource-type" id="period-dropdown" data-bind="select2: {value: getEditedNode('ACTIVITY_TYPE.E55', 'value'), placeholder: '{% trans "activity type" %}', multiple: false, dataKey: 'ACTIVITY_TYPE.E55'}">
                                             </div>&nbsp;
                                         
                                             <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
                                                 <div class="input-group datetimepicker" style ="width:100%;" >
-                                                    <input type="text" id="action_to_date" style="height: 32px;" placeholder="{% trans 'start date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                                    <input type="text" id="action_to_date" style="height: 32px;" placeholder="{% trans 'start (yyyy-mm-dd)' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>&nbsp;
 
                                             <div class="form-group" style="padding-left: 0px; padding-right: 0px; width: 25%;">
                                                 <div class="input-group datetimepicker" style ="width:100%;" >
-                                                    <input type="text" id="action_from_date" style="height: 32px;" placeholder="{% trans 'end date' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                                    <input type="text" id="action_from_date" style="height: 32px;" placeholder="{% trans 'end (yyyy-mm-dd)' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
