@@ -38,6 +38,8 @@ class Resource(ArchesResource):
             ]   
         }
 
+        self.form_groups.append(description_group)
+
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
             description_group['forms'][:0] = [
                 forms.SummaryForm.get_info(), 
@@ -51,7 +53,6 @@ class Resource(ArchesResource):
                 forms.RelatedFilesForm.get_info(),
             ]
 
-            self.form_groups.append(description_group)
             self.form_groups.append({
                 'id': 'evaluate-resource',
                 'icon':'fa-dashboard',
@@ -74,7 +75,6 @@ class Resource(ArchesResource):
                 forms.DesignationForm.get_info(),
             ]
 
-            self.form_groups.append(description_group)
 
         elif self.entitytypeid == 'ACTIVITY.E7':
             description_group['forms'][:0] = [
@@ -83,8 +83,7 @@ class Resource(ArchesResource):
                 forms.LocationForm.get_info(),
                 forms.ActivityActionsForm.get_info(),
             ]
-
-            self.form_groups.append(description_group)     
+     
 
         elif self.entitytypeid == 'ACTOR.E39':
             description_group['forms'][:0] = [
@@ -94,7 +93,6 @@ class Resource(ArchesResource):
                 forms.RoleForm.get_info(),
             ]
 
-            self.form_groups.append(description_group)
 
         elif self.entitytypeid == 'HISTORICAL_EVENT.E5':
             description_group['forms'][:0] = [
@@ -104,7 +102,6 @@ class Resource(ArchesResource):
                 forms.PhaseForm.get_info(),
             ]
 
-            self.form_groups.append(description_group)
 
         elif self.entitytypeid == 'INFORMATION_RESOURCE.E73':
             description_group['forms'][:0] = [
@@ -114,7 +111,7 @@ class Resource(ArchesResource):
             ]
             description_group['forms'].append(forms.FileUploadForm.get_info())
 
-            self.form_groups.append(description_group)
+            
 
         if self.entityid != '':
             self.form_groups.append({
