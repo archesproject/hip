@@ -28,109 +28,93 @@ from django.utils.translation import ugettext as _
 class Resource(ArchesResource):
     def __init__(self, *args, **kwargs):
         super(Resource, self).__init__(*args, **kwargs)
+        description_group = {
+            'id': 'resource-description',
+            'icon':'fa-folder',
+            'name': _('Resource Description'),
+            'forms': [
+                forms.RelatedResourcesForm.get_info(),
+                forms.ExternalReferenceForm.get_info()
+            ]   
+        }
 
         if self.entitytypeid == 'HERITAGE_RESOURCE.E18':
-            self.form_groups.append({
-                'id': 'resource-description',
-                'icon':'fa-folder',
-                'name': _('Resource Description'),
-                'forms': [
-                    forms.SummaryForm.get_info(), 
-                    forms.DescriptionForm.get_info(),
-                    forms.LocationForm.get_info(),
-                    forms.ClassificationForm.get_info(),
-                    forms.ComponentForm.get_info(),
-                    forms.MeasurementForm.get_info(),
-                    forms.ConditionForm.get_info(),
-                    forms.EvaluationForm.get_info(),
-                    forms.RelatedFilesForm.get_info(),
-                    forms.RelatedResourcesForm.get_info(),
-                    forms.ExternalReferenceForm.get_info()
-                ]   
-            })
+            description_group['forms'][:0] = [
+                forms.SummaryForm.get_info(), 
+                forms.DescriptionForm.get_info(),
+                forms.LocationForm.get_info(),
+                forms.ClassificationForm.get_info(),
+                forms.ComponentForm.get_info(),
+                forms.MeasurementForm.get_info(),
+                forms.ConditionForm.get_info(),
+                forms.EvaluationForm.get_info(),
+                forms.RelatedFilesForm.get_info(),
+            ]
+
+            self.form_groups.append(description_group)
             self.form_groups.append({
                 'id': 'evaluate-resource',
                 'icon':'fa-dashboard',
                 'name': _('Evaluate Resource'),
                 'forms': [
                     forms.DesignationForm.get_info(),
-                    forms.EvaluationForm.get_info()
+                    forms.EvaluationForm.get_info(),
                 ]   
             })
 
-        if self.entitytypeid == 'HERITAGE_RESOURCE_GROUP.E27':
-            self.form_groups.append({
-                'id': 'resource-description',
-                'icon':'fa-folder',
-                'name': _('Resource Description'),
-                'forms': [
-                    forms.SummaryForm.get_info(),
-                    forms.DescriptionForm.get_info(),
-                    forms.LocationForm.get_info(),
-                    # forms.ClassificationForm.get_info(),
-                    forms.MeasurementForm.get_info(),
-                    forms.ConditionForm.get_info(),
-                    forms.EvaluationForm.get_info(),
-                    forms.DesignationForm.get_info(),
-                    forms.ExternalReferenceForm.get_info()
-                ]   
-            }) 
+        elif self.entitytypeid == 'HERITAGE_RESOURCE_GROUP.E27':
+            description_group['forms'][:0] = [
+                forms.SummaryForm.get_info(),
+                forms.DescriptionForm.get_info(),
+                forms.LocationForm.get_info(),
+                # forms.ClassificationForm.get_info(),
+                forms.MeasurementForm.get_info(),
+                forms.ConditionForm.get_info(),
+                forms.EvaluationForm.get_info(),
+                forms.DesignationForm.get_info(),
+            ]
+
+            self.form_groups.append(description_group)
 
         elif self.entitytypeid == 'ACTIVITY.E7':
-            self.form_groups.append({
-                'id': 'resource-description',
-                'icon':'fa-folder',
-                'name': _('Resource Description'),
-                'forms': [
-                    forms.ActivitySummaryForm.get_info(),
-                    forms.DescriptionForm.get_info(),
-                    forms.LocationForm.get_info(),
-                    forms.ActivityActionsForm.get_info(),
-                    forms.ExternalReferenceForm.get_info()
-                ]
-            })         
+            description_group['forms'][:0] = [
+                forms.ActivitySummaryForm.get_info(),
+                forms.DescriptionForm.get_info(),
+                forms.LocationForm.get_info(),
+                forms.ActivityActionsForm.get_info(),
+            ]
+
+            self.form_groups.append(description_group)     
 
         elif self.entitytypeid == 'ACTOR.E39':
-            self.form_groups.append({
-                'id': 'resource-description',
-                'icon':'fa-folder',
-                'name': _('Resource Description'),
-                'forms': [
-                    forms.ActorSummaryForm.get_info(), 
-                    forms.DescriptionForm.get_info(),
-                    forms.LocationForm.get_info(),
-                    forms.RoleForm.get_info(),
-                    forms.ExternalReferenceForm.get_info()
-                ]
-            })  
+            description_group['forms'][:0] = [
+                forms.ActorSummaryForm.get_info(), 
+                forms.DescriptionForm.get_info(),
+                forms.LocationForm.get_info(),
+                forms.RoleForm.get_info(),
+            ]
+
+            self.form_groups.append(description_group)
 
         elif self.entitytypeid == 'HISTORICAL_EVENT.E5':
-            self.form_groups.append({
-                'id': 'resource-description',
-                'icon':'fa-folder',
-                'name': _('Resource Description'),
-                'forms': [
-                    forms.HistoricalEventSummaryForm.get_info(),
-                    forms.DescriptionForm.get_info(),
-                    forms.LocationForm.get_info(), 
-                    forms.PhaseForm.get_info(),
-                    forms.ExternalReferenceForm.get_info()
-                ]
-            }) 
+            description_group['forms'][:0] = [
+                forms.HistoricalEventSummaryForm.get_info(),
+                forms.DescriptionForm.get_info(),
+                forms.LocationForm.get_info(), 
+                forms.PhaseForm.get_info(),
+            ]
+
+            self.form_groups.append(description_group)
 
         elif self.entitytypeid == 'INFORMATION_RESOURCE.E73':
-            self.form_groups.append({
-                'id': 'resource-description',
-                'icon':'fa-folder',
-                'name': _('Resource Description'),
-                'forms': [
-                    forms.InformationResourceSummaryForm.get_info(), 
-                    forms.CoverageForm.get_info(),
-                    forms.DescriptionForm.get_info(),
-                    forms.ExternalReferenceForm.get_info(),
-                    forms.FileUploadForm.get_info()
-                ]
-            })  
+            description_group['forms'][:0] = [
+                forms.InformationResourceSummaryForm.get_info(), 
+                forms.CoverageForm.get_info(),
+                forms.DescriptionForm.get_info(),
+            ]
+            description_group['forms'].append(forms.FileUploadForm.get_info())
+
+            self.form_groups.append(description_group)
 
         if self.entityid != '':
             self.form_groups.append({
