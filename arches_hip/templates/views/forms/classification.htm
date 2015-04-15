@@ -3,44 +3,6 @@
 
 {% block form_content %}
 
-<style type="text/css">
-
-    .cultural-period {
-        width:35%; 
-        padding-right:15px;
-    }
-
-    .from-date {
-        padding-left: 0px;
-        padding-right: 0px;
-        width: 30%;
-    }
-
-    .to-date {
-        padding-left: 0px;
-        padding-right: 0px;
-        width: 30%;
-    }
-
-    @media only screen and (max-width: 800px) {
-        .cultural-period {
-            width: 100%; 
-            padding-right:15px;
-            margin-top: -5px;
-        }
-        .from-date {
-            padding-top: 10px;
-            padding-right: 15px;
-            width: 100%;
-        }
-        .to-date {
-            margin-top: -5px;
-            padding-right: 15px;
-            width: 100%;
-        }
-    }
-
-</style>
 
 <div>
     <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "A type and date must be specified." %}</div>
@@ -168,13 +130,13 @@
                                                     <dl class="">   
 
                                                         <dd class="" style="margin-bottom:5px">
-                                                            <div class="row">
+                                                            <div class="row" style="margin-bottom: 10px;">
 
                                                                 <!-- Classification and dates -->
                                                                 <div id="resource-type-section" class="col-xs-12 col-sm-6">
                                                                                
                                                                     <div style="padding-right: 0px; padding-left: 0px;">
-                                                                        <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}">
+                                                                        <input style="width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_TYPE.E55', 'value'), placeholder: '{% trans "type" %}', dataKey: 'HERITAGE_RESOURCE_TYPE.E55'}">
                                                                         </input>
 
                                                                     </div>
@@ -185,7 +147,7 @@
                                                                 <div id="resource-use-section" class="col-xs-12 col-sm-6">
                                                                                
                                                                     <div style="padding-right: 0px; padding-left: 0px;">
-                                                                            <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}',  dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}">
+                                                                            <input style="width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('HERITAGE_RESOURCE_USE_TYPE.E55', 'value'), placeholder: '{% trans "use" %}',  dataKey: 'HERITAGE_RESOURCE_USE_TYPE.E55'}">
                                                                             </input>
                                                                         </div>
                                                                         <!-- Spacer for xs screens -->
@@ -197,29 +159,44 @@
                                                         </dd>
 
                                                         <dd class="">
-                                                            <div class="row">
+                                                            <div class="row" style="margin-bottom: 10px;">
                                                                 <!-- Classification and dates -->
-                                                                <div style="margin-left: 15px;">
-
-                                                                    <div  id="period-section" class="select2 arches-select2-crud-form resource-type cultural-period" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}">
-                                                                    </div>
+                                                                <div style="">
                                                                 
-                                                                    <div  id="from-date-section" class="form-group from-date">
+                                                                    <div id="from-date-section" class="col-xs-12 col-sm-6">
                                                                         <div class="input-group datetimepicker" style ="width:100%;" >
-                                                                            <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'from' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
+                                                                            <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'from (yyyy-mm-dd)' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('FROM_DATE.E49', 'value')} ">
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                         </div>
+
+                                                                        <div class="hidden-sm hidden-md hidden-lg" style="margin-bottom: 5px;">
+                                                                        </div>
+
                                                                     </div>
 
-                                                                    <div id="to-date-section" class="form-group to-date">
+                                                                    
+
+                                                                    <div id="to-date-section" class="col-xs-12 col-sm-6">
                                                                         <div class="input-group datetimepicker" style ="width:100%;" >
-                                                                            <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'to' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
+                                                                            <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'to (yyyy-mm-dd)' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('TO_DATE.E49', 'value')} ">
                                                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                         </div>
                                                                     </div>
 
                                                                 </div>
 
+                                                            </div>
+                                                        </dd>
+
+                                                        <dd class="">
+                                                            <div class="row">
+                                                                <div class="col-xs-12 col-sm-6">
+
+                                                                    <div id="period-section" class="select2 arches-select2-crud-form resource-type" style="width: 100%" data-bind="select2: {value: getEditedNode('CULTURAL_PERIOD.E55', 'value'), placeholder: '{% trans "period" %}', multiple: false, dataKey: 'CULTURAL_PERIOD.E55'}">
+                                                                    </div>
+
+
+                                                                </div>
                                                             </div>
                                                         </dd>
 
