@@ -1072,7 +1072,9 @@ class RelatedResourcesForm(ResourceForm):
         }
 
     def update(self, data, files):
+
         return
 
     def load(self, lang):
+        # self.data['relations'] = self.resource.get_related_resources()
         return
