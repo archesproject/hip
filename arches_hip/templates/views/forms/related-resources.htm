@@ -4,13 +4,43 @@
 {% load i18n %}
 
 {% block form_controls %}
-    <span class="save-discard-controls" style="display:none;">
-        {{ block.super }}
-    </span>
-    <span class="start-workflow-controls">
-        <span class="pull-right margin-top-minus-10">  
+    <!-- Save/Discard Buttons for small, medium and large screens -->
+    <span class="pull-right margin-top-minus-10 hidden-xs">
+        <button type="button" class="cancel-edits btn btn-danger disabled"> 
+            <i class="fa fa-times"></i>&nbsp; {% trans 'Discard edits' %}
+        </button>
+        <button type="submit" class="save-edits btn btn-success disabled"> 
+            <i class="fa fa-check"></i>&nbsp; {% trans 'Save edits' %}
+        </button>
+        <span class="start-workflow-controls">
             <button class="btn btn-primary start-workflow-btn" style="display: inline-block;"> 
-                <i class="fa fa-plus"></i>&nbsp; {% trans 'Relate' %}
+                <i class="fa fa-plus"></i>&nbsp; {% trans 'Find Resources' %}
+            </button>
+        </span>
+        <span class="show-relationships-controls" style="display:none;">
+            <button class="btn btn-primary start-workflow-btn" style="display: inline-block;"> 
+                <i class="fa fa-exchange"></i>&nbsp; {% trans 'Show Relationships' %}
+            </button>
+        </span>
+    </span>
+
+    <!-- Save/Discard Buttons for xs screens -->
+    <span class="hidden-sm hidden-md hidden-lg">
+        </br>
+        <button type="button" class="cancel-edits btn btn-danger disabled"> 
+            <i class="fa fa-times"></i>&nbsp; {% trans 'Discard edits' %}
+        </button>
+        <button type="submit" class="save-edits btn btn-success disabled"> 
+            <i class="fa fa-check"></i>&nbsp; {% trans 'Save edits' %}
+        </button>
+        <span class="start-workflow-controls">
+            <button class="btn btn-primary start-workflow-btn" style="display: inline-block;"> 
+                <i class="fa fa-plus"></i>&nbsp; {% trans 'Find Resources' %}
+            </button>
+        </span>
+        <span class="show-relationships-controls" style="display:none;">
+            <button class="btn btn-primary start-workflow-btn" style="display: inline-block;"> 
+                <i class="fa fa-exchange"></i>&nbsp; {% trans 'Show Relationships' %}
             </button>
         </span>
     </span>
@@ -27,6 +57,75 @@
                     <dt>
                         <h5 id="arches-names-form" class="section-headline">{% trans 'Related Resources' %}</h5>
                     </dt>
+
+                     <!-- Form -->
+                    <dd class="arches-RDM-labels" data-bind="if: getEditedBranch()">
+
+                        <div class="row" data-bind="visible: true" style="display:none;">
+
+                            <div class="col-xs-12">
+
+                                <!-- Form for screens > xs -->
+                                <form class="form-inline hidden-xs" role="form">
+                                    <div class="form-group" style="width: 100%">
+
+                                        <h4>
+                                            <span class="arches-search-title" data-bind="text: getEditedBranch().relatedresourcename"></span>
+                                            <span>
+                                                <small class="arches-search-subtitle">
+                                                    <i data-bind="attr: { class: getEditedBranchTypeInfo().icon }"></i>
+                                                    <span data-bind="text: getEditedBranchTypeInfo().name"></span>
+                                                </small>
+                                            </span>
+                                        </h4>
+
+                                        <input style="width:80%; display: inline-block;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-measurement-unit" data-bind="select2: {value: getEditedBranch().relationship.relationshiptype, placeholder: 'Type', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
+
+                                        <!-- Spacer (for xs screens) -->
+                                        <div class="margin-top-5 hidden-sm hidden-md hidden-lg"></div>                                    
+
+                                        {% include 'views/components/add-item-button.htm' %}
+
+                                        <div class="row" style="margin-top: 10px;margin-bottom: 10px;padding-right: 162px;">
+                                            <!-- Classification and dates -->
+                                            <div style="">
+                                            
+                                                <div id="from-date-section" class="col-xs-12 col-sm-6">
+                                                    <div class="input-group datetimepicker" style ="width:100%;" >
+                                                        <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'from (yyyy-mm-dd)' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedBranch().relationship.datestarted, datePicker: true} ">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+
+                                                    <div class="hidden-sm hidden-md hidden-lg" style="margin-bottom: 5px;">
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div id="to-date-section" class="col-xs-12 col-sm-6">
+                                                    <div class="input-group datetimepicker" style ="width:100%;" >
+                                                        <input type="text" id="date" style="height: 32px;" placeholder="{% trans 'to (yyyy-mm-dd)' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedBranch().relationship.dateended, datePicker: true} ">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Simple HTML Editor -->
+                                        <div class="arches-html-editor margin-top-5" style="width: 80%;">
+                                            <div class="summernote" data-bind="summernote: {value: getEditedBranch().relationship.notes, options:{}}"></div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form for screens > xs -->
+                            </div>
+                        </div>
+                    </dd>
+                    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "All values must be populated." %}</div>
                     
                 </dl>
             </div>
@@ -36,12 +135,40 @@
     <div class="row margin-top-minus-5 margin-bottom-10" id="no-relationships" style="">
         <div class="col-xs-12">
 
-            <div class="margin-left-5">
+            <div class="margin-left-5" data-bind="visible: true" style="display:none;">
                 <dl class="margin-bottom-10"> 
                     
                     <dd class="margin-left-5">
-                        <div class="">
+                        <div data-bind="visible: getBranchLists().length == 0">
                             <p class="arches-CRUD-child text-primary">{% trans 'This resource has no relationships yet' %}</p>
+                        </div>
+
+                        <div data-bind='foreach: getBranchLists()'>
+                            <div data-bind='if: relationship'>
+                                <div class="arches-crud-record">
+                                    <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this relationship"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
+                                    <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this relationship" %}">
+                                        <strong data-bind='text: relationshiptypelabel'></strong>
+                                        <span data-bind='text: relatedresourcename'></span>
+                                    </a>
+                                </div>
+                                <div class="related-resource-details">
+                                    <div data-bind='visible: relationship.datestarted'>
+                                        <strong>From:</strong>
+                                        <span data-bind='text: relationship.datestarted'></span>
+                                    </div>
+                                    <div data-bind='visible: relationship.dateended'>
+                                        <strong>To:</strong>
+                                        <span data-bind='text: relationship.dateended'></span>
+                                    </div>
+                                    <div data-bind='visible: relationship.notes'>
+                                        <strong>Notes:</strong>
+                                    </div>
+                                    <div data-bind='visible: relationship.notes'>
+                                        <span data-bind='text: relationship.notes'></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </dd>
 
@@ -49,6 +176,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 <div class="relation-form" style="display:none;">
 

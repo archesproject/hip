@@ -13,7 +13,8 @@ define([
     'views/forms/base',
     'plugins/bootstrap-slider/bootstrap-slider.min',
     'bootstrap-datetimepicker',
-    'plugins/knockout-select2'
+    'plugins/knockout-select2',
+    'summernote'
 ], function ($, _, ko, ol, arches, resourceTypes, TermFilter, MapFilter, TimeFilter, SearchResults, BranchList, BaseForm) {
     var wkt = new ol.format.WKT();
 
@@ -36,7 +37,35 @@ define([
             var mapFilterText, timeFilterText;
             var self = this;
 
+            ko.bindingHandlers.datePicker = {
+                init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){          
+                    var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});
+
+                    date_picker.on('dp.change', function(evt){
+                        $(this).find('input').trigger('change'); 
+                    });
+                }
+            };
+
             BaseForm.prototype.initialize.apply(this);
+
+            this.addBranchList(new BranchList({
+                el: this.$el.find('.relation-list')[0],
+                data: this.data,
+                dataKey: 'related-resources',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                },
+                addBlankEditBranch: function(){
+                    return null;
+                },
+                getEditedBranchTypeInfo: function() {
+                    if (!this.getEditedBranch()) {
+                        return {};
+                    }
+                    return resourceTypes[this.getEditedBranch().relatedresourcetype()];
+                }
+            }));
 
             this.termFilter = new TermFilter({
                 el: $.find('input.resource_search_widget')[0]
@@ -172,7 +201,7 @@ define([
             evt.preventDefault();
 
             $('.start-workflow-controls').toggle();
-            $('.save-discard-controls').toggle();
+            $('.show-relationships-controls').toggle();
             $('.relation-list').toggle();
             $('.relation-form').toggle();
         },

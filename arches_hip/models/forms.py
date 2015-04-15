@@ -1076,5 +1076,21 @@ class RelatedResourcesForm(ResourceForm):
         return
 
     def load(self, lang):
-        # self.data['relations'] = self.resource.get_related_resources()
+        data = []
+        for relatedentity in self.resource.get_related_resources():
+            nodes = relatedentity['related_entity'].flatten()
+
+            data.append({
+                'nodes': nodes, 
+                'relationship': relatedentity['relationship'], 
+                'relationshiptypelabel': get_preflabel_from_valueid(relatedentity['relationship'].relationshiptype, lang)['value'],
+                'relatedresourcename':relatedentity['related_entity'].get_primary_name(),
+                'relatedresourcetype':relatedentity['related_entity'].entitytypeid,
+                'relatedresourceid':relatedentity['related_entity'].entityid,
+            })
+
+        self.data['related-resources'] = {
+            'branch_lists': data,
+            'domains': {'RELATIONSHIP_TYPES.E32': Concept().get_e55_domain('ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55')}
+        }
         return
