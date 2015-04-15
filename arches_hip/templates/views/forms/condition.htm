@@ -42,8 +42,17 @@
                             
                             <dd>
                                 <div class="">
-                                    <h5><a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                    <a href="#" class="" title="Edit this assessment" data-bind="click: $root.editAssessment">{% trans "Condition State on" %} <span data-bind="if: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists.length > 0"><span data-bind="text: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CONDITION_TYPE.E55'].branch_lists[0].nodes[0].label"></span></span></a></h5>
+                                    <h5>
+                                        <a href="#" title="Remove this condition assessment" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i>
+                                        </a>
+
+                                        <a href="#" class="" title="Edit this assessment" data-bind="click: $root.editAssessment">{% trans "Condition State on" %} 
+                                            <span data-bind="if: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists.length > 0">
+                                                <span data-bind="text: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CONDITION_TYPE.E55'].branch_lists[0].nodes[0].label">
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </h5>
                                 </div>
                             </dd>
                         </dl>
@@ -198,8 +207,8 @@
                                                                 <!-- Condition and dates -->
                                                                 <div id="condition-type-section" class="col-xs-12 col-sm-6">
                                                                                
-                                                                    <div style="padding-right: 5px;padding-left: 0px;">
-                                                                        <input style="height: 36px; width:100%" class="select2 arches-select2-crud-form" data-bind="select2: {value: getEditedNode('CONDITION_TYPE.E55', 'value'), dataKey: 'CONDITION_TYPE.E55'}">
+                                                                    <div style="padding-left: 0px;">
+                                                                        <input style="width:100%" class="select2 arches-select2-crud-form" placeholder='{% trans "condition" %}' data-bind="select2: {value: getEditedNode('CONDITION_TYPE.E55', 'value'), dataKey: 'CONDITION_TYPE.E55'}">
                                                                         </input>
                                                                     </div>
 
@@ -212,8 +221,8 @@
                                                                 <!-- Date -->
                                                                 <div id="date-section" class="col-xs-12 col-sm-6">
 
-                                                                    <div class="input-group datetimepicker" style="height: 36px; padding-top: 2px; float: left" >
-                                                                        <input type="text" placeholder="Date assessed" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('DATE_CONDITION_ASSESSED.E49', 'value')} ">
+                                                                    <div class="input-group datetimepicker" style="float: left" >
+                                                                        <input type="text" placeholder='{% trans "date assessed (yyyy-mm-dd)" %}' class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('DATE_CONDITION_ASSESSED.E49', 'value')} ">
                                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                     </div>
 

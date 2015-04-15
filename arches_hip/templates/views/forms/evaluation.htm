@@ -40,12 +40,16 @@
 
                         <dd>
                             <div class="">
-                                <a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="#" class="arches-CRUD-child" title="Edit this evaluation" data-bind="click: $root.editAssessment">
-                                    <span data-bind="foreach: $data['EVALUATION_CRITERIA_TYPE.E55'].branch_lists" class="arches-evaluation-content">
-                                    <span data-bind="text: nodes[0].label"></span><br>
-                                    </span>
-                                </a>
+                                <h5>
+                                    <a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i>
+                                    </a>
+                                    
+                                    <a href="#" class="" title="Edit this evaluation" data-bind="click: $root.editAssessment">
+                                        <span data-bind="foreach: $data['EVALUATION_CRITERIA_TYPE.E55'].branch_lists" class="">
+                                            <span data-bind="text: nodes[0].label"></span><br>
+                                        </span>
+                                    </a>
+                                </h5>
                             </div>
                         </dd>
                     </dl>
@@ -159,7 +163,7 @@
                                                     <div id="description-section">
                                                         <dl>   
                                                             <dt>
-                                                                <h5 id="" class="section-headline" style="margin-top: 30px;">{% trans "Description" %}</h5>
+                                                                <h5 id="" class="section-headline" style="margin-top: 30px;">{% trans "Reason Statement" %}</h5>
                                                             </dt>
 
                                                             <!-- HTML Editor -->
