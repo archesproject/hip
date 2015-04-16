@@ -61,18 +61,14 @@ Arches HIP.
 Dependencies
 ============
 
-* PostgreSQL relational database (version 9.3)
-* PostGIS (version 2.x) spatial module for PostgreSQL
-* Python (version 2.7.6 - there seem to be issues with later versions of python) 
-* GEOS
+Arches requires the following applications/libraries:
 
-These instructions will provide some guidance on installing 
-the required dependencies and getting HIP up and running quickly.
+    * PostgreSQL relational database (version 9.3) (http://www.postgresql.org/download/)
+    * PostGIS (version 2.x) spatial module for PostgreSQL  (http://postgis.net/install)
+    * Python (version 2.7.6 - there seem to be issues with later versions of python) (https://www.python.org/downloads/)
+    * GEOS (http://trac.osgeo.org/geos/)
 
-
-
-    `installing-dependencies-linux <http://arches3.readthedocs.org/en/latest/>`_
-    `installing-dependencies-windows <http://arches3.readthedocs.org/en/latest/>`_  
+You'll need to install each of these components on your computer before you can install Arches.  Luckily, each of these technologies provide comprehensive installation instructions.  
 
 
 **Note** 
