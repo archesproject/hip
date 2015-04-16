@@ -288,12 +288,12 @@
                                             <div class="hidden-sm hidden-md hidden-lg" style="margin-top: 5px;"></div>
 
                                             <div class="btn-group pull-right" style="margin-top: 15px;margin-right: 10px;" data-bind="if: !relationBranch.editing()">
-                                                <button type="button" class="btn btn-xs btn-primary arches-RDM-button" data-bind="text: !relationBranch.isnew() ? '{% trans 'Edit Relationship' %}' : '{% trans 'Add Relationship' %}', click: editClick"></button>
+                                                <button type="button" class="btn btn-xs btn-primary arches-RDM-button" data-bind="text: relationBranch.related() ? '{% trans 'Edit Relationship' %}' : '{% trans 'Add Relationship' %}', click: editClick"></button>
                                             </div>
                                             
                                         </h4>
                                         <div data-bind="if: !editing()">
-                                            <p data-bind="if: !relationBranch.isnew()" class="arches-search-item-description">
+                                            <p data-bind="if: relationBranch.related()" class="arches-search-item-description">
                                                 <strong>{% trans 'Relationship:' %}</strong>
                                                 <span data-bind="text: relationBranch.relationshiptypelabel"></span>
                                             </p>
