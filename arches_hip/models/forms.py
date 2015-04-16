@@ -1074,6 +1074,8 @@ class RelatedResourcesForm(ResourceForm):
     def update(self, data, files):
         related_resources_data = data.get('related-resources', [])
         original_relations = self.resource.get_related_resources()
+        if self.resource.entityid == '':
+            self.resource.save()
         relationship_ids = []
 
         for related_resource in related_resources_data:
