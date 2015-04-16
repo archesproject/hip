@@ -85,6 +85,11 @@ define([
                     
                     this.trigger('change', 'edit', branch);
                 },
+                deleteItem: function(branch, e) {
+                    this.trigger('change', 'delete', branch);   
+                    this.viewModel.branch_lists.remove(branch);
+                    branch.related(false);
+                },
                 getEditedBranchTypeInfo: function() {
                     if (!this.getEditedBranch()) {
                         return {};
@@ -190,12 +195,11 @@ define([
                             "relatedresourcename": this._source.primaryname,
                             "relatedresourceid": this._source.entityid,
                             "editing": false,
-                            "isnew": true
+                            "related": false
                         });
 
                         var entityid = this._source.entityid;
                         _.each(relationBranchList.viewModel.branch_lists(), function (branch) {
-                            branch.isnew = ko.observable(false);
                             if (branch.relatedresourceid() === entityid) {
                                 relationBranch = branch;
                             }
@@ -225,13 +229,13 @@ define([
                                 relationBranchList.undoCurrentEdit();
                             },
                             editClick: function () {
-                                if (!relationBranch.isnew()) {
+                                if (relationBranch.related()) {
                                     relationBranchList.editItem(relationBranch);
                                 } else {
                                     if (relationBranchList.getEditedBranch()) {
                                         relationBranchList.addItem();
                                     }
-                                    relationBranch.isnew(false);
+                                    relationBranch.related(true);
                                     relationBranch.editing(true);
                                     relationBranchList.viewModel.branch_lists.push(relationBranch);
                                 }
