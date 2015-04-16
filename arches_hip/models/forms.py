@@ -24,6 +24,8 @@ from arches.app.models.forms import ResourceForm
 from arches.app.utils.imageutils import generate_thumbnail
 from arches.app.views.concept import get_preflabel_from_valueid
 from django.utils.translation import ugettext as _
+from arches.app.search.search_engine_factory import SearchEngineFactory
+from django.forms.models import model_to_dict
 
 class SummaryForm(ResourceForm):
     @staticmethod
@@ -1072,6 +1074,7 @@ class RelatedResourcesForm(ResourceForm):
         }
 
     def update(self, data, files):
+        se = SearchEngineFactory().create()
         related_resources_data = data.get('related-resources', [])
         original_relations = self.resource.get_related_resources()
         if self.resource.entityid == '':
@@ -1089,8 +1092,7 @@ class RelatedResourcesForm(ResourceForm):
             date_started = related_resource['relationship']['datestarted']
             date_ended = related_resource['relationship']['dateended']
             if not relationship_id:
-                
-                self.resource.create_resource_relationship(resource_id, relationship_type_id=relationship_type_id, notes=notes, date_started=date_started, date_ended=date_ended)
+                relationship = self.resource.create_resource_relationship(resource_id, relationship_type_id=relationship_type_id, notes=notes, date_started=date_started, date_ended=date_ended)
             else:
                 relationship = RelatedResource.objects.get(pk=relationship_id)
                 relationship.relationshiptype = relationship_type_id
@@ -1098,12 +1100,13 @@ class RelatedResourcesForm(ResourceForm):
                 relationship.datestarted = date_started
                 relationship.dateended = date_ended
                 relationship.save()
+                se.delete(index='resource_relations', doc_type='all', id=relationship_id)
+            se.index_data(index='resource_relations', doc_type='all', body=model_to_dict(relationship), idfield='resourcexid')
 
         for relatedentity in original_relations:
             if relatedentity['relationship'].resourcexid not in relationship_ids:
+                se.delete(index='resource_relations', doc_type='all', id=relatedentity['relationship'].resourcexid)
                 relatedentity['relationship'].delete()
-
-        return
 
     def load(self, lang):
         data = []
@@ -1134,4 +1137,3 @@ class RelatedResourcesForm(ResourceForm):
             'default_relationship_type':  default_relationship_type
         }
         self.data['resource-id'] = self.resource.entityid
-        return
