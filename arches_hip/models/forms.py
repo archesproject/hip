@@ -1087,10 +1087,15 @@ class RelatedResourcesForm(ResourceForm):
                 'relatedresourcename':relatedentity['related_entity'].get_primary_name(),
                 'relatedresourcetype':relatedentity['related_entity'].entitytypeid,
                 'relatedresourceid':relatedentity['related_entity'].entityid,
+                'isnew': False,
             })
+
+        relationship_types = Concept().get_e55_domain('ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55')
 
         self.data['related-resources'] = {
             'branch_lists': data,
-            'domains': {'RELATIONSHIP_TYPES.E32': Concept().get_e55_domain('ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55')}
+            'domains': {'RELATIONSHIP_TYPES.E32': relationship_types},
+            'default_relationship_type':  relationship_types[0]['id']
         }
+        self.data['resource-id'] = self.resource.entityid
         return

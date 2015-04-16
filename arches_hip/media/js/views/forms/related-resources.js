@@ -2,6 +2,7 @@ define([
     'jquery',
     'underscore',
     'knockout',
+    'knockout-mapping',
     'openlayers',
     'arches',
     'resource-types',
@@ -15,7 +16,7 @@ define([
     'bootstrap-datetimepicker',
     'plugins/knockout-select2',
     'summernote'
-], function ($, _, ko, ol, arches, resourceTypes, TermFilter, MapFilter, TimeFilter, SearchResults, BranchList, BaseForm) {
+], function ($, _, ko, koMapping, ol, arches, resourceTypes, TermFilter, MapFilter, TimeFilter, SearchResults, BranchList, BaseForm) {
     var wkt = new ol.format.WKT();
 
     return BaseForm.extend({
@@ -47,9 +48,24 @@ define([
                 }
             };
 
-            BaseForm.prototype.initialize.apply(this);
+            ko.bindingHandlers.relationshipTypeSelect = {
+                update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
+                    var branch = viewModel.getEditedBranch();
+                    if (!branch.relationship.relationshiptype()) {
+                        return;
+                    }
+                    var label = branch.relationship.relationshiptype().label;
+                    if (branch.relationshiptypelabel() !== label) {
+                        branch.relationshiptypelabel(label);
+                    }
+                }
+            };
 
-            this.addBranchList(new BranchList({
+            BaseForm.prototype.initialize.apply(this);
+            var resourceId = this.data['resource-id'];
+            var defaultRelationshipType = this.data['related-resources']['default_relationship_type'];
+
+            var relationBranchList = new BranchList({
                 el: this.$el.find('.relation-list')[0],
                 data: this.data,
                 dataKey: 'related-resources',
@@ -59,13 +75,25 @@ define([
                 addBlankEditBranch: function(){
                     return null;
                 },
+                editItem: function(branch, e) {
+                    var editingBranch = this.getEditedBranch();
+                    if (editingBranch) {
+                        editingBranch.editing(false);
+                    }
+                    this.originalItem = koMapping.toJS(branch);
+                    branch.editing(true);
+                    
+                    this.trigger('change', 'edit', branch);
+                },
                 getEditedBranchTypeInfo: function() {
                     if (!this.getEditedBranch()) {
                         return {};
                     }
                     return resourceTypes[this.getEditedBranch().relatedresourcetype()];
                 }
-            }));
+            });
+
+            this.addBranchList(relationBranchList);
 
             this.termFilter = new TermFilter({
                 el: $.find('input.resource_search_widget')[0]
@@ -118,7 +146,104 @@ define([
 
 
             this.searchResults = new SearchResults({
-                el: $('#search-results-container')[0]
+                el: $('#search-results-container')[0],
+                updateResults: function(results){
+                    var self = this;
+                    this.paginator(results);
+                    var data = $('div[name="search-result-data"]').data();
+                    
+                    this.total(data.results.hits.total);
+                    self.results.removeAll();
+                    
+                    $.each(data.results.hits.hits, function(){
+                        var description = resourceTypes[this._source.entitytypeid].defaultDescription;
+                        var descriptionNode = resourceTypes[this._source.entitytypeid].descriptionNode;
+                        $.each(this._source.child_entities, function(i, entity){
+                            if (entity.entitytypeid === descriptionNode){
+                                description = entity.value;
+                            }
+                        })
+
+                        var relationBranch = koMapping.fromJS({
+                            "relationship": {
+                                "notes": "",
+                                "entityid2": resourceId,
+                                "entityid1": this._source.entityid,
+                                "resourcexid": null,
+                                "datestarted": null,
+                                "dateended": null,
+                                "relationshiptype": defaultRelationshipType
+                            },
+                            "relatedresourcetype": this._source.entitytypeid,
+                            "relationshiptypelabel": "",
+                            "nodes": [
+                                {
+                                    "label": "",
+                                    "value": "",
+                                    "entitytypeid": this._source.entitytypeid,
+                                    "parentid": null,
+                                    "entityid": this._source.entityid,
+                                    "property": "",
+                                    "businesstablename": ""
+                                }
+                            ],
+                            "relatedresourcename": this._source.primaryname,
+                            "relatedresourceid": this._source.entityid,
+                            "editing": false,
+                            "isnew": true
+                        });
+
+                        var entityid = this._source.entityid;
+                        _.each(relationBranchList.viewModel.branch_lists(), function (branch) {
+                            branch.isnew = ko.observable(false);
+                            if (branch.relatedresourceid() === entityid) {
+                                relationBranch = branch;
+                            }
+                        });
+
+                        self.results.push({
+                            primaryname: this._source.primaryname,
+                            resourceid: this._source.entityid,
+                            entitytypeid: this._source.entitytypeid,
+                            description: description,
+                            geometries: ko.observableArray(this._source.geometries),
+                            typeIcon: resourceTypes[this._source.entitytypeid].icon,
+                            typeName: resourceTypes[this._source.entitytypeid].name,
+                            editing: ko.computed(function () {
+                                if (relationBranch) {
+                                    return relationBranch.editing();
+                                }
+                                return false;
+                            }),
+                            relationBranch: relationBranch,
+                            relationBranchList: relationBranchList,
+                            domains: relationBranchList.viewModel.domains,
+                            addClick: function () {
+                                relationBranchList.addItem();
+                            },
+                            discardClick: function () {
+                                relationBranchList.undoCurrentEdit();
+                            },
+                            editClick: function () {
+                                if (!relationBranch.isnew()) {
+                                    relationBranchList.editItem(relationBranch);
+                                } else {
+                                    if (relationBranchList.getEditedBranch()) {
+                                        relationBranchList.addItem();
+                                    }
+                                    relationBranch.isnew(false);
+                                    relationBranch.editing(true);
+                                    relationBranchList.viewModel.branch_lists.push(relationBranch);
+                                }
+                            },
+                            getEditedBranch: function () {
+                                return relationBranchList.getEditedBranch()
+                            }
+                        });
+                    });
+
+                    return data;
+                },
             });
             this.searchResults.on('mouseover', function(resourceid){
                 this.mapFilter.selectFeatureById(resourceid);
