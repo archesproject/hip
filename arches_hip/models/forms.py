@@ -1073,9 +1073,12 @@ class RelatedResourcesForm(ResourceForm):
 
     def update(self, data, files):
         related_resources_data = data.get('related-resources', [])
+        original_relations = self.resource.get_related_resources()
+        relationship_ids = []
 
         for related_resource in related_resources_data:
             relationship_id = related_resource['relationship']['resourcexid']
+            relationship_ids.append(relationship_id)
             resource_id = related_resource['relatedresourceid']
             relationship_type_id = related_resource['relationship']['relationshiptype']
             if isinstance(relationship_type_id, dict):
@@ -1094,6 +1097,9 @@ class RelatedResourcesForm(ResourceForm):
                 relationship.dateended = date_ended
                 relationship.save()
 
+        for relatedentity in original_relations:
+            if relatedentity['relationship'].resourcexid not in relationship_ids:
+                relatedentity['relationship'].delete()
 
         return
 
