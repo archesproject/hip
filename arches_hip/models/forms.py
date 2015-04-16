@@ -1072,6 +1072,16 @@ class RelatedResourcesForm(ResourceForm):
         }
 
     def update(self, data, files):
+        related_resources_data = data.get('related-resources', [])
+
+        for related_resource in related_resources_data:
+            if not related_resource['relationship']['resourcexid']:
+                resource_id = related_resource['relatedresourceid']
+                relationship_type_id = related_resource['relationship']['relationshiptype']['value']
+                notes = related_resource['relationship']['notes']
+                date_started = related_resource['relationship']['datestarted']
+                date_ended = related_resource['relationship']['dateended']
+                self.resource.create_resource_relationship(resource_id, relationship_type_id=relationship_type_id, notes=notes, date_started=date_started, date_ended=date_ended)
 
         return
 
