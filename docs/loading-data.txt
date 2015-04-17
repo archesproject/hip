@@ -148,12 +148,17 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 
 	Note: Arches-HIP recognizes the following formats::
 
-		**String:** Words
-		**Numbers:** 32 or 3.1417
-		**Dates:** YYYY-MM-DD  like 2015-04-09 (which represents April 9, 2015)
-		**Geometries:** Well Known Text encoding of a geospatial geometry (see http://en.wikipedia.org/wiki/Well-known_text).  Geometry coordinates must be longitude/latitude WGS84 (e.g.: the 4326 spatial reference system identifier)
-		**Files:** A path to a file that you want to upload to Arches-HIP.  See Arches documentation for more details.
-		**Controlled Vocabulary Terms:** The unique identifier of the term you want to use.  If you loaded your controlled vocabularies with authority files, this is the unique identifier associated with the term you want to reference.  If you entered the term using the RDM, this is the Universally Unique Identifier (UUID) that Arches assigned to your term.
+		String: Words
+
+		Numbers: 32 or 3.1417
+
+		Dates: YYYY-MM-DD  like 2015-04-09 (which represents April 9, 2015)
+
+		Geometries: Well Known Text encoding of a geospatial geometry (see http://en.wikipedia.org/wiki/Well-known_text).  Geometry coordinates must be longitude/latitude WGS84 (e.g.: the 4326 spatial reference system identifier)
+
+		Files: A path to a file that you want to upload to Arches-HIP.  See Arches documentation for more details.
+		
+		Controlled Vocabulary Terms: The unique identifier of the term you want to use.  If you loaded your controlled vocabularies with authority files, this is the unique identifier associated with the term you want to reference.  If you entered the term using the RDM, this is the Universally Unique Identifier (UUID) that Arches assigned to your term.
 
 
 #.	Finally, if the data item is to be grouped with another piece of data make sure to add a ``GROUPID``.  For example, if you want to add a start date and the type of start date (e.g.: July 10, 1934 is a BUILT DATE).  If the data item is not intended to be grouped simply enter a generic value for ``GROUPID``::
@@ -180,7 +185,7 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		* ``ACTOR_APPELLATION.E82``, ``NAME_TYPE.E55``
 
 
-#. You'll need to add a line for each attribute that you want to load for a given resource record.  This means that an .Arches file can get very large, with tens of thousands of rows.  Obviously, you won't want to write out every line by hand.  But now that you understand the format, you can use Excel, a database, or open source tools (such as Open Refine, http://openrefine.org/) to automate the creation of a .Arches file.
+#. 	You'll need to add a line for each attribute that you want to load for a given resource record.  This means that an .Arches file can get very large, with tens of thousands of rows.  Obviously, you won't want to write out every line by hand.  But now that you understand the format, you can use Excel, a database, or open source tools (such as Open Refine, http://openrefine.org/) to automate the creation of a .Arches file.
 
 
 #.	In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
