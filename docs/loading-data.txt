@@ -4,12 +4,11 @@ Loading Data
 
 As you saw in the Overview Chapter, Arches-HIP is designed to allow you to create inventories of cultural heritage.  With HIP, you can import heritage data from a simple (but powerful) text file or from your GIS using a shapefile.  If you prefer, you can use the HIP's data entry forms to create heritage records.  
 
-In order to use HIP three types of data must be loaded to the database: resource graphs, authority documents and cultural heritage data. Below we outline what data comes included with HIP, simple instructions on how this data can be modified and how to create your own cultural heritage data.
 
+Before You Start
+----------------
 
-Included Graphs
----------------
-The HIP package includes the following six resource graphs for cataloging cultural heritage:
+There are a just few things to understand before you start building your cultural heritage inventory.  First, Arches-HIP implements the following six resources for cataloging cultural heritage:
 
 	* Activity.E7
 	* Actor.E39
@@ -18,49 +17,39 @@ The HIP package includes the following six resource graphs for cataloging cultur
 	* Historical Event.E5
 	* Information Resource.E73
 
-
-To ensure data quality, the HIP implements a "Reference Data Manager" (RDM) that you will use to manage **controlled vocabularies** that ensure that your data are entered consistently and are easy to retrieve.
-
-So, you'll need to follow these steps to create or import cultural heritage data into HIP:
-
-	1. Create the controlled vocabularies that you'll use to constrain data entry.
-
-	2. Load your controlled vocabularies into HIP
-
-	3. Import your existing cultural heritage data into HIP using either the shapefile loader or the .arches loader
-
-	4. Manage your existing data or create new data records with the HIP's data entry forms.
+You saw in the Chapter on Arches-HIP Data Resources that each of these resources (or inventory record types, if you prefer) comes with a set of attributes, some of which are treated as domains or "Controlled Vocabularies".
 
 
-A Note on Controlled Vocabularies and Authority Documents
-=========================================================
+A Note on Controlled Vocabularies and Authority Files
+=====================================================
+
 Let's look at the idea of controlled vocabularies in a bit more detail.  Consider the following problem:  
 
 	You have people creating cultural heritage data, specifically information about buildings.  You want to ensure that all your data are created consistently and wish to use just an approved list of possible terms to describe the architectural style of a building.  For example, you want all the data creators to select a style from the following list: "Craftsman", "Beaux Arts", "Bauhaus".  How do you do this?
 
 
-Arches-HIP requires that you decide on the list of terms (we call them "Controlled Vocabularies") that you will use to ensure your heritage data are created and managed using just the terms that you approve of.  In Arches, Controlled Vocabularies may be simple word lists such as "Good, Fair, Poor" to describe the condition of a building.  Or a Controlled Vocabulary could be a poly-hierarchical, multi-lingual thesaurus.  You may decide just how sophisticated your controlled vocabularies need to be to support your cultural heritage data management needs.
+Arches-HIP requires that you decide on the list of terms (we call them controlled vocabularies) that you will use to ensure your heritage data are created and managed using just the terms that you approve of.  In Arches, controlled vocabularies may be simple word lists such as "Good, Fair, Poor" to describe the condition of a building.  Or a Controlled Vocabulary could be a poly-hierarchical, multi-lingual thesaurus.  You may decide just how sophisticated your controlled vocabularies need to be to support your cultural heritage data management needs.
 
-Recall from the Chapter on Arches-HIP Data Resources that HIP implements a number of controlled vocabularies.  Each controlled vocabulary is defined in an Authority File. 
-
-The very first step to loading your cultural heritage data into Arches-HIP is to ensure that each authority file includes the terms you wish to use to describe your heritage data.
+Arches-HIP supports several methods for implementing your controlled vocabularies.  You can define controlled vocabularies using an Authority File.  As you saw in the last chapter, Arches-HIP includes a number of Authority Files, one for each controlled vocabulary.  Alternatively, you can build your controlled vocabularies interactively using Arches' Reference Data Manager (RDM)
 
 
 
-Step 1: Create and Load Controlled Vocabularies into Arches-HIP
----------------------------------------------------------------
+Preparing Arches: Creating and Loading Controlled Vocabularies
+--------------------------------------------------------------
 
-Start your data load with a review of Arches-HIP's default authority documents.  Navigate to ``/my_hip_app/my_hip_app/source_data/concepts/authority_files`` to view the set of authority files.  You'll want to review the default entries in each file before loading the authority files into Arches-HIP.
+Before you can start creating or importing cultural heritage data with Arches-HIP you will need to create and load the controlled vocabularies that you'll use to ensure consistent data entry and retrieval.  You have several options to create the controlled vocabularies:
 
-In some instances you may wish to modify the existing HIP authority files. You have two options:
+	1. Review the authority files that come with Arches-HIP.  These files provide very general terms for each controlled vocabulary and show how you to format a term for loading into HIP.
 
-	1. You may modify the authority files before you load them into HIP
-
-	2. You may use the Reference Data Manager (RDM) to modify the authority files after loading them into HIP and BEFORE you load your cultural heritage data.
+	2. Use the Reference Data Manager (RDM) to create the terms you wish to use for each controlled vocabulary.  The RDM provides easy-to-use data entry forms that will let you quickly create the terms you want to use for each controlled vocabulary.
 
 
-Modifying HIP Authority Files
-=============================
+You may wish to check the Arches Project website (http://www.archesproject.org) to see if other Arches users have shared their authority files.  If so, you can simply download an authority file and replace the default files that come with Arches-HIP with the authority file that you prefer.
+
+
+
+Create or Modify an Authority File
+==================================
 
 The following steps outline how to modify the authority documents before you load them into HIP. These steps can be followed using excel as your text editor but the final file must be saved as a UTF-8 formatted CSV file.
 
@@ -68,24 +57,13 @@ Note: You can find a summary of authority documents, their format, and steps for
 
 The steps for modifying authority documents BEFORE you load them into Arches-HIP is:
 
-
 	#. Navigate to your authority files directory. Open the file you wish to modify.
 	#. If you would like to edit an existing concept simply change the PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider for that concept as necessary. Be sure to adhere to the rules for concept creation outlined in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 	#. If you would like to add a concept, create a unique ``conceptid`` for the concept (remember this id must be unique both internal to the authority file and between authority files) and then add your desired PrefLabel, AltLabels, ParentConceptid, ConceptType, Provider.
 	#. Make sure to review the guidelines of creating a concept in the 'Loading Reference Data' section of the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before modifying the HIP documents to ensure your edited documents will function with HIP.
 
 
-
-Modifying Authority Files using the Reference Data Manager
-==========================================================
-
-After you load authority files into Arches-HIP, you may use the Reference Data Manager to modify the terms in each controlled vocabulary.  
-
-
-Load Authority Files
-====================
-
-To load authority documents, navigate to ``/my_hip_app`` and run the following command::
+When you're happy with the contents of each authority file, navigate to ``/my_hip_app`` and run the following command to load your authroity files into Arches-HIP::
 	
 	$ python manage.py packages -o load_concept_scheme -s 'path to authority files directory'
 
@@ -95,18 +73,33 @@ During load the authority files go through a set of validations. If there are er
 
 
 
-Step 2: Creating and Loading Cultural Heritage Data into Arches-HIP
--------------------------------------------------------------------
+Create Controlled Vocabularies Using the Reference Data Manager
+===============================================================
 
-This section outlines how to create and load cultural heritage data into Arches-HIP. Arches-HIP allows you to load data from a ``.arches`` file or from a GIS (Geographic Information System) using a ``.shp`` file. 
+If you wish, you can use the RDM to create each controlled vocabulary interactively.  Before you start, You may wish to review a general overview of the RDM (http://http://arches3.readthedocs.org/en/latest/rdm/) 
+
+
+
+
+
+
+
+
+
+Importing Cultural Heritage Data into Arches-HIP
+------------------------------------------------
+
+This section outlines how to import cultural heritage data into Arches-HIP. Arches-HIP allows you to import data from a ``.arches`` file or from a GIS (Geographic Information System) using a ``.shp`` file. 
 
 If you would like to use Arches-HIP's data entry forms to create your cultural heritage data, feel free to skip this section entirely. If you would like to load Arches-HIP sample data and not create your own cultural heritage data skip to 'Loading cultural heritage Data.' 
 
 If you would like to create and load your own Arches-HIP cultural heritage data this whole section is for you!
 
 
-Creating Cultural Heritage Data
-===============================
+Importing Creating Cultural Heritage Data Using the .ARCHES File
+================================================================
+
+If you have existing cultural heritage data that you want to import into Arches
 
 The Arches-HIP resource graphs provide the skeleton of the ``.arches`` or ``.shp`` file you will create, the authority files define the acceptable values for certain attributes, and your own heritage data populates the nodes of the Arches-HIP resource graphs with unique data.
 
@@ -119,7 +112,7 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 
 		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
 
-#.	On the second line enter your unique resourceid followed by a ``|``::
+#.	On the second line enter your unique resourceid (e.g.: a unique identifier for the resource record) followed by a ``|``::
 
 		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
 		unique_resource_id|
@@ -138,7 +131,7 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		* Historical Event.E5
 		* Information Resource.E73
 
-#.	Remember, ``ATTRIBUTENAME`` in the ``.arches`` file relates directly to entity type from a resource graph. In fact the only valid values for ``ATTRIBUTENAME`` in the ``.arches`` file are entity types from the resource graph nodes file indicated in ``RESOURCETYPE`` column.
+#.	Next, declare the attribute that you want to load into HIP.  You'll need to declare a valid Arches-HIP ATTRIBUTENAME.  Remember, ``ATTRIBUTENAME`` relates directly to an entity type from a resource graph. In fact the only valid values for ``ATTRIBUTENAME`` in the ``.arches`` file are entity types from the resource graph nodes file indicated in ``RESOURCETYPE`` column.
 
 	Look `here <loading-data.html#resource-graphs>`_ for a list of entity types for each Arches-HIP resource. 
 
@@ -147,12 +140,23 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
 		unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|
 
-#.	Next in the ``ATTRIBUTENAME`` 'column' input your specific information for that attribute ensuring that it is in the correct format for that data type (i.e. is formatted correctly for the attributes business table) followed by a ``|``::
+#.	Next in the ``ATTRIBUTEVALUE`` 'column' input your specific information for that attribute ensuring that it is in the correct format for that data type (i.e. is formatted correctly for the attributes business table).  For example, if you want to load a date field, make sure that you enter an value that is formatted as a date.  Make sure your value is followed by a ``|``::
 
 		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
 		unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|
 
-#.	Finally, if the data item is to be grouped with another piece of data make sure to add a ``GROUPID`` that matches the other data item. If the data item is not intended to be grouped simply enter a generic value for ``GROUPID``::
+
+	Note: Arches-HIP recognizes the following formats::
+
+		**String:** Words
+		**Numbers:** 32 or 3.1417
+		**Dates:** YYYY-MM-DD  like 2015-04-09 (which represents April 9, 2015)
+		**Geometries:** Well Known Text encoding of a geospatial geometry (see http://en.wikipedia.org/wiki/Well-known_text).  Geometry coordinates must be longitude/latitude WGS84 (e.g.: the 4326 spatial reference system identifier)
+		**Files:** A path to a file that you want to upload to Arches-HIP.  See Arches documentation for more details.
+		**Controlled Vocabulary Terms:** The unique identifier of the term you want to use.  If you loaded your controlled vocabularies with authority files, this is the unique identifier associated with the term you want to reference.  If you entered the term using the RDM, this is the Universally Unique Identifier (UUID) that Arches assigned to your term.
+
+
+#.	Finally, if the data item is to be grouped with another piece of data make sure to add a ``GROUPID``.  For example, if you want to add a start date and the type of start date (e.g.: July 10, 1934 is a BUILT DATE).  If the data item is not intended to be grouped simply enter a generic value for ``GROUPID``::
 
 		RESOURCEID|RESOURCETYPE|ATTRIBUTENAME|ATTRIBUTEVALUE|GROUPID
 		unique_resource_id|ACTIVITY.E7|START_DATE_OF_EXISTENCE.E49|1945-01-12|BEGINNING_OF_EXISTENCE.E63-0
@@ -175,20 +179,30 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		* ``TITLE.E41``, ``TITLE_TYPE.E55``
 		* ``ACTOR_APPELLATION.E82``, ``NAME_TYPE.E55``
 
+
+#. You'll need to add a line for each attribute that you want to load for a given resource record.  This means that an .Arches file can get very large, with tens of thousands of rows.  Obviously, you won't want to write out every line by hand.  But now that you understand the format, you can use Excel, a database, or open source tools (such as Open Refine, http://openrefine.org/) to automate the creation of a .Arches file.
+
+
 #.	In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
 
 	.. note:: In order to create a relationship between two resources both resourceids referenced in the .relations file must be present in your .arches file.
 
 
 
-**Creating a ``.shp`` configuration file**
+Importing Creating Cultural Heritage Data Using a Shape File
+============================================================
+
+Arches makes it easy to import cultural heritage data from a GIS shapefile.  You'll need to create a simple configuration file that tells Arches-HIP how to associate the information in your shapefile with a resource.
+
 
 .. note:: A few things to keep in mind before we begin
 
 	* Your shapefile can contain only one resource type per shapefile. For example, you would need one shapefile to load Heritage Resources and a second shapefile for Activities.
+
 	* Your shapefile projection must be defined as WGS84 Lat/Lon (EPSG:4326).
 
-#.	**Create your configuration file**
+
+#.	**Create a configuration file**
 
 	You’ll need to create configuration file to tell Arches how the fields in your shapefile correspond to nodes in a resource graph. The configuration file should have the same base name as your shapefile with the extension ``.config``. For example, if your shapefile is called ``heritage_resources.shp``, you will will need a ``heritage_resources.config`` file along with your ``heritage_resources.dbf``, etc.
 
@@ -229,8 +243,8 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 
 
 
-Load Heritage Data Files
-========================
+Load a .ARCHES or Shapefile into Arches-HIP
+-------------------------------------------
 
 To load cultural heritage data, navigate to ``/my_hip_app`` and run the following command::
 	
@@ -239,7 +253,8 @@ To load cultural heritage data, navigate to ``/my_hip_app`` and run the followin
 .. note:: This command works for both ``.arches`` and ``.shp`` files.
 
 
-**Arches-HIP Data Validation**
+Arches-HIP Data Validation
+==========================
 
 In addition to the validation that is performed on every ``.arches`` file from Arches, there is some specific HIP validation that a ``.arches`` file must pass as well. These validations are listed below:
 	
@@ -301,6 +316,45 @@ Once you have the correct Load ID, you can delete all of the resources created d
 
 
 In order to use HIP three types of data must be loaded to the database: resource graphs, authority documents and cultural heritage data. Below we outline what data comes included with HIP, simple instructions on how this data can be modified and how to create your own cultural heritage data.
+
+
+
+
+Optional GIS Layers for Administrative Areas
+--------------------------------------------
+
+Arches-HIP allows you to load GIS data as well as cultural heritage data.  This will allow Arches-HIP to compare the spatial coordinates of a cultural heritage resource with GIS data describing administrative areas and cadastres to automatically determine where your heritage resources overlap administrative and ownership polygons.
+
+The parcels and overlays tables within the "aux" schema of Arches-HIP's Postgres database supports using GIS layers to automate the entry of spatially derivable attributes.  In HIP, Arches automates the entry of ADMINISTRATIVE_SUBDIVISION and ADMINISTRATIVE_SUBDIVISION_TYPE (for both Heritage Resource and Heritage Group) by comparing the geometry of the resource against the geometry of features in the aux.overlays table.  Those overlay features that the heritage resource spatially interacts with are assumed to define the correct administrative area(s) and are associated with the resource.  
+
+This "automated" data entry is a nice-to-have feature.  That is, if you do not have GIS layers that define your administrative subdivisions, then no problem.  The service that queries the GIS layers for information will not fire, and your users can manually key in this information just like any other attribute captured in the HIP data entry forms.  Conversely, if you do use this feature, you can still override spatially captured attributes by writing over them manually within the Administrative Subdivision form.
+
+If you wish to take advantage of this feature, it will be necessary to import your GIS data into the overlays table with valid data. The overlays table contains the following columns:
+
+  **overlayty (string)** - Identifies the type of administrative subdivision that the geometry represents.  For the spatial capture functionality to work, the value stored here must be consistent with the prefLabel of a concept from the Administrative Subdivision authority document.  This value will populate the ADMINISTRATIVE_SUBDIVISION_TYPE node whenever the service is executed.
+
+  **overlayval (string)** - This is the value that will populate the ADMINISTRATIVE_SUBDIVISION node whenever the service is executed.  For reference, ADMINISTRATIVE_SUBDIVISION is a non-constrained text field in Arches.
+
+  **geometry (geometry, 4326)** - We expect that overlay records will be polygons and they must be stored in EPSG 4326
+  
+  **overlayid (uuid NOT NULL)** - This is the unique ID for the record within Arches.  Arches will populate this automatically unless you pass in your own UUID values.
+
+
+The overlays table is intended to contain data for all administrative subdivisions.  As such, if you have more than one overlay type (as indicated in the overlayty column), then it is likely that you will have overlapping polygons in your overlays data.
+
+To populate the overlays table, use the following steps:
+
+1> Prepare a polygon shapefile that mimics the structure of the overlays table as defined above.  Remember, the shapefile need not contain an overlayid column, the geometry must be set of EPSG 4326, and the geometry data will not be explicitly called out in the attributes of the shapefile.
+
+.. tip:: You can download an empty template shapefile that will easily populate into the overlays table from here [overlays template shapefile.zip]
+
+2> Use the PostGIS Shapefile Import/Export Manager to append the shapefile records to the aux.overlays table.  Configuration of the import is pictured below:
+[import overlays1.jpg]
+
+Please take special note that the Mode is set to append and the SRID is set to 4326.
+
+If you made a mistake in loading the data, you can delete the records with this sql command: "delete from aux.overlays;" and then re-run the PostGIS Shapefile Import/Export Manager tool.
+
 
 
 
