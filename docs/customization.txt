@@ -107,6 +107,7 @@ To update that block to use the example search above for the word modern, I can 
 
 Google Analytics
 ================
+Google Analytics is a web analytics service offered by Google that tracks and reports website traffic.  It is freely available to anyone with a Google account.
 
 To enable Google Analytics on your web application, you will need to update the ``GOOGLE_ANALYTICS_TRACKING_ID`` setting in your application's ``settings.py`` file.
 

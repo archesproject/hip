@@ -185,10 +185,10 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		* ``ACTOR_APPELLATION.E82``, ``NAME_TYPE.E55``
 
 
-#. 	You'll need to add a line for each attribute that you want to load for a given resource record.  This means that an .Arches file can get very large, with tens of thousands of rows.  Obviously, you won't want to write out every line by hand.  But now that you understand the format, you can use Excel, a database, or open source tools (such as Open Refine, http://openrefine.org/) to automate the creation of a .Arches file.
+#. 	You'll need to add a line for each attribute that you want to load for a given resource record.  This means that an .Arches file can get very large.  Obviously, you won't want to write out every line by hand.  But now that you understand the format, you can use Excel, a database, or open source tools (such as Open Refine, http://openrefine.org/) to automate the creation of a .Arches file.
 
 
-#.	In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
+#.	In some instances you may want to relate resources together (e.g. you may want to relate many resources to one resource district or an actor to a particular heritage resource). To do this you will want to create a .relations file to accompany your .arches file. The .relations file should have the same name as your .arches file and be stored in the same directory location. The .relations file contains six columns resourceid_from, resourceid_to, start_date, end_date, relation_type, notes. For more instructions on how to create a .relations file see the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
 
 	.. note:: In order to create a relationship between two resources both resourceids referenced in the .relations file must be present in your .arches file.
 
