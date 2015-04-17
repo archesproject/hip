@@ -99,9 +99,9 @@ If you would like to create and load your own Arches-HIP cultural heritage data 
 Importing Creating Cultural Heritage Data Using the .ARCHES File
 ================================================================
 
-If you have existing cultural heritage data that you want to import into Arches
+If you have existing cultural heritage data that you want to import into Arches, you'll need to prepare either an ".arches" text file or a GIS shapefile.  Either file type will allow you automatically import thousands of cultural heritage data records into Arches-HIP.
 
-The Arches-HIP resource graphs provide the skeleton of the ``.arches`` or ``.shp`` file you will create, the authority files define the acceptable values for certain attributes, and your own heritage data populates the nodes of the Arches-HIP resource graphs with unique data.
+Unsure of which format to use?  The .arches file defines a simple format and allows you to import very sophisticated datasets (e.g.: heritage data with complex attributes such as multiple geometry types, names, typology).  Use a shapefile to import your existing data if you use GIS to create data, or if your cultural heritage data is "flat" (e.g.: one value per attribute, such as a single name for each heritage resource).
 
 
 **Creating a ``.arches`` file**
@@ -157,7 +157,7 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		Geometries: Well Known Text encoding of a geospatial geometry (see http://en.wikipedia.org/wiki/Well-known_text).  Geometry coordinates must be longitude/latitude WGS84 (e.g.: the 4326 spatial reference system identifier)
 
 		Files: A path to a file that you want to upload to Arches-HIP.  See Arches documentation for more details.
-		
+
 		Controlled Vocabulary Terms: The unique identifier of the term you want to use.  If you loaded your controlled vocabularies with authority files, this is the unique identifier associated with the term you want to reference.  If you entered the term using the RDM, this is the Universally Unique Identifier (UUID) that Arches assigned to your term.
 
 
