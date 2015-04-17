@@ -763,19 +763,19 @@ class RelatedFilesForm(ResourceForm):
             description_type = ''
             for node in edited_file.get('nodes'):
                 if node['entitytypeid'] == 'TITLE.E41':
-                    title = node['value']
+                    title = node.get('value')
                 elif node['entitytypeid'] == 'TITLE_TYPE.E55':
-                    title_type = node['value']
+                    title_type = node.get('value')
                 elif node['entitytypeid'] == 'DESCRIPTION.E62':
-                    description = node['value']
+                    description = node.get('value')
                 elif node['entitytypeid'] == 'DESCRIPTION_TYPE.E55':
-                    description_type = node['value']
+                    description_type = node.get('value')
                 elif node['entitytypeid'] == 'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55':
                     resourcexid = node.get('resourcexid')            
                     entityid1 = node.get('entityid1')
                     entityid2 = node.get('entityid2')
                     relationship = RelatedResource.objects.get(pk=resourcexid)
-                    relationship.relationshiptype = node.get('relationshiptype')
+                    relationship.relationshiptype = node.get('value')
                     relationship.save()
 
             relatedresourceid = entityid2 if self.resource.entityid == entityid1 else entityid1
@@ -794,9 +794,11 @@ class RelatedFilesForm(ResourceForm):
         data = []
         for relatedentity in self.resource.get_related_resources(entitytypeid='INFORMATION_RESOURCE.E73'):
             nodes = relatedentity['related_entity'].flatten()
-            relationship = model_to_dict(relatedentity['relationship'])
-            relationship['entitytypeid'] = 'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55'
-            nodes.append(relationship)
+            dummy_relationship_entity = model_to_dict(relatedentity['relationship'])
+            dummy_relationship_entity['entitytypeid'] = 'ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55'
+            dummy_relationship_entity['value'] = dummy_relationship_entity['relationshiptype']
+            dummy_relationship_entity['label'] = ''
+            nodes.append(dummy_relationship_entity)
             data.append({'nodes': nodes, 'relationshiptypelabel': get_preflabel_from_valueid(relatedentity['relationship'].relationshiptype, lang)['value']})
 
         self.data['current-files'] = {
