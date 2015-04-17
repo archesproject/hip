@@ -1154,3 +1154,98 @@ class RelatedResourcesForm(ResourceForm):
             'default_relationship_type':  default_relationship_type
         }
         self.data['resource-id'] = self.resource.entityid
+
+
+class DistrictClassificationForm(ResourceForm):
+    baseentity = None
+
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'district_classification',
+            'icon': 'fa-adjust',
+            'name': _('Classifications'),
+            'class': DistrictClassificationForm
+        }
+
+    def get_nodes(self, entity, entitytypeid):
+        ret = []
+        entities = entity.find_entities_by_type_id(entitytypeid)
+        for entity in entities:
+            ret.append({'nodes': entity.flatten()})
+
+        return ret
+
+    def update_nodes(self, entitytypeid, data):
+        if self.schema == None:
+            self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
+        for value in data[entitytypeid]:
+            for newentity in value['nodes']:
+                entity = Entity()
+                entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+
+                if self.baseentity == None:
+                    self.baseentity = entity
+                else:
+                    self.baseentity.merge(entity)
+
+    def update(self, data, files):
+
+        for value in data['PHASE_TYPE_ASSIGNMENT.E17']:
+            for node in value['nodes']:
+                if node['entitytypeid'] == 'PHASE_TYPE_ASSIGNMENT.E17' and node['entityid'] != '':
+                    #remove the node
+                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+
+        self.update_nodes('HERITAGE_RESOURCE_GROUP_TYPE.E55', data)
+        self.update_nodes('TO_DATE.E49', data)
+        self.update_nodes('FROM_DATE.E49', data)
+        self.update_nodes('HERITAGE_RESOURCE_GROUP_USE_TYPE.E55', data)
+        self.update_nodes('CULTURAL_PERIOD.E55', data)
+        self.update_nodes('ANCILLARY_FEATURE_TYPE.E55', data)
+        production_entities = self.resource.find_entities_by_type_id('PRODUCTION.E12')
+
+        if len(production_entities) > 0:
+            self.resource.merge_at(self.baseentity, 'PRODUCTION.E12')
+        else:
+            self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
+        self.resource.trim()
+                   
+    def load(self, lang):
+
+        self.data = {
+            'data': [],
+            'domains': {
+                'HERITAGE_RESOURCE_GROUP_TYPE.E55': Concept().get_e55_domain('HERITAGE_RESOURCE_GROUP_TYPE.E55'),
+                'HERITAGE_RESOURCE_GROUP_USE_TYPE.E55' : Concept().get_e55_domain('HERITAGE_RESOURCE_GROUP_USE_TYPE.E55'),
+                'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55'),
+                'ANCILLARY_FEATURE_TYPE.E55' : Concept().get_e55_domain('ANCILLARY_FEATURE_TYPE.E55')
+            }
+        }
+
+        classification_entities = self.resource.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17')
+
+        for entity in classification_entities:
+            self.data['data'].append({
+                'HERITAGE_RESOURCE_GROUP_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'HERITAGE_RESOURCE_GROUP_TYPE.E55')
+                },
+                'HERITAGE_RESOURCE_GROUP_USE_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'HERITAGE_RESOURCE_GROUP_USE_TYPE.E55')
+                },
+                'CULTURAL_PERIOD.E55': {
+                    'branch_lists': self.get_nodes(entity, 'CULTURAL_PERIOD.E55')
+                },
+                'TO_DATE.E49': {
+                    'branch_lists': self.get_nodes(entity, 'TO_DATE.E49')
+                },
+                'FROM_DATE.E49': {
+                    'branch_lists': self.get_nodes(entity, 'FROM_DATE.E49')
+                },
+                'ANCILLARY_FEATURE_TYPE.E55': {
+                    'branch_lists': self.get_nodes(entity, 'ANCILLARY_FEATURE_TYPE.E55')
+                },
+                'PHASE_TYPE_ASSIGNMENT.E17': {
+                    'branch_lists': self.get_nodes(entity, 'PHASE_TYPE_ASSIGNMENT.E17')
+                }
+            })
