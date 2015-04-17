@@ -6,7 +6,7 @@ Arches-HIP Data Resources
 Arches-HIP is designed to allow you to create cultural heritage inventories that consist of 6 primary resource types:
 
 
-    * **Heritage Resources:** These are culturally significant objects such as buildings and archaeological sites.  However, Heritage Resources may any object that an organization regards as important.  Examples include air raid sirens, statues, canals, roads, gates, bridges, etc.
+    * **Heritage Resources:** These are culturally significant objects such as buildings and archaeological sites.  However, Heritage Resources may be any object that an organization regards as important.  Examples include air raid sirens, statues, canals, roads, gates, bridges, etc.
 
     * **Heritage Resource Groups** These are collections of heritage resources that are best regarded as a group.  In Europe, such resources are often referred to as ensembles.  In the United States, districts or landscapes may be inventoried as Heritage Resource Groups.
 
