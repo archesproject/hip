@@ -4,7 +4,7 @@
 {% block form_content %}
 
 <div>            
-    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "A title and relationship type must be specified." %}</div>
+    <div class="alert alert-danger branch-invalid-alert" role="alert" style="display:none;">{% trans "A title, title type, and relationship type must be specified.  If specifying a description, then a description type must be defined as well." %}</div>
 
     <!-- CRUD Form Container -->
     <div id="crud" style="">
@@ -156,87 +156,113 @@
                 
                 </div>
 
-                <!-- ++++++++++++  Modal ++++++++++++++++++++++++++++++++++++++++++++++++ -->
-                <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-                <!-- Edit File Resource Modal -->
-                <div id="edit_file_resource_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content no-corners">
-                          
-                            <!-- Modal Header -->
-                            <div class="modal-header arches-modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                                <h4 class="modal-title">{% trans "Edit Related File Resource" %}</h4>
-                            </div>
-                            <!-- End Modal Header -->
-
-                        
-                            <!-- Form -->
-                            <div class="modal-body">
-                                <dl>
-                                    <dd id="editform" class="arches-RDM-labels" style="padding-right: 20px;">
-                                        <div class="row">
-                                            
-                                            <!-- Title/Caption Form -->
-                                            <div class="col-xs-12">
-
-                                                <span class="" style="width: 100%;">
-
-                                                    <input class="form-control" style="width:100%;" value="English Heritage Investigation" placeholder="Title" data-bind="value: editor.nodes.get('TITLE.E41').value">
-
-                                                    <!-- Spacer (for xs screens) -->
-                                                    <div class="margin-top-5"></div>
-
-                                                    <textarea class="form-control" style="width:100%;" rows="3" placeholder="Add a caption for the file here..." data-bind="value: editor.nodes.get('DESCRIPTION.E62').value"></textarea>
-
-                                                    <!-- Relationship -->  
-                                                    <div class="form-group" style="width: 100%">   
-                                                        <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="select2: {value: editor.relationship.relationshiptype, placeholder: 'Type', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
-                                                    </div>
-
-                                                </span>
-
-                                            </div>
-                                        </div>
-                                    </dd>
-                                    <dd id="deletewarning" class="arches-RDM-labels" style="padding-right: 20px; display: none;">
-                                        <div class="row">
-                                            
-                                            <!-- Title/Caption Form -->
-                                            <div class="col-xs-12">
-
-                                                <div class="" style="width: 100%;">
-                                                    {% trans "Are you sure you want to delete the relationship to this file?" %}
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </dd>
-                                </dl>
-
-                            </div>
-                            <!-- End Modal Body -->
-                          
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <a class="btn btn-danger pull-left" data-bind="click: confirmDelete" title="{% trans "Remove this file" %}"><i class="fa fa-trash-o"></i></a>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans "Cancel" %}</button>
-                                <button id="savebtn" type="button" class="btn btn-success" data-dismiss="modal" data-bind="click: updateItem">{% trans "Save" %}</button>
-                                <button id="deletebtn" type="button" class="btn btn-success" style="display: none;" data-dismiss="modal" data-bind="click: deleteItem">{% trans "Delete" %}</button>
-                            </div>
-                            <!-- End Modal Footer -->
-
-                        </div>
-                    </div>
-                </div>
-                <!-- End Edit File Resource Modal -->
-
-                <!-- ++++++++++++  End Modal ++++++++++++++++++++++++++++++++++++++++++++ -->
-                <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
             </div>
             <!-- End Related File Container -->
+
+            <!-- ++++++++++++  Modal ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+            <!-- Edit File Resource Modal -->
+            <div id="edit_file_resource_modal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content no-corners">
+                      
+                        <!-- Modal Header -->
+                        <div class="modal-header arches-modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                            <h4 class="modal-title">{% trans "Edit Related File Resource" %}</h4>
+                        </div>
+                        <!-- End Modal Header -->
+
+                    
+                        <!-- Form -->
+                        <div class="modal-body">
+                            <dl>
+                                <dd id="editform" class="arches-RDM-labels" style="padding-right: 20px;">
+                                    <div class="row">
+                                        
+                                        <!-- Title/Caption Form -->
+                                        <div class="col-xs-12">
+
+                                           
+                                            <h5 class="section-headline">{% trans "Title" %}</h5>
+
+                                            <div class="row">
+                                                <div class="col-xs-6">   
+                                                    <input class="form-control" style="width:100%;" value="English Heritage Investigation" placeholder="Title" data-bind="value: getEditedNode('TITLE.E41', 'value')">
+                                                </div>
+                                                <div class="col-xs-6"> 
+                                                    <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="resource-name-type" data-bind="select2: {value: getEditedNode('TITLE_TYPE.E55', 'value'), placeholder: '{% trans "Title Type" %}', dataKey: 'TITLE_TYPE.E55'}"></input>
+                                                </div>
+                                            </div>
+
+                                            <!-- Spacer (for xs screens) -->
+                                            <div class="margin-top-15"></div>
+
+                                            <h5 class="section-headline">{% trans "Description" %}</h5>
+
+                                            <div class="row">
+                                                <div class="col-xs-12"> 
+                                                    <input style="width:100%; display: inline-block;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-measurement-unit" data-bind="select2: {value: getEditedNode('DESCRIPTION_TYPE.E55', 'value'), placeholder: '{% trans "Description Type" %}', dataKey: 'DESCRIPTION_TYPE.E55'}"></input>
+                                                </div> 
+                                            </div>
+                                            <div class="margin-top-5"></div>
+                                            <div class="row">
+                                                <div class="col-xs-12">    
+                                                    <div class="summernote" data-bind="summernote: {value: getEditedNode('DESCRIPTION.E62', 'value'), options:{height: '100px'}}"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Spacer (for xs screens) -->
+                                            <div class="margin-top-15"></div>
+
+                                            <h5 class="section-headline">{% trans "Relationship Type" %}</h5>
+
+                                            <div class="row"> 
+                                                <div class="col-xs-12">  
+                                                    <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="resource-name-type" data-bind="select2: {value: getEditedNode('ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55', 'relationshiptype'), placeholder: '{% trans "Relationship Type" %}', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </dd>
+                                <dd id="deletewarning" class="arches-RDM-labels" style="padding-right: 20px; display: none;">
+                                    <div class="row">
+                                        
+                                        <!-- Title/Caption Form -->
+                                        <div class="col-xs-12">
+
+                                            <div class="" style="width: 100%;">
+                                                {% trans "Are you sure you want to delete the relationship to this file?" %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+
+                        </div>
+                        <!-- End Modal Body -->
+                      
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <a class="btn btn-danger pull-left" data-bind="click: confirmDelete" title="{% trans "Remove this file" %}"><i class="fa fa-trash-o"></i></a>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" data-bind="click: undoCurrentEdit">{% trans "Cancel" %}</button>
+                            <button id="savebtn" type="button" class="btn btn-success" data-dismiss="modal" data-bind="click: updateItem">{% trans "Save" %}</button>
+                            <button id="deletebtn" type="button" class="btn btn-success" style="display: none;" data-dismiss="modal" data-bind="click: deleteItem">{% trans "Delete" %}</button>
+                        </div>
+                        <!-- End Modal Footer -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Edit File Resource Modal -->
+
+            <!-- ++++++++++++  End Modal ++++++++++++++++++++++++++++++++++++++++++++ -->
+            <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
         </div>
         <!-- End Related Information Objects Container -->
@@ -258,14 +284,17 @@
                                         <div id="bootstrap-wizard-1" class="col-sm-12">
                                             <div class="form-bootstrapWizard">
                                                 <ul class="bootstrapWizard form-wizard">
-                                                    <li class="active" data-target="#step1" style="width: 33%">
+                                                    <li class="active" data-target="#step1" style="width: 25%">
                                                         <a href="#tab1" data-toggle="tab"> <span class="step">1</span> <span class="title">{% trans "Part 1: Upload Files" %}</span> </a>
                                                     </li>
-                                                    <li data-target="#step2" style="width: 33%">
-                                                        <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">{% trans "Part 2: Titles/Captions" %}</span> </a>
+                                                    <li data-target="#step2" style="width: 25%">
+                                                        <a href="#tab2" data-toggle="tab"> <span class="step">2</span> <span class="title">{% trans "Part 2: Title" %}</span> </a>
                                                     </li>
-                                                    <li data-target="#step3" style="width: 33%">
-                                                        <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">{% trans "Part 3: Relationship" %}</span> </a>
+                                                    <li data-target="#step3" style="width: 25%">
+                                                        <a href="#tab3" data-toggle="tab"> <span class="step">3</span> <span class="title">{% trans "Part 3: Description" %}</span> </a>
+                                                    </li>
+                                                    <li data-target="#step4" style="width: 25%">
+                                                        <a href="#tab4" data-toggle="tab"> <span class="step">4</span> <span class="title">{% trans "Part 4: Relationship" %}</span> </a>
                                                     </li>
                                                 </ul>
                                                 <div class="clearfix"></div>
@@ -277,7 +306,7 @@
                                                 <!-- Tab 1: Upload Files -->
                                                 <div class="tab-pane active" id="tab1" style="min-height: 330px;">
                                                     <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 1</strong> {% trans "Upload Files" %}</h3>
+                                                    <h3 class="margin-bottom-5"><strong>{% trans "Part 1" %}</strong> {% trans "Upload Files" %}</h3>
                                                     
                                                     <dl>   
                                                         <div class="dropzone" id="mydropzone"></div>
@@ -289,7 +318,7 @@
                                                 <!-- Tab 2: File Metadata -->
                                                 <div class="tab-pane" id="tab2" style="min-height: 330px;">
                                                     <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 2</strong> {% trans "File Information" %}</h3>
+                                                    <h3 class="margin-bottom-5"><strong>{% trans "Part 2" %}</strong> {% trans "File Information" %}</h3>
 
                                                     <div class="alert alert-info fade in">
                                                         <i class="fa-fw fa fa-info"></i>
@@ -320,12 +349,94 @@
 
                                                                         <span class="pull-right" style="width: 80%;">
 
-                                                                            <input class="form-control" style="width:100%;" placeholder="{% trans "Title" %}" data-bind="value: title">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-6">   
+                                                                                    <input class="form-control" style="width:100%;" placeholder="{% trans "Title" %}" data-bind="value: title">
+                                                                                </div>
+                                                                                <div class="col-xs-6"> 
+                                                                                    <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="select2: {value: title_type, placeholder: '{% trans "Title Type" %}', dataKey: 'TITLE_TYPE.E55'}"></input>
+                                                                                </div>
+                                                                            </div>
 
-                                                                            <!-- Spacer (for xs screens) -->
-                                                                            <div class="margin-top-5"></div>
+                                                                        </span>
 
-                                                                            <textarea class="form-control" style="width:100%;" rows="3" placeholder="{% trans "Add a caption for the file here..." %}" data-bind="value: description"></textarea>
+                                                                    </div>    
+                                                                </div>
+                                                            </dd>
+                                                        </div>
+
+                                                    </dl>
+                                                   <!-- Form for XS screens -->
+                                                    <dl class="hidden-sm hidden-md hidden-lg">
+
+                                                        <dd class="arches-file-upload-record">
+                                                            <div class="table-responsive">
+                                                                    
+                                                                <table class="table table-bordered table-striped">
+                                                                    <tbody data-bind="foreach: $data">
+                                                                        <tr>
+                                                                            <th style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px;" rowspan="2">
+                                                                                <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
+                                                                            </th>
+                                                                            <td style="width: 100%; border-width: 0px; padding-top: 20px;">
+                                                                                <input class="form-control" style="width:100%;" placeholder="{% trans "Title" %}" data-bind="value: title">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100%; border-width: 0px;">
+                                                                                <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type" id="resource-name-type" data-bind="select2: {value: title_type, placeholder: '{% trans "Title Type" %}', dataKey: 'TITLE_TYPE.E55'}"></input>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                
+                                                            </div>
+                                                        </dd>
+
+                                                    </dl>
+ 
+                                                </div>
+                                                
+                                                <!-- Tab 3: File Metadata -->
+                                                <div class="tab-pane" id="tab3" style="min-height: 330px;">
+                                                    <br>
+                                                    <h3 class="margin-bottom-5"><strong>{% trans "Part 3" %}</strong> {% trans "File Information" %}</h3>
+
+                                                    <div class="alert alert-info fade in">
+                                                        <i class="fa-fw fa fa-info"></i>
+                                                        {% trans "Add description and desctiption type for each file" %}
+                                                    </div>
+
+                                                    <!-- Form for screens > XS -->
+                                                    <dl class="hidden-xs">  
+
+                                                        <div data-bind="foreach: $data"> 
+                                                            <dd class="arches-file-upload-record">
+                                                                <div class="row">
+
+                                                                    <div class="col-xs-12">
+                                                                        <p class="arches-title">
+                                                                            <span data-bind="text: file.name"></span>
+                                                                            <span class="arches-subtitle pull-right">
+                                                                                <i class="fa-fw fa fa-cloud-upload"></i><span data-bind="text: (file.size/1000000).toFixed(2)"></span> Mb
+                                                                                <i class="fa-fw fa fa-file"></i><span data-bind="text: file.type"></span>
+                                                                            </span>
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-12">
+
+                                                                        <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
+
+                                                                        <span class="pull-right" style="width: 80%;">
+
+                                                                            <input style="width:100%; display: inline-block;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-measurement-unit" data-bind="select2: {value: description_type, placeholder: 'Type', dataKey: 'DESCRIPTION_TYPE.E55'}"></input>
+
+                                                                            <!-- Simple HTML Editor -->
+                                                                            <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                                                                <div class="summernote" data-bind="summernote: {value: description, options:{}}"></div>
+                                                                            </div>
 
                                                                         </span>
 
@@ -344,20 +455,22 @@
                                                                     
                                                                 <table class="table table-bordered table-striped">
                                                                     <tbody data-bind="foreach: $data">
-                                                                        <tr style="">
-                                                                            <td style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
+                                                                        <tr>
+                                                                            <th style="width: 100px; height: 100px; border-width: 0px; padding-top: 20px;" rowspan="2">
                                                                                 <img style="width: 100px; height: 100px; border: 1px solid #cdcdcd;" data-bind="attr: {'src': thumbnail}">
+                                                                            </th>
+                                                                            <td style="width: 100%; border-width: 0px; padding-top: 20px;">
+                                                                                <input style="width:100%; display: inline-block;" class="select2 arches-select2-crud-form name-type" id="resource-measurement-unit" data-bind="select2: {value: description_type, placeholder: 'Type', dataKey: 'DESCRIPTION_TYPE.E55'}"></input>
                                                                             </td>
-                                                                            <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
-                                                                                <input class="form-control " id="" placeholder="{% trans "Title" %}" data-bind="value: title">
-
-                                                                                <!-- Spacer (for xs screens) -->
-                                                                                <div class="margin-top-5"></div>
-
-                                                                                <textarea class="form-control" rows="3" placeholder="{% trans "Add a caption for the file here..." %}" data-bind="value: description"></textarea>
-                                                                            </td>    
                                                                         </tr>
-                                                                        
+                                                                        <tr>
+                                                                            <td style="width: 100%; border-width: 0px;">
+                                                                                <!-- Simple HTML Editor -->
+                                                                                <div class="arches-html-editor margin-top-5" style="width: 100%;">
+                                                                                    <div class="summernote" data-bind="summernote: {value: description, options:{}}"></div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
                                                                     </tbody>
                                                                 </table>
                                                                 
@@ -365,12 +478,11 @@
                                                         </dd>
                                                     </dl>
                                                 </div>
-                                                
-                                                
-                                                <!-- Tab 3: Resource Status -->
-                                                <div class="tab-pane" id="tab3" style="min-height: 330px;">
+
+                                                <!-- Tab 4: Resource Status -->
+                                                <div class="tab-pane" id="tab4" style="min-height: 330px;">
                                                     <br>
-                                                    <h3 class="margin-bottom-5"><strong>Part 3</strong> {% trans "Describe Relationship" %}</h3>
+                                                    <h3 class="margin-bottom-5"><strong>{% trans "Part 4" %}</strong> {% trans "Describe Relationship" %}</h3>
 
                                                     <div class="alert alert-info fade in">
                                                         <i class="fa-fw fa fa-info"></i>
@@ -401,11 +513,11 @@
                                                                         <span class="pull-right" style="width: 80%;">
 
                                                                             <p class="arches-file-title" data-bind="text: title"></p>
-                                                                            <p class="arches-file-description" data-bind="text: description"></p>
+                                                                            <p class="arches-file-description" data-bind="html: description"></p>
 
                                                                             <!-- Relationship -->  
                                                                             <div class="form-group" style="width: 100%">   
-                                                                                <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="select2: {value: relationshiptype, placeholder: 'Type', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
+                                                                                <input style="width: 100%; height: 36px; padding-top: 2px;" class="select2 arches-select2-crud-form name-type hidden-xs" id="resource-name-type" data-bind="select2: {value: relationshiptype, placeholder: '{% trans "Type" %}', dataKey: 'RELATIONSHIP_TYPES.E32'}"></input>
                                                                             </div>
 
                                                                         </span>
@@ -431,7 +543,7 @@
                                                                             </td>
                                                                             <td style="border-width: 0px; padding-top: 20px; padding-bottom: 20px;">
                                                                                 <p class="arches-file-title" data-bind="text: title"></p>
-                                                                                <p class="arches-file-description" data-bind="text: description"></p>
+                                                                                <p class="arches-file-description" data-bind="html: description"></p>
 
                                                                                 <!-- Relationship -->  
                                                                                 <div class="form-group" style="width: 100%">   

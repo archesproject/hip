@@ -6,9 +6,10 @@ define(['jquery',
     'views/forms/sections/branch-list',
     'arches',
     'dropzone',
+    'summernote',
     'blueimp-gallery',
     'blueimp-jquery',
-    ], function ($, _, ko, koMapping, WizardBase, BranchList, arches, dropzone, Gallery) {
+    ], function ($, _, ko, koMapping, WizardBase, BranchList, arches, dropzone, summernote, Gallery) {
 
     return WizardBase.extend({
 
@@ -40,7 +41,9 @@ define(['jquery',
                         id: id,
                         file: file,
                         title: ko.observable(file.name.split('.')[0]),
+                        title_type: ko.observable(),
                         description: ko.observable(),
+                        description_type: ko.observable(),
                         relationshiptype: ko.observable(),
                         thumbnail: ko.observable(),
                         domains: self.data['current-files'].domains
@@ -72,36 +75,24 @@ define(['jquery',
             this.addBranchList(new BranchList({
                 el: this.$el.find('#current-files-section')[0],
                 data: this.data,
-                dataKey: 'current-files',
-                editor: {
-                    'nodes': ko.observableArray(), 
-                    'relationship': koMapping.fromJS({'relationshiptype': null}),
-                    'domains': this.data['current-files'].domains
-                },                
+                dataKey: 'current-files',             
                 validateBranch: function (nodes) {
                     return true;
                 },
-                editItem: function(model){
-                    var modaldialog = $('#edit_file_resource_modal');
-                    modaldialog.modal().show();
-
-                    this.editor.model = model;
-                    this.editor.nodes.removeAll();
-                    koMapping.fromJS(model.relationship, this.editor.relationship);
-                    _.each(model.nodes(), function(node){
-                        this.editor.nodes.push(node);
-                    }, this);
+                editItem: function(branch){
+                    var self = this;
+                    BranchList.prototype.editItem.call(this, branch);
 
                     $('#deletewarning').slideUp();
                     $('#editform').slideDown();
                     $('#savebtn').show();
                     $('#deletebtn').hide();
+
+                    var modaldialog = $('#edit_file_resource_modal');
+                    modaldialog.modal().show();              
                 },
                 updateItem: function(branchlist, evt){
-                    var data = koMapping.toJS(this.editor);
-                    data.relationship.relationshiptype = data.relationship.relationshiptype.value;
-                    delete data.domains;
-                    
+                    var data = koMapping.toJS(this.getEditedBranch());
                     evt.preventDefault();
 
                     self.form.find('#formdata').val(JSON.stringify({'current-files': data}));
@@ -114,15 +105,13 @@ define(['jquery',
                     $('#deletebtn').show(500);
                 },
                 deleteItem: function(branchlist, evt){
-                    var relationship = koMapping.toJS(branchlist.editor).relationship;
-                    relationship.relationshiptype = relationship.relationshiptype.value;
-
+                    var relationship = koMapping.toJS(branchlist.getEditedBranch().nodes.get('ARCHES_RESOURCE_CROSS-REFERENCE_RELATIONSHIP_TYPES.E55'));
                     $.ajax({
                         url: arches.urls.related_resources + relationship.entityid1,
                         method: 'DELETE',
                         data: JSON.stringify(relationship),
                         success: function(response) {
-                            branchlist.viewModel.branch_lists.remove(branchlist.editor.model);
+                            branchlist.removeEditedBranch();
                         }
                     });
                 },
@@ -132,13 +121,15 @@ define(['jquery',
             }));
 
             this.newfilebranchlist = this.addBranchList(new BranchList({
-                //el: this.$el.find('#new-files-section')[0],
                 data: {'new-files':{'branch_lists': [], domains: this.data['current-files'].domains}},
                 dataKey: 'new-files',
                 validate: function(){
                     var valid = true;
                     _.each(self.newfiles(), function(item){
-                        if (item.title() == undefined || item.title() == '' || item.relationshiptype() == undefined || item.relationshiptype() == ''){
+                        if (item.title() == undefined || item.title() == '' || item.title_type() == undefined || item.title_type() == '' || item.relationshiptype() == undefined || item.relationshiptype() == ''){
+                            valid = false;
+                        }
+                        if(item.description() !== '' &&  (item.description_type() == undefined || item.description_type() == '')){
                             valid = false;
                         }
                     }, this); 
