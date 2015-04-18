@@ -598,29 +598,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                         <h5 id="" class="arches-report-subsection-title">{% trans "Copy Rights" %}</h5>
                                                     </dt>
 
-                                                    {% if 'RIGHT_E30' not in report_info.source.graph %}
+                                                    {% if 'RIGHT_DESCRIPTION_E30' not in report_info.source.graph %}
                                                         <dd class="arches-report-subsection-item">
                                                             {% trans "No rights recorded" %}
                                                         </dd>
                                                     {% else %}
-                                                        {% for RIGHT_E30 in report_info.source.graph.RIGHT_E30 %}
-                                                            {% if PHASE_TYPE_ASSIGNMENT_E17 not in PLACE_E53 %}
-                                                                <dd class="arches-report-subsection-item">
-                                                                    {% trans "No rights recorded" %}
-                                                                </dd>
-                                                            {% else %}
-                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in RIGHT_E30.PHASE_TYPE_ASSIGNMENT_E17 %}
-                                                                    {% if 'ANCILLARY_FEATURE_TYPE_E55' not in PHASE_TYPE_ASSIGNMENT_E17 %}
-                                                                        <dd class="arches-report-subsection-item">
-                                                                            {% trans "No rights recorded" %}
-                                                                        </dd>
-                                                                    {% else %}
-                                                                        {% for ANCILLARY_FEATURE_TYPE_E55 in PHASE_TYPE_ASSIGNMENT_E17.ANCILLARY_FEATURE_TYPE_E55 %}
-                                                                            <dd class="arches-report-subsection-item">{{ANCILLARY_FEATURE_TYPE_E55.ANCILLARY_FEATURE_TYPE_E55__value}}</dd>
-                                                                        {% endfor %}                              
-                                                                    {% endif %}
-                                                                {% endfor %}                      
-                                                            {% endif %}
+                                                        {% for RIGHT_DESCRIPTION_E30 in report_info.source.graph.RIGHT_DESCRIPTION_E30 %}
+                                                            <dd class="arches-report-subsection-item">{{RIGHT_DESCRIPTION_E30.RIGHT_TYPE_E55__label}}</dd>
                                                         {% endfor %}              
                                                     {% endif %}
 
