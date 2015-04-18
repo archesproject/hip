@@ -1249,3 +1249,43 @@ class DistrictClassificationForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'PHASE_TYPE_ASSIGNMENT.E17')
                 }
             })
+
+
+class PublicationForm(ResourceForm):
+    @staticmethod
+    def get_info():
+        return {
+            'id': 'publication',
+            'icon': 'fa-flash',
+            'name': _('Creation and Publication'),
+            'class': PublicationForm
+        }
+
+    def update(self, data, files):
+        self.update_nodes('RESOURCE_CREATION_EVENT.E65', data)
+        self.update_nodes('PUBLICATION_EVENT.E12', data)
+        self.update_nodes('RIGHT_TYPE.E55', data)
+        return
+
+    def load(self, lang):
+        if self.resource:
+            self.data['RESOURCE_CREATION_EVENT.E65'] = {
+                'branch_lists': self.get_nodes('RESOURCE_CREATION_EVENT.E65'),
+                'domains': {
+                    'INFORMATION_RESOURCE_TYPE.E55' : Concept().get_e55_domain('INFORMATION_RESOURCE_TYPE.E55')
+                }
+            }
+
+            self.data['PUBLICATION_EVENT.E12'] = {
+                'branch_lists': self.get_nodes('PUBLICATION_EVENT.E12'),
+                'domains': {}
+            }
+
+            self.data['RIGHT_TYPE.E55'] = {
+                'branch_lists': self.get_nodes('RIGHT_TYPE.E55'),
+                'domains': {
+                    'RIGHT_TYPE.E55' : Concept().get_e55_domain('RIGHT_TYPE.E55')
+                }
+            }
+
+        return

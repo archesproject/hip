@@ -105,8 +105,10 @@ class Resource(ArchesResource):
         elif self.entitytypeid == 'INFORMATION_RESOURCE.E73':
             description_group['forms'][:0] = [
                 forms.InformationResourceSummaryForm.get_info(), 
+                forms.PublicationForm.get_info(),
                 forms.CoverageForm.get_info(),
                 forms.DescriptionForm.get_info(),
+                forms.FileUploadForm.get_info()
             ]
             description_group['forms'].append(forms.FileUploadForm.get_info())
 
