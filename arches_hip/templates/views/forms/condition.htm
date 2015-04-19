@@ -62,6 +62,9 @@
                             <dd class="arches-evaluation-content" data-bind="if: $data['CONDITION_DESCRIPTION.E62'].branch_lists.length > 0">
                                 <span data-bind="html: $data['CONDITION_DESCRIPTION.E62'].branch_lists[0].nodes[0].value"></span>
                             </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['CONDITION_DESCRIPTION.E62'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
                         </dl>
 
                         <dl>
@@ -114,7 +117,9 @@
                                         </a>
                                     </span>
                                 </div>
-
+                                <div class="arches-evaluation-content" style="margin-left:0;" data-bind="ifnot: $data['CONDITION_IMAGE.E73'].branch_lists.length > 0">
+                                    <span data-bind="html: 'no entries'"></span>
+                                </div>
                             </div>
 
                         </dl>
@@ -124,6 +129,9 @@
                             <dd data-bind="foreach: $data['DISTURBANCE_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                                 <span data-bind="text: nodes[0].label"></span>
                             </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['DISTURBANCE_TYPE.E55'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
                         </dl>
 
                         <dl>   
@@ -131,6 +139,9 @@
                                 <dd data-bind="foreach: $data['THREAT_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                                     <span data-bind="text: nodes[0].label"></span>
                                 </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['THREAT_TYPE.E55'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
                         </dl>
 
                         <dl>   
@@ -138,6 +149,9 @@
 
                             <dd data-bind="foreach: $data['RECOMMENDATION_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                                 <span data-bind="text: nodes[0].label"></span>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['RECOMMENDATION_TYPE.E55'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
                             </dd>
                         </dl>
 

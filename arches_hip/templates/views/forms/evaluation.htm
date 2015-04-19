@@ -59,12 +59,18 @@
                             <dd class="arches-evaluation-content" data-bind="if: $data['REASONS.E62'].branch_lists.length > 0">
                             <span data-bind="html: $data['REASONS.E62'].branch_lists[0].nodes[0].value"></span><br>
                             </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['REASONS.E62'].branch_lists.length > 0">
+                            <span data-bind="html: 'no entries'"></span>
+                            </dd>
                     </dl>
 
                     <dl>   
                         <dt class="arches-evaluation-header">Eligibility</dt>
                             <dd data-bind="foreach: $data['ELIGIBILITY_REQUIREMENT_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                             <span data-bind="text: nodes[0].label"></span><br>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['ELIGIBILITY_REQUIREMENT_TYPE.E55'].branch_lists.length > 0">
+                            <span data-bind="html: 'no entries'"></span>
                             </dd>
                     </dl>
 
@@ -73,12 +79,18 @@
                             <dd data-bind="foreach: $data['INTEGRITY_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                             <span data-bind="text: nodes[0].label"></span><br>
                             </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['INTEGRITY_TYPE.E55'].branch_lists.length > 0">
+                            <span data-bind="html: 'no entries'"></span>
+                            </dd>
                     </dl>
 
                     <dl>   
                         <dt class="arches-evaluation-header">Status Codes</dt>
                             <dd data-bind="foreach: $data['STATUS.E55'].branch_lists" class="arches-evaluation-content">
                             <span data-bind="text: nodes[0].label"></span><br>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['STATUS.E55'].branch_lists.length > 0">
+                            <span data-bind="html: 'no entries'"></span>
                             </dd>
                     </dl>
 
