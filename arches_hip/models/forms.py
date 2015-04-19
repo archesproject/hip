@@ -87,6 +87,7 @@ class SummaryForm(ResourceForm):
                 #     'NAME.E41': ''
                 # }
             }
+
             self.data['KEYWORD.E55'] = {
                 'branch_lists': self.get_nodes('KEYWORD.E55'),
                 'domains': {'KEYWORD.E55' : Concept().get_e55_domain('KEYWORD.E55')}
