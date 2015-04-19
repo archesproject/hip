@@ -42,6 +42,7 @@ define(['jquery',
                 el: this.$el.find('#evaluation-section')[0],
                 data: currentEditedAssessment,
                 dataKey: 'EVALUATION_CRITERIA_TYPE.E55',
+                showParents: true,
                 singleEdit: true
             });
             ko.applyBindings(evaluationSection, this.$el.find('#evaluation-summary-section')[0]);
