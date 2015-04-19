@@ -59,13 +59,149 @@ You can add your own CSS style rules (applied application wide) in the following
 
     Each block will create an item in the slider.  You can modify the ``src`` path in the ``<img>`` tag and update the text in the tags below it to make the item show an image and message of your choosing.
 
-**Branding**
+**Header Branding**
 
     The templates that manage site-wide branding are ``footer.htm``, ``header.htm``, and ``copyright.htm``.  These templates are used by default for branding on all web application pages.
 
     You should probably keep much of the structure of these templates, and simply input your own labels, icons and information as appropriate.
 
-    For example, the header logo on all pages can be altered by modifying the ``<img>`` tag at line 52 of ``header.htm``.  This will change the header image on all web application pages.
+    For example, the header logo on all pages can be altered by modifying the following block of HTML start at line 54::
+
+        <!-- Default Logo, Replace with your own -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img id="logo-header" class="arches-logo" src="{{ STATIC_URL }}img/arches_logo.png" alt="Logo">
+        </a>
+
+    Copy your logo to the img/ folder and just replace 'arches_logo.png' with the file name of your logo.  Open main.css in a text editor and search for 'arches-logo' (in the initial Arches release its found at line 2530).  You can modify::
+
+        height: 28px;
+        margin-top: 13px;
+
+    to set the height and position of you logo.
+
+**Footer Branding**
+
+    The footer template sets your contact information (address, telephone number, email) as well as general information including a short description of your Arches implementation and recent activities.
+
+    You can modify the default "About Arches" message by opening the footer.htm file in a text editor and finding the following block of html (around line 10)::
+
+        <!-- Default About Us.  Edit the <p> text below for your own message -->
+        <div class="col-md-3 sm-margin-bottom-40">
+            <div class="heading-footer">
+                <h2>About Arches</h2>
+            </div>
+            <p>Arches is built to create and manage rich inventories of culturally significant resources.</p>
+        </div>
+        <!-- End About Us -->
+
+    Edit the "About Arches" text to change the title of this section, and the text between the <p> and </p> tags to change the summary.
+
+    Your contact information is found here (around line 51)::
+
+        <!-- Contacts -->
+        <div class="col-md-3">
+            <div class="heading-footer"><h2>Contacts</h2></div>
+            <ul class="list-unstyled contacts">
+                <li>
+                    <i class="radius-3x fa fa-map-marker"></i>
+                    601 Montgomery St, Suite 1095,<br>
+                    San Francisco, CA 94111
+                </li>
+                <li>
+                    <i class="radius-3x fa fa-phone"></i>
+                    (+123) 456 7890 (main)<br>
+                    (+123) 456 7891 (mobile)
+                </li>
+                <li>
+                    <i class="radius-3x fa fa-globe"></i>
+                    <a href="#">info@arches.org</a><br>                           
+                    <a href="#">www.archesproject.org</a>
+                </li>
+            </ul>
+        </div>
+        <!-- End Contacts -->
+
+    Simply update the default address, phone numbers, and email/web address with your own values.
+
+
+**Copyright Branding**
+
+    The bottom panel contains basic information about the Arches and Arches-HIP versions, as well as a link to the Arches project website.  It also presents buttons that allow you to include your social media information.  Open copyright.htm in a text editor to update these links (found near line 14)::
+
+
+        <div class="col-md-4">
+            <ul class="list-inline dark-social pull-right space-bottom-0">
+                <li>
+                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Facebook" href="#">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Twitter" href="#">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Google plus" href="#">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Instagram" href="#">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Youtube" href="#">
+                        <i class="fa fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Soundcloud" href="#">
+                        <i class="fa fa-soundcloud"></i>
+                    </a>
+                </li>
+            </ul>       
+        </div>
+
+
+    Find the "href="#" tag for each button and replace the "#" with the link to your site.  Simply delete the buttons that you don't use.  For example, if you want to delete the Soundcloud button, delete the following block::
+
+
+        <li>
+            <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Soundcloud" href="#">
+                <i class="fa fa-soundcloud"></i>
+            </a>
+        </li>
+
+
+HIP Title Block
+===============
+
+Arches-HIP places a bit of text beneath the images on the home page as a way to brief describe your use of Arches-HIP.  You can edit this text by opening the index.htm page in a text editor and finding this section of html (found near line 135)::
+
+    <!--=== HIP Title Block ===-->
+    <div class="purchase">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 animated fadeInLeft">
+                    <span>{% trans 'Survey Los Angeles' %}</span>
+                    <p>{% trans "Los Angeles is taking a significant step to protect its rich heritage by embarking on SurveyLA - a citywide survey to identify and document historic resources representing significant themes in the city's history. While Los Angeles has over 1,000 Historic-Cultural Monuments (local landmarks) and 29 Historic Preservation Overlay Zones (historic districts), before SurveyLA only about 15% of the city had been surveyed." %}</p>
+                </div>            
+                <div class="col-md-3 btn-buy animated fadeInRight">
+                    <a href="#" class="btn-u btn-u-lg"><i class="fa fa-plus-square"></i> {% trans 'Learn More' %}</a>
+                </div>
+            </div>
+        </div>
+    </div><!--/row-->
+    <!-- End HIP Title Block -->
+
+
+To change the title of this section, simply replace 'Survey Los Angeles' with your own text.  Similarly, replace the text following the <p> tag with your own summary.  The "Learn More" button can also be modified.  Change the button text if you wish, and replace the "#" with the web address of the page you want your audience to visit.
+
+Of course, you can simply delete this entire block of html if you prefer. 
+
+    
 
 Saved Searches
 ==============
@@ -104,6 +240,26 @@ To update that block to use the example search above for the word modern, I can 
             <p>{% trans 'Find things that are modern.' %}</p>
         </div>
     </div>
+
+
+Additional Content
+==================
+
+Feel free to add additional content to the index.htm page.  Simply add your content in the area provided in index.htm::
+
+
+    <!--=== Put Your Addition Content Here 
+        Use Arches' exist CSS classes or add your own with package.css ===-->
+        <div class="">
+            
+
+
+
+        </div>
+        <!-- End Additional Content -->
+
+
+
 
 Google Analytics
 ================
