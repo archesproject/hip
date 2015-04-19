@@ -18,11 +18,11 @@ define(['jquery',
                 $(this).find('input').trigger('change'); 
             });
 
-            this.editAssessment = function(branchlist){
+            this.editClassification = function(branchlist){
                 self.switchBranchForEdit(branchlist);
             }
 
-            this.deleteAssessment = function(branchlist){
+            this.deleteClassification = function(branchlist){
                 self.deleteClicked(branchlist);
             }
 
