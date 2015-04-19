@@ -14,6 +14,8 @@ RESOURCE_MODEL = {'default': 'arches_hip.models.resource.Resource'}
 APP_NAME = 'Arches v3.0 - HIP v1.0'
 PACKAGE_VALIDATOR = 'arches_hip.source_data.validation.HIP_Validator'
 
+DEFAULT_MAP_ZOOM = 1
+
 def RESOURCE_TYPE_CONFIGS():
     return {
         'HERITAGE_RESOURCE.E18': {
