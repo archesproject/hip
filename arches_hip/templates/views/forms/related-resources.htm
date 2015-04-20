@@ -139,7 +139,7 @@
                 <dl class="margin-bottom-10"> 
                     
                     <dd class="margin-left-5">
-                        <div data-bind="visible: getBranchLists().length == 0">
+                        <div data-bind="visible: viewModel.branch_lists().length == 0">
                             <p class="arches-CRUD-child text-primary">{% trans 'This resource has no relationships yet' %}</p>
                         </div>
 

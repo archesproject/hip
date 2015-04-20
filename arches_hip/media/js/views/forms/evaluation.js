@@ -34,6 +34,10 @@ define(['jquery',
 
             ko.applyBindings(this, this.$el.find('#existing-assessments')[0]);
 
+            this.addBranchList(new BranchList({
+                data: currentEditedAssessment,
+                dataKey: 'EVALUATION_CRITERIA_ASSIGNMENT.E13'
+            }));
 
             var statusSection = new BranchList({
                 el: this.$el.find('#status-section')[0],

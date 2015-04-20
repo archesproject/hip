@@ -1,12 +1,13 @@
 require([
     'jquery',
+    'underscore',
     'arches',
     'bootstrap',
     'views/map',
     'openlayers', 
     'knockout',
     'utils'
-], function($, arches, bootstrap, MapView, ol, ko, utils) {
+], function($, _, arches, bootstrap, MapView, ol, ko, utils) {
     var ReportView = Backbone.View.extend({
 
         initialize: function(options) { 
@@ -76,6 +77,12 @@ require([
             $('body').removeClass('scroll-y');
             resize();
             $(window).resize(resize); 
+
+            _.each($('.report-item-list'), function(list) {
+                if ($(list).find('.report-list-item').length === 0) {
+                    $(list).find('.empty-message').show();
+                }
+            })
 
         },
 

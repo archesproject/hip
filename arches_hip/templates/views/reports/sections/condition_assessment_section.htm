@@ -89,7 +89,7 @@
                                                         {% else %}
                                                             {% for CONDITION_DESCRIPTIONS_E62 in CONDITION_STATE_E3 %}
                                                                 <dd class="arches-report-subsection-item">
-                                                                    {{CONDITION_DESCRIPTIONS_E62.CONDITION_DESCRIPTIONS_E62__value}} 
+                                                                    {{CONDITION_DESCRIPTIONS_E62.CONDITION_DESCRIPTIONS_E62__value | safe}} 
                                                                 </dd> 
                                                             {% endfor %}
                                                         {% endif %}

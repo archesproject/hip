@@ -90,6 +90,14 @@ define([
                     this.viewModel.branch_lists.remove(branch);
                     branch.related(false);
                 },
+                getData: function(){
+                    var data = koMapping.toJS(this.viewModel.branch_lists());
+                    _.each(data, function(item){
+                        var i = item;
+                        delete item.editing;
+                    }, this); 
+                    return data;
+                },
                 getEditedBranchTypeInfo: function() {
                     if (!this.getEditedBranch()) {
                         return {};
