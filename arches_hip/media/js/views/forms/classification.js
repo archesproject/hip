@@ -11,7 +11,10 @@ define(['jquery',
             WizardBase.prototype.initialize.apply(this);
 
             var self = this;
-            var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});            
+            var date_picker = $('.datetimepicker').datetimepicker({
+                pickTime: false, 
+                dateFormat: 'yy-mm-dd'
+            });            
             var currentEditedClassification = this.getBlankFormData();
 
             date_picker.on('dp.change', function(evt){

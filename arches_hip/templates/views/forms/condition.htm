@@ -127,7 +127,7 @@
                         <dl>   
                             <dt class="arches-evaluation-header">{% trans "Disturbances" %}</dt>
                             <dd data-bind="foreach: $data['DISTURBANCE_TYPE.E55'].branch_lists" class="arches-evaluation-content">
-                                <span data-bind="text: nodes[0].label"></span>
+                                <span data-bind="text: nodes[0].label"></span><br>
                             </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['DISTURBANCE_TYPE.E55'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>
@@ -137,7 +137,7 @@
                         <dl>   
                             <dt class="arches-evaluation-header">{% trans "Threats" %}</dt>
                                 <dd data-bind="foreach: $data['THREAT_TYPE.E55'].branch_lists" class="arches-evaluation-content">
-                                    <span data-bind="text: nodes[0].label"></span>
+                                    <span data-bind="text: nodes[0].label"></span><br>
                                 </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['THREAT_TYPE.E55'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>
@@ -148,7 +148,7 @@
                             <dt class="arches-evaluation-header">{% trans "Recommendations" %}</dt>
 
                             <dd data-bind="foreach: $data['RECOMMENDATION_TYPE.E55'].branch_lists" class="arches-evaluation-content">
-                                <span data-bind="text: nodes[0].label"></span>
+                                <span data-bind="text: nodes[0].label"></span><br>
                             </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['RECOMMENDATION_TYPE.E55'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>

@@ -17,6 +17,11 @@ define(['jquery',
 
             var self = this;          
             var currentEditedAssessment = this.getBlankFormData();
+            var date_picker = $('.datetimepicker').datetimepicker({pickTime: false});            
+
+            date_picker.on('dp.change', function(evt){
+                $(this).find('input').trigger('change'); 
+            });
 
 
             this.editAssessment = function(branchlist){
@@ -76,6 +81,21 @@ define(['jquery',
             ko.applyBindings(descriptionSection, this.$el.find('#description-summary-section')[0]);
             this.addBranchList(descriptionSection);
 
+            var dateEvaluatedSection = new BranchList({
+                el: this.$el.find('#date-evaluated-section')[0],
+                data: currentEditedAssessment,
+                dataKey: 'DATE_EVALUATED.E49',
+                singleEdit: true
+            });
+            ko.applyBindings(descriptionSection, this.$el.find('#date-evaluated-summary-section')[0]);
+            this.addBranchList(dateEvaluatedSection);
+
+            var evaluationAssignment = new BranchList({
+                data: currentEditedAssessment,
+                dataKey: 'EVALUATION_CRITERIA_ASSIGNMENT.E13'
+            });
+            this.addBranchList(evaluationAssignment);
+
             },
 
 
@@ -126,6 +146,12 @@ define(['jquery',
                     'branch_lists': []
                 },
                 'REASONS.E62': {
+                    'branch_lists': []
+                },
+                'DATE_EVALUATED.E49': {
+                    'branch_lists': []
+                },
+                'EVALUATION_CRITERIA_ASSIGNMENT.E13': {
                     'branch_lists': []
                 }
             })

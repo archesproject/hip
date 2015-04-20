@@ -53,7 +53,15 @@
                             </div>
                         </dd>
                     </dl>
-
+                    <dl>   
+                        <dt class="arches-evaluation-header">Date Evaluated</dt>
+                            <dd class="arches-evaluation-content" data-bind="if: $data['DATE_EVALUATED.E49'].branch_lists.length > 0">
+                            <span data-bind="html: $data['DATE_EVALUATED.E49'].branch_lists[0].nodes[0].value"></span><br>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['DATE_EVALUATED.E49'].branch_lists.length > 0">
+                            <span data-bind="html: 'no entries'"></span>
+                            </dd>
+                    </dl>
                     <dl>   
                         <dt class="arches-evaluation-header">Reason Statement</dt>
                             <dd class="arches-evaluation-content" data-bind="if: $data['REASONS.E62'].branch_lists.length > 0">
@@ -146,7 +154,7 @@
                                                     Start the resource evaluation by selecting the context and reason you will use to evaluate this resource...
                                                 </div>
                                                 <div>
-                                                    <div id="evaluation-section">
+                                                    <div>
                                                         <dl>  
                                                             <!-- Form -->
                                                             <dd>
@@ -156,12 +164,16 @@
                                                                     <!-- Status Code form -->
                                                                     <div class="row">
                                                                         <div class="col-xs-12">
-                                                                            <div class="form-group" style="width: 100%;">
+                                                                        <h5 class="section-headline margin-bottom-5">Evaluation Criteria</h5> 
+                                                                            <div class="form-group col-xs-12 col-sm-9" id="evaluation-section">
 
-                                                                                <!-- Threats Input-->   
-                                                                                <h5 class="section-headline margin-bottom-5">Evaluation Criteria</h5>  
-                                                                                <input style="width:100%; display:inline-block;" class="select2 arches-select2-crud-form name-type designation" data-bind="select2: {value: getEditedNode('EVALUATION_CRITERIA_TYPE.E55', 'value'),  placeholder: '{% trans "Evaluation Criteria" %}', dataKey: 'EVALUATION_CRITERIA_TYPE.E55', showParents: showParents}">&nbsp;&nbsp;
+                                                                                <!-- Threats Input-->    
+                                                                                <input style="width:100%; display:inline-block;" class="select2 arches-select2-crud-form name-type designation" data-bind="select2: {value: getEditedNode('EVALUATION_CRITERIA_TYPE.E55', 'value'),  placeholder: '{% trans "Evaluation Criteria" %}', dataKey: 'EVALUATION_CRITERIA_TYPE.E55', showParents: showParents}">
 
+                                                                            </div>
+                                                                            <div class="input-group datetimepicker col-xs-12 col-sm-2" id="date-evaluated-section" style="width:20%">
+                                                                                <input style="font-size: 13px; height:32px;" type="text" placeholder="{% trans 'yyyy-mm-dd' %}" class="form-control datepicker" data-date-format="YYYY-MM-DD" data-bind="{value: getEditedNode('DATE_EVALUATED.E49', 'value')} ">
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -426,6 +438,13 @@
                                                         <dt class="arches-report-header">Context</dt>
                                                         <div data-bind="foreach: getBranchLists()">
                                                             <span data-bind="text: nodes.get('EVALUATION_CRITERIA_TYPE.E55', 'label')" style="padding-right:2px;"></span><br>
+                                                        </div>
+                                                    </dl>
+
+                                                    <dl id="date-evaluated-summary-section">   
+                                                        <dt class="arches-report-header">Date Evaluated</dt>
+                                                        <div data-bind="foreach: getBranchLists()">
+                                                            <span data-bind="text: nodes.get('DATE_EVALUATED.E49', 'value')" style="padding-right:2px;"></span><br>
                                                         </div>
                                                     </dl>
 

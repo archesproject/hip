@@ -109,7 +109,7 @@
                         <dl>   
                             <dt class="arches-evaluation-header">{% trans "Related Features" %}</dt>
                             <dd data-bind="foreach: $data['ANCILLARY_FEATURE_TYPE.E55'].branch_lists" class="arches-evaluation-content">
-                                <span data-bind="text: nodes[0].label"></span>
+                                <span data-bind="text: nodes[0].label"></span><br>
                             </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['ANCILLARY_FEATURE_TYPE.E55'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>
@@ -119,7 +119,7 @@
                         <dl>   
                             <dt class="arches-evaluation-header">{% trans "Styles" %}</dt>
                                 <dd data-bind="foreach: $data['STYLE.E55'].branch_lists" class="arches-evaluation-content">
-                                    <span data-bind="text: nodes[0].label"></span>
+                                    <span data-bind="text: nodes[0].label"></span><br>
                                 </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['STYLE.E55'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>

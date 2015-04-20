@@ -359,6 +359,12 @@ class ClassificationForm(ResourceForm):
         classification_entities = self.resource.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17')
 
         for entity in classification_entities:
+            to_date_nodes = self.get_nodes(entity, 'TO_DATE.E49')         
+            from_date_nodes = self.get_nodes(entity, 'FROM_DATE.E49')
+
+            for date_nodes in [to_date_nodes, from_date_nodes]:
+                date_nodes[0]['nodes'][0].value = date_nodes[0]['nodes'][0].value.date()
+
             self.data['data'].append({
                 'HERITAGE_RESOURCE_TYPE.E55': {
                     'branch_lists': self.get_nodes(entity, 'HERITAGE_RESOURCE_TYPE.E55')
@@ -370,10 +376,10 @@ class ClassificationForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'CULTURAL_PERIOD.E55')
                 },
                 'TO_DATE.E49': {
-                    'branch_lists': self.get_nodes(entity, 'TO_DATE.E49')
+                    'branch_lists': to_date_nodes
                 },
                 'FROM_DATE.E49': {
-                    'branch_lists': self.get_nodes(entity, 'FROM_DATE.E49')
+                    'branch_lists': from_date_nodes
                 },
                 'STYLE.E55': {
                     'branch_lists': self.get_nodes(entity, 'STYLE.E55')
@@ -385,7 +391,7 @@ class ClassificationForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'PHASE_TYPE_ASSIGNMENT.E17')
                 }
             })
-
+           
 
 class HistoricalEventSummaryForm(ActivitySummaryForm):
     @staticmethod
@@ -1012,6 +1018,7 @@ class EvaluationForm(ResourceForm):
         return ret
 
     def update_nodes(self, entitytypeid, data):
+        # self.resource.prune(entitytypes=[entitytypeid])
         if self.schema == None:
             self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
 
@@ -1025,20 +1032,23 @@ class EvaluationForm(ResourceForm):
                 else:
                     self.baseentity.merge(entity)
 
+        # self.resource.trim()
+
 
 
     def update(self, data, files):
-        # for value in data['EVALUATION_CRITERIA_ASSIGNMENT.E13']:
-        #     for node in value['nodes']:
-        #         if node['entitytypeid'] == 'EVALUATION_CRITERIA_ASSIGNMENT.E13' and node['entityid'] != '':
-        #             #remove the node
-        #             self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+        for value in data['EVALUATION_CRITERIA_ASSIGNMENT.E13']:
+            for node in value['nodes']:
+                if node['entitytypeid'] == 'EVALUATION_CRITERIA_ASSIGNMENT.E13' and node['entityid'] != '':
+                    #remove the node
+                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
 
         self.update_nodes('STATUS.E55', data)
         self.update_nodes('EVALUATION_CRITERIA_TYPE.E55', data)
         self.update_nodes('ELIGIBILITY_REQUIREMENT_TYPE.E55', data)
         self.update_nodes('INTEGRITY_TYPE.E55', data)
         self.update_nodes('REASONS.E62', data)
+        self.update_nodes('DATE_EVALUATED.E49', data)
 
         self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
         self.resource.trim()
@@ -1078,6 +1088,9 @@ class EvaluationForm(ResourceForm):
                 },
                 'EVALUATION_CRITERIA_ASSIGNMENT.E13': {
                     'branch_lists': self.get_nodes(entity, 'EVALUATION_CRITERIA_ASSIGNMENT.E13')
+                },
+                'DATE_EVALUATED.E49': {
+                    'branch_lists': self.get_nodes(entity, 'DATE_EVALUATED.E49')
                 }
             })
 
@@ -1227,6 +1240,12 @@ class DistrictClassificationForm(ResourceForm):
         classification_entities = self.resource.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17')
 
         for entity in classification_entities:
+            to_date_nodes = self.get_nodes(entity, 'TO_DATE.E49')         
+            from_date_nodes = self.get_nodes(entity, 'FROM_DATE.E49')
+
+            for date_nodes in [to_date_nodes, from_date_nodes]:
+                date_nodes[0]['nodes'][0].value = date_nodes[0]['nodes'][0].value.date()
+
             self.data['data'].append({
                 'HERITAGE_RESOURCE_GROUP_TYPE.E55': {
                     'branch_lists': self.get_nodes(entity, 'HERITAGE_RESOURCE_GROUP_TYPE.E55')
@@ -1238,10 +1257,10 @@ class DistrictClassificationForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'CULTURAL_PERIOD.E55')
                 },
                 'TO_DATE.E49': {
-                    'branch_lists': self.get_nodes(entity, 'TO_DATE.E49')
+                    'branch_lists': to_date_nodes
                 },
                 'FROM_DATE.E49': {
-                    'branch_lists': self.get_nodes(entity, 'FROM_DATE.E49')
+                    'branch_lists': from_date_nodes
                 },
                 'ANCILLARY_FEATURE_TYPE.E55': {
                     'branch_lists': self.get_nodes(entity, 'ANCILLARY_FEATURE_TYPE.E55')
