@@ -1,0 +1,4 @@
+﻿conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider 
+TYPE_OF_ACTIVITY_TYPE:1,Investigation,,TYPE_OF_ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+TYPE_OF_ACTIVITY_TYPE:2,Management,,TYPE_OF_ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+TYPE_OF_ACTIVITY_TYPE:3,Designation or Protection,,TYPE_OF_ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI

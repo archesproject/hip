@@ -1,0 +1,76 @@
+ConceptID,PrefLabel,AltLabels,ParentConceptID,ConceptType,Provider
+CTP:1,"Architecture and Engineering, 1850-1980",,EVALUATION_CRITERIA_TYPE_AUTHORITY_DOCUMENT.csv,collector,GCI
+CTP:2,"Engineering, 1900-1985",,CTP:1,collector,GCI
+CTP:3,"Technological Developments in Construction, 1900-1985",,CTP:2,collector,GCI
+CTP:4,"Hill Houses, 1920-1985",,CTP:3,collector,GCI
+CTP:5,Residential,,CTP:4,collector,GCI
+CTP:6,District,,CTP:5,index,GCI
+CTP:7,Multi-Family Residence,,CTP:5,index,GCI
+CTP:8,Single-Family Residence,,CTP:5,index,GCI
+CTP:9,"L.A. Modernism, 1919-1980",,CTP:1,collector,GCI
+CTP:10,"Late Modernism, 1966-1980",,CTP:9,collector,GCI
+CTP:11,"Brutalism, 1966-1980",,CTP:10,collector,GCI
+CTP:12,Commercial,,CTP:11,index,GCI
+CTP:13,Institutional,,CTP:11,index,GCI
+CTP:14,"High Tech (Structural Expressionism), 1966-1980",,CTP:10,collector,GCI
+CTP:15,Commercial,,CTP:14,index,GCI
+CTP:16,Industrial,,CTP:14,index,GCI
+CTP:17,Institutional,,CTP:14,index,GCI
+CTP:18,Commercial,,CTP:10,index,GCI
+CTP:19,Institutional,,CTP:10,index,GCI
+CTP:20,Residential,,CTP:10,index,GCI
+CTP:21,"Sculptural (Glass Skin), 1966-1980",,CTP:10,collector,GCI
+CTP:22,Commercial,,CTP:21,index,GCI
+CTP:23,Industrial,,CTP:21,index,GCI
+CTP:24,"Post-War Modernism, 1946-1976",,CTP:9,collector,GCI
+CTP:25,"A-Frame Houses, 1950-1975",,CTP:24,collector,GCI
+CTP:26,Residential,,CTP:25,collector,GCI
+CTP:27,Single-Family Residence,,CTP:26,index,GCI
+CTP:28,"Corporate International, 1946-1976",,CTP:24,collector,GCI
+CTP:29,Commercial,,CTP:28,index,GCI
+CTP:30,District,,CTP:28,index,GCI
+CTP:31,Institutional,,CTP:28,index,GCI
+CTP:32,"Googie, 1935-1969",,CTP:24,collector,GCI
+CTP:33,Commercial,,CTP:32,index,GCI
+CTP:34,"Mid-Century Modernism, 1945-1970",,CTP:24,collector,GCI
+CTP:35,Commercial,,CTP:34,index,GCI
+CTP:36,District,,CTP:34,index,GCI
+CTP:37,Industrial,,CTP:34,index,GCI
+CTP:38,Institutional,,CTP:34,index,GCI
+CTP:39,Residential,,CTP:34,index,GCI
+CTP:40,"New Formalism, 1955-1976",,CTP:24,collector,GCI
+CTP:41,Commercial,,CTP:40,index,GCI
+CTP:42,District,,CTP:40,index,GCI
+CTP:43,Industrial,,CTP:40,index,GCI
+CTP:44,Institutional,,CTP:40,index,GCI
+CTP:45,"Pre-War Modernism, 1919-1945",,CTP:9,collector,GCI
+CTP:46,"Early Modernism, 1919-1945",,CTP:45,collector,GCI
+CTP:47,Institutional,,CTP:46,index,GCI
+CTP:48,Residential,,CTP:46,collector,GCI
+CTP:49,Multi-Family Residence,,CTP:48,index,GCI
+CTP:50,Single-Family Residence,,CTP:48,index,GCI
+CTP:51,"International Style, 1920-1960",,CTP:45,collector,GCI
+CTP:52,Commercial,,CTP:51,index,GCI
+CTP:53,Institutional,,CTP:51,index,GCI
+CTP:54,Residential,,CTP:51,index,GCI
+CTP:55,"Related Responses to Modernism, 1926-1970",,CTP:9,collector,GCI
+CTP:56,"Art Deco, 1926-1939",,CTP:55,collector,GCI
+CTP:57,Commercial,,CTP:56,index,GCI
+CTP:58,Industrial,,CTP:56,index,GCI
+CTP:59,Institutional,,CTP:56,index,GCI
+CTP:60,Residential,,CTP:56,index,GCI
+CTP:61,"Hollywood Regency, 1935-1955",,CTP:55,collector,GCI
+CTP:62,Commercial,,CTP:61,index,GCI
+CTP:63,Industrial,,CTP:61,index,GCI
+CTP:64,Institutional,,CTP:61,index,GCI
+CTP:65,Residential,,CTP:61,index,GCI
+CTP:66,"Late Hollywood Regency, 1956-1970",,CTP:55,collector,GCI
+CTP:67,Commercial,,CTP:66,index,GCI
+CTP:68,Residential,,CTP:66,index,GCI
+CTP:69,"Late Moderne, 1936-1960",,CTP:55,collector,GCI
+CTP:70,Commercial,,CTP:69,index,GCI
+CTP:71,Industrial,,CTP:69,index,GCI
+CTP:72,Institutional,,CTP:69,index,GCI
+CTP:73,"PWA Moderne, 1928-1945",,CTP:55,collector,GCI
+CTP:74,Commercial,,CTP:73,index,GCI
+CTP:75,Institutional,,CTP:73,index,GCI

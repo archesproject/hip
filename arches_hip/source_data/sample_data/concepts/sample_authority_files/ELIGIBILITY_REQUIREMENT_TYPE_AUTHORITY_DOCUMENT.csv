@@ -1,0 +1,50 @@
+﻿conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
+Eligibility Type:1,"""Mimetic” refers to buildings which mimic forms which are not related to the building’s use",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:2,"""Programmatic” refers to structures whose form is directly related to the products sold within",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:3,1 1/2 to 2 1/2 stories,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:4,1-2 stories in height,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:5,1-2 stories in height (2nd story is often a mezzanine level),,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:6,1-2 stories in height and horizontal orientation,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:7,1-2 story building with an open interior plan for bottling equipment (equipment does not need to be present),,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:8,1500-3500 sq.ft. in size,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:9,2-12 stories in height,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:10,3 to 12 stories in height,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:11,30-40 foot high hoppers for holding cement,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:12,A definable geographic area composed of support service properties associated with the entertainment industry,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:13,"A geographically definable area composed of multiple adjacent subdivisions, or portions thereof, that have become linked over time through a shared period of development or demographic, ethnic or cultural cohesion",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:14,A geographically definable area composed of multiple subdivisions and/or portions of subdivisions that were either by design or circumstance developed with mostly multi-family property types,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:15,A grouping may be composed of a single property type or a variety of property types,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:16,A multi-family residence designed to house people working in the entertainment industry,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:17,A private recreational facility that played a significant role in the history of recreation and leisure in Los Angeles,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:18,A public or private educational institution that represents an important aspect of educational development and history in Los Angeles,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:19,"A residence designed specifically for a significant person in the entertainment industry, or the long-term residence of a significant person in the entertainment industry",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:20,A residential neighborhood strongly associated with the settlement and/or migration of one or more ethnic/cultural groups over time,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:21,"A residential tract, subdivision(s) or neighborhood",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:22,"A significant concentration of commercial, institutional and/or residential buildings located within a neighborhood or village center representing important patterns in commercial development, property types and architecture",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:23,"A single City Hall building or administrative center which may include other services such as police, fire, library buildings and health centers",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:24,"A single residential tract or subdivision, or part thereof, recorded by a subdivider",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:25,A single subdisivion or group of subdivisons developed exclusively with multi-family buildings,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:26,A single subdivision or group of subdivisions developed by builders for mass produced houses,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:27,A single-family residence designed to house people working in the entertainment industry,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:28,A substantial amount of original materials should remain intact,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:29,"A sufficient number of original materials should be extant such that the historic fabric, character, and overall visual effect have been preserved",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:30,Absence of traditional ornamentation,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:31,Abstract in form,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:32,Access from the street for produce wagons (and later trucks),,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:33,Access to the railroad through a spur track,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:34,Accommodated multiple tenants,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:35,Addition of portable or permanent buildings after the period of significance acceptable as long as original campus design is intact,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:36,Additional buildings may have been added provided they do not detract from the original design of the industrial park,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:37,"Additions may be acceptable if not within public view, do not alter the original roofline, and are subordinate to the original design intent",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:38,Additions may be allowed if not visible within public view,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:39,Adobe construction,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:40,Adobe walls on some or all of the structure,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:41,"A-frame facade, often over front door or front gate",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:42,"After 1960, may represent requirements of the federal and local ""percent for art"" programs",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:43,"After 1968, may have been a requirement of the CRA's ""percent for art"" policy",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:44,Allows customers to purchase products without leaving their cars,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:45,"Alterations to a resource during the period of pre-annexation or historic changes in its use may themselves have historical, cultural, or architectural significance",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:46,Alterations to garages may be permissible if not visible from the street,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:47,Alterations to individual buildings should be allowable under the eligibility standards for the particular style,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:48,"Alterations to individual buildings should be allowable under the eligibility standards for the particular style (e.g., exterior building materials, roofing materials, replacement of doors and windows, additions)",,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI
+Eligibility Type:49,Alterations to streetscape to accommodate increased automobile use are common; may include driveways and garages added after the period of significance,,ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY_DOCUMENT.csv,index,GCI

@@ -1,0 +1,12 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider 
+XREF_TYPE:1,SurveyLA ID,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:2,Processing ID,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:3,National Register of Historic Places Reference Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:4,California Register of Historic Resources Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:5,California Historic Landmark Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:6,California Point of Historical Interest Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:7,Los Angeles Historic Cultural Monument Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:8,House ID,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:9,Building Permit Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:10,URL,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+XREF_TYPE:11,Property Identification Number,,EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI

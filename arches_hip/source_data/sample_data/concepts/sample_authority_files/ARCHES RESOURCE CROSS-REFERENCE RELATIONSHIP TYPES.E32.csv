@@ -1,0 +1,23 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider
+RELATIONSHIP_TYPE:1,is related to,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:2,is contained within / contains,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:3,was identified in / identified,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:4,was assessed in / assessed,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:5,is referred to in / refers to,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:6,is represented by / represents,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:7,Historic Resource/District - Historic Resource/District,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Collector,GCI
+RELATIONSHIP_TYPE:8,is a contributor to / has as a contributor,District and Contributor Relationship,RELATIONSHIP_TYPE:7,Index,GCI
+RELATIONSHIP_TYPE:9,is a non-contributor to / has as a non-contributor,District and Non-Contributor Relationship,RELATIONSHIP_TYPE:7,Index,GCI
+RELATIONSHIP_TYPE:10,is a potential contributor to / has as a possible contributor,District and Potential Contributor Relationship,RELATIONSHIP_TYPE:7,Index,GCI
+RELATIONSHIP_TYPE:11,is an altered contributor to / has as a altered contributor,District and Altered Contributor Relationship,RELATIONSHIP_TYPE:7,Index,GCI
+RELATIONSHIP_TYPE:14,Historic Resource/District - Actor,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Collector,GCI
+RELATIONSHIP_TYPE:15,was designed by /designed,Historic Resource/District and Architect Relationship,RELATIONSHIP_TYPE:14,Index,GCI
+RELATIONSHIP_TYPE:16,was built by / built,Historic Resource/District and Builder Relationship,RELATIONSHIP_TYPE:14,Index,GCI
+RELATIONSHIP_TYPE:17,was owned by / owned,Historic Resource/District and Original Owner Relationship,RELATIONSHIP_TYPE:14,Index,GCI
+RELATIONSHIP_TYPE:18,was surveyed by / surveyed,Historic Resource/District and Surveyor Relationship,RELATIONSHIP_TYPE:14,Index,GCI
+RELATIONSHIP_TYPE:19,was made significant by / contributed to the significance of,Historic Resource/District and Significant Person Relationship,RELATIONSHIP_TYPE:14,Index,GCI
+RELATIONSHIP_TYPE:20,Historic Resource/District - Historical Event/Activity,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Collector,GCI
+RELATIONSHIP_TYPE:21,was the location of / took place at,Historic Resource/District and Historical Event/Activity Relationship,RELATIONSHIP_TYPE:20,Index,GCI
+RELATIONSHIP_TYPE:22,was made significant by / contributed to the significance of,Historic Resource/District and Significant Event Relationship,RELATIONSHIP_TYPE:20,Index,GCI
+RELATIONSHIP_TYPE:23,is created by / created,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI
+RELATIONSHIP_TYPE:24,was occupied by / occupied,,ARCHES RESOURCE CROSS-REFERENCE RELATIONSHIP TYPES.E32.csv,Index,GCI

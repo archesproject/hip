@@ -1,0 +1,169 @@
+conceptid,Value,ValueType,Provider
+PERIOD_UID:100,165,sortorder,EH
+PERIOD_UID:100,1837,minimum date,EH
+PERIOD_UID:100,1901,maximum date,EH
+PERIOD_UID:101,145,sortorder,EH
+PERIOD_UID:101,1558,minimum date,EH
+PERIOD_UID:101,1603,maximum date,EH
+PERIOD_UID:102,155,sortorder,EH
+PERIOD_UID:102,1603,minimum date,EH
+PERIOD_UID:102,1625,maximum date,EH
+PERIOD_UID:103,180,sortorder,EH
+PERIOD_UID:103,1901,minimum date,EH
+PERIOD_UID:103,1932,maximum date,EH
+PERIOD_UID:104,185,sortorder,EH
+PERIOD_UID:104,1967,minimum date,EH
+PERIOD_UID:104,2000,maximum date,EH
+PERIOD_UID:105,187,sortorder,EH
+PERIOD_UID:105,2001,minimum date,EH
+PERIOD_UID:105,2100,maximum date,EH
+PERIOD_UID:106,161,sortorder,EH
+PERIOD_UID:106,1714,minimum date,EH
+PERIOD_UID:106,1830,maximum date,EH
+PERIOD_UID:107,183,sortorder,EH
+PERIOD_UID:107,1933,minimum date,EH
+PERIOD_UID:107,1966,maximum date,EH
+PERIOD_UID:108,182,sortorder,EH
+PERIOD_UID:108,1914,minimum date,EH
+PERIOD_UID:108,1918,maximum date,EH
+PERIOD_UID:109,184,sortorder,EH
+PERIOD_UID:109,1939,minimum date,EH
+PERIOD_UID:109,1945,maximum date,EH
+PERIOD_UID:110,181,sortorder,EH
+PERIOD_UID:110,1902,minimum date,EH
+PERIOD_UID:110,1910,maximum date,EH
+PERIOD_UID:16,135,sortorder,EH
+PERIOD_UID:16,1540,minimum date,EH
+PERIOD_UID:16,1901,maximum date,EH
+PERIOD_UID:24,175,sortorder,EH
+PERIOD_UID:24,1901,minimum date,EH
+PERIOD_UID:24,2000,maximum date,EH
+PERIOD_UID:25,190,sortorder,EH
+PERIOD_UID:26,-500000,minimum date,EH
+PERIOD_UID:26,115,sortorder,EH
+PERIOD_UID:26,410,maximum date,EH
+PERIOD_UID:28,130,sortorder,EH
+PERIOD_UID:28,1066,minimum date,EH
+PERIOD_UID:28,1540,maximum date,EH
+PERIOD_UID:5,-500000,minimum date,EH
+PERIOD_UID:5,-10000,maximum date,EH
+PERIOD_UID:5,5,sortorder,EH
+PERIOD_UID:52,-500000,minimum date,EH
+PERIOD_UID:52,43,maximum date,EH
+PERIOD_UID:52,110,sortorder,EH
+PERIOD_UID:53,170,sortorder,EH
+PERIOD_UID:53,410,minimum date,EH
+PERIOD_UID:53,1540,maximum date,EH
+PERIOD_UID:54,-500000,minimum date,EH
+PERIOD_UID:54,-150000,maximum date,EH
+PERIOD_UID:54,10,sortorder,EH
+PERIOD_UID:55,-150000,minimum date,EH
+PERIOD_UID:55,-40000,maximum date,EH
+PERIOD_UID:55,15,sortorder,EH
+PERIOD_UID:56,-40000,minimum date,EH
+PERIOD_UID:56,-10000,maximum date,EH
+PERIOD_UID:56,20,sortorder,EH
+PERIOD_UID:57,-10000,minimum date,EH
+PERIOD_UID:57,-7000,maximum date,EH
+PERIOD_UID:57,30,sortorder,EH
+PERIOD_UID:58,-7000,minimum date,EH
+PERIOD_UID:58,-4000,maximum date,EH
+PERIOD_UID:58,35,sortorder,EH
+PERIOD_UID:59,-4000,minimum date,EH
+PERIOD_UID:59,-3300,maximum date,EH
+PERIOD_UID:59,50,sortorder,EH
+PERIOD_UID:6,-10000,minimum date,EH
+PERIOD_UID:6,-4000,maximum date,EH
+PERIOD_UID:6,25,sortorder,EH
+PERIOD_UID:60,-3300,minimum date,EH
+PERIOD_UID:60,-2900,maximum date,EH
+PERIOD_UID:60,55,sortorder,EH
+PERIOD_UID:61,-2900,minimum date,EH
+PERIOD_UID:61,-2200,maximum date,EH
+PERIOD_UID:61,60,sortorder,EH
+PERIOD_UID:62,-2600,minimum date,EH
+PERIOD_UID:62,-1600,maximum date,EH
+PERIOD_UID:62,70,sortorder,EH
+PERIOD_UID:63,-1600,minimum date,EH
+PERIOD_UID:63,-1200,maximum date,EH
+PERIOD_UID:63,75,sortorder,EH
+PERIOD_UID:64,-1200,minimum date,EH
+PERIOD_UID:64,-700,maximum date,EH
+PERIOD_UID:64,80,sortorder,EH
+PERIOD_UID:65,-800,minimum date,EH
+PERIOD_UID:65,-300,maximum date,EH
+PERIOD_UID:65,90,sortorder,EH
+PERIOD_UID:66,-300,minimum date,EH
+PERIOD_UID:66,-100,maximum date,EH
+PERIOD_UID:66,95,sortorder,EH
+PERIOD_UID:67,-100,minimum date,EH
+PERIOD_UID:67,43,maximum date,EH
+PERIOD_UID:67,100,sortorder,EH
+PERIOD_UID:7,-4000,minimum date,EH
+PERIOD_UID:7,-2200,maximum date,EH
+PERIOD_UID:7,45,sortorder,EH
+PERIOD_UID:8,-2600,minimum date,EH
+PERIOD_UID:8,-700,maximum date,EH
+PERIOD_UID:8,65,sortorder,EH
+PERIOD_UID:9,-800,minimum date,EH
+PERIOD_UID:9,43,maximum date,EH
+PERIOD_UID:9,85,sortorder,EH
+PERIOD_UID:94,-4000,minimum date,EH
+PERIOD_UID:94,43,maximum date,EH
+PERIOD_UID:94,105,sortorder,EH
+PERIOD_UID:95,-500000,minimum date,EH
+PERIOD_UID:95,-4000,maximum date,EH
+PERIOD_UID:95,40,sortorder,EH
+PERIOD_UID:97,140,sortorder,EH
+PERIOD_UID:97,1485,minimum date,EH
+PERIOD_UID:97,1603,maximum date,EH
+PERIOD_UID:98,150,sortorder,EH
+PERIOD_UID:98,1603,minimum date,EH
+PERIOD_UID:98,1714,maximum date,EH
+PERIOD_UID:99,160,sortorder,EH
+PERIOD_UID:99,1714,minimum date,EH
+PERIOD_UID:99,1837,maximum date,EH
+PERIOD_UID:5,"The Old Stone Age defined by the practice of hunting and gathering and the use of chipped flint tools. This period is usually divided up into the Lower, Middle and Upper Palaeolithic.",scopeNote,EH
+PERIOD_UID:54,"The earliest subdivision of the Palaeolithic, or Old Stone Age; when the earliest use of flint tools appears in the current archaeological record. A hunter gatherer society is a defining characteristic.",scopeNote,EH
+PERIOD_UID:55,The second subdivision of the Paleolithic or Old Stone Age. Characterized by the fine flake tools of the Mousterian tradition and economically by a hunter gatherer society.,scopeNote,EH
+PERIOD_UID:56,The third and last subdivision of the Paleolithic or Old Stone Age; characterized by the development of projectile points made from bony materials and the development of fine blade flint tools.,scopeNote,EH
+PERIOD_UID:6,"The Middle Stone Age, falling between the Palaeolithic and the Neolithic; marks the beginning of a move from a hunter gatherer society towards food producing society.",scopeNote,EH
+PERIOD_UID:57,"The earliest subdivision of the Mesolithic, or Middle Stone Age.",scopeNote,EH
+PERIOD_UID:58,"The latest subdivision of the Mesolithic, or Middle Stone Age.",scopeNote,EH
+PERIOD_UID:95,For monuments which are characteristic of the Paleolithic to Mesolithic but cannot be specifically assigned.,scopeNote,EH
+PERIOD_UID:7,"The New Stone Age, this period follows on from the Palaeolithic and the Mesolithc and is itself suceeded by the Bronze Age. This period is characterized by the practice of a farming ecomony and extensive monumental constructions.",scopeNote,EH
+PERIOD_UID:59,"The earliest subdivision of the Neolithic, or New Stone Age.",scopeNote,EH
+PERIOD_UID:60,"The second subdivision of the Neolithic, or New Stone Age.",scopeNote,EH
+PERIOD_UID:61,"The third and latest subdivision of the Neolithic, or New Stone Age.",scopeNote,EH
+PERIOD_UID:8,"This period follows on from the Neolithic and is characterized by the increasing use of Bronzework. It is subdivided in the Early,Middle and Late Bronze Age.",scopeNote,EH
+PERIOD_UID:62,The earliest subdivision of the Bronze Age.,scopeNote,EH
+PERIOD_UID:63,The second subdivision of the Bronze Age.,scopeNote,EH
+PERIOD_UID:64,The third and latest subdivision of the Bronze Age.,scopeNote,EH
+PERIOD_UID:9,This period follows on from the Bronze Age and is characterized by the use of iron for making tools and monuments such as hillforts and oppida. The Iron Age is taken to end with the Roman invasion.,scopeNote,EH
+PERIOD_UID:65,The earliest subdivision of the Iron Age.,scopeNote,EH
+PERIOD_UID:66,The second subdivision of the Iron Age.,scopeNote,EH
+PERIOD_UID:67,The third and latest subdivision of the Iron Age.,scopeNote,EH
+PERIOD_UID:94,For monuments that can be identifed only to a date range from Neolithic to Iron Age.,scopeNote,EH
+PERIOD_UID:52,For monuments that can be identifed only to a date range from Palaeolithic to Iron Age.,scopeNote,EH
+PERIOD_UID:26,Uncertain prehistoric or Roman for uncertain period allocations.,scopeNote,EH
+PERIOD_UID:10,Traditionally begins with the Roman invasion in 43AD and ends with the emperor Honorius directing Britain to see to its own defence in 410AD.,scopeNote,EH
+PERIOD_UID:11,"This dates from the breakdown of Roman rule in Britain to the Norman invasion in 1066 and is to be used for monuments of post Roman, Saxon and Viking date.",scopeNote,EH
+PERIOD_UID:28,The Medieval period or Middle Ages begins with the Norman invasion and ends with the dissolution of the monasteries.,scopeNote,EH
+PERIOD_UID:16,Begins with the dissolution of the monasteries and ends with the death of Queen Victoria. Use more specific period where known.,scopeNote,EH
+PERIOD_UID:97,Dating to the reign of the Tudor monarchs,scopeNote,EH
+PERIOD_UID:101,Dating to the reign of Elizabeth 1st of England.,scopeNote,EH
+PERIOD_UID:98,Dating to the reign of the Stuart kings of England (including the Commonwealth inter-regnum),scopeNote,EH
+PERIOD_UID:102,Dating to the reign of James I of England (VI of Scotland),scopeNote,EH
+PERIOD_UID:99,Dating to the reign of the Hanoverian kings.,scopeNote,EH
+PERIOD_UID:106,Dating to or characteristic of the reigns of any of the first four kings of Great Britain called George,scopeNote,EH
+PERIOD_UID:100,Dating to the reign of Queen Victoria,scopeNote,EH
+PERIOD_UID:53,Use for monuments where the dating is uncertain but likely to be post-Roman.,scopeNote,EH
+PERIOD_UID:24,Previously recorded as Modern,scopeNote,EH
+PERIOD_UID:103,The first third of the 20th century.,scopeNote,EH
+PERIOD_UID:110,The period covering the reign of Edward VII. Do not use for the reigns of Edwards I-VI.,scopeNote,EH
+PERIOD_UID:108,"Used to record buildings, defensive monuments and sites dating to, and associated with, the First World War. For other types of building, such as houses, built during this period use EARLY 20TH CENTURY.",scopeNote,EH
+PERIOD_UID:107,The mid third of the 20th Century,scopeNote,EH
+PERIOD_UID:109,"Used to record buildings, defensive monuments and sites dating to, and associated with, the Second World War. For other types of building, such as houses, built during this period use MID 20TH CENTURY.",scopeNote,EH
+PERIOD_UID:104,The final third of the 20th century.,scopeNote,EH
+PERIOD_UID:105,Twenty first century phases and events.,scopeNote,EH
+PERIOD_UID:25,Catch all for uncertain period allocations,scopeNote,EH

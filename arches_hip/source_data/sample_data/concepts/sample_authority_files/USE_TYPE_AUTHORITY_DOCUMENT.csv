@@ -1,0 +1,3 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider 
+USE_TYPE:1,Historic,,USE_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+USE_TYPE:2,Current,,USE_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI

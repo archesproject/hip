@@ -1,0 +1,53 @@
+conceptid,Value,Valuetype,Provider 
+STATUS_CODE:2,Contributor to a district or multiple resource property listed in NR by the Keeper. Listed in the CR.,definition,GCI
+STATUS_CODE:3,Individual property listed in NR by the Keeper. Listed in the CR.,definition,GCI
+STATUS_CODE:4,Listed in the CR as a contributor to a district or multiple resource property by the SHRC,definition,GCI
+STATUS_CODE:5,Listed in the CR as individual property by the SHRC.,definition,GCI
+STATUS_CODE:6,Automatically listed in the California Register – Includes State Historical Landmarks 770 and above and Points of Historical Interest nominated after December 1997 and recommended for listing by the SHRC.,definition,GCI
+STATUS_CODE:8,Determined eligible for NR as an individual property and as a contributor to an eligible district in a federal regulatory process. Listed in the CR.,definition,GCI
+STATUS_CODE:9,Contributor to a district determined eligible for NR by the Keeper. Listed in the CR.,definition,GCI
+STATUS_CODE:10,Contributor to a district determined eligible for NR by consensus through Section 106 process. Listed in the CR.,definition,GCI
+STATUS_CODE:11,Contributor to a district determined eligible for NR by Part I Tax Certification. Listed in the CR.,definition,GCI
+STATUS_CODE:12,Contributor to a district determined eligible for NR pursuant to Section 106 without review by SHPO. Listed in the CR.,definition,GCI
+STATUS_CODE:13,Individual property determined eligible for NR by the Keeper. Listed in the CR.,definition,GCI
+STATUS_CODE:14,Individual property determined eligible for NR by a consensus through Section 106 process. Listed in the CR.,definition,GCI
+STATUS_CODE:15,Individual property determined eligible for NR by Part I Tax Certification. Listed in the CR.,definition,GCI
+STATUS_CODE:16,Individual property determined eligible for NR pursuant to Section 106 without review by SHPO. Listed in the CR.,definition,GCI
+STATUS_CODE:17,Individual property determined eligible for NR pursuant to Section 106 without review by SHPO. Listed in the CR.,definition,GCI
+STATUS_CODE:18,Contributor to a district determined eligible for listing in the CR by the SHRC.,definition,GCI
+STATUS_CODE:19,Individual property determined eligible for listing in the CR by the SHRC.,definition,GCI
+STATUS_CODE:21,Appears eligible for NR both individually and as a contributor to a NR eligible district through survey evaluation.,definition,GCI
+STATUS_CODE:22,Appears eligible for NR as a contributor to a NR eligible district through survey evaluation.,definition,GCI
+STATUS_CODE:23,Appears eligible for NR as an individual property through survey evaluation.,definition,GCI
+STATUS_CODE:24,Appears eligible for CR both individually and as a contributor to a CR eligible district through a survey evaluation.,definition,GCI
+STATUS_CODE:25,Appears eligible for CR as a contributor to a CR eligible district through a survey evaluation.,definition,GCI
+STATUS_CODE:26,Appears eligible for CR as an individual property through survey evaluation.,definition,GCI
+STATUS_CODE:28,Master List - State Owned Properties – PRC §5024.,definition,GCI
+STATUS_CODE:30,Contributor to a district that is listed or designated locally.,definition,GCI
+STATUS_CODE:31,Contributor to a district that is eligible for local listing or designation.,definition,GCI
+STATUS_CODE:32,Appears to be a contributor to a district that appears eligible for local listing or designation through survey evaluation.,definition,GCI
+STATUS_CODE:33,Individual property that is listed or designated locally.,definition,GCI
+STATUS_CODE:34,Individual property that is eligible for local listing or designation.,definition,GCI
+STATUS_CODE:35,Appears to be individually eligible for local listing or designation through survey evaluation.,definition,GCI
+STATUS_CODE:36,"Locally significant both individually (listed, eligible, or appears eligible) and as a contributor to a district that is locally listed, designated, determined eligible or appears eligible through survey evaluation.",definition,GCI
+STATUS_CODE:38,Determined ineligible for or removed from California Register by SHRC. ,definition,GCI
+STATUS_CODE:40,Landmarks or Points of Interest found ineligible for designation by SHRC. ,definition,GCI
+STATUS_CODE:41,Determined ineligible for local listing or designation through local government review process; may warrant special consideration in local planning.,definition,GCI
+STATUS_CODE:43,Determined ineligible for local listing or designation as a historic district through a survey process; neighborhood or area may warrant special consideration for local planning.,definition,GCI
+STATUS_CODE:45,Determined ineligible for NR through Part I Tax Certification process.,definition,GCI
+STATUS_CODE:46,Determined ineligible for NR pursuant to Section 106 without review by SHPO.,definition,GCI
+STATUS_CODE:47,Removed from NR by the Keeper.,definition,GCI
+STATUS_CODE:48,Determined ineligible for the NR by SHRC or Keeper.,definition,GCI
+STATUS_CODE:49,Determined ineligible for NR by consensus through Section 106 process – Not evaluated for CR or Local Listing.,definition,GCI
+STATUS_CODE:51,"Found ineligible for NR, CR or Local designation through survey evaluation. ",definition,GCI
+STATUS_CODE:53,Received by OHP for evaluation or action but not yet evaluated.,definition,GCI
+STATUS_CODE:54,Resubmitted to OHP for action but not reevaluated.,definition,GCI
+STATUS_CODE:55,State Historical Landmarks 1-769 and Points of Historical Interest designated prior to January 1998 – Needs to be reevaluated using current standards.,definition,GCI
+STATUS_CODE:56,Submitted to OHP but not evaluated - referred to NPS.,definition,GCI
+STATUS_CODE:57,Needs to be reevaluated (Formerly NR Status Code 4),definition,GCI
+STATUS_CODE:58,Needs to be reevaluated (Formerly NR SC4) – may become eligible for NR w/restoration or when meets other specific conditions.,definition,GCI
+STATUS_CODE:59,Identified in Reconnaissance Level Survey: Not evaluated.,definition,GCI
+STATUS_CODE:61,"Potential historic district assessed for significance in accordance with the SurveyLA Multiple Property Submission approach, but does not meet eligibility standards.",definition,GCI
+STATUS_CODE:62,"Individual property assessed for significance in accordance with the SurveyLA Multiple Property Submission approach, but does not meet eligibility standards. ",definition,GCI
+STATUS_CODE:63,Submitted to OHP for action – withdrawn.,definition,GCI
+STATUS_CODE:64,Additional research needed,definition,GCI

@@ -1,0 +1,3 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider 
+TITLE_TYPE:1,Primary,,TITLE_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+TITLE_TYPE:2,Alternative,,TITLE_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI

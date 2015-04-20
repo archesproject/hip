@@ -1,0 +1,17 @@
+conceptid,PrefLabel,AltLabels,ParentConceptid,ConceptType,Provider 
+ACTOR_TYPE:1,Individual,,ACTOR_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+ACTOR_TYPE:2,Architect/Designer,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:3,Builder,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:4,Entertainment Professional,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:5,Sports Professional,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:6,Surveyor,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:7,Photographer,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:8,Artist ,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:9,Group,,ACTOR_TYPE_AUTHORITY_DOCUMENT.csv,Index,GCI
+ACTOR_TYPE:10,Organization,,ACTOR_TYPE:9,Index,GCI
+ACTOR_TYPE:11,Family,,ACTOR_TYPE:9,Index,GCI
+ACTOR_TYPE:12,Architecture/Design Firm or Partnership,,ACTOR_TYPE:9,Index,GCI
+ACTOR_TYPE:13,Construction Company,,ACTOR_TYPE:9,Index,GCI
+ACTOR_TYPE:14,Surveying Firm,,ACTOR_TYPE:9,Index,GCI
+ACTOR_TYPE:15,Engineer,,ACTOR_TYPE:1,Index,GCI
+ACTOR_TYPE:16,Engineering Firm,,ACTOR_TYPE:9,Index,GCI
