@@ -78,10 +78,50 @@ Create Controlled Vocabularies Using the Reference Data Manager
 
 If you wish, you can use the RDM to create each controlled vocabulary interactively.  Before you start, You may wish to review a general overview of the RDM (http://http://arches3.readthedocs.org/en/latest/rdm/) 
 
+To use the RDM to create your controlled vocabularies, log in to Arches-HIP and click the RDM link.  Click on the the "Arches" button on the right side of the screen.  This will show you a listing of all the attributes in the six resource graphs that require a controlled vocabulary.
+
+Click on the button labeled "Activity Type".  Your screen should look something like this:
 
 
+.. image :: RDM_activity_blank.png
 
 
+What you're seeing is the data entry screen for the terms that you will create for the Activity Type controlled vocabulary.  
+
+What is an Activity TYpe?  Refer to Appendix A and find the entry for Activity Type.  It says that Activity Type is the list of activities that you will associate with the Activity Resource.  Examples might include: Investigations, Excavations, Heritage Surveys, Literature Review, or Designation for Protection.  Really, the list of activity types is up to you.  You may add as many activities as you need to describe your organization's efforts.
+
+Click on the "Manage" button in the upper right of the form and select "Add Child" from the list of actions.  You see a form appear that asks you to enter a label and note for a term that you want to add to your controlled vocabulary.  Technically, you are entering a concept into the RDM and providing a preferred label and scope note (in the language that you specify) into the RDM, with is Arches' thesaurus management system.
+
+Here's how you could create an entry for an "Investigation" activity:
+ 
+
+.. image :: RDM_concept_entry.png
+
+
+Click "Save Changes" when you're done and you'll see your entry listed under the "Activity Type" concept.  You can add as many activities as you like, and you may organize them hierarchically if you want.  Simply click on an existing entry in the list and then add a child (like you did for your first entry) to add one level of nesting to your hierarchy.  In this way, you could group several terms under "Investigation" to keep them nicely organized and conceptually distinct from a list of Restoration activities.
+
+Here's what a set of activities grouped under the Investigation activity might look like:
+
+
+.. image :: RDM_investigations.png
+
+
+You're free to build simple list of activities, or a deeply nested hierarchy.  Its up to you to decide how you want to organize your vocabulary.  If you haven't already, it's worth reading the Arches RDM documentation to get a more complete description of how the RDM works.
+
+When you're satisfied with your list, click on the button labeled "Dropdowns" (you may need to scroll down the list of vocabularies or click on the "Arches" button again before you see it).  Click on the "Activity_Type.E55" button
+
+.. image :: RDM_dropdown.png
+
+
+This form allows you configure which of the terms in your controlled vocabulary will be shown in the dropdown element on the appropriate data entry form for this attribute.  Arches introduces this form so that you can decide stop using terms in the future (or add new terms) without compromising your data.  
+
+Click the "Add dropdown entry" and type in a term from your activity type controlled vocabulary.  For example: "investigation".  This will link your term in the controlled vocabulary with the form's dropdown.  Note that Arches will automatically add any children that may exist under the term you selected.  Go ahead and add all the term you want your data entry staff to see when they create an Activity.
+
+
+.. image :: RDM_select_dropdown_concept.png
+
+
+Notice that Arches includes many controlled vocabularies (see the list of vocabularies listed under the Arches button).  You'll need to follow the same steps we just went through for each vocabulary in this list.  If you don't, you won't be able to enter data into an Arches-HIP resource that requires a controlled vocabulary.
 
 
 
