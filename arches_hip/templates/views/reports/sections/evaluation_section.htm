@@ -132,8 +132,9 @@
                                                         </dd>
                                                     {% else %}
                                                         {% for REASONS_E62 in EVALUATION_CRITERIA_ASSIGNMENT_E13.REASONS_E62 %}
-                                                            <dd class="arches-report-subsection-item">{{REASONS_E62.REASONS_E62__value}}</dd>
+                                                            <dd class="arches-report-subsection-item">{{ REASONS_E62.REASONS_E62__value |safe }}</dd>
                                                         {% endfor %}  
+
                                                     {% endif %}
 
                                                 </dl>

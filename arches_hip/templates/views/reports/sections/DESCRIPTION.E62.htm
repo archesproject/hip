@@ -13,7 +13,13 @@
                         <h5 id="" class="arches-report-subsection-title">{{DESCRIPTION_E62.DESCRIPTION_TYPE_E55__value}}</h5>
                     </dt>
                     <dd class="arches-report-subsection-item arches-report-spacer">
-                        {{ DESCRIPTION_E62.DESCRIPTION_E62__value }}
+                        {% if report_info.source.graph.DESCRIPTION_E62|length == 1 or report_info.source.graph.DESCRIPTION_E62.last %}
+                            {{ DESCRIPTION_E62.DESCRIPTION_E62__value |safe }}
+                        {% else %}
+                            {{ DESCRIPTION_E62.DESCRIPTION_E62__value |safe }}
+                            <br></br>
+                        {% endif %}
+
                     </dd>
                 {% endfor %}            
             {% endif %}
