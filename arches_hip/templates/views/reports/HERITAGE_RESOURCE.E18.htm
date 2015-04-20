@@ -29,7 +29,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             <div class="hidden-sm hidden-xs col-sm-8">
                 <h1 class="pull-left arches-breadcrumb-title"><i class="fa {{RESOURCE_TYPE_CONFIGS.icon_class}}"></i>{{ report_info.source.primaryname }}<small style="padding-left: 8px;">{{RESOURCE_TYPE_CONFIGS.name}}</small></h1>
                 {% if user_can_edit == True %}
-                    <a href="{% url 'resource_manager' report_info.source.entitytypeid 'summary' report_info.source.entityid %}" class="info-link edit-link report-header-link">
+                    <a href="{% url 'resource_manager' report_info.source.entitytypeid 'default' report_info.source.entityid %}" class="info-link edit-link report-header-link">
                         <i class="arches-search-link fa fa-edit"></i><span class="arches-search-link">{% trans 'Edit' %}</span>
                     </a>
                 {% endif %}
@@ -52,7 +52,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                     {% if user_can_edit == True %}
                     <li>
                         <i class="arches-search-link fa fa-edit"></i>
-                        <a href="{% url 'resource_manager' report_info.source.entitytypeid 'summary' report_info.source.entityid %}" class="info-link edit-link"><span class="arches-search-link">{% trans 'Edit' %}</span></a>
+                        <a href="{% url 'resource_manager' report_info.source.entitytypeid 'default' report_info.source.entityid %}" class="info-link edit-link"><span class="arches-search-link">{% trans 'Edit' %}</span></a>
                     </li>
                     {% endif %}
 
@@ -260,35 +260,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                         <!-- Settings -->
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <dl>
+                                                <dl class="report-item-list">
                                                     <dt>
                                                         <h5 id="" class="arches-report-subsection-title">{% trans "Settings" %}</h5>
                                                     </dt>
 
-                                                    {% if 'PLACE_E53' not in report_info.source.graph %}
-                                                        <dd class="arches-report-subsection-item">
-                                                            {% trans "No settings recorded" %}
-                                                        </dd>
-                                                    {% else %}
+                                                    <dd class="arches-report-subsection-item empty-message" style="display:none;">
+                                                        {% trans "No settings recorded" %}
+                                                    </dd>
+
+                                                    {% if 'PLACE_E53' in report_info.source.graph %}
                                                         {% for PLACE_E53 in report_info.source.graph.PLACE_E53 %}
-                                                            {% if 'PLACE_SITE_LOCATION_E53' not in PLACE_E53 %}
-                                                                <dd class="arches-report-subsection-item">
-                                                                    {% trans "No settings recorded" %}
-                                                                </dd>
-                                                            {% else %}
+                                                            {% if 'PLACE_SITE_LOCATION_E53' in PLACE_E53 %}
                                                                 {% for PLACE_SITE_LOCATION_E53 in PLACE_E53.PLACE_SITE_LOCATION_E53 %}
-                                                                    {% if 'SETTING_TYPE_E55' not in PLACE_SITE_LOCATION_E53 %}
-                                                                        <dd class="arches-report-subsection-item">
-                                                                            {% trans "No settings recorded" %}
-                                                                        </dd>
-                                                                    {% else %}
+                                                                    {% if 'SETTING_TYPE_E55' in PLACE_SITE_LOCATION_E53 %}
                                                                          {% for SETTING_TYPE_E55 in PLACE_SITE_LOCATION_E53.SETTING_TYPE_E55 %}
-                                                                            {% if SETTING_TYPE_E55.SETTING_TYPE_E55__value == '' %}
-                                                                                <dd class="arches-report-subsection-item">
-                                                                                    {% trans "No settings recorded" %}
-                                                                                </dd>
-                                                                            {% else %}
-                                                                                <dd class="arches-report-subsection-item">
+                                                                            {% if SETTING_TYPE_E55.SETTING_TYPE_E55__value != '' %}
+                                                                                <dd class="arches-report-subsection-item report-list-item">
                                                                                     {{SETTING_TYPE_E55.SETTING_TYPE_E55__value}}
                                                                                 </dd>
                                                                             {% endif %}
