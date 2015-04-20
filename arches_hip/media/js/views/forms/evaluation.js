@@ -29,6 +29,10 @@ define(['jquery',
 
             ko.applyBindings(this, this.$el.find('#existing-assessments')[0]);
 
+            this.addBranchList(new BranchList({
+                data: currentEditedAssessment,
+                dataKey: 'EVALUATION_CRITERIA_ASSIGNMENT.E13'
+            }));
 
             var statusSection = new BranchList({
                 el: this.$el.find('#status-section')[0],
@@ -76,7 +80,7 @@ define(['jquery',
             ko.applyBindings(descriptionSection, this.$el.find('#description-summary-section')[0]);
             this.addBranchList(descriptionSection);
 
-            },
+        },
 
 
         validate: function(){
@@ -126,6 +130,9 @@ define(['jquery',
                     'branch_lists': []
                 },
                 'REASONS.E62': {
+                    'branch_lists': []
+                },
+                'EVALUATION_CRITERIA_ASSIGNMENT.E13': {
                     'branch_lists': []
                 }
             })

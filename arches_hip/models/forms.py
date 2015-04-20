@@ -1028,12 +1028,12 @@ class EvaluationForm(ResourceForm):
 
 
     def update(self, data, files):
-        # for value in data['EVALUATION_CRITERIA_ASSIGNMENT.E13']:
-        #     for node in value['nodes']:
-        #         if node['entitytypeid'] == 'EVALUATION_CRITERIA_ASSIGNMENT.E13' and node['entityid'] != '':
-        #             #remove the node
-        #             self.resource.filter(lambda entity: entity.entityid != node['entityid'])
-
+        for value in data['EVALUATION_CRITERIA_ASSIGNMENT.E13']:
+            for node in value['nodes']:
+                if node['entitytypeid'] == 'EVALUATION_CRITERIA_ASSIGNMENT.E13' and node['entityid'] != '':
+                    #remove the node
+                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+        
         self.update_nodes('STATUS.E55', data)
         self.update_nodes('EVALUATION_CRITERIA_TYPE.E55', data)
         self.update_nodes('ELIGIBILITY_REQUIREMENT_TYPE.E55', data)
