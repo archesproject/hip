@@ -45,19 +45,54 @@
                                     <h5>
                                         <a href="#" title="Remove this evaluation" data-bind="click: $root.deleteAssessment"><i class="arches-CRUD-delete fa fa-times-circle"></i></a>
                                         <a href="#" class="" title="Edit this assessment" data-bind="click: $root.editAssessment">{% trans "Classification" %} 
-                                        <span data-bind="if: $data['TO_DATE.E49'].branch_lists.length > 0">
-                                        <span data-bind="text: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CULTURAL_PERIOD.E55'].branch_lists[0].nodes[0].label"></span>
-                                            </span>
+                                        <span data-bind="if: $data['HERITAGE_RESOURCE_GROUP_TYPE.E55'].branch_lists.length > 0">
+                                            <span data-bind="text: ': ' + $data['HERITAGE_RESOURCE_GROUP_TYPE.E55'].branch_lists[0].nodes[0].label"></span>
+                                        </span>
                                         </a>
                                     </h5>
                                 </div>
                             </dd>
                         </dl>
 
+
                         <dl>   
-                            <dt class="arches-evaluation-header">{% trans "Resource Types" %}</dt>
+                            <dt class="arches-evaluation-header">{% trans "Resource Type" %}</dt>
                             <dd class="arches-evaluation-content" data-bind="if: $data['HERITAGE_RESOURCE_GROUP_TYPE.E55'].branch_lists.length > 0">
                                 <span data-bind="html: $data['HERITAGE_RESOURCE_GROUP_TYPE.E55'].branch_lists[0].nodes[0].label"></span>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['HERITAGE_RESOURCE_GROUP_TYPE.E55'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
+                        </dl>
+
+
+                        <dl>   
+                            <dt class="arches-evaluation-header">{% trans "Cultural Period" %}</dt>
+                            <dd class="arches-evaluation-content" data-bind="if: $data['CULTURAL_PERIOD.E55'].branch_lists.length > 0">
+                                <span data-bind="html: $data['CULTURAL_PERIOD.E55'].branch_lists[0].nodes[0].label"></span>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['CULTURAL_PERIOD.E55'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
+                        </dl>
+
+                        <dl>   
+                            <dt class="arches-evaluation-header">{% trans "From" %}</dt>
+                            <dd class="arches-evaluation-content" data-bind="if: $data['FROM_DATE.E49'].branch_lists.length > 0">
+                                <span data-bind="html: $data['FROM_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10)"></span>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['FROM_DATE.E49'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt class="arches-evaluation-header">{% trans "To" %}</dt>
+
+                            <dd class="arches-evaluation-content" data-bind="if: $data['TO_DATE.E49'].branch_lists.length > 0">
+                                <span data-bind="html: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10)"></span>
+                            </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['TO_DATE.E49'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
                             </dd>
                         </dl>
 
@@ -66,8 +101,11 @@
                             <dd data-bind="foreach: $data['ANCILLARY_FEATURE_TYPE.E55'].branch_lists" class="arches-evaluation-content">
                                 <span data-bind="text: nodes[0].label"></span>
                             </dd>
+                            <dd class="arches-evaluation-content" data-bind="ifnot: $data['ANCILLARY_FEATURE_TYPE.E55'].branch_lists.length > 0">
+                                <span data-bind="html: 'no entries'"></span>
+                            </dd>
                         </dl>
-
+                        
                     </div>
                 </div>
             </div>
