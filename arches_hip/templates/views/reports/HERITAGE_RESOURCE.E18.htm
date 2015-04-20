@@ -260,35 +260,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                         <!-- Settings -->
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <dl>
+                                                <dl class="report-item-list">
                                                     <dt>
                                                         <h5 id="" class="arches-report-subsection-title">{% trans "Settings" %}</h5>
                                                     </dt>
 
-                                                    {% if 'PLACE_E53' not in report_info.source.graph %}
-                                                        <dd class="arches-report-subsection-item">
-                                                            {% trans "No settings recorded" %}
-                                                        </dd>
-                                                    {% else %}
+                                                    <dd class="arches-report-subsection-item empty-message" style="display:none;">
+                                                        {% trans "No settings recorded" %}
+                                                    </dd>
+
+                                                    {% if 'PLACE_E53' in report_info.source.graph %}
                                                         {% for PLACE_E53 in report_info.source.graph.PLACE_E53 %}
-                                                            {% if 'PLACE_SITE_LOCATION_E53' not in PLACE_E53 %}
-                                                                <dd class="arches-report-subsection-item">
-                                                                    {% trans "No settings recorded" %}
-                                                                </dd>
-                                                            {% else %}
+                                                            {% if 'PLACE_SITE_LOCATION_E53' in PLACE_E53 %}
                                                                 {% for PLACE_SITE_LOCATION_E53 in PLACE_E53.PLACE_SITE_LOCATION_E53 %}
-                                                                    {% if 'SETTING_TYPE_E55' not in PLACE_SITE_LOCATION_E53 %}
-                                                                        <dd class="arches-report-subsection-item">
-                                                                            {% trans "No settings recorded" %}
-                                                                        </dd>
-                                                                    {% else %}
+                                                                    {% if 'SETTING_TYPE_E55' in PLACE_SITE_LOCATION_E53 %}
                                                                          {% for SETTING_TYPE_E55 in PLACE_SITE_LOCATION_E53.SETTING_TYPE_E55 %}
-                                                                            {% if SETTING_TYPE_E55.SETTING_TYPE_E55__value == '' %}
-                                                                                <dd class="arches-report-subsection-item">
-                                                                                    {% trans "No settings recorded" %}
-                                                                                </dd>
-                                                                            {% else %}
-                                                                                <dd class="arches-report-subsection-item">
+                                                                            {% if SETTING_TYPE_E55.SETTING_TYPE_E55__value != '' %}
+                                                                                <dd class="arches-report-subsection-item report-list-item">
                                                                                     {{SETTING_TYPE_E55.SETTING_TYPE_E55__value}}
                                                                                 </dd>
                                                                             {% endif %}
