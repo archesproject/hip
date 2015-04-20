@@ -51,11 +51,11 @@ define([
                                     var sameType = false;
                                     _.each(branch.nodes(), function (node) {
                                         if (node.entitytypeid() === "ADMINISTRATIVE_SUBDIVISION_TYPE.E55" &&
-                                            node.label() === item.overlaytype) {
+                                            node.label() === item.overlayty) {
                                             sameType = true;
                                         }
                                         if (node.entitytypeid() === "ADMINISTRATIVE_SUBDIVISION.E48" &&
-                                            node.value() === item.overlayvalue) {
+                                            node.value() === item.overlayval) {
                                             sameName = true;
                                         }
                                     });
@@ -64,7 +64,7 @@ define([
                                     }
                                 });
                                 // adminAreaBranchList.viewModel.branch_lists
-                                if (adminAreaTypeLookup[item.overlaytype] && !duplicate) {
+                                if (adminAreaTypeLookup[item.overlayty] && !duplicate) {
                                     adminAreaBranchList.viewModel.branch_lists.push(koMapping.fromJS({
                                         'editing':ko.observable(false),
                                         'nodes': ko.observableArray([
@@ -72,8 +72,8 @@ define([
                                               "property": "",
                                               "entitytypeid": "ADMINISTRATIVE_SUBDIVISION_TYPE.E55",
                                               "entityid": "",
-                                              "value": adminAreaTypeLookup[item.overlaytype],
-                                              "label": item.overlaytype,
+                                              "value": adminAreaTypeLookup[item.overlayty],
+                                              "label": item.overlayty,
                                               "businesstablename": "",
                                               "child_entities": []
                                             }),
@@ -81,7 +81,7 @@ define([
                                               "property": "",
                                               "entitytypeid": "ADMINISTRATIVE_SUBDIVISION.E48",
                                               "entityid": "",
-                                              "value": item.overlayvalue,
+                                              "value": item.overlayval,
                                               "label": "",
                                               "businesstablename": "",
                                               "child_entities": []
