@@ -116,7 +116,7 @@ def report(request, resourceid):
 
     # parse the related entities into a dictionary by resource type
     for related_resource in related_resource_info['related_resources']:
-        information_resource_type = None
+        information_resource_type = 'DOCUMENT'
         related_resource['relationship'] = []
         if related_resource['entitytypeid'] == 'HERITAGE_RESOURCE.E18':
             for entity in related_resource['domains']:
@@ -143,16 +143,12 @@ def report(request, resourceid):
             for entity in related_resource['domains']:
                 if entity['entitytypeid'] == 'INFORMATION_RESOURCE_TYPE.E55':
                     related_resource['relationship'].append(get_preflabel_from_valueid(entity['value'], lang)['value'])
-                if entity['entitytypeid'] == 'INFORMATION_CARRIER_FORMAT_TYPE.E55':
-                    if display_as_image(entity['conceptid']):
-                        information_resource_type = 'IMAGE'
-                    else:
-                        information_resource_type = 'DOCUMENT'
             for entity in related_resource['child_entities']:
                 if entity['entitytypeid'] == 'FILE_PATH.E62':
                     related_resource['file_path'] = settings.MEDIA_URL + entity['label']
                 if entity['entitytypeid'] == 'THUMBNAIL.E62':
                     related_resource['thumbnail'] = settings.MEDIA_URL + entity['label']
+                    information_resource_type = 'IMAGE'
             
         # get the relationship between the two entities
         for relationship in related_resource_info['resource_relationships']:
@@ -165,9 +161,9 @@ def report(request, resourceid):
             related_resource['relationship'] = ''
 
         entitytypeidkey = related_resource['entitytypeid'].split('.')[0]
-        if information_resource_type:
+        if entitytypeidkey == 'INFORMATION_RESOURCE':
             entitytypeidkey = '%s_%s' % (entitytypeidkey, information_resource_type)
-        if entitytypeidkey != 'INFORMATION_RESOURCE':
+        else:
             related_resource_dict[entitytypeidkey].append(related_resource)
 
 
@@ -181,10 +177,3 @@ def report(request, resourceid):
             'active_page': 'ResourceReport'
         },
         context_instance=RequestContext(request))        
-
-def display_as_image(conceptid):
-    concept = Concept().get(id=conceptid, include=['undefined'])
-    for value in concept.values:
-        if value.value == 'Y' and value.type == 'ViewableInBrowser':
-            return True
-    return False

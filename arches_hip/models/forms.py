@@ -734,6 +734,8 @@ class RelatedFilesForm(ResourceForm):
 
     def update(self, data, files):
         filedict = {}
+        se = SearchEngineFactory().create()
+
         for name in files:
             for f in files.getlist(name):
                 filedict[f.name] = f
@@ -757,7 +759,8 @@ class RelatedFilesForm(ResourceForm):
 
             if self.resource.entityid == '':
                 self.resource.save()
-            self.resource.create_resource_relationship(resource.entityid, relationship_type_id=newfile['relationshiptype']['value'])
+            relationship = self.resource.create_resource_relationship(resource.entityid, relationship_type_id=newfile['relationshiptype']['value'])
+            se.index_data(index='resource_relations', doc_type='all', body=model_to_dict(relationship), idfield='resourcexid')
 
 
         edited_file = data.get('current-files', None)
@@ -782,6 +785,8 @@ class RelatedFilesForm(ResourceForm):
                     relationship = RelatedResource.objects.get(pk=resourcexid)
                     relationship.relationshiptype = node.get('value')
                     relationship.save()
+                    se.delete(index='resource_relations', doc_type='all', id=resourcexid)
+                    se.index_data(index='resource_relations', doc_type='all', body=model_to_dict(relationship), idfield='resourcexid')
 
             relatedresourceid = entityid2 if self.resource.entityid == entityid1 else entityid1
             relatedresource = Resource().get(relatedresourceid)
