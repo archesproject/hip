@@ -724,6 +724,10 @@ class RelatedFilesForm(ResourceForm):
         }
 
     def update(self, data, files):
+        filedict = {}
+        for name in files:
+            for f in files.getlist(name):
+                filedict[f.name] = f
 
         for newfile in data.get('new-files', []):
             resource = Resource()
@@ -735,8 +739,8 @@ class RelatedFilesForm(ResourceForm):
                 resource.set_entity_value('DESCRIPTION_TYPE.E55', newfile['description_type']['value'])
                 resource.set_entity_value('DESCRIPTION.E62', newfile.get('description'))
 
-            resource.set_entity_value('FILE_PATH.E62', files[newfile['id']])
-            thumbnail = generate_thumbnail(files[newfile['id']])
+            resource.set_entity_value('FILE_PATH.E62', filedict[newfile['id']])
+            thumbnail = generate_thumbnail(filedict[newfile['id']])
             if thumbnail != None:
                 resource.set_entity_value('THUMBNAIL.E62', thumbnail)
             resource.save()

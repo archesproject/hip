@@ -18,6 +18,7 @@ define(['jquery',
 
             var self = this;
             var dropzoneEl = this.$el.find('.dropzone'); 
+            this.count = undefined;
             this.newfiles = ko.observableArray();  
 
             ko.applyBindings(this.newfiles, this.$el.find('#new-files-section')[0]);  
@@ -33,7 +34,18 @@ define(['jquery',
 
                 this.dropzoneInstance.on("addedfile", function(file) {
                     var el = self.el.appendChild(this.hiddenFileInput);
-                    var id = _.uniqueId('file_');
+                    var id = file.name;
+                    
+                    if(self.count === undefined){
+                        self.count = this.hiddenFileInput.files.length;
+                    }
+                    if (self.count === 1){
+                        this.hiddenFileInput = false;
+                        self.count = undefined;
+                    }else{
+                        self.count--
+                    }
+
                     file.id = id;
                     el.setAttribute('name', id);
                     self.newfiles.push({
@@ -47,8 +59,7 @@ define(['jquery',
                         relationshiptype: ko.observable(),
                         thumbnail: ko.observable(),
                         domains: self.data['current-files'].domains
-                    })
-                    this.hiddenFileInput = false;
+                    });
                 });
 
                 this.dropzoneInstance.on("removedfile", function(filetoremove) {
@@ -129,7 +140,7 @@ define(['jquery',
                         if (item.title() == undefined || item.title() == '' || item.title_type() == undefined || item.title_type() == '' || item.relationshiptype() == undefined || item.relationshiptype() == ''){
                             valid = false;
                         }
-                        if(item.description() !== '' &&  (item.description_type() == undefined || item.description_type() == '')){
+                        if(item.description() !== undefined && item.description() !== '' &&  (item.description_type() == undefined || item.description_type() == '')){
                             valid = false;
                         }
                     }, this); 
