@@ -163,9 +163,7 @@ def report(request, resourceid):
         entitytypeidkey = related_resource['entitytypeid'].split('.')[0]
         if entitytypeidkey == 'INFORMATION_RESOURCE':
             entitytypeidkey = '%s_%s' % (entitytypeidkey, information_resource_type)
-        else:
-            related_resource_dict[entitytypeidkey].append(related_resource)
-
+        related_resource_dict[entitytypeidkey].append(related_resource)
 
     return render_to_response('resource-report.htm', {
             'geometry': JSONSerializer().serialize(report_info['source']['geometry']),
