@@ -23,7 +23,7 @@ setup(
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'Programming Language :: Python :: 2',
@@ -34,7 +34,7 @@ setup(
     keywords='django arches hip cultural heritage',
 
     install_requires=[
-       'arches>=3.0rc12'
+       'arches>=3.0'
     ],
 
     # You can just specify the packages manually here if your project is
