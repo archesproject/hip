@@ -23,10 +23,12 @@ from arches.app.models.concept import Concept
 from arches.app.models.forms import ResourceForm
 from arches.app.utils.imageutils import generate_thumbnail
 from arches.app.views.concept import get_preflabel_from_valueid
-from django.forms.models import model_to_dict
-from django.utils.translation import ugettext as _
+from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
 from arches.app.search.search_engine_factory import SearchEngineFactory
 from django.forms.models import model_to_dict
+from django.utils.translation import ugettext as _
+from django.forms.models import model_to_dict
+
 
 class SummaryForm(ResourceForm):
     @staticmethod
@@ -322,12 +324,6 @@ class ClassificationForm(ResourceForm):
 
     def update(self, data, files):
 
-        for value in data['PHASE_TYPE_ASSIGNMENT.E17']:
-            for node in value['nodes']:
-                if node['entitytypeid'] == 'PHASE_TYPE_ASSIGNMENT.E17' and node['entityid'] != '':
-                    #remove the node
-                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
-
         self.update_nodes('HERITAGE_RESOURCE_TYPE.E55', data)
         self.update_nodes('TO_DATE.E49', data)
         self.update_nodes('FROM_DATE.E49', data)
@@ -337,10 +333,22 @@ class ClassificationForm(ResourceForm):
         self.update_nodes('ANCILLARY_FEATURE_TYPE.E55', data)
         production_entities = self.resource.find_entities_by_type_id('PRODUCTION.E12')
 
+        phase_type_node_id = ''
+        for value in data['PHASE_TYPE_ASSIGNMENT.E17']:
+            for node in value['nodes']:
+                if node['entitytypeid'] == 'PHASE_TYPE_ASSIGNMENT.E17' and node['entityid'] != '':
+                    #remove the node
+                    phase_type_node_id = node['entityid']
+                    self.resource.filter(lambda entity: entity.entityid != node['entityid'])
+
+        for entity in self.baseentity.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17'):
+            entity.entityid = phase_type_node_id
+
         if len(production_entities) > 0:
             self.resource.merge_at(self.baseentity, 'PRODUCTION.E12')
         else:
             self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
+
         self.resource.trim()
                    
     def load(self, lang):

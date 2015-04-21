@@ -50,7 +50,10 @@ define(['jquery',
             this.addBranchList(new BranchList({
                 el: this.$el.find('#related-features-section')[0],
                 data: currentEditedClassification,
-                dataKey: 'ANCILLARY_FEATURE_TYPE.E55'
+                dataKey: 'ANCILLARY_FEATURE_TYPE.E55',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
             }));
             this.addBranchList(new BranchList({
                 el: this.$el.find('#period-section')[0],
@@ -61,7 +64,10 @@ define(['jquery',
             this.addBranchList(new BranchList({
                 el: this.$el.find('#style-section')[0],
                 data: currentEditedClassification,
-                dataKey: 'STYLE.E55'
+                dataKey: 'STYLE.E55',
+                validateBranch: function (nodes) {
+                    return this.validateHasValues(nodes);
+                }
             }));     
             this.addBranchList(new BranchList({
                 el: this.$el.find('#to-date-section')[0],
