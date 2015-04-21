@@ -28,6 +28,7 @@ from arches.app.models.concept import Concept
 from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializer
 from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.search.elasticsearch_dsl_builder import Bool, Match, Query, Nested, Terms, GeoShape, Range
+from django.utils.translation import ugettext as _
 
 def home_page(request):
     lang = request.GET.get('lang', settings.LANGUAGE_CODE)
@@ -43,22 +44,31 @@ def home_page(request):
                     "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
                     "id": "0",
                     "language,id": settings.LANGUAGE_CODE,
-                    "value": "Before",
-                    "valuetype": "prefLabel"
+                    "text": _("Before"),
+                    "valuetype": "prefLabel",  
+                    "sortorder": "",
+                    "collector": "",
+                    "children": []
                 },{
                     "conceptid": "1",
                     "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
                     "id": "1",
                     "language,id": settings.LANGUAGE_CODE,
-                    "value": "On",
-                    "valuetype": "prefLabel"
+                    "text": _("On"),
+                    "valuetype": "prefLabel",  
+                    "sortorder": "",
+                    "collector": "",
+                    "children": []
                 },{
                     "conceptid": "2",
                     "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
                     "id": "2",
                     "language,id": settings.LANGUAGE_CODE,
-                    "value": "After",
-                    "valuetype": "prefLabel"
+                    "text": _("After"),
+                    "valuetype": "prefLabel",  
+                    "sortorder": "",
+                    "collector": "",
+                    "children": []
                 }]
             }
         }
