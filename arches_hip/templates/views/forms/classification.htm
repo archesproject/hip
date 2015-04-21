@@ -89,7 +89,7 @@
                         <dl>   
                             <dt class="arches-evaluation-header">{% trans "From" %}</dt>
                             <dd class="arches-evaluation-content" data-bind="if: $data['FROM_DATE.E49'].branch_lists.length > 0">
-                                <span data-bind="html: $data['FROM_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10)"></span>
+                                <span data-bind="html: $data['FROM_DATE.E49'].branch_lists[0].nodes[0].label"></span>
                             </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['FROM_DATE.E49'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>
@@ -99,7 +99,7 @@
                             <dt class="arches-evaluation-header">{% trans "To" %}</dt>
 
                             <dd class="arches-evaluation-content" data-bind="if: $data['TO_DATE.E49'].branch_lists.length > 0">
-                                <span data-bind="html: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label.substr(0,10)"></span>
+                                <span data-bind="html: $data['TO_DATE.E49'].branch_lists[0].nodes[0].label"></span>
                             </dd>
                             <dd class="arches-evaluation-content" data-bind="ifnot: $data['TO_DATE.E49'].branch_lists.length > 0">
                                 <span data-bind="html: 'no entries'"></span>

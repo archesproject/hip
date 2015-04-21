@@ -109,8 +109,8 @@
                                     <a href="javascript:void(0)" class="arches-CRUD-child" title="Delete this name"><i data-bind='click: $parent.deleteItem.bind($parent)' class="arches-CRUD-delete fa fa-trash-o"></i></a>
                                     <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind='click: $parent.editItem.bind($parent)' title="Edit this name">
                                         <span data-bind='text: nodes.get("ACTIVITY_TYPE.E55", "label")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier"> ({% trans "Activity type" %}),</span>
-                                        <span data-bind='text: nodes.get("FROM_DATE.E49", "value").substr(0,10)' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">({% trans "Start Date" %}),</span>
-                                        <span data-bind='text: nodes.get("TO_DATE.E49", "value").substr(0,10)' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">({% trans "End Date" %})</span>
+                                        <span data-bind='text: nodes.get("FROM_DATE.E49", "value")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">({% trans "Start Date" %}),</span>
+                                        <span data-bind='text: nodes.get("TO_DATE.E49", "value")' style="padding-right:2px;"></span><span class="text-muted arches-crud-type-identifier">({% trans "End Date" %})</span>
                                     </a>
                                 </div>
                             </div>

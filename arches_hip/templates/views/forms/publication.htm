@@ -119,7 +119,7 @@
                                 <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this publisher/date" %}">
                                     <span data-bind='text: nodes.get("INFORMATION_RESOURCE_TYPE.E55", "label")' style="padding-right:2px;"></span>
                                     <span class="text-muted arches-crud-type-identifier"> ({% trans "type" %})&nbsp; </span>
-                                    <span data-bind='text: nodes.get("DATE_OF_CREATION.E50", "value").substr(0,10)' style="padding-right:2px;"></span>
+                                    <span data-bind='text: nodes.get("DATE_OF_CREATION.E50", "value")' style="padding-right:2px;"></span>
                                     <span class="text-muted arches-crud-type-identifier"> ({% trans "creation date" %})&nbsp; </span>
                                     <span data-bind='text: nodes.get("CREATOR_APPELLATION.E82", "value")' style="padding-right:2px;"></span>
                                     <span class="text-muted arches-crud-type-identifier"> ({% trans "creator" %})&nbsp; </span>
@@ -222,7 +222,7 @@
                         <div data-bind="foreach: getBranchLists()"> 
                             <div class="arches-crud-record" id="">
                                 <a href="javascript:void(0)" class="arches-CRUD-child" title="{% trans "Delete this publisher/date" %}"><i data-bind="click: $parent.deleteItem.bind($parent)" class="arches-CRUD-delete fa fa-times-circle"></i></a>
-                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this publisher/date" %}"><span data-bind='text: nodes.get("PUBLISHER_APPELLATION.E82", "value") + ", " + nodes.get("DATE_OF_PUBLICATION.E50", "value").substr(0,10)' style="padding-right:2px;"></span>
+                                <a href="javascript:void(0)" class="arches-CRUD-child arches-CRUD-edit" data-bind="click: $parent.editItem.bind($parent)" title="{% trans "Edit this publisher/date" %}"><span data-bind='text: nodes.get("PUBLISHER_APPELLATION.E82", "value") + ", " + nodes.get("DATE_OF_PUBLICATION.E50", "value")' style="padding-right:2px;"></span>
                                 </a>
                             </div>
                         </div>

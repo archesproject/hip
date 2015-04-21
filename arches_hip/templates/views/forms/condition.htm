@@ -48,7 +48,7 @@
 
                                         <a href="#" class="" title="Edit this assessment" data-bind="click: $root.editAssessment">{% trans "Condition State on" %} 
                                             <span data-bind="if: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists.length > 0">
-                                                <span data-bind="text: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists[0].nodes[0].label.substr(0,10) + ': ' + $data['CONDITION_TYPE.E55'].branch_lists[0].nodes[0].label">
+                                                <span data-bind="text: $data['DATE_CONDITION_ASSESSED.E49'].branch_lists[0].nodes[0].label + ': ' + $data['CONDITION_TYPE.E55'].branch_lists[0].nodes[0].label">
                                                 </span>
                                             </span>
                                         </a>

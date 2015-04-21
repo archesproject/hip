@@ -28,6 +28,16 @@ from arches.app.search.search_engine_factory import SearchEngineFactory
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext as _
 from django.forms.models import model_to_dict
+from datetime import datetime
+
+def datetime_nodes_to_dates(branch_list):
+    for branch in branch_list:
+        for node in branch['nodes']:
+            if isinstance(node.value, datetime):
+                node.value = node.value.date()
+                node.label = node.value
+
+    return branch_list
 
 
 class SummaryForm(ResourceForm):
@@ -70,7 +80,7 @@ class SummaryForm(ResourceForm):
 
     def load(self, lang):
         self.data['important_dates'] = {
-            'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63') + self.get_nodes('END_OF_EXISTENCE.E64'),
+            'branch_lists': datetime_nodes_to_dates(self.get_nodes('BEGINNING_OF_EXISTENCE.E63') + self.get_nodes('END_OF_EXISTENCE.E64')),
             'domains': {'important_dates' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55') + Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')}
         }
 
@@ -138,9 +148,12 @@ class ActivityActionsForm(ResourceForm):
         return
 
     def load(self, lang):
+
         if self.resource:
+            phase_type_nodes = datetime_nodes_to_dates(self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'))
+
             self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
-                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'branch_lists': phase_type_nodes,
                 'domains': {
                     'ACTIVITY_TYPE.E55': Concept().get_e55_domain('ACTIVITY_TYPE.E55'),
                 }
@@ -176,14 +189,14 @@ class ActivitySummaryForm(ResourceForm):
             }
 
             self.data['BEGINNING_OF_EXISTENCE.E63'] = {
-                'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('BEGINNING_OF_EXISTENCE.E63')),
                 'domains': {
                     'BEGINNING_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55')
                 }
             }
 
             self.data['END_OF_EXISTENCE.E64'] = {
-                'branch_lists': self.get_nodes('END_OF_EXISTENCE.E64'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('END_OF_EXISTENCE.E64')),
                 'domains': {
                     'END_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
                 }
@@ -192,12 +205,6 @@ class ActivitySummaryForm(ResourceForm):
                 self.data['primaryname_conceptid'] = self.data['NAME.E41']['domains']['NAME_TYPE.E55'][3]['id']
             except IndexError:
                 pass
-
-        def update(self, data, files):
-            self.update_nodes('NAME.E41', data)
-            self.update_nodes('KEYWORD.E55', data)
-            self.update_nodes('BEGINNING_OF_EXISTENCE.E63', data)
-            self.update_nodes('END_OF_EXISTENCE.E64', data)
 
 
 class ComponentForm(ResourceForm):
@@ -346,11 +353,8 @@ class ClassificationForm(ResourceForm):
         classification_entities = self.resource.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17')
 
         for entity in classification_entities:
-            to_date_nodes = self.get_nodes(entity, 'TO_DATE.E49')         
-            from_date_nodes = self.get_nodes(entity, 'FROM_DATE.E49')
-
-            for date_nodes in [to_date_nodes, from_date_nodes]:
-                date_nodes[0]['nodes'][0].value = date_nodes[0]['nodes'][0].value.date()
+            to_date_nodes = datetime_nodes_to_dates(self.get_nodes(entity, 'TO_DATE.E49'))
+            from_date_nodes = datetime_nodes_to_dates(self.get_nodes(entity, 'FROM_DATE.E49'))
 
             self.data['data'].append({
                 'HERITAGE_RESOURCE_TYPE.E55': {
@@ -603,7 +607,7 @@ class ConditionForm(ResourceForm):
                     'branch_lists': self.get_nodes(entity, 'RECOMMENDATION_TYPE.E55')
                 },
                 'DATE_CONDITION_ASSESSED.E49': {
-                    'branch_lists': self.get_nodes(entity, 'DATE_CONDITION_ASSESSED.E49')
+                    'branch_lists': datetime_nodes_to_dates(self.get_nodes(entity, 'DATE_CONDITION_ASSESSED.E49'))
                 },
                 'CONDITION_DESCRIPTION.E62': {
                     'branch_lists': self.get_nodes(entity, 'CONDITION_DESCRIPTION.E62')
@@ -899,7 +903,7 @@ class RoleForm(ResourceForm):
     def load(self, lang):
         if self.resource:
             self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
-                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17')),
                 'domains': {
                     'ACTOR_TYPE.E55' : Concept().get_e55_domain('ACTOR_TYPE.E55'),
                     'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55')
@@ -940,14 +944,14 @@ class ActorSummaryForm(ResourceForm):
 
 
             self.data['BEGINNING_OF_EXISTENCE.E63'] = {
-                'branch_lists': self.get_nodes('BEGINNING_OF_EXISTENCE.E63'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('BEGINNING_OF_EXISTENCE.E63')),
                 'domains': {
                     'BEGINNING_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55')
                 }
             }
 
             self.data['END_OF_EXISTENCE.E64'] = {
-                'branch_lists': self.get_nodes('END_OF_EXISTENCE.E64'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('END_OF_EXISTENCE.E64')),
                 'domains': {
                     'END_OF_EXISTENCE_TYPE.E55' : Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55')
                 }
@@ -982,7 +986,7 @@ class PhaseForm(ResourceForm):
     def load(self, lang):
         if self.resource:
             self.data['PHASE_TYPE_ASSIGNMENT.E17'] = {
-                'branch_lists': self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('PHASE_TYPE_ASSIGNMENT.E17')),
                 'domains': {
                     'HISTORICAL_EVENT_TYPE.E55' : Concept().get_e55_domain('HISTORICAL_EVENT_TYPE.E55'),
                     'CULTURAL_PERIOD.E55' : Concept().get_e55_domain('CULTURAL_PERIOD.E55')
@@ -1238,11 +1242,8 @@ class DistrictClassificationForm(ResourceForm):
         classification_entities = self.resource.find_entities_by_type_id('PHASE_TYPE_ASSIGNMENT.E17')
 
         for entity in classification_entities:
-            to_date_nodes = self.get_nodes(entity, 'TO_DATE.E49')         
-            from_date_nodes = self.get_nodes(entity, 'FROM_DATE.E49')
-
-            for date_nodes in [to_date_nodes, from_date_nodes]:
-                date_nodes[0]['nodes'][0].value = date_nodes[0]['nodes'][0].value.date()
+            to_date_nodes = datetime_nodes_to_dates(self.get_nodes(entity, 'TO_DATE.E49'))
+            from_date_nodes = datetime_nodes_to_dates(self.get_nodes(entity, 'FROM_DATE.E49'))
 
             self.data['data'].append({
                 'HERITAGE_RESOURCE_GROUP_TYPE.E55': {
@@ -1288,14 +1289,14 @@ class PublicationForm(ResourceForm):
     def load(self, lang):
         if self.resource:
             self.data['RESOURCE_CREATION_EVENT.E65'] = {
-                'branch_lists': self.get_nodes('RESOURCE_CREATION_EVENT.E65'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('RESOURCE_CREATION_EVENT.E65')),
                 'domains': {
                     'INFORMATION_RESOURCE_TYPE.E55' : Concept().get_e55_domain('INFORMATION_RESOURCE_TYPE.E55')
                 }
             }
 
             self.data['PUBLICATION_EVENT.E12'] = {
-                'branch_lists': self.get_nodes('PUBLICATION_EVENT.E12'),
+                'branch_lists': datetime_nodes_to_dates(self.get_nodes('PUBLICATION_EVENT.E12')),
                 'domains': {}
             }
 
