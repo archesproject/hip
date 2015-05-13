@@ -136,6 +136,8 @@ def RESOURCE_TYPE_CONFIGS():
 
 EXPORT_CONFIG = os.path.normpath(os.path.join(PACKAGE_ROOT, 'source_data', 'resource_export_mappings.json'))
 
+DATE_SEARCH_ENTITY_TYPES = ['BEGINNING_OF_EXISTENCE_TYPE.E55', 'END_OF_EXISTENCE_TYPE.E55']
+
 RESOURCE_GRAPH_LOCATIONS = (
     # Put strings here, like "/home/data/resource_graphs" or "C:/data/resource_graphs".
     # Always use forward slashes, even on Windows.

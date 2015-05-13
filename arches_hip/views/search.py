@@ -34,52 +34,12 @@ def home_page(request):
     lang = request.GET.get('lang', settings.LANGUAGE_CODE)
     min_max_dates = models.Dates.objects.aggregate(Min('val'), Max('val'))
 
-    data = {
-        'important_dates': {
-            'branch_lists': [],
-            'domains': {
-                'important_dates' : Concept().get_e55_domain('BEGINNING_OF_EXISTENCE_TYPE.E55') + Concept().get_e55_domain('END_OF_EXISTENCE_TYPE.E55'),
-                'date_operators' : [{
-                    "conceptid": "0",
-                    "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
-                    "id": "0",
-                    "language,id": settings.LANGUAGE_CODE,
-                    "text": _("Before"),
-                    "valuetype": "prefLabel",  
-                    "sortorder": "",
-                    "collector": "",
-                    "children": []
-                },{
-                    "conceptid": "1",
-                    "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
-                    "id": "1",
-                    "language,id": settings.LANGUAGE_CODE,
-                    "text": _("On"),
-                    "valuetype": "prefLabel",  
-                    "sortorder": "",
-                    "collector": "",
-                    "children": []
-                },{
-                    "conceptid": "2",
-                    "entitytypeid": "DATE_COMPARISON_OPERATOR.E55",
-                    "id": "2",
-                    "language,id": settings.LANGUAGE_CODE,
-                    "text": _("After"),
-                    "valuetype": "prefLabel",  
-                    "sortorder": "",
-                    "collector": "",
-                    "children": []
-                }]
-            }
-        }
-    }
-
     return render_to_response('search.htm', {
             'main_script': 'search',
             'active_page': 'Search',
             'min_date': min_max_dates['val__min'].year if min_max_dates['val__min'] != None else 0,
             'max_date': min_max_dates['val__max'].year if min_max_dates['val__min'] != None else 1,
-            'timefilterdata': JSONSerializer().serialize(data)
+            'timefilterdata': JSONSerializer().serialize(Concept.get_time_filter_data())
         }, 
         context_instance=RequestContext(request))
 
