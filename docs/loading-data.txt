@@ -391,10 +391,14 @@ To populate the overlays table, use the following steps:
 
 1> Prepare a polygon shapefile that mimics the structure of the overlays table as defined above.  Remember, the shapefile need not contain an overlayid column, the geometry must be set of EPSG 4326, and the geometry data will not be explicitly called out in the attributes of the shapefile.
 
-.. tip:: You can access an empty template shapefile that will easily populate into the overlays table from the repo here: ...HIP\docs\overlays template shapefile.zip
+.. tip:: You can access an empty template shapefile that will easily populate into the overlays table from the repo here: ``...HIP\docs\overlays template shapefile.zip``
 
 2> Use the PostGIS Shapefile Import/Export Manager to append the shapefile records to the aux.overlays table.  Configuration of the import is pictured below:
-.. image :: import overlays1.jpg
+
+
+.. image :: import_overlays_config.jpg
+
+
 
 Please take special note of the following:
  - Mode is set to append 
