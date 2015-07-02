@@ -95,25 +95,27 @@ Custom settings include such things as the text and logos on the HIP home page, 
 With your Arches dependencies installed, you are now ready to install HIP. 
 
 
-#1.  Create an Arches folder
+#1.  Create an Arches folder:
 
     Create a folder called 'Projects' (or any other name that you prefer) on your computer.
 
 
 
-#2.  Install virtualenv
-    Open a command promot and type::
+#2.  Install virtualenv:
+    
+    Open a command prompt and type::
 
         $ pip install virtualenv
 
     .. note::
-        Using apt-get to install virtualenv will install an older version that will result in errors in your Arches installation. Be sure to use pip for your virtualenv installation.
+        For Linux users: Using apt-get to install virtualenv will install an older version that will result in errors in your Arches installation. Be sure to use pip for your virtualenv installation.
 
     virtualenv creates a directory with it's own installation of Python and Python executables. 
 
 
-#3. Create a virtual environment
-Arches and Arches-HIP will be installed within a virtual environment. To do so, navigate to your Projects directory (or wherever you created your Arches root folder) and create your virtual environment with the following command::
+#3. Create a virtual environment:
+
+    Arches and Arches-HIP will be installed within a virtual environment. To do so, navigate to your Projects directory (or wherever you created your Arches root folder) and create your virtual environment with the following command::
 
         $ virtualenv ENV
 
@@ -127,7 +129,7 @@ Arches and Arches-HIP will be installed within a virtual environment. To do so, 
 
             > \path to 'Projects'\ENV\Scripts\activate
 
-#4.  Install the arches_hip module
+#4.  Install the arches_hip module:
 
     For this step your virtual environment must be activated. You will know that's the case if you see the name of your virtual environment in parentheses proceeding your command prompt like so ``(ENV)``::
 
@@ -140,11 +142,23 @@ Arches and Arches-HIP will be installed within a virtual environment. To do so, 
         (ENV)$ arches-app create my_hip_app --app arches_hip
 
     .. note::
-        Windows users may get an error like: **'arches-app' is not recognized as an internal or external command, operable program or batch file.** If that occurs, you may need to specify the path to the arches-app command. Be sure to ad 'python' to the beginning of the command to ensure that you use your virtual environment's Python. For example::
+        Windows users may get an error like: **'arches-app' is not recognized as an internal or external command, operable program or batch file.** If that occurs, you may need to specify the path to the arches-app command. Be sure to add **'python'** to the beginning of the command to ensure that you use your virtual environment's Python. For example::
 
             (ENV)> python path\to\ENV\Scripts\arches-app create my_hip_app --app arches_hip
 
-#6.  Install ElasticSearch
+
+#6. Windows users need to explicity point their application to a valid gdal dll file:
+
+    Open the ``settings.py`` file in ``my_hip_app/my_hip_app`` and add the following setting
+
+        GDAL_LIBRARY_PATH = '{path to OSGeo4W bin directory}/gdalxxxx.dll'
+
+    For example, your setting might look like this:
+
+        GDAL_LIBRARY_PATH = 'C:/OSGeo4W64/bin/gdal111.dll'
+
+
+#7.  Install ElasticSearch:
 
     Navigate to the directory containing ``manage.py``::
 
@@ -223,7 +237,7 @@ Running Arches-HIP
 
     Open a new command terminal and run the following command::
 
-        $ /my_hip_app/my_hip_app/elasticsearch/elasticsearch-1.4.1/bin/elasticsearch
+        $ my_hip_app\my_hip_app\elasticsearch\elasticsearch-1.4.1\bin\elasticsearch
 
     You can minimize this terminal and let it run in the background
 
