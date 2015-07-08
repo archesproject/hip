@@ -28,7 +28,7 @@ Arches-HIP implements one Graph for each resource type.  A key capability of Arc
 
 HIP Graphs
 ---------------
-You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <#appendix-a>`_): 
+You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <appendix/#appendix-a>`_): 
 
 To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
@@ -170,6 +170,6 @@ HIP comes with the following authority files included. It is also important to n
 +----------------------------------------------------------+---------------------------------------+
 
 
-More information on the entity types these authority documents describe can be found in `Appendix A <#appendix-a>`_
+More information on the entity types these authority documents describe can be found in `Appendix A <appendix/#appendix-a>`_
 
 
