@@ -22,7 +22,9 @@ Each HIP resource provides a rich list of attributes that can be used to describ
 
 Arches-HIP implements one Graph for each resource type.  A key capability of Arches-HIP is that each Graph implements the CIDOC CRM (http://www.cidoc-crm.org/) ontology to impart meaning to each attribute in a resource graph.
 
+	..note::
 
+		Certain heritage objects like an archaeological site can be modeled as either a resource or a group depending on your preference or implementation decision. 
 
 HIP Graphs
 ---------------
@@ -77,7 +79,7 @@ Arches-HIP includes an "Authority File" for every attribute that is constrained 
 Included Authority Files
 ------------------------
 
-HIP comes with the following authority files included.
+HIP comes with the following authority files included. It is also important to note that one entity type can apply to multiple resource graphs. 
 
 +----------------------------------------------------------+---------------------------------------+
 | Authority Document                                       | Entity Type                           |
@@ -168,6 +170,6 @@ HIP comes with the following authority files included.
 +----------------------------------------------------------+---------------------------------------+
 
 
-More information on the entity types these authority documents describe can be found in `Appendix A <appendix.html#appendix-a>`_
+More information on the entity types these authority documents describe can be found in `Appendix A <#appendix-a>`_
 
 
