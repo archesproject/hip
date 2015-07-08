@@ -6,14 +6,14 @@ Arches-HIP Data Resources
 Arches-HIP is designed to allow you to create cultural heritage inventories that consist of 6 primary resource types:
 
 
-    * **Heritage Resources:** These are culturally significant objects such as buildings and archaeological sites.  However, Heritage Resources may be any object that an organization regards as important.  Examples include air raid sirens, statues, canals, roads, gates, bridges, etc.
+    * **Heritage Resources:** These are culturally significant objects such as buildings and monuments.  However, Heritage Resources may be any object that an organization regards as important.  Examples include air raid sirens, statues, canals, roads, gates, bridges, etc.
 
     * **Heritage Resource Groups** These are collections of heritage resources that are best regarded as a group.  In Europe, such resources are often referred to as ensembles.  In the United States, districts or landscapes may be inventoried as Heritage Resource Groups.
 
     * **Activity** In Arches-HIP, activities are resources that occur over a period of time.  Examples include surveys, investigations, excavations, literature review, and other actions.
     * **Historic Event** These are culturally significant occurrences.  Examples include the 1906 San Francisco Earthquake, Coronation of Napoleon, and the Normandy Beach landings in WWII.
 
-    * **Actor** In Arches-HIP actor resources are persons, groups of people, or organizations.
+    * **Actor** In Arches-HIP, actor resources are persons, groups of people, or organizations.
 
     * **Information Objects**  These are objects that encode information such as an image (either digital or a traditional photograph), documents, signs, inscriptions, or 33 1/3 rpm records.
 
@@ -28,7 +28,7 @@ Arches-HIP implements one Graph for each resource type.  A key capability of Arc
 
 HIP Graphs
 ---------------
-You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <appendix.html#appendix-a>`_): 
+You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <#appendix-a>`_): 
 
 To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 

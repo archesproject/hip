@@ -136,12 +136,12 @@ If you would like to use Arches-HIP's data entry forms to create your cultural h
 If you would like to create and load your own Arches-HIP cultural heritage data this whole section is for you!
 
 
-Importing Creating Cultural Heritage Data Using the .ARCHES File
+Importing / Creating Cultural Heritage Data Using the .ARCHES File
 ================================================================
 
 If you have existing cultural heritage data that you want to import into Arches, you'll need to prepare either an ".arches" text file or a GIS shapefile.  Either file type will allow you automatically import thousands of cultural heritage data records into Arches-HIP.
 
-Unsure of which format to use?  The .arches file defines a simple format and allows you to import very sophisticated datasets (e.g.: heritage data with complex attributes such as multiple geometry types, names, typology).  Use a shapefile to import your existing data if you use GIS to create data, or if your cultural heritage data is "flat" (e.g.: one value per attribute, such as a single name for each heritage resource).
+Unsure of which format to use?  The .arches file defines a simple format and allows you to import very sophisticated datasets (e.g.: heritage data with complex attributes such as multiple geometry types, names, typology).  Use a shapefile to import your existing data if you use GIS to create data or if your cultural heritage data is "flat" (e.g.: one value per attribute, such as a single name for each heritage resource).
 
 
 **Creating a ``.arches`` file**
@@ -171,7 +171,7 @@ For general directions on how to create a ``.arches`` file you'll want to refer 
 		* Historical Event.E5
 		* Information Resource.E73
 
-#.	Next, declare the attribute that you want to load into HIP.  You'll need to declare a valid Arches-HIP ATTRIBUTENAME.  Remember, ``ATTRIBUTENAME`` relates directly to an entity type from a resource graph. In fact the only valid values for ``ATTRIBUTENAME`` in the ``.arches`` file are entity types from the resource graph nodes file indicated in ``RESOURCETYPE`` column.
+#.	Next, declare the attribute that you want to load into HIP.  You'll need to declare a valid Arches-HIP ATTRIBUTENAME.  Remember, ``ATTRIBUTENAME`` relates directly to an entity type from a resource graph. In fact the only valid values for ``ATTRIBUTENAME`` in the ``.arches`` file are entity types from the resource graph nodes file indicated in the ``RESOURCETYPE`` column. More specifically, only valid entity types are allowed to store data and business values. Furthermore, the validation process stringently restricts all files from storing data in any entity types that disallow that.
 
 	Look `here <loading-data.html#resource-graphs>`_ for a list of entity types for each Arches-HIP resource. 
 
