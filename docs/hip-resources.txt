@@ -170,6 +170,6 @@ HIP comes with the following authority files included. It is also important to n
 +----------------------------------------------------------+---------------------------------------+
 
 
-More information on the entity types these authority documents describe can be found in `Appendix A <appendix/#appendix-a>`_
+More information on the entity types these authority documents describe can be found in `Appendix A <http://arches-hip.readthedocs.org/en/latest/appendix/>`_
 
 
