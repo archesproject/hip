@@ -257,6 +257,10 @@ Running Arches-HIP
 
             DATABASES['default']['POSTGIS_TEMPLATE'] = 'the name of your postgis template' 
 
+    **Manage Data Using pgAdmin**:
+
+    Once you have successfully created your database(s), it is important to manage them effectively. You can do this by using pgAdmin, an open source and graphical database management interface for PostegreSQL. It is easy to use, supports all PosetgreSQL features, contains effective server-side code and SQL syntax editing tools, and can be used on several different platforms including: Linux, Windows, Max OSX, Solaris, and FreeBSD. 
+
 #.  **Run arches**:
 
     Open a new terminal. **Be sure to activate your virtual environment for this terminal as well**.
