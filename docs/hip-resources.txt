@@ -81,93 +81,93 @@ Included Authority Files
 
 HIP comes with the following authority files included. It is also important to note that one entity type can apply to multiple resource graphs. 
 
-+----------------------------------------------------------+---------------------------------------+
-| Authority Document                                       | Entity Type                           |
-+==========================================================+=======================================+
-| ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv                     | ACTIVITY_TYPE.E55                     |
-+----------------------------------------------------------+---------------------------------------+
-| ACTOR_TYPE_AUTHORITY_DOCUMENT.csv                        | ACTOR_TYPE.E55                        |
-+----------------------------------------------------------+---------------------------------------+
-| ADDRESS_TYPE_AUTHORITY_DOCUMENT.csv                      | ADDRESS_TYPE.E55                      |
-+----------------------------------------------------------+---------------------------------------+
-| ADMINISTRATIVE_SUBDIVISION_TYPE_AUTHORITY_DOCUMENT.csv   | ADMINISTRATIVE_SUBDIVISION_TYPE.E55   |
-+----------------------------------------------------------+---------------------------------------+
-| BEGINNING_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv       | BEGINNING_OF_EXISTENCE_TYPE.E55       |
-+----------------------------------------------------------+---------------------------------------+
-| COMPONENT_TYPE_AUTHORITY_DOCUMENT.csv                    | COMPONENT_TYPE.E55                    |
-+----------------------------------------------------------+---------------------------------------+
-| CONDITION_AUTHORITY_DOCUMENT.csv                         | CONDITION_TYPE.E55                    |
-+----------------------------------------------------------+---------------------------------------+
-| CONSTRUCTION_TECHNIQUE_AUTHORITY_DOCUMENT.csv            | CONSTRUCTION_TECHNIQUE.E55            |
-+----------------------------------------------------------+---------------------------------------+
-| CULTURAL_PERIOD_AUTHORITY_DOCUMENT.csv                   | CULTURAL_PERIOD.E55                   |
-+----------------------------------------------------------+---------------------------------------+
-| DESCRIPTION_TYPE_AUTHORITY_DOCUMENT.csv                  | DESCRIPTION_TYPE.E55                  |
-+----------------------------------------------------------+---------------------------------------+
-| DISTURBANCE_TYPE_AUTHORITY_DOCUMENT.csv                  | DISTURBANCE_TYPE.E55                  |
-+----------------------------------------------------------+---------------------------------------+
-| ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY DOCUMENT.csv      | ELIGIBILITY_REQUIREMENT_TYPE.E55      |
-+----------------------------------------------------------+---------------------------------------+
-| END_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv             | END_OF_EXISTENCE_TYPE.E55             |
-+----------------------------------------------------------+---------------------------------------+
-| EVALUATION_CRITERIA_TYPE_AUTHORITY_DOCUMENT.csv          | EVALUATION_CRITERIA_TYPE.E55          |
-+----------------------------------------------------------+---------------------------------------+
-| EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv                | EXTERNAL_XREF_TYPE.E55                |
-+----------------------------------------------------------+---------------------------------------+
-| GEOMETRY_QUALIFIER_AUTHORITY_DOCUMENT.csv                | GEOMETRY_QUALIFIER.E55                |
-+----------------------------------------------------------+---------------------------------------+
-| HERITAGE_RESOURCE_GROUP_TYPE_AUTHORITY_DOCUMENT.csv      | HERITAGE_RESOURCE_GROUP_TYPE.E55      |
-+----------------------------------------------------------+---------------------------------------+
-| HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv            | HERITAGE_RESOURCE_TYPE.E55            |
-+----------------------------------------------------------+---------------------------------------+
-| HISTORICAL_EVENT_TYPE_AUTHORITY_DOCUMENT.csv             | HISTORICAL_EVENT_TYPE.E55             |
-+----------------------------------------------------------+---------------------------------------+
-| IDENTIFIER_TYPE_AUTHORITY_DOCUMENT.csv                   | IDENTIFIER_TYPE.E55                   |
-+----------------------------------------------------------+---------------------------------------+
-| INFORMATION_CARRIER_FORMAT_AUTHORITY_DOCUMENT.csv        | INFORMATION_CARRIER_FORMAT_TYPE.E55   |
-+----------------------------------------------------------+---------------------------------------+
-| INFORMATION_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv         | INFORMATION_RESOURCE_TYPE.E55         |
-+----------------------------------------------------------+---------------------------------------+
-| INTEGRITY_TYPE_AUTHORITY_DOCUMENT.csv                    | INTEGRITY_TYPE.E55                    |
-+----------------------------------------------------------+---------------------------------------+
-| KEYWORD_AUTHORITY_DOCUMENT.csv                           | KEYWORD.E55                           |
-+----------------------------------------------------------+---------------------------------------+
-| LANGUAGE_AUTHORITY_DOCUMENT.csv                          | LANGUAGE.E55                          |
-+----------------------------------------------------------+---------------------------------------+
-| MATERIAL_AUTHORITY_DOCUMENT.csv                          | MATERIAL.E57                          |
-+----------------------------------------------------------+---------------------------------------+
-| MEASUREMENT_TYPE_AUTHORITY_DOCUMENT.csv                  | MEASUREMENT_TYPE.E55                  |
-+----------------------------------------------------------+---------------------------------------+
-| MODIFICATION_TYPE_AUTHORITY_DOCUMENT.csv                 | MODIFICATION_TYPE.E55                 |
-+----------------------------------------------------------+---------------------------------------+
-| NAME_TYPE_AUTHORITY_DOCUMENT.csv                         | NAME_TYPE.E55                         |
-+----------------------------------------------------------+---------------------------------------+
-| RECOMMENDATION_TYPE_AUTHORITY_DOCUMENT.csv               | RECOMMENDATION_TYPE.E55               |
-+----------------------------------------------------------+---------------------------------------+
-| RELATED_FEATURE_AUTHORITY_DOCUMENT.csv                   | ANCILLARY_FEATURE_TYPE.E55            |
-+----------------------------------------------------------+---------------------------------------+
-| RESOURCE_CLASSIFICATION_AUTHORITY_DOCUMENT.csv           | RESOURCE_TYPE_CLASSIFICATION.E55      |
-+----------------------------------------------------------+---------------------------------------+
-| RIGHT_TYPE_AUTHORITY_DOCUMENT.csv                        | RIGHT_TYPE.E55                        |
-+----------------------------------------------------------+---------------------------------------+
-| SETTING_TYPE_AUTHORITY_DOCUMENT.csv                      | SETTING_TYPE.E55                      |
-+----------------------------------------------------------+---------------------------------------+
-| STATUS_AUTHORITY_DOCUMENT.csv                            | STATUS.E55                            |
-+----------------------------------------------------------+---------------------------------------+
-| STYLE_AUTHORITY_DOCUMENT.csv                             | STYLE.E55                             |
-+----------------------------------------------------------+---------------------------------------+
-| THREAT_TYPE_AUTHORITY_DOCUMENT.csv                       | THREAT_TYPE.E55                       |
-+----------------------------------------------------------+---------------------------------------+
-| TITLE_TYPE_AUTHORITY_DOCUMENT.csv                        | TITLE_TYPE.E55                        |
-+----------------------------------------------------------+---------------------------------------+
-| TYPE_OF_DESIGNATION_OR_PROTECTION_AUTHORITY_DOCUMENT.csv | TYPE_OF_DESIGNATION_OR_PROTECTION.E55 |
-+----------------------------------------------------------+---------------------------------------+
-| UNIT_OF_MEASUREMENT_AUTHORITY_DOCUMENT.csv               | UNIT_OF_MEASUREMENT.E55               |
-+----------------------------------------------------------+---------------------------------------+
-| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_DISTRICT_USE_TYPE.E55        |
-+----------------------------------------------------------+---------------------------------------+
-| USE_TYPE_AUTHORITY_DOCUMENT.csv                          | HISTORIC_RESOURCE_USE_TYPE.E55        |
-+----------------------------------------------------------+---------------------------------------+
++---------------------------------------+----------------------------------------------------------+
+| Entity Type                           | Authority Document                                       |
++=======================================+==========================================================+
+| ACTIVITY_TYPE.E55                     | ACTIVITY_TYPE_AUTHORITY_DOCUMENT.csv                     |
++---------------------------------------+----------------------------------------------------------+
+| ACTOR_TYPE.E55                        | ACTOR_TYPE_AUTHORITY_DOCUMENT.csv                        |
++---------------------------------------+----------------------------------------------------------+
+| ADDRESS_TYPE.E55                      | ADDRESS_TYPE_AUTHORITY_DOCUMENT.csv                      |
++---------------------------------------+----------------------------------------------------------+
+| ADMINISTRATIVE_SUBDIVISION_TYPE.E55   | ADMINISTRATIVE_SUBDIVISION_TYPE_AUTHORITY_DOCUMENT.csv   |
++---------------------------------------+----------------------------------------------------------+
+| BEGINNING_OF_EXISTENCE_TYPE.E55       | BEGINNING_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv       |
++---------------------------------------+----------------------------------------------------------+
+| COMPONENT_TYPE.E55                    | COMPONENT_TYPE_AUTHORITY_DOCUMENT.csv                    |
++---------------------------------------+----------------------------------------------------------+
+| CONDITION_TYPE.E55                    | CONDITION_AUTHORITY_DOCUMENT.csv                         |
++---------------------------------------+----------------------------------------------------------+
+| CONSTRUCTION_TECHNIQUE.E55            | CONSTRUCTION_TECHNIQUE_AUTHORITY_DOCUMENT.csv            |
++---------------------------------------+----------------------------------------------------------+
+| CULTURAL_PERIOD.E55                   | CULTURAL_PERIOD_AUTHORITY_DOCUMENT.csv                   |
++---------------------------------------+----------------------------------------------------------+
+| DESCRIPTION_TYPE.E55                  | DESCRIPTION_TYPE_AUTHORITY_DOCUMENT.csv                  |
++---------------------------------------+----------------------------------------------------------+
+| DISTURBANCE_TYPE.E55                  | DISTURBANCE_TYPE_AUTHORITY_DOCUMENT.csv                  |
++---------------------------------------+----------------------------------------------------------+
+| ELIGIBILITY_REQUIREMENT_TYPE.E55      | ELIGIBILITY_REQUIREMENT_TYPE_AUTHORITY DOCUMENT.csv      |
++---------------------------------------+----------------------------------------------------------+
+| END_OF_EXISTENCE_TYPE.E55             | END_OF_EXISTENCE_TYPE_AUTHORITY_DOCUMENT.csv             |
++---------------------------------------+----------------------------------------------------------+
+| EVALUATION_CRITERIA_TYPE.E55          | EVALUATION_CRITERIA_TYPE_AUTHORITY_DOCUMENT.csv          |
++---------------------------------------+----------------------------------------------------------+
+| EXTERNAL_XREF_TYPE.E55                | EXTERNAL_XREF_TYPE_AUTHORITY_DOCUMENT.csv                |
++---------------------------------------+----------------------------------------------------------+
+| GEOMETRY_QUALIFIER.E55                | GEOMETRY_QUALIFIER_AUTHORITY_DOCUMENT.csv                |
++---------------------------------------+----------------------------------------------------------+
+| HERITAGE_RESOURCE_GROUP_TYPE.E55      | HERITAGE_RESOURCE_GROUP_TYPE_AUTHORITY_DOCUMENT.csv      |
++---------------------------------------+----------------------------------------------------------+
+| HERITAGE_RESOURCE_TYPE.E55            | HERITAGE_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv            |
++---------------------------------------+----------------------------------------------------------+
+| HISTORICAL_EVENT_TYPE.E55             | HISTORICAL_EVENT_TYPE_AUTHORITY_DOCUMENT.csv             |
++---------------------------------------+----------------------------------------------------------+
+| IDENTIFIER_TYPE.E55                   | IDENTIFIER_TYPE_AUTHORITY_DOCUMENT.csv                   |
++---------------------------------------+----------------------------------------------------------+
+| INFORMATION_CARRIER_FORMAT_TYPE.E55   | INFORMATION_CARRIER_FORMAT_AUTHORITY_DOCUMENT.csv        |
++---------------------------------------+----------------------------------------------------------+
+| INFORMATION_RESOURCE_TYPE.E55         | INFORMATION_RESOURCE_TYPE_AUTHORITY_DOCUMENT.csv         |
++---------------------------------------+----------------------------------------------------------+
+| INTEGRITY_TYPE.E55                    | INTEGRITY_TYPE_AUTHORITY_DOCUMENT.csv                    |
++---------------------------------------+----------------------------------------------------------+
+| KEYWORD.E55                           | KEYWORD_AUTHORITY_DOCUMENT.csv                           |
++---------------------------------------+----------------------------------------------------------+
+| LANGUAGE.E55                          | LANGUAGE_AUTHORITY_DOCUMENT.csv                          |
++---------------------------------------+----------------------------------------------------------+
+| MATERIAL.E57                          | MATERIAL_AUTHORITY_DOCUMENT.csv                          |
++---------------------------------------+----------------------------------------------------------+
+| MEASUREMENT_TYPE.E55                  | MEASUREMENT_TYPE_AUTHORITY_DOCUMENT.csv                  |
++---------------------------------------+----------------------------------------------------------+
+| MODIFICATION_TYPE.E55                 | MODIFICATION_TYPE_AUTHORITY_DOCUMENT.csv                 |
++---------------------------------------+----------------------------------------------------------+
+| NAME_TYPE.E55                         | NAME_TYPE_AUTHORITY_DOCUMENT.csv                         |
++---------------------------------------+----------------------------------------------------------+
+| RECOMMENDATION_TYPE.E55               | RECOMMENDATION_TYPE_AUTHORITY_DOCUMENT.csv               |
++---------------------------------------+----------------------------------------------------------+
+| ANCILLARY_FEATURE_TYPE.E55            | RELATED_FEATURE_AUTHORITY_DOCUMENT.csv                   |
++---------------------------------------+----------------------------------------------------------+
+| RESOURCE_TYPE_CLASSIFICATION.E55      | RESOURCE_CLASSIFICATION_AUTHORITY_DOCUMENT.csv           |
++---------------------------------------+----------------------------------------------------------+
+| RIGHT_TYPE.E55                        | RIGHT_TYPE_AUTHORITY_DOCUMENT.csv                        |
++---------------------------------------+----------------------------------------------------------+
+| SETTING_TYPE.E55                      | SETTING_TYPE_AUTHORITY_DOCUMENT.csv                      |
++---------------------------------------+----------------------------------------------------------+
+| STATUS.E55                            | STATUS_AUTHORITY_DOCUMENT.csv                            |
++---------------------------------------+----------------------------------------------------------+
+| STYLE.E55                             | STYLE_AUTHORITY_DOCUMENT.csv                             |
++---------------------------------------+----------------------------------------------------------+
+| THREAT_TYPE.E55                       | THREAT_TYPE_AUTHORITY_DOCUMENT.csv                       |
++---------------------------------------+----------------------------------------------------------+
+| TITLE_TYPE.E55                        | TITLE_TYPE_AUTHORITY_DOCUMENT.csv                        |
++---------------------------------------+----------------------------------------------------------+
+| TYPE_OF_DESIGNATION_OR_PROTECTION.E55 | TYPE_OF_DESIGNATION_OR_PROTECTION_AUTHORITY_DOCUMENT.csv |
++---------------------------------------+----------------------------------------------------------+
+| UNIT_OF_MEASUREMENT.E55               | UNIT_OF_MEASUREMENT_AUTHORITY_DOCUMENT.csv               |
++---------------------------------------+----------------------------------------------------------+
+| HISTORIC_DISTRICT_USE_TYPE.E55        | USE_TYPE_AUTHORITY_DOCUMENT.csv                          |
++---------------------------------------+----------------------------------------------------------+
+| HISTORIC_RESOURCE_USE_TYPE.E55        | USE_TYPE_AUTHORITY_DOCUMENT.csv                          |
++---------------------------------------+----------------------------------------------------------+
 
 
 More information on the entity types these authority documents describe can be found in `Appendix A <http://arches-hip.readthedocs.org/en/latest/appendix/>`_
