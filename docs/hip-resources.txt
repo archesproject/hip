@@ -30,7 +30,7 @@ HIP Graphs
 ---------------
 You can get a sense of the type of information associated with each resource by looking at each graph (details about the graphs attributes can be found in `Appendix A <http://arches-hip.readthedocs.org/en/latest/appendix/>`_): 
 
-To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
+To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ . For a closer and more in-depth look at each of these graphs, click on their title links. 
 
 
 `Heritage Resource.E18 <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource.png>`_
