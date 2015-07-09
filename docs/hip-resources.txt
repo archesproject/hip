@@ -36,7 +36,7 @@ To learn more about resource graphs check out the general `Arches Documentation 
 `Heritage Resource.E18 <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource.png>`_
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. image :: ` heritage_resource.png <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource.png>`_
+.. image :: heritage_resource.png 
 
 
 `Heritage Resource Group.E27 <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource_group.png>`_
