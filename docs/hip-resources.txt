@@ -33,10 +33,10 @@ You can get a sense of the type of information associated with each resource by 
 To learn more about resource graphs check out the general `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ .
 
 
-Heritage Resource.E18
+`Heritage Resource.E18 <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource.png>`_
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. image :: `heritage_resource.png <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource.png>`_
+.. image :: heritage_resource.png 
 
 
 Heritage Resource Group.E27
