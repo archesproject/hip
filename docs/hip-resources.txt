@@ -39,28 +39,28 @@ To learn more about resource graphs check out the general `Arches Documentation 
 .. image :: heritage_resource.png 
 
 
-Heritage Resource Group.E27
+`Heritage Resource Group.E27 <http://arches-hip.readthedocs.org/en/latest/_images/heritage_resource_group.png>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. image :: heritage_resource_group.png
 
-Activity.E7
+`Activity.E7 <http://arches-hip.readthedocs.org/en/latest/_images/activity.png>`_
 ~~~~~~~~~~~
 
 .. image :: activity.png
 
 
-Historical Event.E5
+`Historical Event.E5 <http://arches-hip.readthedocs.org/en/latest/_images/historical_event.png>`_
 ~~~~~~~~~~~~~~~~~~~
 .. image :: historical_event.png
 
 
-Actor.E39
+`Actor.E39 <http://arches-hip.readthedocs.org/en/latest/_images/actor.png>`_
 ~~~~~~~~~
 
 .. image :: actor.png
 
 
-Information Resource.E73
+`Information Resource.E73 <http://arches-hip.readthedocs.org/en/latest/_images/information_resource.png>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~
 .. image :: information_resource.png
 
