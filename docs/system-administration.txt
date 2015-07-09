@@ -31,7 +31,7 @@ The resource export mappings is a JSON file that maps resources in your search r
 The top level members of the JSON object are the format extensions (e.g. “csv”, “shp”, “kml”). Each format extension has the following properties:
 
     * ``NAME``:  base name of the export file
-    * ``SCHEMA``:  array of objects defining each field to be added to your exported file. Each object should have the following properties:
+    * ``SCHEMA``\:  array of objects defining each field to be added to your exported file. Each object should have the following properties:
         * ``field_name``:  name of the exported field (required)
         * ``source``:  The location of the data in the search results. If the value is “field_map” the application will lookup the value using the field map for the resource.
         * ``alternatename`` :  every name for the resource that is not primary will be concatenated into a list of alternate names. A value of “resource_name” will lookup the resource name from the ``RESOURCE_TYPE_CONFIGS`` in the application’s ``settings.py`` file.  
