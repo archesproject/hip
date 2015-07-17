@@ -31,8 +31,7 @@ Many of the existing tutorials are concerned with serving both static and media 
 The main potential drawback is transfer speed to and from the S3 bucket, but that depends most on your what your default storage option is. If you look around, you'll find some comparison articles like `this one <http://www.tomsitpro.com/articles/cost-of-the-cloud-book,2-694-2.html>`_ that may be helpful. 
 
     .. note::
-
-    You can use S3 no matter where your app is actually served, whether on an internal server, an AWS EC2 instance, a DigitalOcean droplet, etc.
+        You should be able to use S3 regardless of where your app is hosted, whether on an internal server, an AWS EC2 instance, a DigitalOcean droplet, etc.
 
 **Steps to Follow**
 
