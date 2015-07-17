@@ -231,30 +231,29 @@ class ComponentForm(ResourceForm):
         if self.schema == None:
             self.schema = Entity.get_mapping_schema(self.resource.entitytypeid)
         for value in data[entitytypeid]:
-            baseentity = None
+            self.baseentity = None
             for newentity in value['nodes']:
                 entity = Entity()
-                if newentity['entitytypeid'] in self.schema:
-                    entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
+                entity.create_from_mapping(self.resource.entitytypeid, self.schema[newentity['entitytypeid']]['steps'], newentity['entitytypeid'], newentity['value'], newentity['entityid'])
 
-                    if baseentity == None:
-                        baseentity = entity
-                    else:
-                        baseentity.merge(entity)
+                if self.baseentity == None:
+                    self.baseentity = entity
+                else:
+                    self.baseentity.merge(entity)
             
             if entitytypeid == 'COMPONENT.E18':
+
                 production_entities = self.resource.find_entities_by_type_id('PRODUCTION.E12')
 
                 if len(production_entities) > 0:
-                    self.resource.merge_at(baseentity, 'PRODUCTION.E12')
+                    self.resource.merge_at(self.baseentity, 'PRODUCTION.E12')
                 else:
-                    self.resource.merge_at(baseentity, self.resource.entitytypeid)
+                    self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
 
             else:
-                self.resource.merge_at(baseentity, self.resource.entitytypeid)
+                self.resource.merge_at(self.baseentity, self.resource.entitytypeid)
 
         self.resource.trim()
-
 
     def load(self, lang):
         if self.resource:
