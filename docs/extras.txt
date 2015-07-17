@@ -1,0 +1,125 @@
+###############
+Extra
+###############
+
+Production Configuration
+============
+
+When it comes to setting up your app in a production environment, there are a lot of 
+configuration modifications that can be made to optimize the way it is hosted
+and served.  Here's some information on some things we've tested out...
+
+Storing Uploaded Files on AWS Simple Storage Service (S3)
+-----------------------------------------
+
+**About S3**
+
+Amazon Simple Storage Service, or S3, is one of the many services available through Amazon Web Services.  S3 can very basically be described as a limitless (for all practical purposes) external hard-drive in the cloud.  It's a simple system that is secure and also cheap.  To read more about S3, check out the `official documentation <http://aws.amazon.com/s3/>`_.
+
+To use S3, you will need an AWS account, which is just an extension of a normal Amazon account.  `Here's <http://aws.amazon.com/getting-started/>`_ some information on how to get started with AWS. 
+
+**Why Use S3 with Arches**
+
+By the time you are in a production environment, you will have configured Arches with a web server, such as Apache or nginx.  While you need a web server to serve the app itself, there are two pieces of the app that can be separated from the web server and served independently. These are the 'static' files (the css, javascript, and logos that are used throughout the app) and the 'media' files (any user uploaded files, such as images or documents).
+
+Many of the existing tutorials are concerned with serving both static and media files, because the more load you can take off of your web server the better. However, there are some advantages to S3 that do not have to do with giving your web server some relief:
+
+    * S3 is cheap: As per the `price chart <http://aws.amazon.com/s3/pricing/>`_, it costs just $.03 per gb/month.  So a database with 10gb of photos will have a media storage cost of $3/month, plus a small amount per transaction ($0.004 per 10,000 GET requests, e.g.).
+
+    * S3 is scalable: You only pay for the amount of data you have stored, and you have no real limit on how much you can store.  This allows for an Arches deployment on a small server, either in-house or a small AWS EC2 or DigitalOcean instance to store hundreds of gigabytes of media--photos, audio, video, documents--without having to restructure to accommodate more data.
+    
+The main potential drawback is transfer speed to and from the S3 bucket, but that depends most on your what your default storage option is. If you look around, you'll find some comparison articles like `this one <http://www.tomsitpro.com/articles/cost-of-the-cloud-book,2-694-2.html>`_ that may be helpful. 
+
+    .. note::
+
+    You can use S3 no matter where your app is actually served, whether on an internal server, an AWS EC2 instance, a DigitalOcean droplet, etc.
+
+**Steps to Follow**
+
+Having worked through a number of existing tutorials (mostly `here <http://dylanbfox.blogspot.com/2015/01/using-s3-to-serve-and-store-your-django.html>`_, `here <http://martinbrochhaus.com/s3.html>`_, `here <https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/>`_, and `here <http://www.holovaty.com/writing/amazon-s3-media/>`_), we've distilled these steps to show how you can use S3 in conjunction with your Arches app.  Before beginning, you will need to have set up and logged into your AWS account.
+
+**#1. Create some new user credentials for your Arches app**
+
+    The first step is to create some new AWS credentials that your Arches app will use to access the S3 bucket
+
+    * Access the AWS Identity and Access Management (IAM) Console
+
+    * Create a new user (named something like "arches_media"), and download the new credentials.  This will be a small .csv file that includes an Access Key ID and a Secret Key.
+    
+    * Also, go to the new user's properties, and record the User ARN
+
+**#2. Create a new bucket on S3**
+
+    Next, you'll need to create a new bucket and give it the appropriate settings.
+
+    * Create a bucket, named something like "your_app_media"
+
+    * In the new bucket properties, add a new bucket policy, and use the following text, inserting your own BUCKET-NAME, and the User ARN for your new user::
+
+        {
+            "Statement": [
+                {
+                  "Sid":"PublicReadForGetBucketObjects",
+                  "Effect":"Allow",
+                  "Principal": {
+                        "AWS": "*"
+                     },
+                  "Action":["s3:GetObject"],
+                  "Resource":["arn:aws:s3:::BUCKET-NAME/*"
+                  ]
+                },
+                {
+                    "Action": "s3:*",
+                    "Effect": "Allow",
+                    "Resource": [
+                        "arn:aws:s3:::BUCKET-NAME",
+                        "arn:aws:s3:::BUCKET-NAME/*"
+                    ],
+                    "Principal": {
+                        "AWS": [
+                            "USER-ARN"
+                        ]
+                    }
+                }
+            ]
+        }
+
+    * Also, make sure that the CORS configuration (click "Add CORS Configuration") looks like this::
+
+        <CORSConfiguration>
+            <CORSRule>
+                <AllowedOrigin>*</AllowedOrigin>
+                <AllowedMethod>GET</AllowedMethod>
+                <MaxAgeSeconds>3000</MaxAgeSeconds>
+                <AllowedHeader>Authorization</AllowedHeader>
+            </CORSRule>
+        </CORSConfiguration>
+
+**#3. Update the Virtual Environment**
+
+    In order to configure Arches to use your new bucket, you need to install a couple of extra Django modules in your virtual environment.  These will augment Django's flexibility in how it stores uploaded media.
+
+    * Once you have activated your virtual environment, use this command::
+    
+        (ENV) $: pip install boto django-storages
+
+**#4. Update settings.py**    
+
+    Finally, you need to tell your app to use these new modules, give it the necessary credentials, and tell it where to store (and find) the uploaded media.  Open the your settings.py file...
+    
+    * Find the line that defines the settings "INSTALLED_APPS" and add 'storages' to it. It should look like this::
+        
+        INSTALLED_APPS = INSTALLED_APPS + (PACKAGE_NAME,'storages',)
+        
+    * Next, add the following lines, replacing the AWS settings values with information from earlier steps (remember the "credentials.csv" file you downloaded?)::
+        
+        DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+        AWS_STORAGE_BUCKET_NAME = 'aws_bucket_name'
+        AWS_ACCESS_KEY_ID = 'aws_access_key_id'
+        AWS_SECRET_ACCESS_KEY = 'aws_secret_access_key'
+        S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+        MEDIA_URL = S3_URL
+
+    * Restart your web server.
+    
+You should be good to go!  To test, create a new Information Resource in your installation and upload a file. Now go back to check out your S3 bucket through the AWS console.  Your file should show up in a new folder called files within the bucket.  If you are encountering issues, be sure to let us know on the `forum <https://groups.google.com/forum/#!forum/archesproject>`_.
