@@ -134,7 +134,7 @@ def RESOURCE_TYPE_CONFIGS():
         }
     }
 
-EXPORT_CONFIG = os.path.normpath(os.path.join(PACKAGE_ROOT, 'source_data', 'resource_export_mappings.json'))
+EXPORT_CONFIG = ''
 
 DATE_SEARCH_ENTITY_TYPES = ['BEGINNING_OF_EXISTENCE_TYPE.E55', 'END_OF_EXISTENCE_TYPE.E55']
 
