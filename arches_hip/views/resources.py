@@ -155,11 +155,6 @@ def report(request, resourceid):
             if relationship['entityid1'] == related_resource['entityid'] or relationship['entityid2'] == related_resource['entityid']: 
                 related_resource['relationship'].append(get_preflabel_from_valueid(relationship['relationshiptype'], lang)['value'])
 
-        if len(related_resource['relationship']) > 0:
-            related_resource['relationship'] = '(%s)' % (', '.join(related_resource['relationship']))
-        else:
-            related_resource['relationship'] = ''
-
         entitytypeidkey = related_resource['entitytypeid'].split('.')[0]
         if entitytypeidkey == 'INFORMATION_RESOURCE':
             entitytypeidkey = '%s_%s' % (entitytypeidkey, information_resource_type)

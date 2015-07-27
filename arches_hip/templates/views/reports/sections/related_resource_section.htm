@@ -54,7 +54,9 @@
                                                         {{related_resource.primaryname}}
                                                     </a>
                                                     <span class="arches-report-subsection-item-type">
-                                                        {{related_resource.relationship}}
+                                                        {% if related_resource.relationship|length > 0 %}
+                                                            ({{related_resource.relationship|join:", "}})
+                                                        {% endif %}
                                                     </span>
                                                 </dd>
 
@@ -104,7 +106,9 @@
                                                         {{related_resource.primaryname}}
                                                     </a>
                                                     <span class="arches-report-subsection-item-type">
-                                                        {{related_resource.relationship}}
+                                                        {% if related_resource.relationship|length > 0 %}
+                                                            ({{related_resource.relationship|join:", "}})
+                                                        {% endif %}
                                                     </span>
                                                 </dd> 
 
@@ -155,7 +159,9 @@
                                                         {{related_resource.primaryname}}
                                                     </a>
                                                     <span class="arches-report-subsection-item-type">
-                                                        {{related_resource.relationship}}
+                                                        {% if related_resource.relationship|length > 0 %}
+                                                            ({{related_resource.relationship|join:", "}})
+                                                        {% endif %}
                                                     </span>
                                                 </dd> 
 
@@ -205,7 +211,9 @@
                                                         {{related_resource.primaryname}}
                                                     </a>
                                                     <span class="arches-report-subsection-item-type">
-                                                        {{related_resource.relationship}}
+                                                        {% if related_resource.relationship|length > 0 %}
+                                                            ({{related_resource.relationship|join:", "}})
+                                                        {% endif %}
                                                     </span>
                                                 </dd> 
 
@@ -253,7 +261,9 @@
                                                         {{related_resource.primaryname}}
                                                     </a>
                                                     <span class="arches-report-subsection-item-type">
-                                                        {{related_resource.relationship}}
+                                                        {% if related_resource.relationship|length > 0 %}
+                                                            ({{related_resource.relationship|join:", "}})
+                                                        {% endif %}
                                                     </span> 
                                                 </dd>
 
@@ -335,7 +345,9 @@
                                                     </a>
 
                                                     <span class="arches-report-subsection-item-type">
-                                                        ({{related_resource.relationship}})
+                                                        {% if related_resource.relationship|length > 0 %}
+                                                            ({{related_resource.relationship|join:", "}})
+                                                        {% endif %}
                                                     </span>
                                                 </dd>
 
