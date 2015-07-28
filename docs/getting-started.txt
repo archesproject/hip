@@ -240,6 +240,16 @@ Running Arches-HIP
         $ my_hip_app\my_hip_app\elasticsearch\elasticsearch-1.4.1\bin\elasticsearch
 
     You can minimize this terminal and let it run in the background
+    
+    .. note::
+
+        If you'd like to run ElasticSearch as a daemon process, just add the argument ``-d`` to the end of the command.  You can check to make sure the process is running correctly by using
+            
+            (ENV)$ curl localhost:9200
+            
+        where 9200 is the default port for ElasticSearch.  You'll get a JSON response containing the phrase "You Know, for Search".  To shut down the process, use this command:
+        
+            (ENV)$ curl -XPOST localhost:9200/_shutdown
 
 #.  **Create your database**:
 
@@ -249,7 +259,7 @@ Running Arches-HIP
 
     .. note::
 
-        This step will drop and recreate a database with your with the following name: arches_my_hip_app as well as load any concept schemes or business data that you may have defined in your settings.
+        This step will drop and recreate a database with the name "arches_my_hip_app", as well as load any concept schemes or business data that you may have defined in your settings.
 
     .. note::
 
