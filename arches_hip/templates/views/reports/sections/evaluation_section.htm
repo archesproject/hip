@@ -96,6 +96,28 @@
                                             </div>
                                         </div>
 
+                                        <!-- Integrity Standards -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <dl>
+                                                    <dt>
+                                                        <h5 id="" class="arches-report-subsection-title">{% trans "Integrity Standards" %}</h5>
+                                                    </dt>
+
+                                                    {% if 'INTEGRITY_TYPE_E55' not in EVALUATION_CRITERIA_ASSIGNMENT_E13 %}
+                                                        <dd class="arches-report-subsection-item">
+                                                            {% trans "No standards recorded" %}
+                                                        </dd>
+                                                    {% else %}
+                                                        {% for INTEGRITY_TYPE_E55 in EVALUATION_CRITERIA_ASSIGNMENT_E13.INTEGRITY_TYPE_E55 %}
+                                                            <dd class="arches-report-subsection-item arches-report-list-spacer">{{INTEGRITY_TYPE_E55.INTEGRITY_TYPE_E55__value}}</dd>
+                                                        {% endfor %}  
+                                                    {% endif %}
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
                                         <!-- Status Codes -->
                                         <div class="row">
                                             <div class="col-xs-12">
