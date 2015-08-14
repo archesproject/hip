@@ -1,0 +1,40 @@
+nodes labels 5pt, edge labels 10pt
+all exports landscape orientation
+
+--- export margins---
+
+ACTIVITY
+top:     .1
+bottom:  .1
+right:  1.0
+left:   1.0
+
+ACTOR
+top:     .1
+bottom:  .1
+right:  1.2
+left:   1.2
+
+HERITAGE RESOURCE
+top:     .1
+bottom:  .1
+right:  1.0
+left:   1.0
+
+HERITAGE RESOURCE GROUP
+top:     .1
+bottom:  .1
+right:  1.0
+left:   1.0
+
+HISTORIC EVENT
+top:     .1
+bottom:  .1
+right:  1.0
+left:   1.2
+
+INFORMATION RESOURCE
+top:     .1
+bottom:  .1
+right:   .75
+left:   1.3
