@@ -62,7 +62,7 @@ def report(request, resourceid):
                 if isinstance(item[key], list):
                     crawl(item[key])
                 else:
-                    if uuid_regex.match(item[key]):
+                    if isinstance(item[key], basestring) and uuid_regex.match(item[key]):
                         if key == 'EVALUATION_CRITERIA_TYPE_E55__value':
                             item[key] = get_evaluation_path(item[key])
                         concept_label_ids.add(item[key])
@@ -92,7 +92,7 @@ def report(request, resourceid):
                 if isinstance(item[key], list):
                     crawl_again(item[key])
                 else:
-                    if uuid_regex.match(item[key]):
+                    if isinstance(item[key], basestring) and uuid_regex.match(item[key]):
                         try:
                             item[key] = temp[item[key]]['value']
                         except:
