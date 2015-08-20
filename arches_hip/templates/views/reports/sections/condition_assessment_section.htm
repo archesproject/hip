@@ -30,14 +30,14 @@
                 <div class="col-xs-12">
                     <div class="right-inner arches-box-grey-border">
                         
-                        {% for CONDITION_ASSESSMENT_E41 in report_info.source.graph.CONDITION_ASSESSMENT_E41 %}
-                            {% for CONDITION_STATE_E3 in CONDITION_ASSESSMENT_E41.CONDITION_STATE_E3 %}
+                        {% for CONDITION_ASSESSMENT_E14 in report_info.source.graph.CONDITION_ASSESSMENT_E14 %}
+                            {% for CONDITION_STATE_E3 in CONDITION_ASSESSMENT_E14.CONDITION_STATE_E3 %}
                                 <!-- Resource Summary Info -->
                                 <div class="row">
 
                                     <!-- Section sub-header -->
                                     <div class="col-sm-4">
-                                        {% for DATE_CONDITION_ASSESSED_E49 in CONDITION_STATE_E3 %}
+                                        {% for DATE_CONDITION_ASSESSED_E49 in CONDITION_STATE_E3.DATE_CONDITION_ASSESSED_E49 %}
                                             <h3 class="arches-report-subsection">{{DATE_CONDITION_ASSESSED_E49.DATE_CONDITION_ASSESSED_E49__value}}</h3>
                                         {% endfor %}
                                     </div>
@@ -63,10 +63,10 @@
                                                                 {% trans "No conditions recorded" %}
                                                             </dd>
                                                         {% else %}
-                                                            {% for CONDITION_TYPE_E55 in CONDITION_STATE_E3 %}
+                                                            {% for CONDITION_TYPE_E55 in CONDITION_STATE_E3.CONDITION_TYPE_E55 %}
                                                                 <dd class="arches-report-subsection-item">
                                                                     {{CONDITION_TYPE_E55.CONDITION_TYPE_E55__value}} 
-                                                                </dd> 
+                                                                </dd>
                                                             {% endfor %}
                                                         {% endif %}
 
@@ -82,14 +82,14 @@
                                                             <h5 id="" class="arches-report-subsection-title">{% trans "Description" %}</h5>
                                                         </dt>
 
-                                                        {% if 'CONDITION_DESCRIPTIONS_E62' not in CONDITION_STATE_E3 %}
+                                                        {% if 'CONDITION_DESCRIPTION_E62' not in CONDITION_STATE_E3 %}
                                                             <dd class="arches-report-subsection-item">
                                                                 {% trans "No descriptions recorded" %}
                                                             </dd>
                                                         {% else %}
-                                                            {% for CONDITION_DESCRIPTIONS_E62 in CONDITION_STATE_E3 %}
+                                                            {% for CONDITION_DESCRIPTION_E62 in CONDITION_STATE_E3.CONDITION_DESCRIPTION_E62 %}
                                                                 <dd class="arches-report-subsection-item">
-                                                                    {{CONDITION_DESCRIPTIONS_E62.CONDITION_DESCRIPTIONS_E62__value | safe}} 
+                                                                    {{CONDITION_DESCRIPTION_E62.CONDITION_DESCRIPTION_E62__value | safe}}
                                                                 </dd> 
                                                             {% endfor %}
                                                         {% endif %}
@@ -156,7 +156,7 @@
                                                                         {% trans "No images recorded" %}
                                                                     </dd>
                                                                 {% else %}
-                                                                    {% for CONDITION_IMAGE_E73 in CONDITION_STATE_E3 %}
+                                                                    {% for CONDITION_IMAGE_E73 in CONDITION_STATE_E3.CONDITION_IMAGE_E73 %}
                                                                         <a href="{{CONDITION_IMAGE_E73.CONDITION_IMAGE_FILE_PATH_E62.0.CONDITION_IMAGE_FILE_PATH_E62__value}} " title="" data-gallery>
                                                                             <img src="{{CONDITION_IMAGE_E73.CONDITION_IMAGE_THUMBNAIL_E62.0.CONDITION_IMAGE_THUMBNAIL_E62__value}} " style="width: 25%">
                                                                         </a>
@@ -188,7 +188,7 @@
                                                                 {% trans "No disturbances recorded" %}
                                                             </dd>
                                                         {% else %}
-                                                            {% for DISTURBANCE_TYPE_E55 in CONDITION_STATE_E3 %}
+                                                            {% for DISTURBANCE_TYPE_E55 in CONDITION_STATE_E3.DISTURBANCE_TYPE_E55 %}
                                                                 <dd class="arches-report-subsection-item">
                                                                     {{DISTURBANCE_TYPE_E55.DISTURBANCE_TYPE_E55__value}} 
                                                                 </dd> 
@@ -212,7 +212,7 @@
                                                                 {% trans "No theats recorded" %}
                                                             </dd>
                                                         {% else %}
-                                                            {% for THREAT_TYPE_E55 in CONDITION_STATE_E3 %}
+                                                            {% for THREAT_TYPE_E55 in CONDITION_STATE_E3.THREAT_TYPE_E55 %}
                                                                 <dd class="arches-report-subsection-item">
                                                                     {{THREAT_TYPE_E55.THREAT_TYPE_E55__value}} 
                                                                 </dd> 
@@ -236,10 +236,10 @@
                                                                 {% trans "No recommendations recorded" %}
                                                             </dd>
                                                         {% else %}
-                                                            {% for MANAGEMENT_RECOMMENDATION_E89 in CONDITION_STATE_E3 %}
+                                                            {% for MANAGEMENT_RECOMMENDATION_E89 in CONDITION_STATE_E3.MANAGEMENT_RECOMMENDATION_E89 %}
                                                                 {% if 'RECOMMENDATION_TYPE_E55' not in MANAGEMENT_RECOMMENDATION_E89 %}
                                                                     <dd class="arches-report-subsection-item">
-                                                                        {% trans "No recommendations recorded" %}
+                                                                        {% trans "No recommendations recorded second line" %}
                                                                     </dd>
                                                                 {% else %}
                                                                     {% for RECOMMENDATION_TYPE_E55 in MANAGEMENT_RECOMMENDATION_E89.RECOMMENDATION_TYPE_E55 %}
