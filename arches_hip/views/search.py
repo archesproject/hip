@@ -66,16 +66,27 @@ def build_search_results_dsl(request):
 
     if 'filters' in temporal_filters:
         for temporal_filter in temporal_filters['filters']:
-            terms = Terms(field='date_groups.conceptid', terms=temporal_filter['date_types__value'])
+            date_type = ''
+            date = ''
+            date_operator = ''
+            for node in temporal_filter['nodes']:
+                if node['entitytypeid'] == 'DATE_COMPARISON_OPERATOR.E55':
+                    date_operator = node['value']
+                elif node['entitytypeid'] == 'date':
+                    date = node['value']
+                else:
+                    date_type = node['value']
+
+            terms = Terms(field='date_groups.conceptid', terms=date_type)
             boolfilter.must(terms)
 
-            date_value = datetime.strptime(temporal_filter['date'], '%d/%m/%Y').isoformat()
+            date_value = datetime.strptime(date, '%Y-%m-%d').isoformat()
 
-            if temporal_filter['date_operators__value'] == '1': # equals query
+            if date_operator == '1': # equals query
                 range = Range(field='date_groups.value', gte=date_value, lte=date_value)
-            elif temporal_filter['date_operators__value'] == '0': # greater than query 
+            elif date_operator == '0': # greater than query 
                 range = Range(field='date_groups.value', lt=date_value)
-            elif temporal_filter['date_operators__value'] == '2': # less than query
+            elif date_operator == '2': # less than query
                 range = Range(field='date_groups.value', gt=date_value)
 
             if 'inverted' not in temporal_filters:
