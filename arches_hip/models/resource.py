@@ -110,7 +110,7 @@ class Resource(ArchesResource):
                 forms.DescriptionForm.get_info(),
                 forms.FileUploadForm.get_info()
             ]
-            description_group['forms'].append(forms.FileUploadForm.get_info())
+            #description_group['forms'].append(forms.FileUploadForm.get_info())
 
             
 
