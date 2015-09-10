@@ -51,9 +51,9 @@ Having worked through a number of existing tutorials (mostly `here <http://dylan
 
     Next, you'll need to create a new bucket and give it the appropriate settings.
 
-    * Create a bucket, named something like "your_app_media"
+    * Create a bucket, named something like "your-app-media"
 
-    * In the new bucket properties, add a new bucket policy, and use the following text, inserting your own BUCKET-NAME, and the User ARN for your new user::
+    * In the new bucket properties, under Permissions, create a new bucket policy with the following text, inserting your own BUCKET-NAME, and the User ARN for your new user::
 
         {
             "Statement": [
