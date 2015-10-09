@@ -122,3 +122,120 @@ Having worked through a number of existing tutorials (mostly `here <http://dylan
     * Restart your web server.
     
 You should be good to go!  To test, create a new Information Resource in your installation and upload a file. Now go back to check out your S3 bucket through the AWS console.  Your file should show up in a new folder called files within the bucket.  If you are encountering issues, be sure to let us know on the `forum <https://groups.google.com/forum/#!forum/archesproject>`_.
+
+Converting to ``.arches`` / ``.relations``
+============
+
+From MS Excel Workbook
+-----------------------------------------
+
+It's fairly common for legacy data to be stored in an Excel workbook.  Or, perhaps it will be easier for you to aggregate multiple existing data sources into a single workbook.  Although MS Excel is not the friendliest program to work with, we'd like to provide the following steps to assist with this specific conversion process.  (If you are using an MS Access or MySQL database, the query in the Using SQL section should be useful.)
+
+Using SQL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+One way to convert your data is to use tools already included in MS Excel.  To show you the basic steps of this process, we're going to take a simple spreadsheet--with columns for resource ID, resource name, and spatial coordinates--and turn it into a ``.arches`` file.  When you are ready to add attributes and make more complex resources, you should be able to work from these building blocks.  Be sure to read up on the ``.arches`` format in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_ before continuing.
+
+    .. note::
+        Most of the action here takes place in MS Excel, which you already have, but the final step will be achieved with `Notepad++ <https://notepad-plus-plus.org/>`_--a lightweight but super powerful text editor.  Download and install it now or whenever you get to the later steps.  In fact, we highly recommend it for all of your other Arches work as well!
+
+**Standardize Your Data**
+
+For this example, we're using a very basic spreadsheet that looks like this:
+
+======  ===========  ============  ========  =========
+id      name         nametype      lat       long 
+======  ===========  ============  ========  =========
+1       119 Sidney   NAME_TYPE:1   31.75357  -93.08813
+2       135 Sidney   NAME_TYPE:1   31.75359  -93.08825
+======  ===========  ============  ========  =========
+
+Later steps depend on these specific column names, so if you are following along, make sure that yours match (case-sensitive).  Also, make sure that your original lat/long coordinates use the WGS84 datum.  If you need a refresher on what NAME_TYPE:1 means, be sure to go check out all of the available documentation on Controlled Vocabularies.
+
+**Run a SQL Query in MS Excel**
+
+Once you have your data in columns and headers that match the example above, *save your workbook*.  Now you're ready to to use a SQL query to convert it to the ``.arches`` format.
+
+    #. Open MS Excel (2010), click on the **Data** tab, click **From Other Sources**, and choose **From Microsoft Query**.
+    #. For Data Source, choose **Excel Files** and click **OK**.
+    #. Navigate to the workbook with your data (even if you already have it open), select it, and click **OK**.
+    #. Select the sheet that your table is in, and click **>** to add all of the columns from that sheet.
+    #. Click **Next** three times, until you are given the option to "View data or edit query in Microsoft Query".  Select this option, and click **OK**.  You should see, in the Microsoft Query window, a reproduction of your original table.  Now let's modify it.
+    #. Click the |SQL| button, and you'll be presented with the simple SQL query that is being used to create the currently visible table.  Don't remove it just yet.  Paste the following text in below it::
+
+        SELECT
+            id AS RESOURCEID,
+            'HERITAGE_RESOURCE.E18' AS RESOURCETYPE,
+            'NAME.E41' AS ATTRIBUTENAME,
+            name AS ATTRIBUTEVALUE,
+            'group1' AS GROUPID
+        FROM `your\path\here\workbook.xlsx`.`Sheet1$` `Sheet1$`
+        UNION ALL
+        SELECT
+            id,
+            'HERITAGE_RESOURCE.E18',
+            'NAME_TYPE.E55',
+            nametype,
+            'group1'
+        FROM `your\path\here\workbook.xlsx`.`Sheet1$` `Sheet1$`
+        UNION ALL
+        SELECT
+            id,
+            'HERITAGE_RESOURCE.E18',
+            'SPATIAL_GEOMETRY_COORDINATES.E47',
+            'POINT (' & long & ' ' & lat &')',
+            'group2'
+        FROM `your\path\here\workbook.xlsx`.`Sheet1$` `Sheet1$`
+        ORDER BY RESOURCEID, GROUPID;
+
+    #. As you can see, you need to enter the path to your own workbook and reference the correct sheet.  To do this, copy the original ``FROM`` statement, and use it to replace the three new ``FROM`` statements.  Now delete the entire original query, so that all you have is the modified code from above.
+    #. Click OK.  If you get errors, troubleshoot by double-checking the following:
+        * Are your field names exactly the same as in the example table above?
+        * Did you update the path to your own workbook and reference the correct sheet?
+        * Did you delete the entire original SQL query?
+
+If you have followed all the steps correctly, you should be greeted by a table that looks like this:
+
+==========  =====================  ================================  ==========================  =======
+RESOURCEID  RESOURCETYPE           ATTRIBUTENAME                     ATTRIBUTEVALUE              GROUPID
+==========  =====================  ================================  ==========================  =======
+1           HERITAGE_RESOURCE.E18  NAME.E41                          119 Sidney                  group1
+1           HERITAGE_RESOURCE.E18  NAME_TYPE.E55                     NAME_TYPE:1                 group1
+1           HERITAGE_RESOURCE.E18  SPATIAL_COORDINATES_GEOMETRY.E47  POINT (-93.08813 31.75357)  group2
+2           HERITAGE_RESOURCE.E18  NAME.E41                          135 Sidney                  group1
+2           HERITAGE_RESOURCE.E18  NAME_TYPE.E55                     NAME_TYPE:1                 group1
+2           HERITAGE_RESOURCE.E18  SPATIAL_COORDINATES_GEOMETRY.E47  POINT (-93.08825 31.75359)  group2
+==========  =====================  ================================  ==========================  =======
+
+Look familiar?  That is your original data, reformatted to match the ``.arches`` schema.  As you can see, three rows have been made from each row in our original table.  In the SQL query, each new row is defined by a separate ``SELECT`` statement.   You may notice that a little bit of processing was done in the third ``SELECT`` statement to rewrite your lat/long coordinates--they are now formatted as WKT, or `Well-known text <https://en.wikipedia.org/wiki/Well-known_text>`_.
+
+**Export and Touch-up**
+
+Now that we've reformatted the table, we're ready to export it and make the final changes.
+
+    #. Click the |RD| button (return data), and choose a blank sheet in your workbook for the output.  (Your data may now be styled as a table, which is fine but not necessary.)
+    #. Go to **File** > **Save As...** and for "Save as type:" choose **Text (Tab delimited) (\*.txt)**.
+    #. Click **Save**, and when you encounter warnings, choose **Yes**.
+    #. For the next steps, we're using Notepad++, as mentioned above.  We need to convert the tabs to pipe characters (``|``).  Open your newly created ``.txt`` file in Notepad++ and use **ctrl + F** to open the Find/Replace window.
+    #. Go the the Replace tab, and enter "Find what:" = ``\t``, and "Replace with:" = ``|``.  Make sure that you have checked the box for **Extended** Search Mode, and click **Replace All**.  If everything worked correctly, click **OK**.
+    #. For one final check, open the **Encoding** menu, and make sure that "Encode in UTF-8 without BOM" is selected (select it if it isn't).
+    #. Now go to **File** > **Save As...**, choose this type (at the top of the list): **All types (\*.\*)**, and name your file ``<yourname>.arches``.  Click **Save**.
+
+**Make a** ``.relations`` **File**
+
+You must have a ``.relations`` file to accompany your ``.arches`` file when you load it into Arches.  However, the file need not contain any more than this single line::
+
+    RESOURCEID_FROM|RESOURCEID_TO|START_DATE|END_DATE|RELATION_TYPE|NOTES
+    
+If you'd like to define some resource-to-resource relationships between the resources in your ``.arches`` file, you would do so in the ``.relations`` file.  You can learn more about this in the `Arches Documentation <http://arches3.readthedocs.org/en/latest/>`_.
+    
+To make a ``.relations`` file with Notepad++, just open a new blank document, paste in the line shown above, and save it as ``<yourname>.relations``.  Your ``.arches`` and ``.relations`` files must have the same name (e.g., ``buildings.arches`` and ``buildings.relations``), and should always be kept together.
+
+**Congratulations!**  You've successfully changed a sheet from a standard MS Excel workbook into a ``.arches``/``.relations`` file, and you're ready to upload it to Arches.  You can find guidance on how to do so in the `Loading Data <https://arches-hip.readthedocs.org/en/latest/loading-data/#load-a-arches-or-shapefile-into-arches-hip>`_ section above.
+
+.. |SQL| image:: sql_button.png
+   :height: 20
+   :width: 20
+.. |RD| image:: return_data_button.png
+   :height: 20
+   :width: 20
