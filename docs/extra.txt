@@ -32,7 +32,10 @@ The main potential drawback is transfer speed to and from the S3 bucket, but tha
 
     .. note::
         You should be able to use S3 regardless of where your app is hosted, whether on an internal server, an AWS EC2 instance, a DigitalOcean droplet, etc.
-
+    
+    .. warning::
+        We've found that by following the steps below, deleting an Information Resource will *not* automatically remove the file from your S3 bucket. You can manually delete files from the bucket for now, but stay tuned to the Arches `forum <https://groups.google.com/forum/#!forum/archesproject>`_ for more information.
+        
 **Steps to Follow**
 
 Having worked through a number of existing tutorials (mostly `here <http://dylanbfox.blogspot.com/2015/01/using-s3-to-serve-and-store-your-django.html>`_, `here <http://martinbrochhaus.com/s3.html>`_, `here <https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/>`_, and `here <http://www.holovaty.com/writing/amazon-s3-media/>`_), we've distilled these steps to show how you can use S3 in conjunction with your Arches app.  Before beginning, you will need to have set up and logged into your AWS account.
@@ -41,19 +44,16 @@ Having worked through a number of existing tutorials (mostly `here <http://dylan
 
     The first step is to create some new AWS credentials that your Arches app will use to access the S3 bucket
 
-    * Access the AWS Identity and Access Management (IAM) Console
-
-    * Create a new user (named something like "arches_media"), and download the new credentials.  This will be a small .csv file that includes an Access Key ID and a Secret Key.
-    
-    * Also, go to the new user's properties, and record the User ARN
+    #. Access the AWS Identity and Access Management (IAM) Console
+    #. Create a new user (named something like "arches_media"), and download the new credentials.  This will be a small .csv file that includes an Access Key ID and a Secret Key.
+    #. Also, go to the new user's properties, and record the User ARN
 
 **#2. Create a new bucket on S3**
 
     Next, you'll need to create a new bucket and give it the appropriate settings.
 
-    * Create a bucket, named something like "your-app-media"
-
-    * In the new bucket properties, under Permissions, create a new bucket policy with the following text, inserting your own BUCKET-NAME, and the User ARN for your new user::
+    #. Create a bucket, named something like "your-app-media"
+    #. In the new bucket properties, under Permissions, create a new bucket policy with the following text, inserting your own BUCKET-NAME, and the User ARN for your new user::
 
         {
             "Statement": [
@@ -83,7 +83,7 @@ Having worked through a number of existing tutorials (mostly `here <http://dylan
             ]
         }
 
-    * Also, make sure that the CORS configuration (click "Add CORS Configuration") looks like this::
+    #. Also, make sure that the CORS configuration (click "Add CORS Configuration") looks like this::
 
         <CORSConfiguration>
             <CORSRule>
@@ -98,7 +98,7 @@ Having worked through a number of existing tutorials (mostly `here <http://dylan
 
     In order to configure Arches to use your new bucket, you need to install a couple of extra Django modules in your virtual environment.  These will augment Django's flexibility in how it stores uploaded media.
 
-    * Once you have activated your virtual environment, use this command::
+    #. Once you have activated your virtual environment, use this command::
     
         (ENV) $: pip install boto django-storages
 
@@ -106,20 +106,20 @@ Having worked through a number of existing tutorials (mostly `here <http://dylan
 
     Finally, you need to tell your app to use these new modules, give it the necessary credentials, and tell it where to store (and find) the uploaded media.  Open the your settings.py file...
     
-    * Find the line that defines the settings "INSTALLED_APPS" and add 'storages' to it. It should look like this::
-        
+    #. Find the line that defines the settings "INSTALLED_APPS" and add 'storages' to it. It should look like this::
+    
         INSTALLED_APPS = INSTALLED_APPS + (PACKAGE_NAME,'storages',)
         
-    * Next, add the following lines, replacing the AWS settings values with information from earlier steps (remember the "credentials.csv" file you downloaded?)::
-        
+    #. Next, add the following lines, replacing the AWS settings values with information from earlier steps (remember the "credentials.csv" file you downloaded?)::
+    
         DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
         AWS_STORAGE_BUCKET_NAME = 'aws_bucket_name'
         AWS_ACCESS_KEY_ID = 'aws_access_key_id'
         AWS_SECRET_ACCESS_KEY = 'aws_secret_access_key'
         S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
         MEDIA_URL = S3_URL
-
-    * Restart your web server.
+        
+    #. Restart your web server.
     
 You should be good to go!  To test, create a new Information Resource in your installation and upload a file. Now go back to check out your S3 bucket through the AWS console.  Your file should show up in a new folder called files within the bucket.  If you are encountering issues, be sure to let us know on the `forum <https://groups.google.com/forum/#!forum/archesproject>`_.
 
@@ -139,7 +139,7 @@ One way to convert your data is to use tools already included in MS Excel.  To s
     .. note::
         Most of the action here takes place in MS Excel, which you already have, but the final step will be achieved with `Notepad++ <https://notepad-plus-plus.org/>`_--a lightweight but super powerful text editor.  Download and install it now or whenever you get to the later steps.  In fact, we highly recommend it for all of your other Arches work as well!
 
-**Standardize Your Data**
+**#1. Standardize Your Data**
 
 For this example, we're using a very basic spreadsheet that looks like this:
 
@@ -152,7 +152,7 @@ id      name         nametype      lat       long
 
 Later steps depend on these specific column names, so if you are following along, make sure that yours match (case-sensitive).  Also, make sure that your original lat/long coordinates use the WGS84 datum.  If you need a refresher on what NAME_TYPE:1 means, be sure to go check out all of the available documentation on Controlled Vocabularies.
 
-**Run a SQL Query in MS Excel**
+**#2. Run a SQL Query in MS Excel**
 
 Once you have your data in columns and headers that match the example above, *save your workbook*.  Now you're ready to to use a SQL query to convert it to the ``.arches`` format.
 
@@ -209,7 +209,7 @@ RESOURCEID  RESOURCETYPE           ATTRIBUTENAME                     ATTRIBUTEVA
 
 Look familiar?  That is your original data, reformatted to match the ``.arches`` schema.  As you can see, three rows have been made from each row in our original table.  In the SQL query, each new row is defined by a separate ``SELECT`` statement.   You may notice that a little bit of processing was done in the third ``SELECT`` statement to rewrite your lat/long coordinates--they are now formatted as WKT, or `Well-known text <https://en.wikipedia.org/wiki/Well-known_text>`_.
 
-**Export and Touch-up**
+**#3. Export and Touch-up**
 
 Now that we've reformatted the table, we're ready to export it and make the final changes.
 
@@ -221,7 +221,7 @@ Now that we've reformatted the table, we're ready to export it and make the fina
     #. For one final check, open the **Encoding** menu, and make sure that "Encode in UTF-8 without BOM" is selected (select it if it isn't).
     #. Now go to **File** > **Save As...**, choose this type (at the top of the list): **All types (\*.\*)**, and name your file ``<yourname>.arches``.  Click **Save**.
 
-**Make a** ``.relations`` **File**
+**#4. Make a** ``.relations`` **File**
 
 You must have a ``.relations`` file to accompany your ``.arches`` file when you load it into Arches.  However, the file need not contain any more than this single line::
 
