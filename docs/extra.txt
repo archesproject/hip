@@ -34,7 +34,7 @@ The main potential drawback is transfer speed to and from the S3 bucket, but tha
         You should be able to use S3 regardless of where your app is hosted, whether on an internal server, an AWS EC2 instance, a DigitalOcean droplet, etc.
     
     .. warning::
-        We've found that by following the steps below, deleting an Information Resource will *not* automatically remove the file from your S3 bucket. You can manually delete files from the bucket for now, but stay tuned to the Arches `forum <https://groups.google.com/forum/#!forum/archesproject>`_ for more information.
+        We've found that by following the steps below, deleting an Information Resource will *not* automatically remove the file from your S3 bucket. You can manually delete files from the bucket for now, or the intrepid developer may check out the answer to `this question <https://groups.google.com/forum/#!topic/archesproject/QHKqMISRkV8>`_ on the Arches forum.
         
 **Steps to Follow**
 
