@@ -29,19 +29,24 @@ from arches.app.utils.betterJSONSerializer import JSONSerializer, JSONDeserializ
 from arches.app.search.search_engine_factory import SearchEngineFactory
 from arches.app.search.elasticsearch_dsl_builder import Bool, Match, Query, Nested, Terms, GeoShape, Range
 from django.utils.translation import ugettext as _
+from django.shortcuts import render_to_response, redirect
 
 def home_page(request):
     lang = request.GET.get('lang', settings.LANGUAGE_CODE)
     min_max_dates = models.Dates.objects.aggregate(Min('val'), Max('val'))
 
-    return render_to_response('search.htm', {
-            'main_script': 'search',
-            'active_page': 'Search',
-            'min_date': min_max_dates['val__min'].year if min_max_dates['val__min'] != None else 0,
-            'max_date': min_max_dates['val__max'].year if min_max_dates['val__min'] != None else 1,
-            'timefilterdata': JSONSerializer().serialize(Concept.get_time_filter_data())
-        }, 
-        context_instance=RequestContext(request))
+    if 'edit' in request.user.user_groups:
+        return render_to_response('search.htm', {
+                'main_script': 'search',
+                'active_page': 'Search',
+                'min_date': min_max_dates['val__min'].year if min_max_dates['val__min'] != None else 0,
+                'max_date': min_max_dates['val__max'].year if min_max_dates['val__min'] != None else 1,
+                'timefilterdata': JSONSerializer().serialize(Concept.get_time_filter_data())
+            }, 
+            context_instance=RequestContext(request))
+    else:
+        return redirect('auth')
+        
 
 def search_results(request):
     query = build_search_results_dsl(request)
