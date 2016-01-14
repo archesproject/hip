@@ -28,7 +28,6 @@ import sys
 if __name__ == "__main__":
     ARCHES_DIR = os.path.abspath(os.path.join(os.getcwd(), 'arches'))
     HIP_DIR = os.path.abspath(os.path.join(os.getcwd(), 'hip'))
-    os.system('sudo pip install mercurial')
     os.system('git clone https://github.com/archesproject/arches.git %s' % (ARCHES_DIR))
     os.system('git clone https://github.com/archesproject/hip.git %s' % (HIP_DIR))
     os.system('sudo pip install fabric')
