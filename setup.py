@@ -15,7 +15,7 @@ setup(
     version=version,
 
     description='The Heritage Information Package (HIP)',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
     url='http://archesproject.org/',
     author='Farallon Geographics, Inc',
     author_email='dev@fargeo.com',
