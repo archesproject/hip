@@ -1,5 +1,269 @@
-The following command works to setup a development environment (repos will be cloned to your current working directory) on OSX, Ubuntu, and possibly others:
+# Arches-HIP
 
-```sh
-curl https://raw.githubusercontent.com/archesproject/hip/master/quick_setup.py | python
-```
+Arches HIP is designed to let you manage many types of cultural heritage
+data. And while we've tried to make it easy to install HIP, you'll
+need to make some decisions on how you wish to describe and manage the
+information that goes into Arches HIP. But don't worry, we've also included
+lots of examples and well-thought-out defaults for setting up the
+software.
+
+So, installing HIP means loading software and deciding how you want
+to describe the cultural heritage information that's important to you.
+We've written this guide assuming that you are comfortable working with
+your computer's command line, and that you can edit text files with
+ease.
+
+Arches HIP is built on the open source Arches framework.  The Arches documentation can be found here: http://arches3.readthedocs.org/en/latest/  This document may be useful for understanding Arches-HIP and will be referenced throughout the Arches HIP documentation.
+
+Check out the resources at http://www.archesproject.org for more support.
+
+## System Requirements
+
+Please note that HIP has been developed for modern browsers. It supports:
+
+* Firefox
+* Chrome
+* Safari
+* Opera
+* Internet Explorer 10 or higher.
+
+Minimum system requirements:
+
+* At least 4GB of RAM for evaluation and testing, or 8 to 16GB for production.
+* 10GB minimum to install the code base and test dataset, but disk space requirements will vary greatly depending on the size of your dataset
+
+It's important to recognize that Arches HIP is designed to manage large,
+enterprise-scale Cultural Heritage inventories. The software is
+sophisticated and is designed to be support extensive customization.
+This means that there are many ways to deploy Arches HIP.
+
+We've written this guide to streamline the installation of Arches Server
+and the in the more straight-forward manner possible. These
+installation instructions provide step-by-step guidelines for installing
+Arches HIP.
+
+## Dependencies
+
+Arches requires the following applications/libraries:
+
+* PostgreSQL relational database (version 9.3) (http://www.postgresql.org/download/)
+* PostGIS (version 2.x) spatial module for PostgreSQL  (http://postgis.net/install)
+* Python (version 2.7.6 - there seem to be issues with later versions of python) (https://www.python.org/downloads/)
+* GEOS (http://trac.osgeo.org/geos/)
+
+You'll need to install each of these components on your computer before you can install Arches.  Luckily, each of these technologies provide comprehensive installation instructions.  
+
+
+**Note:**
+For the installation process you will need **pip** installed on your system. If you don't already have it, you can find instructions to install it here: https://pip.pypa.io/en/latest/installing.html
+
+
+## Installing Arches-HIP
+
+These installation instructions will guide you through the installation and configuration proceess for the Arches-HIP application.  When we're done, you'll have the following folders on your system::
+
+    /Projects
+      /ENV
+      /my_hip_app
+
+
+The `/ENV` folder is where the Arches framework and the Arches-HIP applications will be installed
+
+The `/my_hip_app` folder is a folder that will hold your custom settings for the HIP.  
+
+Custom settings include such things as the text and logos on the HIP home page, your map settings, and other information needed to ensure that the HIP meets your specific requirements.
+
+
+With your Arches dependencies installed, you are now ready to install HIP.
+
+
+1. Create an Arches folder:
+
+    Create a folder called 'Projects' (or any other name that you prefer) on your computer.
+
+2. Install virtualenv:
+
+    Open a command prompt and type:
+
+        $ pip install virtualenv
+
+    **Note for Linux users:** Using apt-get to install virtualenv will install an older version that will result in errors in your Arches installation. Be sure to use pip for your virtualenv installation.
+
+    virtualenv creates a directory with it's own installation of Python and Python executables.
+
+3. Create a virtual environment:
+
+    Arches and Arches-HIP will be installed within a virtual environment. To do so, navigate to your Projects directory (or wherever you created your Arches root folder) and create your virtual environment with the following command::
+
+        $ virtualenv ENV
+
+    Activate your virtual environment with the following command:
+
+    * On Linux (and other POSIX systems):
+
+            $ source ENV/bin/activate
+
+    * On Windows:
+
+            \path to 'Projects'\ENV\Scripts\activate
+
+4. Install the arches_hip module:
+
+    For this step your virtual environment must be activated. You will know that's the case if you see the name of your virtual environment in parentheses proceeding your command prompt like so ``(ENV)``:
+
+        (ENV)$ pip install arches_hip
+
+5. Create the folder for your HIP customizations:
+
+    Navigate to the **Projects** directory run the following command replacing `my_hip_app` with the name you want to use for your version of Arches-HIP.  For example, the City of Los Angeles customization of the HIP is called `HistoricPlacesLA` ::
+
+        (ENV)$ arches-app create my_hip_app --app arches_hip
+
+    **Note**
+    Windows users may get an error like: `'arches-app' is not recognized as an internal or external command, operable program or batch file.` If that occurs, you may need to specify the path to the arches-app command. Be sure to add `python` to the beginning of the command to ensure that you use your virtual environment's Python. For example::
+
+        (ENV)> python path\to\ENV\Scripts\arches-app create my_hip_app --app arches_hip
+
+6. Windows users need to explicity point their application to a valid gdal dll file:
+
+    Open the ``settings.py`` file in ``my_hip_app/my_hip_app`` and add the following setting
+
+        GDAL_LIBRARY_PATH = '{path to OSGeo4W bin directory}/gdalxxxx.dll'
+
+    For example, your setting might look like this:
+
+        GDAL_LIBRARY_PATH = 'C:/OSGeo4W64/bin/gdal111.dll'
+
+7.  Install ElasticSearch:
+
+    Navigate to the directory containing ``manage.py``:
+
+        (ENV)$ cd my_hip_app/
+        (ENV)$ python manage.py packages -o setup_elasticsearch
+
+    Your project directory should now look something like this:
+
+        /Projects
+          /ENV (virtual environment where arches_hip gets installed)
+          /my_hip_app
+            manage.py
+            wsgi.py
+            README.txt
+            /my_hip_app
+                settings.py
+                setup.py
+                urls.py
+                /elasticsearch
+                /logs
+                /media
+                /models
+                /source_data
+                /templates
+                /tests
+                /views
+
+
+## Settings
+
+Open the ``settings.py`` file in ``my_hip_app/my_hip_app``
+
+There are a few changes that you may need to make in order for your application to install and run properly.
+
+**Database Settings**
+
+Be sure that the name of your postgis template in your settings matches your postgis template in postgres. If it doesn't, uncomment the line (remove the ``#`` at the start of each line) below and replace 'template_postgis_20' with the name of your template:
+
+    #DATABASES['default']['POSTGIS_TEMPLATE'] = 'template_postgis_20'
+
+The default password used in HIP is 'postgis'. You may have already set your Postgres password to something more secure. If so, uncomment the line below and replace 'postgis' with your Postgres connection password:
+
+    #DATABASES['default']['PASSWORD'] = 'postgis'
+
+**Map Settings**
+
+The map center, zoom and extent will likely need to be updated to reflect your study region:
+
+    #DEFAULT_MAP_X = 0
+    #DEFAULT_MAP_Y = 0
+    #DEFAULT_MAP_ZOOM = 0
+    #MAP_MIN_ZOOM = 0
+    #MAP_MAX_ZOOM = 19
+    #MAP_EXTENT = '-13228037.69691764,3981296.0184014924,-13123624.71628009,4080358.407059081'
+
+To use these settings, you will need to 'uncomment' them, and then change their values to meet your needs.
+
+``DEFAULT_MAP_X`` and ``DEFAULT_MAP_Y`` are the x and y (respectively) coordinate values which all maps will be centered on by default.  ``MAP_EXTENT`` is a string 'bounding box' [min x, min y, max x, max y] representing the extent to which all maps will be constrained.  
+
+All of these coordinates are expressed in the web standard Spherical Mercator projection (http://spatialreference.org/ref/sr-org/6864/).  A simple converter tool to go between Lat/Long and Spherical Mercator coordinates can be found here: http://mal2.ch/stuff/latlontomercator.html
+
+``DEFAULT_MAP_ZOOM`` is the default zoom level that all maps will start on.  ``MAP_MIN_ZOOM`` and ``MAP_MAX_ZOOM`` are the minimum and maximum zoom levels that all maps will allow a user to access.  More on zoom levels can be found here: http://openlayers.org/en/v3.3.0/doc/tutorials/concepts.html
+
+**Basemap and Geocoding Settings**
+
+By default, Arches-HIP will use Bing services for basemaps and geocoding; if you want to use these, you will need to get a Bing Maps Key (https://msdn.microsoft.com/en-us/library/ff428642.aspx) and add it to your ``settings.py`` file like so:
+
+    BING_KEY = 'my-bing-key'
+
+
+## Running Arches-HIP
+
+1. **Start ElasticSearch**:
+
+    Open a new command terminal and run the following command::
+
+        $ my_hip_app\my_hip_app\elasticsearch\elasticsearch-1.4.1\bin\elasticsearch
+
+    You can minimize this terminal and let it run in the background.
+
+    **Note:**
+
+    If you'd like to run ElasticSearch as a daemon process, just add the argument ``-d`` to the end of the command.  You can check to make sure the process is running correctly by using::
+
+        (ENV)$ curl localhost:9200
+
+    where 9200 is the default port for ElasticSearch.  You'll get a JSON response containing the phrase "You Know, for Search".  To shut down the process, use this command::
+
+        (ENV)$ curl -XPOST localhost:9200/_shutdown
+
+2. **Create your database**:
+
+    Using **your previous terminal**, run::
+
+        (ENV)$ python manage.py packages -o install
+
+    **Note:** This step will drop and recreate a database with the name "arches_my_hip_app", as well as load any concept schemes or business data that you may have defined in your settings.
+
+    **Note:** If you get the following error *'django.db.utils.OperationalError: FATAL:  database "arches_my_hip_app" does not exist'* It is probably because Arches is unable to find your postgis database template to create your new application's database. By default, Arches will look for a template called 'template_postgis_20'. If this does not match the name of your postgis template database, open your new applications ``settings.py`` file and define the name of your postgis template::
+
+        DATABASES['default']['POSTGIS_TEMPLATE'] = 'the name of your postgis template'
+
+    **Manage Data Using pgAdmin**:
+
+    Once you have successfully created your database(s), it is important to manage them effectively. You can do this by using pgAdmin, an open source and graphical database management interface for PostegreSQL. It is easy to use, supports all PosetgreSQL features, contains effective server-side code and SQL syntax editing tools, and can be used on several different platforms including: Linux, Windows, Max OSX, Solaris, and FreeBSD.
+
+3. **Run arches**:
+
+    Open a new terminal. **Be sure to activate your virtual environment for this terminal as well**.
+
+    Navigate to your application's manage.py file and run::
+
+        (ENV)$ python manage.py runserver
+
+    Now you can open a browser window and see your application running at::
+
+        http://localhost:8000/
+
+**Next steps**: Now that Arches is running, you will need to load your concept scheme and resource data. You can get started on that [here](http://arches-hip.readthedocs.org/en/latest/loading-data/)
+
+## Before you go live...
+
+We use the Django development server to make it easy for you to confirm that Arches has installed properly.
+
+You WILL NEED to configure Arches to use a production quality web server such as Apache if you want to use Arches in production.  See the Django documentation for more on using Apache and mod_wsgi: https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/modwsgi/
+
+Some other things you'll want to make sure that you do:
+
+* change the admin user name and password
+* Disallow access to port 9200 on prod machine
+* Set DEBUG = False on prod machine
+* Make sure that your Elasticsearch instance is production ready: http://www.elastic.co/guide/en/elasticsearch/guide/master/deploy.html
