@@ -191,18 +191,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                                         <h5 id="" class="arches-report-subsection-title">{% trans "Resource Types" %}</h5>
                                                     </dt>
 
-                                                    {% if 'ARCHES_EVENT_PHASE.E4' not in report_info.source.graph %}
+                                                    {% if 'ARCHES_EVENT_PHASE_E4' not in report_info.source.graph %}
                                                         <dd class="arches-report-subsection-item">
                                                             {% trans "No types recorded" %}
                                                         </dd>
                                                     {% else %}
-                                                        {% for ARCHES_EVENT_PHASE.E4 in report_info.source.graph.ARCHES_EVENT_PHASE.E4 %}
+                                                        {% for ARCHES_EVENT_PHASE_E4 in report_info.source.graph.ARCHES_EVENT_PHASE_E4 %}
                                                             {% if 'PHASE_TYPE_ASSIGNMENT_E17' not in ARCHES_EVENT_PHASE.E4 %}
                                                                 <dd class="arches-report-subsection-item">
                                                                     {% trans "No types recorded" %}
                                                                 </dd>
                                                             {% else %}
-                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in ARCHES_EVENT_PHASE.E4.PHASE_TYPE_ASSIGNMENT_E17 %}
+                                                                {% for PHASE_TYPE_ASSIGNMENT_E17 in ARCHES_EVENT_PHASE_E4.PHASE_TYPE_ASSIGNMENT_E17 %}
                                                                     {% if 'ACTOR_TYPE_E55' not in PHASE_TYPE_ASSIGNMENT_E17 %}
                                                                         <dd class="arches-report-subsection-item">
                                                                             {% trans "No types recorded" %}
