@@ -1,0 +1,14 @@
+*.pyc
+*.egg*
+build/*
+dist/*
+settings_local.py
+elasticsearch
+Procfile
+hip/version.py
+resource_graph_errors.txt
+data_paths.txt
+authority_file_errors.txt
+hip.log
+docs/_build
+arches_hip/logs
