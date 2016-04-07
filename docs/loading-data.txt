@@ -76,7 +76,7 @@ During load the authority files go through a set of validations. If there are er
 Create Controlled Vocabularies Using the Reference Data Manager
 ===============================================================
 
-If you wish, you can use the RDM to create each controlled vocabulary interactively.  Before you start, You may wish to review a general overview of the RDM (http://http://arches3.readthedocs.org/en/latest/rdm/) 
+If you wish, you can use the RDM to create each controlled vocabulary interactively.  Before you start, You may wish to review a general overview of the RDM (http://arches3.readthedocs.org/en/latest/rdm/) 
 
 To use the RDM to create your controlled vocabularies, log in to Arches-HIP and click the RDM link.  Click on the the "Arches" button on the right side of the screen.  This will show you a listing of all the attributes in the six resource graphs that require a controlled vocabulary.
 
