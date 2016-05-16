@@ -9,12 +9,12 @@ When it comes to setting up your app in a production environment, there are a lo
 configuration modifications that can be made to optimize the way it is hosted
 and served.  Here's some information on some things we've tested out...
 
-Migrating Your Local App to AWS EC2 Service
+Migrating Your Local App to AWS EC2
 -----------------------------------------
 
 **Introduction**
 
-If you've been doing your Arches development work locally, on a laptop or desktop computer, you will eventually need to transfer your app to a remote server of some kind in order for it to be served through the internet. Theis can be done in many different ways, and in this section we'll give a thorough explanation of how to use AWS EC2 with Arches in a `very basic way`. Please look elsewhere for real server administration and maintentance guidance.
+If you've been doing your Arches development work locally, on a laptop or desktop computer, you will eventually need to transfer your app to a remote server of some kind in order for it to be served through the internet. This can be done in many different ways, and in this section we'll give a thorough explanation of how to use AWS EC2 with Arches in a `very basic way`. Please look elsewhere for guidance on server administration and maintentance.
 
 **Prerequisites**
 
@@ -24,22 +24,22 @@ A few components must be in place before you are ready to complete these steps.
 
 2. You'll need an SSH client in order to access your remote server's command console. We recommend `PuTTY <http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html>`_ as an easy to use, light-weight SSH client. While downloading PuTTY, also be sure to get its companion utility, PuTTYgen (same page).
 
-3. You'll need an FTP client in order to transfer files (your arches app customizations) to your server. We recommend `Filezilla <https://filezilla-project.org/download.php>`_.
+3. You'll need an FTP client in order to transfer files (your Arches app customizations) to your server. We recommend `FileZilla <https://filezilla-project.org/download.php>`_.
 
     .. note::
         Advanced users may forego using an FTP client and do all their file transferring by using a GitHub repo to store and maintain their app. This is a much more streamlined method, but has a steeper learning curve.
         
 Once you have an AWS account set up, and PuTTY/PuTTYgen and FileZilla installed on your local computer, you are ready to begin.
 
-**Create an EC2 Instance**
+**#1. Create an EC2 Instance**
 
-From your AWS account console, navigate to the EC2 section. You should get to a screen like this:
+From your AWS account console, navigate to the EC2 section. You should get to a screen that looks something like this:
 
 |ec2|
 
 Click on "Launch Instance"
 
-You now have the opportunity to customize your instance before you launch it, and you should see seven steps listed across the top of the page. We only need to worry about a few of them for now:
+You now have the opportunity to customize your instance before you launch it, and you should see seven steps listed across the top of the page. For our purposes, we only need to worry about a few of them:
 
 * In Step 1, choose "Ubuntu Server 14.04 LTS" as your operating system
 * In Step 2, choose t2.micro for the instance type (because it will be free for you)
@@ -47,17 +47,25 @@ You now have the opportunity to customize your instance before you launch it, an
 * In Step 6, you'll need to:
     * Select "Create a new security group"
     * Name it "arches-security"
-    * Modify the rules of this security group:
-        1. Change the **Source** of the existing SSH rule to "My IP Address"
-        2. Add new rule: **Type** = HTTP, **Source** = Anywhere
-        3. Add new rule: **Type** = Custom TCP Rule, **Port** = 8000, *Source** = Anywhere
+    * Modify the rules of this security group to match the following
+=================== =====================  ================================  ====================
+Type                Protocol               Port Range                        Source
+=================== =====================  ================================  ====================
+HTTP                TCP                    80                                Anywhere (0.0.0.0/0)
+Custom TCP Rule     TCP                    8000                              Anywhere (0.0.0.0/0)
+SSH                 TCP                    22                                My IP
+=================== =====================  ================================  ====================
+        
 * In Step 7, click Launch
 
 When you launch the instance, you will be asked to create a new key pair. This is very important. Name it something like "arches-keypair", and download it to an easy-to-access location on your computer. You will use this later to give the SSH and FTP clients access to your server. `Do not misplace this file.`
 
 Once you have launched the instance, click "View Instances" to see your running (and stopped) EC2 instances. The initialization process takes a few moments, so we can leave AWS alone for now and head to the next step.
 
-**Convert your AWS .pem Key Pair to a .ppk Key Pair**
+.. note::
+    Your Security Group is the firewall for your server. Each rule describes a specific type of access to the server, through a specific port, from a specific IP address. `Never` allow access through port 22 to any IP but your own. If you need to access your server from a new location (coffee shop, school) you'll need to update the SSH security rule with your new IP address.
+
+**#2. Convert your AWS .pem Key Pair to a .ppk Key Pair**
 
 PuTTY uses key files in a different format than AWS distributes by default, so you'll have to make a quick conversion:
 
@@ -67,7 +75,7 @@ PuTTY uses key files in a different format than AWS distributes by default, so y
 4. Once loaded, click Save
 5. Ignore the prompt for a passphrase, and save it with the same name as your original .pem file, now with the .ppk extension.
 
-**Connect to your EC2 Instance with PuTTY**
+**#3.Connect to your EC2 Instance with PuTTY**
 
 Now go back to AWS, and look at the status of your server instance. By now, it probably says "2/2 checks passed" in the Status Checks column, and you should have an address (xx.xx.xx.xx) listed in the Public IP column. It's ready!
 
@@ -81,7 +89,7 @@ Now go back to AWS, and look at the status of your server instance. By now, it p
 
 Congratulations! You've successfully navigated your way into a functional AWS EC2 instance.
 
-**Install Arches Dependencies on your EC2 Instance**
+**#4. Install Arches Dependencies on your EC2 Instance**
 
 Now that you have a command line in front of you, the next few steps should be very familiar. Luckily, if you are coming from Windows, you'll find that installing dependencies on Ubuntu is much, much easier. Do all of the following from within the ``/home/ubuntu`` directory (which shows as ~ in the command prompt).
 
@@ -101,7 +109,7 @@ Now that you have a command line in front of you, the next few steps should be v
 
     $ sudo python get-pip.py
 
-**Install Arches and Arches-HIP on your EC2 Instance**
+**#5. Install Arches and Arches-HIP on your EC2 Instance**
 
 Once you have installed all of the Arches dependencies on your server, you should refer back to `this documentation <http://arches-hip.readthedocs.io/en/latest/getting-started/#installating-arches-hip>`_ to complete your Arches installation. However, be sure to stop before step #5, because at that point you will be transferring your existing HIP customizations.
 
@@ -112,7 +120,7 @@ As noted, you should end up with this file structure::
             /Projects
                 /ENV
 
-**Connect to your EC2 Instance with Filezilla**
+**#6. Connect to your EC2 Instance with Filezilla**
 
 To transfer files from your computer to your EC2 instance, you'll need to use an FTP client. In this case we'll use FileZilla. 
 
@@ -125,16 +133,16 @@ First, we'll need to set up the authentication system to be aware of our AWS key
 
 Next, you can use the "Quickconnect" bar:
 
-*Host = your IP address
-*Username = ubuntu
-*Password = <leave blank> (that's what the .ppk file is for)
-*Port = 22
+* Host = your server's Public IP
+* Username = ubuntu
+* Password = <leave blank> (that's what the .ppk file is for)
+* Port = 22
 
 Once connected, you'll see your server's file system on the right side, and your local file system on the left. Find your local "my_hip_app" directory, and copy the entire directory to ``/home/ubuntu/Projects/``.
 
 Use this command to remove the elasticsearch installation from your new app on the server (because ElasticSearch should be _reinstalled_ on on your server)::
 
-    (ENV) ubuntu@ip-:~/Projects$ sudo rm -r my_hip_app/my_hip_app/elasticsearch
+    (ENV)$ sudo rm -r my_hip_app/my_hip_app/elasticsearch
 
 .. note::
     ElasticSearch is already installed within your local app, but that installation should not be transferred from your local machine to another operating system and expected to function properly. It may be easier to exclude this directory from the FTP transfer.
