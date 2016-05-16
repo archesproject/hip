@@ -14,7 +14,7 @@ Migrating Your Local App to AWS EC2 Service
 
 **Introduction**
 
-If you've been doing your Arches development work locally, on a laptop or desktop computer, you will eventually need to transfer your app to a remote server of some kind in order for it to be served through the internet. Theis can be done in many different ways, and in this section we'll give a thorough explanation of how to use AWS EC2 with Arches in a `very basic way`. Please look elsewhere for real server administration and maintentance guidance.
+If you've been doing your Arches development work locally, on a laptop or desktop computer, you will eventually need to transfer your app to a remote server of some kind in order for it to be served through the internet. This can be done in many different ways, and in this section we'll give a thorough explanation of how to use AWS EC2 with Arches in a `very basic way`. Please look elsewhere for guidance on server administration and maintentance.
 
 **Prerequisites**
 
@@ -24,7 +24,7 @@ A few components must be in place before you are ready to complete these steps.
 
 2. You'll need an SSH client in order to access your remote server's command console. We recommend `PuTTY <http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html>`_ as an easy to use, light-weight SSH client. While downloading PuTTY, also be sure to get its companion utility, PuTTYgen (same page).
 
-3. You'll need an FTP client in order to transfer files (your arches app customizations) to your server. We recommend `Filezilla <https://filezilla-project.org/download.php>`_.
+3. You'll need an FTP client in order to transfer files (your Arches app customizations) to your server. We recommend `FileZilla <https://filezilla-project.org/download.php>`_.
 
     .. note::
         Advanced users may forego using an FTP client and do all their file transferring by using a GitHub repo to store and maintain their app. This is a much more streamlined method, but has a steeper learning curve.
