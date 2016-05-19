@@ -163,12 +163,14 @@ Now you can run these final commands from the ``/home/ubuntu/Projects/my_hip_app
 
 4. Run the devserver::
 
-    (ENV)$ python manage.py packages runserver 0:8000
+    (ENV)$ python manage.py runserver 0:8000
 
 .. note::
-    You may need to have different values in your settings.py file once you have transferred it to a new operating system (GDAL_PATH, for example). To manage this, use a different settings_local.py file on each installation
-
+    In this case, explicitly setting the host:port with ``0:8000`` ensures that the server is visible to us when we try to view it remotely.
+    
 You should now be able to open any web browser and view your app by visiting your IP address like so: http://xx.xx.xx.xx:8000. Now that you have transferred your app to a remote server, its time to use a real production-capable webserver like Apache to serve it (that's how we can get rid of the :8000 at the end of the url).
+
+Keep in mind that you may need to have different values in your settings.py file once you have transferred it to a new operating system (GDAL_PATH, for example). To handle this, use a different settings_local.py file on each installation.
 
 Serving your Arches App with Apache
 -----------------------------------------

@@ -29,34 +29,39 @@ Arches HIP is built on the open source Arches framework.  The Arches documentati
 That's it! Feel free to tap a colleague on the shoulder if you need a
 little help along the way, or check out the resources at http://www.archesproject.org for more support.
 
-
-System Requirements
-===================
-
-There are a few things to know about Arches HIP before we get started.
-
-Please note that HIP has been developed for modern browsers. It supports:
-
-  * Firefox
-  * Chrome
-  * Safari
-  * Opera
-  * Internet Explorer 10 or higher.
-
-Minimum system requirements:
-
-    * At least 4GB of RAM for evaluation and testing, or 8 to 16GB for production.
-    * 10GB minimum to install the code base and test dataset, but disk space requirements will vary greatly depending on the size of your dataset
-
-It's important to recognize that Arches HIP is designed to manage large,
-enterprise-scale Cultural Heritage inventories. The software is
-sophisticated and is designed to be support extensive customization.
-This means that there are many ways to deploy Arches HIP.
-
 We've written this guide to streamline the installation of Arches Server
 and the in the more straight-forward manner possible. These
 installation instructions provide step-by-step guidelines for installing
 Arches HIP.
+
+System Requirements
+===================
+
+To begin development on a basic Arches-HIP app, you will need the following:
+
+**Disk Space**
+
+    * 1.5gb for all dependencies (Postgres/PostGIS, Python, GEOS, etc.)
+    * 300mb for all Arches code with an Arches-HIP app installed
+    
+Ultimately, the amount of disk space you need will depend on the number of resources in your database.
+    
+**Memory (RAM)**
+
+    * 1gb in development, 4-16gb in production (primarily to support ElasticSearch)
+
+Loading a .arches file uses RAM, and you may need to increase your capacity to successfully complete that process if you have a large number of resources.
+
+Please note that Arches has been developed for modern browsers. It supports:
+
+    * Firefox
+    * Chrome
+    * Safari
+    * Opera
+    * Internet Explorer 10 or higher.
+
+It's important to recognize that Arches HIP is designed to manage large, enterprise-scale Cultural Heritage inventories. The software is sophisticated and is designed to be support extensive customization. This means that there are many ways to deploy Arches HIP, and production system requirements will vary from one installation to the next.
+
 
 Dependencies
 ============
