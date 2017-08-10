@@ -129,11 +129,15 @@ With your Arches dependencies installed, you are now ready to install HIP.
 
             > \path to 'Projects'\ENV\Scripts\activate
 
-#4.  Install the arches_hip module:
+#4.  Install arches and the arches_hip module:
 
     For this step your virtual environment must be activated. You will know that's the case if you see the name of your virtual environment in parentheses proceeding your command prompt like so ``(ENV)``::
 
+        (ENV)$ pip install arches==3.1.2
         (ENV)$ pip install arches_hip
+        
+    .. note:: 
+        Since the release of Arches version 4, it is now necessary to explicitly install arches version 3.1.2 prior to the installation of arches_hip.
 
 #5.  Create the folder for your HIP customizations:
 
